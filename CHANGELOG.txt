@@ -43,4 +43,25 @@ CHANGE LOG
 2)Laser railgun recoil fixed.Balance improvements.
 3)Exometal wall HP improvements.
 
+1.1 Global Update
+
+Blocks
+
+1)Magma Liquid Block.
+2)Obsidian Block.
+3)Obsidian Floor
+
+Power
+
+1)Magma Generator
+ 
+Resprites
+1)Katana
+2)Graphenite Forge
+3)Graphenite Solar Collector.
+
+Maps
+
+1)Underground Magma Lakes.
+
 
