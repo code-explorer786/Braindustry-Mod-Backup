@@ -19,4 +19,4 @@ requirements: [
   thorium/60
 ]
 category: power
-research: thermal-generator
+research: differential-generator
