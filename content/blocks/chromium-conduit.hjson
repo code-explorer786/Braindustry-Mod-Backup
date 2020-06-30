@@ -1,0 +1,16 @@
+name: Chromium Conduit
+type: Conduit
+size: 1
+description: Heat resistant and fast conduit.
+health: 140
+liquidCapacity: 18
+rotate: true
+solid: false
+floating: true
+requirements: [
+ chromium/2
+ metaglass/2
+ thorium/1
+]
+research: pulse-conduit
+category: liquid

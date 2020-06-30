@@ -1,0 +1,7 @@
+name: Magma
+temperature: 100
+flamability: 10
+heatCapacity: 0
+explosiveness: 0
+viscosity: 0.6
+color: "c9523a"

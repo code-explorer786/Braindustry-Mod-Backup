@@ -7,7 +7,7 @@ lightningChance: 0.09
 lightningDamage: 25
 lightningLength: 16
 requirements: [
-  exometal/30
+  exometal/15
 ]
 category: defense
 research: odinum-wall-large
