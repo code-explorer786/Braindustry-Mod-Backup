@@ -12,6 +12,7 @@ consumes: {
    items: {
     items: [
      plastanium/1
+     thorium/1
     ]
   }
 }
