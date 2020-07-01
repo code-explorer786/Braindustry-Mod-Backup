@@ -16,8 +16,8 @@
   graphenite: {
    speed: 1.0
     type: ArtilleryBulletType
-   damage: 210
-   lifetime: 171
+   damage: 140
+   lifetime: 170
    reloadMultiplier: 3
    shootEffect: shootBig
    smokeEffect: shootBigSmoke
@@ -32,8 +32,8 @@
   plastanium: {
             speed: 2.0
             type: ArtilleryBulletType
-            damage: 270
-            lifetime: 120
+            damage: 170
+            lifetime: 180
             reloadMultiplier: 5
             bulletWidht: 4
             bulletHeight: 4
@@ -48,8 +48,8 @@
   surge-alloy: {
             speed: 2.5
              type: ArtilleryBulletType
-            lifetime: 90
-            damage: 320
+            lifetime: 180
+            damage: 195
             reloadMultiplier: 6
             bulletWidht: 7
             bulletHeight: 9
@@ -65,8 +65,8 @@
   exometal: {
             speed: 3.0
              type: ArtilleryBulletType
-            lifetime: 90
-            damage: 370
+            lifetime: 185
+            damage: 250
             reloadMultiplier: 6
             bulletWidht: 6
             bulletHeight: 9
