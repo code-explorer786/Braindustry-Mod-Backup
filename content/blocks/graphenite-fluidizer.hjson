@@ -9,7 +9,7 @@ craftTime: 50
 updateEffect: steam
 consumes: {
   power: 2
-  liquid: water/0.5
+  liquid: water/0.2
   items: {
     items: [
       graphenite/1
