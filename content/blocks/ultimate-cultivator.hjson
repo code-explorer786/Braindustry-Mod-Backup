@@ -8,7 +8,7 @@ craftTime: 90
 updateEffect: smeltsmoke
 consumes: {
  power: 3
-  liquid: water/0.3
+  liquid: water/0.1
    items: {
     items: [
      plastanium/1
@@ -28,4 +28,4 @@ category: crafting
 research: graphenite-forge
 idleSound: respawning
 idleSoundVolume: 0.5
-outputItem: exometal/2
+outputItem: exometal/1
