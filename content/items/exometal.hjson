@@ -2,5 +2,5 @@ type: material
 name: Exometal
 description: Exotic type of metal,growned in strange-cultivator.
 cost: 4
-flamability: 1
+flammability: 1
 color: b4d9d9
