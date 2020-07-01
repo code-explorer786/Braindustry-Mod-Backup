@@ -1,7 +1,7 @@
 name: Odinum Wall Large
 description: Bigger version of standard odinum wall,and too little bit radioactive.
 type: Wall
-health: 3080
+health: 3100
 size: 2
 requirements: [
   odinum/55
