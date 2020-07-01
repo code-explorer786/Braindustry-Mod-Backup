@@ -2,12 +2,12 @@ type: armoredConveyor
 name: Armored Plastanium Conveyor
 description: Wonderful plastanium conveyor .
 requirements: [
-  surge-alloy/1
+  exometal/1
   silicon/1
   metaglass/1
   plastanium/1
 ]
 category: distribution
-speed: 0.20
+speed: 0.2
 research: armored-conveyor
 
