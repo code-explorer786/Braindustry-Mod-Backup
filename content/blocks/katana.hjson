@@ -1,14 +1,14 @@
 {
  name: "Katana"
- description: "Good turret with high performance.Made in Japan."
+ description: "Cool high-level rapid-fire turret.Consumes graphenite/plastanium/surge alloy/exometal."
  type: ArtilleryTurret
  range: 390
- recoil: 1
- reload: 10
+ recoil: 3
+ reload: 40
  ammoUseEffect: shellEjectBig
  size: 4
  health: 1080
- inaccuracy: 1
+ inaccuracy: 2
  rotatespeed: 5
  targetAir: true
  targetGround: true
@@ -80,6 +80,9 @@
             status: burning
            }
  }
+ consumes: {
+  power: 2.5
+ }
  requirements: [
   exometal/130
   odinum/100
@@ -90,5 +93,5 @@
   surge-alloy/145
  ]
  category: turret
- research: meltdown
+ research: spectre
 }
