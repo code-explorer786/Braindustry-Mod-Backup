@@ -2,6 +2,6 @@ type: material
 name: Graphenite
 description: Base material for high-tec structures.
 cost: 2
-flammability: 0.5
-explosiveness: 1
+flammability: 0.1
+explosiveness: 0.12
 color: 866599
