@@ -2,9 +2,9 @@
  name: "Quazar"
  description: "Cool high-level rapid-fire turret.Consumes graphenite/plastanium/surge alloy/exometal."
  type: ArtilleryTurret
- range: 390
- recoil: 3
- reload: 40
+ range: 340
+ recoil: 5
+ reload: 60
  ammoUseEffect: shellEjectBig
  size: 4
  health: 1080
@@ -13,34 +13,34 @@
  targetAir: true
  targetGround: true
  ammo: {
-  graphenite: {
-   speed: 1.0
-    type: ArtilleryBulletType
-   damage: 210
-   lifetime: 171
-   reloadMultiplier: 3
-   shootEffect: shootBig
-   smokeEffect: shootBigSmoke
-   bulletWeight: 3
-   bulletHeight: 2
-   backColor: #4d7582
-   frontColor: #64a1b5
-   ammoMultiplier: 2
-   splashDamageRadius: 4
-   splashDamage: 100
-  }
+        graphenite: {
+        speed: 1.6
+        type: missileBulletType
+        damage: 150
+        lifetime: 170
+        reloadMultiplier: 3
+        shootEffect: shootBig
+        smokeEffect: shootBigSmoke
+        bulletWeight: 5
+        bulletHeight: 4
+        backColor: #4d7582
+        frontColor: #64a1b5
+        ammoMultiplier: 2
+        splashDamageRadius: 10
+        splashDamage: 100
+        }
   plastanium: {
             speed: 2.0
             type: ArtilleryBulletType
-            damage: 270
-            lifetime: 120
+            damage: 180
+            lifetime: 80
             reloadMultiplier: 5
-            bulletWidht: 4
-            bulletHeight: 4
+            bulletWidht: 6
+            bulletHeight: 5
             shootEffect: shootBig
    		 smokeEffect: shootBigSmoke
             
-            ammoMultiplier: 1
+            ammoMultiplier: 2
             backColor: 00FF55
             frontColor: 00FF55
             type: missileBulletType
@@ -49,14 +49,14 @@
             speed: 2.5
              type: ArtilleryBulletType
             lifetime: 90
-            damage: 320
+            damage: 210
             reloadMultiplier: 6
             bulletWidht: 7
             bulletHeight: 9
             shootEffect: shootBig
    		 smokeEffect: shootBigSmoke
             
-            ammoMultiplier: 1
+            ammoMultiplier: 2
             backColor: FFD800
             frontColor: FFD800
             type: missileBulletType
@@ -66,14 +66,14 @@
             speed: 3.0
              type: ArtilleryBulletType
             lifetime: 90
-            damage: 370
+            damage: 2400
             reloadMultiplier: 6
-            bulletWidht: 6
+            bulletWidht: 9
             bulletHeight: 9
             shootEffect: shootBig
        smokeEffect: shootBigSmoke
             
-            ammoMultiplier: 3
+            ammoMultiplier: 2
             backColor: #fbff00
             frontColor: #fbff00
             type: missileBulletType
