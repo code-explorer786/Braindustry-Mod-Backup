@@ -1,5 +1,5 @@
 {
- name: "Quazar"
+ name: "Katana"
  description: "Cool high-level rapid-fire turret.Consumes graphenite/plastanium/surge alloy/exometal."
  type: ArtilleryTurret
  range: 340
