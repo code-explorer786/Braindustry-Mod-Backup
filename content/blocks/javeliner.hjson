@@ -1,7 +1,7 @@
 type: ChargeTurret
-name: "Pulsar"
-description: "Meltdown compact version.Consumes energy." 
-health: 955
+name: "Javeliner"
+description: "Lancer upgraded version.Consumes energy." 
+health: 950
 size: 3
 recoil: 5.0
 reload: 70.0
@@ -12,8 +12,8 @@ chargeMaxDelay: 40
 shootType: meltdownLaser
 targetAir: false
 powerUse: 15.0
- inaccuracy: 2
- rotatespeed: 3
+ inaccuracy: 4
+ rotatespeed: 1
  status: shocked
  chargeEffects: 58.0
  requirements: [
