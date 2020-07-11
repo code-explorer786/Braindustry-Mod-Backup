@@ -64,4 +64,8 @@ Maps
 
 1)Underground Magma Lakes.
 
+1.1.1 Minor Patch
+
+Balance fix with some things like Katana and Javeliner(Early Laser Railgun)
+Add animation to Magma.
 
