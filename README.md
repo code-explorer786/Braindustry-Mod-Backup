@@ -17,3 +17,5 @@ How to install?
 
 1)Click "import from github".
 2)Write "pixaxeofpixie/braindustry-mod".
+3)Click "ok".
+4)Enjoy.
