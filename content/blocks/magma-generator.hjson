@@ -10,7 +10,7 @@ liquidCapacity: 10
 itemDuration: 90
 powerProduction: 10
 consumes: {
-  liquid: magma/0.2
+  liquid: magma/0.1
 }
 requirements: [
   graphenite/50
