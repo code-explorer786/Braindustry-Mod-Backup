@@ -4,7 +4,7 @@ health: 130
 size: 2
 consumes: {
  power: 2.5
-  liquids: cryofluid/0.5
+  liquid: cryofluid/0.5
   items: {
    items: [
    thorium/1
