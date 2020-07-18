@@ -1,0 +1,6 @@
+research: silicon-smelter
+requirements:[
+phase-fabric/75
+graphenite/50
+]
+category: crafting
