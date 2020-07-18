@@ -6,11 +6,11 @@ tier: 4
 consumes: {
    liquid: {
     liquid: water
-    amount: 0.2
-    booster: flase
+    amount: 0.1
+    booster: false
   }
 }
-liquidBoostIntensity: 1.2
+liquidBoostIntensity: 1.0
 hasLiquids: true
 rotateSpeed: 2.0
 drillTime: 270

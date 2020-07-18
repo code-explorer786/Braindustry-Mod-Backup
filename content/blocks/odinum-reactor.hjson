@@ -12,7 +12,7 @@ powerProduction: 45
 plasmas: 3
 consumes: {
  power: 11
- liquid: liquid-graphenite/1
+ liquid: liquid-graphenite/0.2
   items: {
    items: [
     odinum/1

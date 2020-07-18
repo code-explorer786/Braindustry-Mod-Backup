@@ -1,0 +1,5 @@
+name: Refrigerant
+description: Very cold liquid,made from Hydrogen and Cryofluid.
+temperature: 0.05
+viscosity: 1.0
+color: c8b5e6

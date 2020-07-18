@@ -1,0 +1,23 @@
+type: GenericSmelter
+name: Refrigerant Mixer
+health: 130
+size: 2
+consumes: [
+ power: 2.5
+  liquids: cryofluid/0.5
+  items: {
+   items: [
+   thorium/1
+  ]
+ }
+]
+requirements: [
+plastanium/200
+thorium/200
+titanium/100
+metaglass/130
+graphenite/190
+]
+updateEffect: purify 
+updateEffectChance: 0.04
+research: graphenite-fluidizer
