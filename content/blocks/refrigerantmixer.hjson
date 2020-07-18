@@ -12,7 +12,7 @@ consumes: {
   ]
  }
 }
-outputLiquid: refrigerant/0.5
+outputLiquid: refrigerant/1.2
 requirements: [
 plastanium/200
 thorium/200
@@ -22,5 +22,5 @@ graphenite/190
 ]
 category: crafting
 updateEffect: purify 
-updateEffectChance: 0.04
+updateEffectChance: 0.02
 research: graphenite-fluidizer
