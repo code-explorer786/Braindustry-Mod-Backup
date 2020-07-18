@@ -1,12 +1,13 @@
-type: GenericSmelter
+type: genericSmelter
 name: Refrigerant Mixer
+description: That mixer makes from Cryofluid and crushed Thorium very cold Refrigant.
 health: 130
 size: 2
 consumes: {
- power: 2.5
-  liquid: cryofluid/0.5
-  items: {
-   items: [
+ power: 3
+ liquid: cryofluid/0.5
+ items: {
+  items: [
    thorium/1
   ]
  }
@@ -19,6 +20,7 @@ titanium/100
 metaglass/130
 graphenite/190
 ]
+category: crafting
 updateEffect: purify 
 updateEffectChance: 0.04
 research: graphenite-fluidizer
