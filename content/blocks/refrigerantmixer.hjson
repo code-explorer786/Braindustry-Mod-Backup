@@ -2,7 +2,7 @@ type: GenericSmelter
 name: Refrigerant Mixer
 health: 130
 size: 2
-consumes: [
+consumes: {
  power: 2.5
   liquids: cryofluid/0.5
   items: {
@@ -10,7 +10,7 @@ consumes: [
    thorium/1
   ]
  }
-]
+}
 outputLiquid: refrigerant/0.5
 requirements: [
 plastanium/200
