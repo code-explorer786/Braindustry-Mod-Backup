@@ -11,6 +11,7 @@ consumes: [
   ]
  }
 ]
+outputLiquid: refrigerant/0.5
 requirements: [
 plastanium/200
 thorium/200
