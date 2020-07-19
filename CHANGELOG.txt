@@ -69,3 +69,29 @@ Maps
 Balance fix with some things like Katana and Javeliner(Early Laser Railgun)
 Add animation to Magma.
 
+1.2 Multicrafters and Liquids! Update
+
+Liquids
+
+1)Refrigerant Liquid
+
+Crafters
+
+1)Multi-forge
+2)Refrigerant Mixer
+
+Power
+
+1)Refrigerant Reactor
+
+Resprites
+
+1)Ultimate Cultivator
+2)Magma Generator
+
+Rebalance
+
+1)Odinum Reactor now have in build cost Plastanium
+2)Odinum Reactor consumes less Liquid Graphenite
+3)Hydraulic drill and Ultimate Cultivator consumes less Water
+
