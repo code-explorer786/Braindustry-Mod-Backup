@@ -93,5 +93,5 @@ Rebalance
 
 1)Odinum Reactor now have in build cost Plastanium
 2)Odinum Reactor consumes less Liquid Graphenite
-3)Hydraulic drill and Ultimate Cultivator consumes less Water
+3)Ultimate Cultivator consumes less Water
 
