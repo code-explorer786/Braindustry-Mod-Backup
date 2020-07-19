@@ -22,8 +22,9 @@ consumes: {
 requirements: [
   metaglass/500
   odinum/300
-  silicon/390
-  graphenite/170
+  silicon/400
+  graphenite/200
+  platanium/200
   thorium/200
 ]
 category: power
