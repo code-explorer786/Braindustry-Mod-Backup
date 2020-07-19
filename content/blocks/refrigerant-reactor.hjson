@@ -20,7 +20,7 @@ flashThreshold: 0.34
 coolantPower: 0.7  
 consumes: {
  power: 4
- liquid: refrigerant/0.2
+ liquid: refrigerant/0.1
   items: {
    items: [
     thorium/1
