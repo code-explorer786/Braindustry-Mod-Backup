@@ -1,6 +1,6 @@
 type: NuclearReactor
 name: "Refrigerant Reactor"
-description: "Upgraded Thorium Recator.Now he use tne Refrigerant."
+description: "Upgraded Thorium Reactor.Now he use the Refrigerant."
 size: 4
 hasPower: true
 hasLiquds: true
@@ -13,7 +13,7 @@ lightColor:
 coolColor:    
 hotColor:     
 heating: 0.02
-smokeThreshold:
+smokeThreshold: 0.48
 explosionRadius: 40   
 explosionDamage: 1250  
 flashThreshold: 0.34 
