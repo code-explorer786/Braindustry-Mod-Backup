@@ -1,6 +1,6 @@
 type: SolarGenerator
 name: Exometal Solar Panel Large
-description: 
+description: The most powerful solar panel.Made with Exometal.
 research: graphenite-solar-collector-large
 powerProduction: 9
 size: 3
