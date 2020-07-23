@@ -73,7 +73,7 @@ Add animation to Magma.
 
 Liquids
 
-1)Refrigerant Liquid
+1)Throium Refrigerant Liquid
 
 Crafters
 
