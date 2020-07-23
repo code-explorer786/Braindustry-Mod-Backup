@@ -1,5 +1,5 @@
 type: genericSmelter
-name: Refrigerant Mixer
+name: Thorium Refrigerant Mixer
 description: That mixer makes from Cryofluid and crushed Thorium very cold Refrigant.
 health: 130
 size: 2
@@ -12,7 +12,7 @@ consumes: {
   ]
  }
 }
-outputLiquid: refrigerant/2
+outputLiquid: thorium-refrigerant/2
 requirements: [
 plastanium/200
 thorium/200
