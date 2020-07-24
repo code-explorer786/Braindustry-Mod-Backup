@@ -1,7 +1,7 @@
 name: Magma
 description: Very hot slurry.Can be used in Magma Generator.
 temperature: 100
-flammability: 10
+flammability: 0
 heatCapacity: 0
 explosiveness: 0
 viscosity: 0.7
