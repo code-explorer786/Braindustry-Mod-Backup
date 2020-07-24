@@ -6,7 +6,6 @@ blendGroup: water
 cacheLayer: tar
 speedMultiplier: 0.17
 liquidDrop: magma
-status: melting
 statusDuration: 240
 drownTime: 90
 walkEffect: melting
