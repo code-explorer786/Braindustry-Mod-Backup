@@ -95,3 +95,10 @@ Rebalance
 2)Odinum Reactor consumes less Liquid Graphenite
 3)Ultimate Cultivator consumes less Water
 
+1.2.1
+
+Some bugfixes like:
+
+Color of Exometal has been changed.
+Magma block fire if they contact wit some fire.
+
