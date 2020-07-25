@@ -102,3 +102,11 @@ Some bugfixes like:
 Color of Exometal has been changed.
 Magma block fire if they contact wit some fire.
 
+Balance
+
+Waves at Dead Thorium Sea niw more hard.
+
+Revamps
+
+Underground magma lajes changed to Caldera
+
