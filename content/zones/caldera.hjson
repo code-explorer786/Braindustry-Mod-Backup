@@ -1,19 +1,18 @@
-name: Underground Magma Lakes
-description: Deep caves filled with magma.
+name: Caldera
+description: 
 loadout: basicNucleus
 startingItems: [
   copper/200
-  lead/200
+  lead/100
   graphenite/100
-  plastanium/50
 ]
 conditionWave: 10
-launchPeriod: 10
+launchPeriod: 15
 requirements: [
   {
     type: ZoneWave
     zone: dead-thorium-sea
-    wave: 70
+    wave: 60
   }
   {
     type: Unlock
