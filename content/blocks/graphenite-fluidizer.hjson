@@ -9,7 +9,7 @@ craftTime: 50
 updateEffect: steam
 consumes: {
   power: 2
-  liquid: water/0.2
+  liquid: water/0.4
   items: {
     items: [
       graphenite/1
@@ -27,4 +27,4 @@ category: crafting
 research: cryofluidmixer
 idleSound: respawning
 idleSoundVolume: 0.2
-outputLiquid: liquid-graphenite/6
+outputLiquid: liquid-graphenite/24
