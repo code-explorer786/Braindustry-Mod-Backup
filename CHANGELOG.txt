@@ -105,8 +105,9 @@ Magma block fire if they contact wit some fire.
 Balance
 
 Waves at Dead Thorium Sea niw more hard.
+More output of Liquid Graphenite from Graphenite Fluidizer.
 
 Revamps
 
-Underground magma lajes changed to Caldera
+Underground magma lakes changed to Caldera
 
