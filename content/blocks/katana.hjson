@@ -14,83 +14,62 @@
  targetGround: true
  ammo: {
         graphenite: {
-        speed: 1.6
-        type: missileBulletType
-        damage: 150
-        lifetime: 170
+        speed: 1.8
+        type: ArtilleryBulletType
+        damage: 170
+        lifetime: 70
         reloadMultiplier: 3
         shootEffect: shootBig
         smokeEffect: shootBigSmoke
-        bulletWeight: 5
-        bulletHeight: 4
-        backColor: #4d7582
-        frontColor: #64a1b5
+        bulletWeight: 6
+        bulletHeight: 8
         ammoMultiplier: 2
-        splashDamageRadius: 10
-        splashDamage: 100
         }
   plastanium: {
-            speed: 2.0
-            type: ArtilleryBulletType
-            damage: 180
-            lifetime: 80
-            reloadMultiplier: 5
-            bulletWidht: 6
-            bulletHeight: 5
-            shootEffect: shootBig
-   		 smokeEffect: shootBigSmoke
-            
-            ammoMultiplier: 2
-            backColor: 00FF55
-            frontColor: 00FF55
-            type: missileBulletType
+        speed: 1.9
+        type: ArtilleryBulletType
+        damage: 190
+        lifetime: 90
+        reloadMultiplier: 4
+        shootEffect: shootBig
+        smokeEffect: shootBigSmoke
+        bulletWeight: 8
+        bulletHeight: 11
+        ammoMultiplier: 2
            }
-  surge-alloy: {
-            speed: 2.5
-             type: ArtilleryBulletType
-            lifetime: 90
-            damage: 210
-            reloadMultiplier: 6
-            bulletWidht: 7
-            bulletHeight: 9
-            shootEffect: shootBig
-   		 smokeEffect: shootBigSmoke
-            
-            ammoMultiplier: 2
-            backColor: FFD800
-            frontColor: FFD800
-            type: missileBulletType
-            status: burning
+  phase-fabric: {
+        speed: 1.9
+        type: ArtilleryBulletType
+        damage: 190
+        lifetime: 100
+        reloadMultiplier: 4
+        shootEffect: shootBig
+        smokeEffect: shootBigSmoke
+        bulletWeight: 9
+        bulletHeight: 10
+        ammoMultiplier: 2
            }
   exometal: {
-            speed: 3.0
-             type: ArtilleryBulletType
-            lifetime: 90
-            damage: 2400
-            reloadMultiplier: 6
-            bulletWidht: 9
-            bulletHeight: 9
-            shootEffect: shootBig
-       smokeEffect: shootBigSmoke
-            
-            ammoMultiplier: 2
-            backColor: #fbff00
-            frontColor: #fbff00
-            type: missileBulletType
-            status: burning
-           }
+             speed: 2.0
+        type: ArtilleryBulletType
+        damage: 170
+        lifetime: 70
+        reloadMultiplier: 3
+        shootEffect: shootBig
+        smokeEffect: shootBigSmoke
+        bulletWeight: 6
+        bulletHeight: 8
+        ammoMultiplier: 2
  }
  consumes: {
   power: 2.5
  }
  requirements: [
-  exometal/130
-  odinum/100
-  graphenite/150
-  plastanium/150
-  silicon/65
-  lead/170
-  surge-alloy/145
+  exometal/100
+  thorium/100
+  graphenite/250
+  silicon/265
+  surge-alloy/150
  ]
  category: turret
  research: spectre
