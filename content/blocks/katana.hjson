@@ -1,6 +1,6 @@
 {
  name: "Katana"
- description: "Cool high-level rapid-fire turret.Consumes graphenite/plastanium/surge alloy/exometal."
+ description: "Cool high-level rapid-fire turret.Consumes graphenite/plastanium/phase fabric/exometal."
  type: ArtilleryTurret
  range: 340
  recoil: 5
