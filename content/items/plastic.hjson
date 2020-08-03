@@ -1,0 +1,8 @@
+type: material
+name: Plastic
+description: Lightewight and very strong material.
+cost: 4
+flammability: 0.1
+explosiveness: 0.1
+radioactivity: 0.4
+color: f6bfff
