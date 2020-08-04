@@ -1,0 +1,32 @@
+type: GenericSmelter
+name: Plastic Forge
+description: Consumes Plastanium,Oil and Thorium to produce super light Plastic .
+health: 160
+liquidCapacity: 15
+size: 4
+hasPower: true
+hasLiquids: true
+hasItems: true
+craftTime: 100
+updateEffect: plasticburn
+consumes: {
+  power: 2
+  liquid: oil/1
+  items:{
+    items:[
+    plastanium/1
+    thorium/1
+    ]
+  }
+}
+requirements: [
+  phase-fabric/100
+  plastanium/200
+  thorium/300
+  silicon/470
+  metaglass/130
+  graphenite/380
+]
+category: crafting
+research: phase-alloy-smelter
+outputItem: plastic/1
