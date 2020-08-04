@@ -1,18 +1,17 @@
-{
- name: "Katana"
- description: "Cool high-level rapid-fire turret.Consumes graphenite/plastanium/phase fabric/exometal."
- type: ArtilleryTurret
- range: 310
- recoil: 6
- reload: 70
- ammoUseEffect: shellEjectBig
- size: 4
- health: 320
- inaccuracy: 2
- rotatespeed: 5
- targetAir: true
- targetGround: true
- ammo: {
+name: "Katana"
+description: "Cool high-level rapid-fire turret.Consumes graphenite/plastanium/phase fabric/exometal."
+type: ArtilleryTurret
+range: 310
+recoil: 6
+reload: 70
+ammoUseEffect: shellEjectBig
+size: 4
+health: 320
+inaccuracy: 2
+rotatespeed: 5
+targetAir: true
+targetGround: true
+ammo: {
         graphenite: {
         speed: 1.8
         type: ArtilleryBulletType
@@ -61,10 +60,10 @@
         bulletHeight: 8
         ammoMultiplier: 2
     }
- }
+}
  consumes: {
   power: 2.5
- }
+}
  requirements: [
   exometal/100
   thorium/100
@@ -72,6 +71,5 @@
   silicon/265
   surge-alloy/150
  ]
- category: turret
- research: spectre
-}
+category: turret
+research: spectre
