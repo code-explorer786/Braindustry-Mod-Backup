@@ -2,12 +2,12 @@
  name: "Katana"
  description: "Cool high-level rapid-fire turret.Consumes graphenite/plastanium/phase fabric/exometal."
  type: ArtilleryTurret
- range: 340
- recoil: 5
- reload: 60
+ range: 310
+ recoil: 6
+ reload: 70
  ammoUseEffect: shellEjectBig
  size: 4
- health: 1080
+ health: 320
  inaccuracy: 2
  rotatespeed: 5
  targetAir: true
@@ -60,6 +60,7 @@
         bulletWeight: 6
         bulletHeight: 8
         ammoMultiplier: 2
+    }
  }
  consumes: {
   power: 2.5
