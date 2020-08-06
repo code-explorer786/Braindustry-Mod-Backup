@@ -1,17 +1,18 @@
-name: Dead Thorium Sea
-description: Place with big geologicaly potencial and dead fauna.
+name: Salt Sea
+description: Dangerous place with new radioactive metal and strange purple water.Drill Odinum to produce power,smelting Graphenite to create high-tec structures.
 loadout: basicFoundation
 startingItems: [
   copper/200
   lead/200
+  silicon/50
 ]
-conditionWave: 10
-launchPeriod: 10
+conditionWave: 12
+launchPeriod: 12
 requirements: [
   {
     type: ZoneWave
     zone: ruinousShores
-    wave: 45
+    wave: 50
   }
   {
     type: Unlock

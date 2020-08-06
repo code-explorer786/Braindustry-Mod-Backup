@@ -1,6 +1,8 @@
 name: "braindustry"
-displayName: "[#ecd5f0]Braindustry"
-author: "[#ecd5f0]Antarex"
-description: "[#ecd5f0]High technology mod.Adds a reactors,new super items,solar panels,and more!"
-version: "1.2.1"
+displayName: "[#efc998]Braindustry"
+author: "[#efe3cb]Antarex"
+description: "[efc998]High technology mod.Adds a reactors,new super items,solar panels,and more!
+Mod on Github-pixaxeofpixie/braindustry-mod
+Mod name on Steam Workshop-Braindustry Mod"
+version: "1.3"
 minGameVersion: "104"

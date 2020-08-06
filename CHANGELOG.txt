@@ -104,10 +104,42 @@ Magma block fire if they contact wit some fire.
 
 Balance
 
-Waves at Dead Thorium Sea niw more hard.
+Waves at Dead Thorium Sea now more hard.
 More output of Liquid Graphenite from Graphenite Fluidizer.
 
 Revamps
 
 Underground magma lakes changed to Caldera
+
+1.3 "Alloy's Update"
+
+Items
+
+Phase Alloy-alloy compare qualities of plastanium,phase fabric and surge alloy.
+Plastic-powered and more light Plastanium.
+
+Zones
+
+Dead Sea revamp to Salt Sea.
+Caldera bugfixes.
+Some new maps for fun,not for campaign.
+
+Crafters
+
+Plastic forge-smelt plastic.
+Phase alloy smelter-smelt phase alloy.
+Multi-liquifier-can craft liquid graphenite,cryofluid and thorium refrigerant.
+Super Crafter-can craft plastanium,graphenite,phase fabric,phase alloy,plastic and exometal.
+
+Drones
+
+Archangel-fast drone making from plastic.
+Kirin-small air drone with powerful guns.
+
+Turrets
+
+Katana resprite
+Stinger-rocket launcher with bullets of plastanium and plastic.
+Beam-bigger and powerful fuse.
+Air dragon-sniper turret with bullets of surge alloy,phase alloy and graphenite(very bad).
 
