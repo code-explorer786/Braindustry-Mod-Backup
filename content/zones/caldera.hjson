@@ -11,7 +11,7 @@ launchPeriod: 10
 requirements: [
   {
     type: ZoneWave
-    zone: dead-thorium-sea
+    zone: salty-sea
     wave: 50
   }
   {
