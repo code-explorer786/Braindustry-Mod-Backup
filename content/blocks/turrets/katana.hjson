@@ -7,89 +7,79 @@
  reload: 60
  ammoUseEffect: shellEjectBig
  size: 4
- health: 1080
+ health: 17610
  inaccuracy: 2
  rotatespeed: 5
  targetAir: true
  targetGround: true
  ammo: {
-        graphenite: {
-        speed: 1.6
-        type: missileBulletType
-        damage: 150
-        lifetime: 170
+        plastic: {
+        speed: 2.1
+        type: artilleryTypeBullet
+        damage: 185
+        lifetime: 190
         reloadMultiplier: 3
         shootEffect: shootBig
         smokeEffect: shootBigSmoke
-        bulletWeight: 5
-        bulletHeight: 4
-        backColor: #4d7582
-        frontColor: #64a1b5
+        bulletWeight: 8
+        bulletHeight: 10
         ammoMultiplier: 2
-        splashDamageRadius: 10
-        splashDamage: 100
+        splashDamageRadius: 20
+        splashDamage: 10
         }
   plastanium: {
             speed: 2.0
             type: ArtilleryBulletType
             damage: 180
             lifetime: 80
-            reloadMultiplier: 5
-            bulletWidht: 6
-            bulletHeight: 5
+            reloadMultiplier: 3
+            bulletWidht: 9
+            bulletHeight: 13
             shootEffect: shootBig
-   		 smokeEffect: shootBigSmoke
-            
+   		       smokeEffect: shootBigSmoke
+            splashDamageRadius: 10
+            splashDamage: 20
             ammoMultiplier: 2
-            backColor: 00FF55
-            frontColor: 00FF55
-            type: missileBulletType
+           
            }
-  surge-alloy: {
-            speed: 2.5
+  phase-fabric: {
+            speed: 2.1
              type: ArtilleryBulletType
             lifetime: 90
             damage: 210
-            reloadMultiplier: 6
+            reloadMultiplier: 3
             bulletWidht: 7
             bulletHeight: 9
             shootEffect: shootBig
-   		 smokeEffect: shootBigSmoke
-            
+   		       smokeEffect: shootBigSmoke
+            splashDamageRadius: 12
+            splashDamage: 15
             ammoMultiplier: 2
-            backColor: FFD800
-            frontColor: FFD800
-            type: missileBulletType
-            status: burning
+            
            }
   exometal: {
             speed: 3.0
              type: ArtilleryBulletType
             lifetime: 90
-            damage: 2400
-            reloadMultiplier: 6
+            damage: 240
+            reloadMultiplier: 3
             bulletWidht: 9
             bulletHeight: 9
             shootEffect: shootBig
-       smokeEffect: shootBigSmoke
-            
+            smokeEffect: shootBigSmoke
+            splashDamageRadius: 15
+            splashDamage: 20
             ammoMultiplier: 2
-            backColor: #fbff00
-            frontColor: #fbff00
-            type: missileBulletType
-            status: burning
+           
            }
  }
  consumes: {
-  power: 2.5
+  liquid: thorium-refrigerant/0.2
  }
  requirements: [
-  exometal/130
-  odinum/100
+  exometal/200
   graphenite/150
   plastanium/150
-  silicon/65
-  lead/170
   surge-alloy/145
  ]
  category: turret
