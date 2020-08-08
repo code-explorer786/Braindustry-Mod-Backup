@@ -15,9 +15,10 @@
  ammo: {
         plastic: {
         speed: 2.1
-        type: artilleryTypeBullet
+        type: ArtilleryBulletType
         damage: 185
-        lifetime: 190
+        lifetime: 90
+        trailEffect: plasticBurn
         reloadMultiplier: 3
         shootEffect: shootBig
         smokeEffect: shootBigSmoke
@@ -32,6 +33,7 @@
             type: ArtilleryBulletType
             damage: 180
             lifetime: 80
+            trailEffect: plasticBurn
             reloadMultiplier: 3
             bulletWidht: 9
             bulletHeight: 13
@@ -47,6 +49,7 @@
              type: ArtilleryBulletType
             lifetime: 90
             damage: 210
+            trailEffect: fuelBurn
             reloadMultiplier: 3
             bulletWidht: 7
             bulletHeight: 9
@@ -62,6 +65,7 @@
              type: ArtilleryBulletType
             lifetime: 90
             damage: 240
+            trailEffect: fuelBurn
             reloadMultiplier: 3
             bulletWidht: 9
             bulletHeight: 9
