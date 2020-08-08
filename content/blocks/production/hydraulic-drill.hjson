@@ -13,7 +13,7 @@ consumes: {
 liquidBoostIntensity: 1.0
 hasLiquids: true
 rotateSpeed: 2.0
-drillTime: 270
+drillTime: 250
 requirements: [
   plastanium/75
   silicon/40
