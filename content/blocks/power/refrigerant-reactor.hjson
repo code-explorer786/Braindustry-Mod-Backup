@@ -3,7 +3,7 @@ name: "Refrigerant Reactor"
 description: "Upgraded Thorium Reactor.Now he use the Refrigerant."
 size: 4
 hasPower: true
-hasLiquds: true
+hasLiquids: true
 hasItems: true
 itemCapacity: 10
 liquidCapacity: 10
