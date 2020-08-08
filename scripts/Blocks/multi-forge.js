@@ -5,8 +5,8 @@ _output:[
 [[["braindustry-graphenite",1]],null,null],
 ],
 _input:[
-[[["thorium",1],["spore-pod",2],["plastanium",2]],null,null],
-[[["silicon",1],["titanium",1],["graphite",2]],null,null],
+[[["thorium",3],["spore-pod",2],["plastanium",1]],null,null],
+[[["silicon",1],["titanium",3],["graphite",2]],null,null],
 ],
 craftTimes:[60,110],
 //DON'T MODIFY THESE
@@ -23,6 +23,6 @@ furnace.description="Multicrafter with posibility craft Graphenite or Exometal."
 furnace.itemCapacity= 30;
 furnace.liquidCapacity= 0;
 furnace.size= 3;
-furnace.health= 300;
+furnace.health= 420;
 furnace.craftEffect= Fx.pulverizeMedium;
 furnace.updateEffect=Fx.plasticburn;
