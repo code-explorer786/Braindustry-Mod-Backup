@@ -5,6 +5,7 @@ size: 1
 health: 810
 requirements: [
  { item: odinum, amount: 10 }
+ { item: thorium, amount: 5 }
  ]
  category: defense
  research: graphenite-wall-large
