@@ -19,12 +19,11 @@ consumes: {
   }
 }
 requirements: [
-  lead/300
   metaglass/150
   silicon/340
-  graphenite/300
-  odinum/100
+  plastanium/100
+  phase-fabric/100
 ]
 category: crafting
 research: graphenite-forge
-outputItem: exometal/1
+outputItem: exometal/2
