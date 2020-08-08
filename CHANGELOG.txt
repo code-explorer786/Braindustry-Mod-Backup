@@ -140,6 +140,6 @@ Turrets
 
 Katana resprite
 Stinger-rocket launcher with bullets of plastanium and plastic.
-Beam-bigger and powerful fuse.
+Eclipse-bigger and powerful fuse.
 Air dragon-sniper turret with bullets of surge alloy,phase alloy and graphenite(very bad).
 
