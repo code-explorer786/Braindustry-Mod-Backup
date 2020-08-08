@@ -4,7 +4,8 @@ type: Wall
 health: 2200
 size: 2
 requirements: [
-  graphenite/40
+  graphenite/42
+  silicon/12
 ]
 category: defense
 research: graphenite-wall
