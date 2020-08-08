@@ -22,7 +22,7 @@
         reloadMultiplier: 3
         shootEffect: shootBig
         smokeEffect: shootBigSmoke
-        bulletWeight: 8
+        bulletWidth: 8
         bulletHeight: 10
         ammoMultiplier: 2
         splashDamageRadius: 20
@@ -35,7 +35,7 @@
             lifetime: 80
             trailEffect: plasticburn
             reloadMultiplier: 3
-            bulletWidht: 9
+            bulletWidth: 9
             bulletHeight: 13
             shootEffect: shootBig
    		       smokeEffect: shootBigSmoke
@@ -51,7 +51,7 @@
             damage: 210
             trailEffect: fuelburn
             reloadMultiplier: 3
-            bulletWidht: 7
+            bulletWidth: 7
             bulletHeight: 9
             shootEffect: shootBig
    		       smokeEffect: shootBigSmoke
@@ -67,7 +67,7 @@
             damage: 240
             trailEffect: fuelburn
             reloadMultiplier: 3
-            bulletWidht: 9
+            bulletWidth: 9
             bulletHeight: 9
             shootEffect: shootBig
             smokeEffect: shootBigSmoke
