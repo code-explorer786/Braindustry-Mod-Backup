@@ -1,7 +1,7 @@
 name: Large Graphenite Wall
 description: Big version of standard graphenite wall.
 type: Wall
-health: 2200
+health: 2100
 size: 2
 requirements: [
   graphenite/42
