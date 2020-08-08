@@ -6,7 +6,8 @@ size: 1
 hitTime: 12
 maxDamgeDeflect: 12
 requirements: [
-  plastic/12
+  plastic/6
+  plastanium/2
 ]
 category: defense
 research: plastanium-wall
