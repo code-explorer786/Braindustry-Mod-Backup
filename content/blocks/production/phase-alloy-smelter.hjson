@@ -1,9 +1,9 @@
 type: GenericSmelter
 name: Phase Alloy Smelter
 description: Mixes Plastanium,Surge Alloy and Phase Fabric and then produces universal Phase Alloy.
-health: 100
+health: 310
 liquidCapacity: 0
-size: 3
+size: 4
 hasPower: true
 hasLiquids: false
 hasItems: true
