@@ -4,7 +4,8 @@ description: Medium strength wall,very purple.
 size: 1
 health: 690
 requirements: [
- { item: graphenite, amount: 7 }
+ { item: graphenite, amount: 8 }
+ { item: silicon, amount: 4  }
  ]
  category: defense
  research: thorium-wall-large
