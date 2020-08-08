@@ -3,7 +3,7 @@ name: Phase Alloy Smelter
 description: Mixes Plastanium,Surge Alloy and Phase Fabric and then produces universal Phase Alloy.
 health: 310
 liquidCapacity: 0
-size: 4
+size: 3
 hasPower: true
 hasLiquids: false
 hasItems: true
