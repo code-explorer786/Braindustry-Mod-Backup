@@ -11,7 +11,7 @@ craftTime: 100
 updateEffect: plasticburn
 consumes: {
   power: 2
-  liquid: oil/1
+  liquid: oil/0.1
   items:{
     items:[
     plastanium/1
