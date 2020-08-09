@@ -7,14 +7,15 @@
  reload: 60
  ammoUseEffect: shellEjectBig
  size: 4
- health: 17610
- inaccuracy: 2
+ shots: 6
+ health: 1710
+ inaccuracy: 1
  rotatespeed: 5
  targetAir: true
  targetGround: true
  ammo: {
         plastic: {
-        speed: 2.1
+        speed: 3
         type: ArtilleryBulletType
         damage: 185
         lifetime: 90
@@ -29,7 +30,7 @@
         splashDamage: 10
         }
   plastanium: {
-            speed: 2.0
+            speed: 3
             type: ArtilleryBulletType
             damage: 180
             lifetime: 80
@@ -37,7 +38,7 @@
             reloadMultiplier: 3
             bulletWidth: 9
             bulletHeight: 13
-            shootEffect: shootBig
+            shootEffect: plasticExplosion
    		       smokeEffect: shootBigSmoke
             splashDamageRadius: 10
             splashDamage: 20
@@ -45,7 +46,7 @@
            
            }
   phase-fabric: {
-            speed: 2.1
+            speed: 4
              type: ArtilleryBulletType
             lifetime: 90
             damage: 210
@@ -61,15 +62,15 @@
             
            }
   exometal: {
-            speed: 3.0
+            speed: 5
              type: ArtilleryBulletType
-            lifetime: 90
+            lifetime: 100
             damage: 240
             trailEffect: fuelburn
             reloadMultiplier: 3
             bulletWidth: 9
             bulletHeight: 9
-            shootEffect: shootBig
+            shootEffect: burning
             smokeEffect: shootBigSmoke
             splashDamageRadius: 15
             splashDamage: 20
