@@ -23,8 +23,8 @@
         reloadMultiplier: 3
         shootEffect: shootBig
         smokeEffect: shootBigSmoke
-        bulletWidth: 8
-        bulletHeight: 10
+        bulletWidth: 12
+        bulletHeight: 14
         ammoMultiplier: 2
         splashDamageRadius: 20
         splashDamage: 10
@@ -36,8 +36,8 @@
             lifetime: 80
             trailEffect: plasticburn
             reloadMultiplier: 3
-            bulletWidth: 9
-            bulletHeight: 13
+            bulletWidth: 14
+            bulletHeight: 16
             shootEffect: plasticExplosion
    		       smokeEffect: shootBigSmoke
             splashDamageRadius: 10
@@ -52,8 +52,8 @@
             damage: 210
             trailEffect: fuelburn
             reloadMultiplier: 3
-            bulletWidth: 7
-            bulletHeight: 9
+            bulletWidth: 12
+            bulletHeight: 16
             shootEffect: shootBig
    		       smokeEffect: shootBigSmoke
             splashDamageRadius: 12
@@ -68,8 +68,8 @@
             damage: 240
             trailEffect: fuelburn
             reloadMultiplier: 3
-            bulletWidth: 9
-            bulletHeight: 9
+            bulletWidth: 14
+            bulletHeight: 18
             shootEffect: burning
             smokeEffect: shootBigSmoke
             splashDamageRadius: 15
@@ -80,6 +80,7 @@
  }
  consumes: {
   liquid: thorium-refrigerant/0.2
+  booster: true
  }
  requirements: [
   exometal/200
