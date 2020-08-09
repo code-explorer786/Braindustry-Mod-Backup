@@ -10,8 +10,9 @@
  shots: 6
  health: 1710
  inaccuracy: 1
+ liquidBoostIntensity: 1.8
  rotatespeed: 5
- targetAir: true
+ targetAir: false
  targetGround: true
  ammo: {
         plastic: {
