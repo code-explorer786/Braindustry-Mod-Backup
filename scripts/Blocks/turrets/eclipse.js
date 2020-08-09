@@ -45,4 +45,4 @@ eclipse.shootShake = 4;
 eclipse.recoil = 5;
 eclipse.shots = 3;
 eclipse.shootEffect = Fx.lightningShoot;
-eclipse.ammo(Items.grapheite, eclipseBullet);
+eclipse.ammo(Items.graphenite, eclipseBullet);
