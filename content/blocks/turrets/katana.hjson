@@ -30,20 +30,20 @@
         splashDamageRadius: 20
         splashDamage: 90
         }
-  plastanium: {
-            speed: 3
-            type: ArtilleryBulletType
-            damage: 180
-            lifetime: 80
-            trailEffect: plasticburn
-            reloadMultiplier: 3
-            bulletWidth: 14
-            bulletHeight: 16
-            shootEffect: plasticExplosion
-   		       smokeEffect: shootBigSmoke
-            splashDamageRadius: 10
-            splashDamage: 80
-            ammoMultiplier: 2
+ plastanium: {
+        speed: 3
+        type: ArtilleryBulletType
+        damage: 185
+        lifetime: 90
+        trailEffect: plasticburn
+        reloadMultiplier: 3
+        shootEffect: shootBig
+        smokeEffect: shootBigSmoke
+        bulletWidth: 12
+        bulletHeight: 14
+        ammoMultiplier: 2
+        splashDamageRadius: 20
+        splashDamage: 90
            
            }
   phase-fabric: {
