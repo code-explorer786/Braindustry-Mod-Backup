@@ -28,7 +28,7 @@
         bulletHeight: 14
         ammoMultiplier: 2
         splashDamageRadius: 20
-        splashDamage: 10
+        splashDamage: 90
         }
   plastanium: {
             speed: 3
@@ -42,7 +42,7 @@
             shootEffect: plasticExplosion
    		       smokeEffect: shootBigSmoke
             splashDamageRadius: 10
-            splashDamage: 20
+            splashDamage: 80
             ammoMultiplier: 2
            
            }
@@ -58,7 +58,7 @@
             shootEffect: shootBig
    		       smokeEffect: shootBigSmoke
             splashDamageRadius: 12
-            splashDamage: 15
+            splashDamage: 100
             ammoMultiplier: 2
             
            }
@@ -74,7 +74,7 @@
             shootEffect: burning
             smokeEffect: shootBigSmoke
             splashDamageRadius: 15
-            splashDamage: 20
+            splashDamage: 120
             ammoMultiplier: 2
            
            }
