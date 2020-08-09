@@ -16,6 +16,9 @@ powerUse: 13.0
  rotatespeed: 1
  status: shocked
  chargeEffects: 58.0
+ consumes: [
+ liquid:cryofluid/0.2
+ ]
  requirements: [
   graphenite/245
   exometal/170
