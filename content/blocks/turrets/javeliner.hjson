@@ -10,15 +10,12 @@ chargeTime: 70
 range: 200
 chargeMaxDelay: 40
 shootType: meltdownLaser
-targetAir: true
+targetAir: false
 powerUse: 13.0
  inaccuracy: 5
  rotatespeed: 1
  status: shocked
  chargeEffects: 58.0
- consumes: [
- liquid:cryofluid/0.2
- ]
  requirements: [
   graphenite/245
   exometal/170
