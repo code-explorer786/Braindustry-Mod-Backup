@@ -41,7 +41,7 @@ eclipseBullet.smokeEffect = Fx.lightningShoot;
 
 const eclipse = extendContent(ItemTurret, "eclipse", {
 init(){
-this.ammo(Vars.content.getByName(ContentType.item,"braindustry-graphenite"),clipseBullett)
+this.ammo(Vars.content.getByName(ContentType.item,"braindustry-graphenite"),eclipseBullett)
 this.super$init()
 }
 });
