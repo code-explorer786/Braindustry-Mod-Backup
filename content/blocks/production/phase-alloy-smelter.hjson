@@ -23,7 +23,7 @@ requirements: [
   phase-fabric/100
   plastanium/100
   thorium/400
-  silicon/270
+  exometal/270
   graphenite/380
 ]
 category: crafting
