@@ -9,7 +9,7 @@ size: 3
 shootSound: laserbig
 ammoUseEffect: bigShockwave
 reload: 40
-requirments: [
+requirements: [
 plastic/100
 thorium/200
 titanium/200
