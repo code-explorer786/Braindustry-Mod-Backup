@@ -19,3 +19,6 @@ How to install?
 2)Write "pixaxeofpixie/braindustry-mod".
 3)Click "ok".
 4)Enjoy.
+
+discord-https://discord.gg/qzFmj8
+vk group-https://vk.com/braindustry
