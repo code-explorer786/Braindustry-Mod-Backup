@@ -11,7 +11,7 @@ configurable: true
 unloadable: false
 expanded: true
 hasItems: true
-itemCapcity: 16
+itemCapacity: 16
 hasPower: true
 requirements: [
 phase-alloy/5
