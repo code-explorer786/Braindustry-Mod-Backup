@@ -1,5 +1,5 @@
 name: Phase Alloy Conveyor
-description: aaa
+description: Fast and durable conveyor that can move blocks directly from one point to another.
 type: ItemBridge
 health: 60
 size: 1
