@@ -1,10 +1,9 @@
 name: Phase Alloy Conveyor
 description: aaa
-type: BufferedItemBridge
+type: ItemBridge
 health: 60
 size: 1
 speed: 60
-bufferCapacity: 40
 update: true
 solid: true
 layer: power
@@ -22,6 +21,6 @@ graphenite/8
 titanium/10
 ]
 cosnumes: {
-	power: 0.4
+ power: 0.4
 }
 group: transportation
