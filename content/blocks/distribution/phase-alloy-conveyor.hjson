@@ -1,0 +1,26 @@
+name: Phase Alloy Conveyor
+description: aaa
+type: BufferedItemBridge
+health: 60
+size: 1
+speed: 60
+bufferCapacity: 40
+update: true
+solid: true
+layer: power
+posConfig: true
+configurable: true
+unloadable: false
+expanded: true
+hasItems: true
+hasPower: true
+requirements: [
+phase-alloy/5
+silicon/10
+graphenite/8
+titanium/10
+]
+cosnumes: {
+	power: 0.4
+}
+group: transportation
