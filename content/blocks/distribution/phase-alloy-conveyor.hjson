@@ -1,12 +1,11 @@
 name: Phase Alloy Conveyor
-description: aaa
+description: A powerful and fast conveyor that can transport items over several blocks at once.Consumes energy.
 type: ItemBridge
-health: 60
+health: 70
 size: 1
 speed: 60
 update: true
 solid: true
-layer: power
 posConfig: true
 configurable: true
 unloadable: false
@@ -20,7 +19,7 @@ silicon/10
 graphenite/8
 titanium/10
 ]
-cosnumes: {
-	power: 0.4
+consumes: {
+ power: 0.4
 }
 category: distribution
