@@ -20,5 +20,5 @@ How to install?
 3)Click "ok".
 4)Enjoy.
 
-discord-https://discord.gg/qzFmj8
+discord-https://discord.gg/WqrWKW8
 vk group-https://vk.com/braindustry
