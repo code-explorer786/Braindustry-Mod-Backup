@@ -7,6 +7,8 @@ speed: 60
 update: true
 solid: true
 posConfig: true
+range: 24
+trasnportTime: 0.5
 configurable: true
 unloadable: false
 expanded: true
