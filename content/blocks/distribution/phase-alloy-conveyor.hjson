@@ -8,6 +8,7 @@ bufferCapacity: 40
 update: true
 solid: true
 layer: power
+itemCapacity: 14
 posConfig: true
 configurable: true
 unloadable: false
