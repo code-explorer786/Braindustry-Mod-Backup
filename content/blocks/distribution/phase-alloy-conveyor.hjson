@@ -10,6 +10,7 @@ layer: power
 itemCapacity: 14
 posConfig: true
 configurable: true
+canOverdrive: true
 unloadable: false
 expanded: true
 hasItems: true
