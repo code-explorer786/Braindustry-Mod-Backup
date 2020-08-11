@@ -2,6 +2,8 @@ type: armoredConveyor
 name: Armored Plastanium Conveyor
 description: Wonderful and strong Plastanium Conveyor.
 health: 240
+hasItems: true
+itemCapacity: 6
 requirements: [
   silicon/2
   graphenite/1
