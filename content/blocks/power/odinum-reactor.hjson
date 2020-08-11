@@ -3,7 +3,7 @@ name: "Odinum Reactor"
 description: "Atomic fission and collision reactor.Consumes Odinum and Liquid Graphenite."
 size: 4
 hasPower: true
-hasLiquds: true
+hasLiquids: true
 hasItems: true
 itemCapacity: 20
 liquidCapacity: 20
