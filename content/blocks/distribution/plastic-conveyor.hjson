@@ -1,0 +1,13 @@
+type: Conveyor
+name: Hermetic Plastic Conveyor
+description: The most fast and durable conveyor!
+health: 168
+requirements: [
+  silicon/2
+  graphenite/3
+  metaglass/1
+  plastanium/2
+]
+category: distribution
+speed: 0.7
+research: pulse-conveyor
