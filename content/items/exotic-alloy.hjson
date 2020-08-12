@@ -1,6 +1,6 @@
 type: material
-name: Elastic alloy
-description: Very light and elastic alloy,produces in Elastic alloy smelter.
+name: Exotic alloy
+description: Very light and exotic alloy,produces in Exotic alloy smelter.
 cost: 3
 flammability: 0.1
 radioactivity: 0.01
