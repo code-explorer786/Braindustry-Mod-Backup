@@ -1,4 +1,4 @@
-name: Exometal Wall 
+name: Exotic Alloy Wall 
 description: Wall from Exometal,can creates lightings when shot.
 type: SurgeWall
 health: 1680
@@ -7,8 +7,8 @@ lightningChance: 0.09
 lightningDamage: 25
 lightningLength: 16
 requirements: [
-  exometal/18
+  exometal/16
   graphenite/4
 ]
 category: defense
-research: odinum-wall-large
+research: surge-wall
