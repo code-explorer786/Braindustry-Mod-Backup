@@ -25,7 +25,6 @@ requirements: [
   silicon/400
   graphenite/200
   plastanium/200
-  thorium/200
 ]
 category: power
 research: thorium-reactor
