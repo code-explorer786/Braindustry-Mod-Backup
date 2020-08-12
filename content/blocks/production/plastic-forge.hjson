@@ -24,7 +24,7 @@ requirements: [
   plastanium/200
   thorium/300
   silicon/470
-  exometal/130
+  exotic-alloy/130
   graphenite/380
 ]
 category: crafting
