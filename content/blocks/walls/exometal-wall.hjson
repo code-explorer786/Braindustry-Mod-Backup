@@ -1,5 +1,5 @@
 name: Exotic Alloy Wall 
-description: Wall from Exometal,can creates lightings when shot.
+description: Wall from Exotic Alloy,can creates lightings when shot.
 type: SurgeWall
 health: 1680
 size: 1
