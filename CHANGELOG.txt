@@ -137,6 +137,10 @@ Drones
 Ork-bomber drone like ghoul,creates from phase alloy and silicon.
 Kirin-small air drone like Wraith.
 
+Mechs 
+
+Pixie-small healer flying mech.
+
 Turrets
 
 Katana resprite
