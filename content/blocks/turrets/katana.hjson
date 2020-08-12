@@ -18,8 +18,8 @@
         plastic: {
         speed: 3
         type: ArtilleryBulletType
-        damage: 185
-        lifetime: 90
+        damage: 195
+        lifetime: 100
         trailEffect: plasticburn
         reloadMultiplier: 3
         shootEffect: shootBig
@@ -62,7 +62,7 @@
             ammoMultiplier: 2
             
            }
-  exometal: {
+  exotic-alloy: {
             speed: 5
              type: ArtilleryBulletType
             lifetime: 100
@@ -83,9 +83,10 @@
   liquid: thorium-refrigerant/0.2
   }
  requirements: [
-  exometal/200
+  exotic-alloy/200
   graphenite/150
   plastanium/150
+  silicon/100
   surge-alloy/145
  ]
  category: turret
