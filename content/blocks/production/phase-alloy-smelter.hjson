@@ -27,7 +27,7 @@ requirements: [
   graphenite/380
 ]
 category: crafting
-research: ultimate-cultivator
+research: exotic-alloy-smelter
 idleSound: respawning
 idleSoundVolume: 0.5
 outputItem: phase-alloy/1
