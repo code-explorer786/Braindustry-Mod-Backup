@@ -1,4 +1,4 @@
-name: Exometal Wall Large
+name: Exotic Alloy Wall Large
 description: Large Exometal wall,can creates lightings when shot.
 type: SurgeWall
 health: 4740
@@ -7,7 +7,7 @@ lightningChance: 0.12
 lightningDamage: 35
 lightningLength: 21
 requirements: [
-  exometal/60
+  exotic-alloy/50
   graphenite/12
 ]
 category: defense
