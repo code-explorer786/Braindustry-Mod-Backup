@@ -28,5 +28,5 @@ requirements: [
   graphenite/380
 ]
 category: crafting
-research: phase-alloy-smelter
+research: exotic-alloy-smelter
 outputItem: plastic/1
