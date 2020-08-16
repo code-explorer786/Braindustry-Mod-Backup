@@ -10,7 +10,6 @@ hasPower: true
 hasItems: true
 itemCapacity: 40
 solid: false
-flags: producer
 requirments: [
 	graphenite/70
 	titanium/90
