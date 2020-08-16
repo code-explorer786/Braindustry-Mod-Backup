@@ -12,7 +12,7 @@ engineSize: 5
 weapon: {
 	name: ork-weapon
 	length: 1
-	reload: 2
+	reload: 0.3
 	alternate: true
 	bullet: bombExplosive
 	shootSound: boom
