@@ -1,3 +1,4 @@
+type: unitFactory
 name: Ork Bomber Factory
 description: Produces heavy bombers.
 produceTime: 1100
