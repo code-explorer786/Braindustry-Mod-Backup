@@ -10,7 +10,7 @@ hasPower: true
 hasItems: true
 itemCapacity: 40
 solid: false
-requirments: [
+requirements: [
 graphenite/70
 titanium/90
 silicon/120
