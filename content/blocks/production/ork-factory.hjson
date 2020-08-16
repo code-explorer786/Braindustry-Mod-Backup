@@ -11,9 +11,9 @@ hasItems: true
 itemCapacity: 40
 solid: false
 requirements: [
-graphenite/70
-titanium/90
-silicon/120
+ graphenite/70
+ titanium/90
+ silicon/120
 ]
 consumes: {
 	power: 1.6
