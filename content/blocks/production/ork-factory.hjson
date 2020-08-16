@@ -5,7 +5,7 @@ health: 420
 size: 3
 launchVelocity: 0
 maxSpawn: 4
-unitType: ork-bomber
+unitType: ork
 hasPower: true
 hasItems: true
 itemCapacity: 40
