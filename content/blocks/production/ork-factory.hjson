@@ -24,3 +24,5 @@ consumes: {
 		]
 	}
 }
+research: ghoul-factory
+category: units
