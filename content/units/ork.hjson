@@ -1,5 +1,5 @@
 type: FlyingUnit
-name: Ork Bomber
+name: Orc Bomber
 description: Heavy and fast bomber,craft with lightweight Graphenite..
 health: 320
 speed: 0.3
