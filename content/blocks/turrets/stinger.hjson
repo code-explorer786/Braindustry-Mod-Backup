@@ -21,3 +21,4 @@ size: 4
 health: 1340
 research: swarmer
 shootSound: missile
+category: turret
