@@ -1,5 +1,6 @@
 name: Stinger
 description: High tech rocket turret.Every bullet has unique abilities.
+type: itemTurret
 requirements: [
 graphenite/100
 silicon/100
