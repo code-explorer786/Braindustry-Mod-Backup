@@ -8,7 +8,7 @@ phase-alloy/70
 plastanium/20
 ] 
 ammo: {
-blastCompound: missileExplosive
+blast-compound: missileExplosive
 pyratite: missileIncendiary
 surge-alloy: missileSurge
 plastanium: missileSwarm
