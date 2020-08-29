@@ -4,7 +4,8 @@ type: itemTurret
 requirements: [
 graphenite/100
 silicon/100
-plastanium/80
+phase-alloy/70
+plastanium/20
 ] 
 ammo: {
 blastCompound: missileExplosive
