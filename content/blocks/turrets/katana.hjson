@@ -21,7 +21,7 @@ ammo: {
 }
 consumes: {
  liquid: {
-  liquid: throium-refrigerant
+  liquid: thorium-refrigerant
   amount: 0.2
   booster: true
   optional: true
