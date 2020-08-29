@@ -22,7 +22,7 @@
  }
  consumes: {
   liquid: thorium-refrigerant/0.2
-  booster: true
+  boosted: true
   optional: true
   }
  requirements: [
@@ -34,4 +34,5 @@
  ]
  category: turret
  research: spectre
+ liquidBoostIntencity: 1.8
 }
