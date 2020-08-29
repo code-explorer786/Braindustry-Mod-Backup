@@ -17,9 +17,9 @@ How to install?
 
 1)Launch Mindustry.
 2)In mod menu "import from github".
-2)Write "pixaxeofpixie/braindustry-mod".
-3)Click "ok".
-4)Enjoy.
+3)Write "pixaxeofpixie/braindustry-mod".
+4)Click "ok".
+5)Enjoy.
 
 discord-https://discord.gg/WqrWKW8
 vk group-https://vk.com/braindustry
