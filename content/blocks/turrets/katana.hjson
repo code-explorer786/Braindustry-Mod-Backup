@@ -1,38 +1,39 @@
-{
- name: "Katana"
- description: "Cool high-level rapid-fire turret.Consumes graphenite/plastanium/surge alloy/exometal."
- type: ArtilleryTurret
- range: 340
- recoil: 5
- reload: 60
- ammoUseEffect: shellEjectBig
- size: 4
- shots: 6
- health: 1710
- inaccuracy: 1
- liquidBoostIntensity: 1.8
- rotatespeed: 5
- targetAir: false
- targetGround: true
- ammo: {
+name: "Katana"
+description: "Strong artillery turret with powerful ammo."
+type: ArtilleryTurret
+range: 340
+recoil: 5
+reload: 60
+ammoUseEffect: shellEjectBig
+size: 4
+shots: 6
+health: 1710
+inaccuracy: 0.5
+liquidBoostIntensity: 1.8
+rotatespeed: 5
+targetAir: false
+targetGround: true
+ammo: {
   plastic: artilleryPlasticFrag
   plastanium: artilleryPlastic
   phase-fabric: artilleryDense
   exotic-alloy: artilleryExplosive
- }
- consumes: {
-  liquid: thorium-refrigerant/0.2
-   booster: true
-   optional: true
+}
+consumes: {
+ liquid: {
+  liquid: throium-refrigerant
+  amount: 0.2
+  booster: true
+  optional: true
   }
- requirements: [
+}
+requirements: [
   exotic-alloy/200
   graphenite/150
   plastanium/150
   silicon/100
   surge-alloy/145
- ]
+]
  category: turret
  research: spectre
- liquidBoostIntencity: 1.8
 }
