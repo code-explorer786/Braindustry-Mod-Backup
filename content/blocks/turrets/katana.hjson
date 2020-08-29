@@ -15,72 +15,15 @@
  targetAir: false
  targetGround: true
  ammo: {
-        plastic: {
-        speed: 3
-        type: ArtilleryBulletType
-        damage: 195
-        lifetime: 100
-        trailEffect: plasticburn
-        reloadMultiplier: 3
-        shootEffect: shootBig
-        smokeEffect: shootBigSmoke
-        bulletWidth: 12
-        bulletHeight: 14
-        ammoMultiplier: 2
-        splashDamageRadius: 20
-        splashDamage: 90
-        }
- plastanium: {
-        speed: 3
-        type: ArtilleryBulletType
-        damage: 185
-        lifetime: 90
-        trailEffect: plasticburn
-        reloadMultiplier: 3
-        shootEffect: shootBig
-        smokeEffect: shootBigSmoke
-        bulletWidth: 12
-        bulletHeight: 14
-        ammoMultiplier: 2
-        splashDamageRadius: 20
-        splashDamage: 90
-           
-           }
-  phase-fabric: {
-            speed: 4
-             type: ArtilleryBulletType
-            lifetime: 90
-            damage: 210
-            trailEffect: fuelburn
-            reloadMultiplier: 3
-            bulletWidth: 12
-            bulletHeight: 16
-            shootEffect: shootBig
-   		       smokeEffect: shootBigSmoke
-            splashDamageRadius: 12
-            splashDamage: 100
-            ammoMultiplier: 2
-            
-           }
-  exotic-alloy: {
-            speed: 5
-             type: ArtilleryBulletType
-            lifetime: 100
-            damage: 240
-            trailEffect: fuelburn
-            reloadMultiplier: 3
-            bulletWidth: 14
-            bulletHeight: 18
-            shootEffect: burning
-            smokeEffect: shootBigSmoke
-            splashDamageRadius: 15
-            splashDamage: 120
-            ammoMultiplier: 2
-           
-           }
+  plastic: artilleryPlasticFrag
+  plastanium: artilleryPlastic
+  phase-fabric: artilleryDense
+  exotic-alloy: artilleryExplosive
  }
  consumes: {
   liquid: thorium-refrigerant/0.2
+  booster: true
+  optional: true
   }
  requirements: [
   exotic-alloy/200
