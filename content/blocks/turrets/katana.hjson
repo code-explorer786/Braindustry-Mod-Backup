@@ -22,8 +22,8 @@
  }
  consumes: {
   liquid: thorium-refrigerant/0.2
-  boosted: true
-  optional: true
+   booster: true
+   optional: true
   }
  requirements: [
   exotic-alloy/200
