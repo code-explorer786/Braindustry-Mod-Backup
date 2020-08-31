@@ -1,0 +1,27 @@
+name: Carrier Drill
+description: A gigantic drill with maximum drill power and efficience.
+type: Drill
+size: 5
+drillTime: 210
+tier: 5
+consumes: {
+	liquid: {
+		lqiuid: cryofluid
+		amount: 0.12
+		booster: false
+		optional: false
+	}
+}
+liquidBoostIntensity: 0
+hasLiquids: true
+liquidCapacity: 60
+rotateSpeed: 1.1
+requirments: [
+	plastic/150
+	graphenite/120
+	odinum/140
+	plastanium/100
+]
+research: airblast-drill
+idleSound: drill
+idleSoundVolume: 0.025
