@@ -23,5 +23,6 @@ requirments: [
 	plastanium/100
 ]
 research: blast-drill
+category: production
 idleSound: drill
 idleSoundVolume: 0.025
