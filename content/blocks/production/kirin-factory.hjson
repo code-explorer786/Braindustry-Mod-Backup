@@ -3,7 +3,7 @@ name: Ork Bomber Factory
 description: Produces lightweigth and fast Kirin's.
 produceTime: 1000
 health: 370
-size: 3
+size: 1
 launchVelocity: 0.3
 maxSpawn: 6
 unitType: kirin
