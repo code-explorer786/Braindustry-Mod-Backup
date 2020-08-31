@@ -6,7 +6,7 @@ drillTime: 210
 tier: 5
 consumes: {
 	liquid: {
-		lqiuid: cryofluid
+		liquid: cryofluid
 		amount: 0.12
 		booster: false
 		optional: false
