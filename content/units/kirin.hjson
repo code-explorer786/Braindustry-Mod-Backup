@@ -8,16 +8,16 @@ mass: 1.2
 flying: true
 health: 105
 engineSize: 2.2
-engineOffset: 4.3
-range: 150
+engineOffset: 6
+range: 130
 weapon: {
 	name: kirin-weapon
-	length: 1.8
-	reload: 20
-	recoil: 1.6
+	length: 1.6
+	reload: 14
+	recoil: 1.9
 	alternate: true
 	ejectEffect: shellEjectSmall
 	bullet: standardGlaive
-	shots: 6
+	shots: 1
 	shootSound: shoot
 }
