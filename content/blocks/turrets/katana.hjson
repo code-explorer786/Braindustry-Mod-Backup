@@ -16,7 +16,7 @@ targetGround: true
 ammo: {
   plastic: artilleryPlasticFrag
   plastanium: artilleryPlastic
-  phase-fabric: artilleryDense
+  phase-alloy: artilleryDense
   exotic-alloy: artilleryExplosive
 }
 consumes: {
@@ -28,11 +28,11 @@ consumes: {
   }
 }
 requirements: [
-  exotic-alloy/200
+  exotic-alloy/100
   graphenite/150
   plastanium/150
-  silicon/100
-  surge-alloy/145
+  silicon/200
+  phase-alloy/145
 ]
  category: turret
  research: spectre
