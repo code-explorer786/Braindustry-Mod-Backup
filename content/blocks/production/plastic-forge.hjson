@@ -15,7 +15,7 @@ consumes: {
   items:{
     items:[
     plastanium/1
-    thorium/1
+    thorium/4
     ]
   }
 }
@@ -29,4 +29,4 @@ requirements: [
 ]
 category: crafting
 research: exotic-alloy-smelter
-outputItem: plastic/1
+outputItem: plastic/2
