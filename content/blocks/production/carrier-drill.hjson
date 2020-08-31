@@ -22,6 +22,6 @@ requirments: [
 	odinum/140
 	plastanium/100
 ]
-research: airblast-drill
+research: blast-drill
 idleSound: drill
 idleSoundVolume: 0.025
