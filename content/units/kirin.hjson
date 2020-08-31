@@ -1,0 +1,23 @@
+name: Kirin
+description: Fast and lightweigth flying unit.
+type: FlyingUnit
+speed: 0.5
+maxVelocity: 2.2
+drag: 0.01
+mass: 1.2
+flying: true
+health: 105
+engineSize: 2.2
+engineOffset: 4.3
+range: 150
+weapon: {
+	name: kirin-weapon
+	length: 1.8
+	reload: 20
+	recoil: 1.6
+	alternate: true
+	ejectEffect: shellEjectSmall
+	bullet: standardGlaive
+	shots: 6
+	shootSound: shoot
+}
