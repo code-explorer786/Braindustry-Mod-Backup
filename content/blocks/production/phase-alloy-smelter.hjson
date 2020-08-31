@@ -13,7 +13,7 @@ consumes: {
   power: 2
     items:{
      items:[
-      plastanium/1
+      plastanium/2
       surge-alloy/1
       phase-fabric/1
       ]
@@ -30,4 +30,4 @@ category: crafting
 research: plastic-forge
 idleSound: respawning
 idleSoundVolume: 0.5
-outputItem: phase-alloy/1
+outputItem: phase-alloy/2
