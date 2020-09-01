@@ -1,0 +1,27 @@
+
+{
+"name": "Quarry Drill",
+"description": "Big drill. ",
+"type": "Drill",
+"size": 5,
+"health": 880,
+"tier": 6,
+"drillTime": 200,
+"rotateSpeed": 5,
+"drawRim": true
+"consumes": {
+"power": 2.0
+"liquid": {
+"liquid": "thorium-refrigerant",
+"amount": 0.1,
+}
+},
+"requirements": [
+{ "item": "plastic, "amount": 150 },
+{ "item": "graphenite", "amount": 200 },
+{ "item": "odinum", "amount": 140 }, 
+{ "item": "plastanium", "amount": 120 },
+],
+"category": "production", 
+"research": "blast-drill"
+}
