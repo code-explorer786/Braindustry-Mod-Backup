@@ -17,7 +17,7 @@
 }
 },
 "requirements": [
-{ "item": "plastic, "amount": 150 },
+{ "item": "plastic", "amount": 150 },
 { "item": "graphenite", "amount": 200 },
 { "item": "odinum", "amount": 140 }, 
 { "item": "plastanium", "amount": 120 },
