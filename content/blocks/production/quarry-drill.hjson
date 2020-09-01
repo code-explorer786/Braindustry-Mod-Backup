@@ -6,7 +6,7 @@ drillTime: 210
 tier: 5
 consumes: {
 	liquid: {
-		liquid: cryofluid
+		liquid: thorium-refrigerant
 		amount: 0.12
 		booster: false
 		optional: false
