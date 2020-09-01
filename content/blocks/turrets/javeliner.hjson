@@ -4,24 +4,21 @@ description: "Lancer upgraded version.Consumes energy."
 health: 1560
 size: 3
 recoil: 5.0
-reload: 70.0
-coolDown: 70.0
-chargeTime: 70
-range: 200
+chargeTime: 60
+range: 220
 chargeMaxDelay: 40
 shootType: meltdownLaser
 targetAir: false
-powerUse: 13.0
- inaccuracy: 5
- rotatespeed: 1
+powerUse: 8.0
+ inaccuracy: 1
+ rotatespeed: 4
  status: shocked
  chargeEffects: 58.0
  requirements: [
-  graphenite/245
-  phase-alloy/120
+  graphenite/145
+  phase-alloy/100
   metaglass/180
-  thorium/245
-  surge-alloy/70
+  thorium/45
  ]
  category: turret
  research: meltdown
