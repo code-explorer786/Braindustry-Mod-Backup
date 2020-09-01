@@ -18,7 +18,7 @@ power: 2
 liquidBoostIntensity: 1
 hasLiquids: true
 liquidCapacity: 60
-rotateSpeed: 2
+rotateSpeed: 5
 requirements: [
 	plastic/150
 	graphenite/120
