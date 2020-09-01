@@ -118,37 +118,36 @@ Items
 Phase Alloy-alloy compare qualities of plastanium,phase fabric and surge alloy.
 Plastic-powered and more light Plastanium.
 Exometal revamp to Exotic Alloy.
+Graphenite resprite.
 
 Zones
 
 Dead Sea revamp to Salt Sea.
 Caldera bugfixes.
-Some new maps.
 
 Crafters
 
 Plastic forge-smelt plastic.
 Phase alloy smelter-smelt phase alloy.
 Multi-liquifier-can craft liquid graphenite,cryofluid and thorium refrigerant.
-Multi Factory-can craft plastanium,graphenite,phase fabric,phase alloy,plastic and exotic alloy.
+Multi Factory-can craft most of mod items.
+
+Drills
+
+Quarry Drill-big 5x5 drill with very big power and speed.
 
 Drones
 
-Ork-bomber drone like ghoul,creates from phase alloy and silicon.
+Ork-bomber drone like Ghoul.
 Kirin-small air drone like Wraith.
-
-Mechs 
-
-Pixie-small healer flying mech.
 
 Turrets
 
-Katana resprite
-Stinger-rocket launcher with bullets of plastanium and plastic.
-Eclipse-bigger and powerful fuse.
-Air dragon-sniper turret with bullets of surge alloy,phase alloy and graphenite(very bad).
+Katana resprite.
+Stinger-high level rocket launcher.
+Eclipse-fuselike powerful weapon.
 
 Walls
 
-Exometal Wall's changed to Exotic alloy wall's.
-
+Exometal Walls changed to Exotic alloy walls.
+Plastic Walls-can deflect bullets.
