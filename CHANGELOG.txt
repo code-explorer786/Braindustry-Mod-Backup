@@ -136,6 +136,11 @@ Drills
 
 Quarry Drill-big 5x5 drill with very big power and speed.
 
+Logistic
+
+Phase alloy conveyor-phase conveyor but powerful.
+Plastic conveyor-fast conveyor.
+
 Drones
 
 Ork-bomber drone like Ghoul.
@@ -151,3 +156,7 @@ Walls
 
 Exometal Walls changed to Exotic alloy walls.
 Plastic Walls-can deflect bullets.
+
+Localisation
+
+Full RU localisation.
