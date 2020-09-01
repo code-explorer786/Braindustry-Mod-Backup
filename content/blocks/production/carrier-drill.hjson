@@ -16,7 +16,7 @@ liquidBoostIntensity: 0
 hasLiquids: true
 liquidCapacity: 60
 rotateSpeed: 1.1
-requirments: [
+requirements: [
 	plastic/150
 	graphenite/120
 	odinum/140
