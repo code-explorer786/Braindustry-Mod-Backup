@@ -1,4 +1,4 @@
-type: ChargeTurret
+type: LaserTurret
 name: "Javeliner"
 description: "Meltdown lighter version." 
 health: 1560
