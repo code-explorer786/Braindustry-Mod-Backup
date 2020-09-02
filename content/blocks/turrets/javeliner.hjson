@@ -7,7 +7,7 @@ recoil: 5.0
 powerUse: 3
 shootType: meltdownLaser
 firingMoveFrag: 0.30
-range: 190
+range: 160
 shootDuration: 70
 canOverdrive: false
 coolantMultiplier: 1
