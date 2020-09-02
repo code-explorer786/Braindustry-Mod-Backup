@@ -9,12 +9,12 @@ shootType: meltdownLaser
 firingMoveFrag: 0.30
 shootDuration: 70
 canOverdrive: false
-coolantMultiplier: 
+coolantMultiplier: 1
 requirements: [
   graphenite/145
   phase-alloy/100
   metaglass/180
   thorium/45
- ]
+]
 category: turret
 research: fuse
