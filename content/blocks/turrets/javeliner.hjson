@@ -1,25 +1,20 @@
 type: ChargeTurret
 name: "Javeliner"
-description: "Lancer upgraded version.Consumes energy." 
+description: "Meltdown lighter version." 
 health: 1560
 size: 3
 recoil: 5.0
-chargeTime: 60
-coolDown: 60
-range: 220
-chargeMaxDelay: 40
+powerUse: 3
 shootType: meltdownLaser
-targetAir: false
-powerUse: 8.0
-inaccuracy: 1
-rotatespeed: 3
-status: shocked
-chargeEffects: 10.0
- requirements: [
+firingMoveFrag: 0.30
+shootDuration: 70
+canOverdrive: false
+coolantMultiplier: 
+requirements: [
   graphenite/145
   phase-alloy/100
   metaglass/180
   thorium/45
  ]
- category: turret
- research: meltdown
+category: turret
+research: fuse
