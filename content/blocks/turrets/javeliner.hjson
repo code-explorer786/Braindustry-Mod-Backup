@@ -6,8 +6,9 @@ size: 3
 recoil: 5.0
 powerUse: 3
 shootType: meltdownLaser
-firingMoveFrag: 0.30
+firingMoveFrag: 0.10
 range: 160
+reload: 60
 shootDuration: 70
 canOverdrive: false
 coolantMultiplier: 1
