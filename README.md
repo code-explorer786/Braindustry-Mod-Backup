@@ -1,5 +1,5 @@
 # Braindustry-Mod
-High Technology mod for Mindustry game.Adds materials,fabrics and new reactor.
+High Technology mod for Mindustry game with new super beatiful and useful materials,liquids,turrets,reactors and too much more!
 
 How to install?
 
