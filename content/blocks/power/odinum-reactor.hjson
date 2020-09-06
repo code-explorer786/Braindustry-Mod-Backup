@@ -8,10 +8,10 @@ hasItems: true
 itemCapacity: 20
 liquidCapacity: 20
 itemDuration: 90
-powerProduction: 45
+powerProduction: 48
 plasmas: 3
 consumes: {
- power: 11
+ power: 9
  liquid: liquid-graphenite/0.2
   items: {
    items: [
