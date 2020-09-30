@@ -11,6 +11,10 @@ itemDuration: 90
 powerProduction: 10
 consumes: {
   liquid: magma/0.1
+  items: {
+   items: [
+    coal/1
+ ]
 }
 requirements: [
   graphenite/50
