@@ -1,10 +1,14 @@
 # Braindustry-Mod
+<<<<<<< HEAD
 High Technology mod for Mindustry game with new super beatiful and useful materials,liquids,turrets,reactors and too much more!
+=======
+High Technology mod for Mindustry game with new super beatiful and useful materials,liquids,reactors and too much more!
+>>>>>>> fcf064a39ca6b9f31f93b99220495e222ebac569
 
-How to install?
 
-1 Method
+[Discord](https://discord.gg/WqrWKW8)
 
+<<<<<<< HEAD
 1)Download .zip file of this mod.
 2)Launch Mindustry.
 3)Click on the "mods" button in start menu.
@@ -23,3 +27,6 @@ How to install?
 
 discord-https://discord.gg/WqrWKW8
 vk group-https://vk.com/braindustry
+=======
+[VK Group](https://vk.com/braindustry)
+>>>>>>> fcf064a39ca6b9f31f93b99220495e222ebac569

@@ -22,8 +22,13 @@ var sl = Mathf.clamp(b.fout() - 0.5) * (80 - i * 10);
 Drawf.tri(b.x + Tmp.v1.x, b.y + Tmp.v1.y, 4, sl, b.rot() + 90);
 Drawf.tri(b.x + Tmp.v1.x, b.y + Tmp.v1.y, 4, sl, b.rot() - 90);
 }
+<<<<<<< HEAD
 Drawf.tri(b.x, b.y, 40 * b.fout(), (this.rayLength + 40), b.rot());
 Drawf.tri(b.x, b.y, 40 * b.fout(), 10, b.rot() + 210);
+=======
+Drawf.tri(b.x, b.y, 20 * b.fout(), (this.rayLength + 30), b.rot());
+Drawf.tri(b.x, b.y, 20 * b.fout(), 10, b.rot() + 180);
+>>>>>>> fcf064a39ca6b9f31f93b99220495e222ebac569
 Draw.reset();
 }
 });

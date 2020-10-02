@@ -12,10 +12,16 @@ powerProduction: 6
 consumes: {
   liquid: magma/0.1
   items: {
+<<<<<<< HEAD
   	items: [
   		coal/1
   	]
   }
+=======
+   items: [
+    coal/1
+ ]
+>>>>>>> fcf064a39ca6b9f31f93b99220495e222ebac569
 }
 requirements: [
   graphenite/50

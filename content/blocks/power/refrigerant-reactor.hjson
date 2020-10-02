@@ -8,7 +8,11 @@ hasItems: true
 itemCapacity: 10
 liquidCapacity: 10
 itemDuration: 110
+<<<<<<< HEAD
 powerProduction: 24
+=======
+powerProduction: 17
+>>>>>>> fcf064a39ca6b9f31f93b99220495e222ebac569
 heating: 0.04
 smokeThreshold: 0.48
 explosionRadius: 50 
