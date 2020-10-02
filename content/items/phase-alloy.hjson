@@ -1,8 +1,0 @@
-type: material
-name: Phase Alloy
-description: This alloy combines qualities of Platanium,Surge Alloy and Phase fabric.
-cost: 2
-flammability: 0.1
-explosiveness: 0.2
-radioactivity: 0.5
-color: FF4F00
