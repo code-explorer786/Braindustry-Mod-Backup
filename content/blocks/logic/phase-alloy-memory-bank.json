@@ -1,0 +1,16 @@
+{
+ "type": "MemoryBlock",
+ "memoryCapacity": 4096,
+ "size": 2,
+ "health": 310,
+ "name": "Phase Alloy Memory Bank",
+ "category": "logic",
+ "description": "Holds 4096 cells."
+"requirements": [
+	{ "item": "plastanium", "amount": 120},
+	{ "item": "thorium", "amount": 30 },
+	{ "item": "graphenite", "amount": 140}
+	{ "item": "silicon", "amount": 170 },
+	{ "item": "phase-alloy", "amount": 40 }
+	],
+}

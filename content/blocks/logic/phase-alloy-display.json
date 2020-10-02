@@ -1,0 +1,15 @@
+{
+ "type": "logicDisplay",
+ "displaySize": 272,
+ "size": 9,
+ "health": 370,
+ "name": "Phase Alloy Display",
+ "category": "logic",
+ "description": "296 pixel resolution display.",
+ "requirements": [
+	{ "item": "plastanium", "amount": 70},
+	{ "item": "titanium", "amount": 170 },
+	{ "item": "silicon", "amount": 200 },
+	{ "item": "phase-alloy", "amount": 120}
+	],
+}

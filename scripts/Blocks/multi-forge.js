@@ -1,14 +1,14 @@
 const furnace=multiLib.extend(GenericCrafter,GenericCrafter.GenericCrafterEntity,"multi-forge",{
 },{
 _output:[
-[[["braindustry-exometal",1]],null,null],
+[[["braindustry-exotic-alloy",1]],null,null],
 [[["braindustry-graphenite",1]],null,null],
 ],
 _input:[
-[[["thorium",3],["spore-pod",2],["plastanium",1]],null,null],
-[[["silicon",1],["titanium",3],["graphite",2]],null,null],
+[[["thorium",1],["titanium",1],["plastanium",2]],null,null],
+[[["silicon",2],["titanium",1],["graphite",1]],null,null],
 ],
-craftTimes:[60,110],
+craftTimes:[80,110],
 //DON'T MODIFY THESE
 output:[],
 input:[],
@@ -23,6 +23,6 @@ furnace.description="Multicrafter with posibility craft Graphenite or Exometal."
 furnace.itemCapacity= 30;
 furnace.liquidCapacity= 0;
 furnace.size= 3;
-furnace.health= 420;
+furnace.health= 240;
 furnace.craftEffect= Fx.pulverizeMedium;
 furnace.updateEffect=Fx.plasticburn;
