@@ -1,0 +1,26 @@
+name: Hydraulic Drill
+description: This drill use hydraulic for more effective work.Consumes water.
+type: Drill
+size: 3
+tier: 4
+consumes: {
+   liquid: {
+    liquid: water
+    amount: 0.1
+    booster: false
+  }
+}
+liquidBoostIntensity: 1.0
+hasLiquids: true
+rotateSpeed: 2.0
+drillTime: 245
+requirements: [
+  plastanium/15
+  silicon/40
+  graphite/45
+  odinum/75
+]
+category: production
+research: laser-drill
+idleSound: drill
+idleSoundVolume: 0.01

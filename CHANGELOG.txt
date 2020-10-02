@@ -1,0 +1,13 @@
+------------------------------------------------------------------------------------------
+OFFICIAL CHANGELOG
+------------------------------------------------------------------------------------------
+
+1.3.6
+
+Mod now work on BE Builds.
+New logic blocks!
+Some balance.
+Turrets,units,mechs deleted from mod for compability with BE Builds.
+------------------------------------------------------------------------------------------
+Github-pixaxeofpixie/braindustry-mod
+VK group-https://vk.com/braindustry
