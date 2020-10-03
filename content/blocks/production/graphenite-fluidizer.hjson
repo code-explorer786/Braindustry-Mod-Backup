@@ -24,7 +24,7 @@ requirements: [
   graphenite/85
 ]
 category: crafting
-research: cryofluidmixer
+research: graphenite-forge
 idleSound: respawning
 idleSoundVolume: 0.2
 outputLiquid: liquid-graphenite/24
