@@ -8,6 +8,13 @@ Mod now work on BE Builds.
 New logic blocks!
 Some balance.
 Turrets,units,mechs deleted from mod for compability with BE Builds.
+
+1.3.7
+
+Bugfixes with walls.
+Some new and old turrets(Brain,Hoplite,Katana).
+Surge Conveyor.
+
 ------------------------------------------------------------------------------------------
 Github-pixaxeofpixie/braindustry-mod
 VK group-https://vk.com/braindustry

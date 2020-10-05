@@ -1,0 +1,33 @@
+name: Brain
+type: itemTurret
+requirements: [
+graphenite/100
+silicon/120
+surge-alloy/100
+odinum/100
+] 
+ammo: {
+  plastanium: {
+    type: PointBulletType
+    shootEffect: instShoot
+    hitEffect: instHit
+    smokeEffect: smokeCloud
+    trailEffect: instTrail
+    despawnEffect: instBomb
+    trailSpacing: 12
+    damage: 1200
+    tileDamageMultiplier: 0.3
+    speed: 240
+    hitShake: 3
+    ammoMultiplier: 2
+  }
+}
+reload: 40
+shots: 1
+burstSpacing: 6
+inaccuracy: 1.4
+range: 140
+size: 2
+health: 1200
+research: cyclone
+category: turret

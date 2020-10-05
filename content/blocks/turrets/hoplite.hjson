@@ -1,0 +1,34 @@
+name: Hoplite
+type: itemTurret
+requirements: [
+graphenite/100
+silicon/200
+surge-alloy/100
+odinum/1150
+phase-alloy/250
+] 
+ammo: {
+  plastanium: {
+    type: PointBulletType
+    shootEffect: instShoot
+    hitEffect: instHit
+    smokeEffect: smokeCloud
+    trailEffect: instTrail
+    despawnEffect: instBomb
+    trailSpacing: 26
+    damage: 3000
+    tileDamageMultiplier: 0.6
+    speed: 500
+    hitShake: 7
+    ammoMultiplier: 2
+  }
+}
+reload: 40
+shots: 2
+burstSpacing: 3
+inaccuracy: 0.2
+range: 290
+size: 4
+health: 2500
+research: brain
+category: turret
