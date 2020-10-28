@@ -10,7 +10,7 @@ phase-alloy/250
 ammoTypes: {
   plastanium: {
    type: ContinuousLaserBulletType
-    length: 50
+    length: 340
     hitEffect: hitMeltHeal
     damage: 210
     drawSize: 500
