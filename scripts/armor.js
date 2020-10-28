@@ -1,4 +1,4 @@
-const armor = extendContent(UnitType, "sprict", {
+const armor = extendContent(UnitType, "armor", {
 load() {
 this.super$load();
 }
