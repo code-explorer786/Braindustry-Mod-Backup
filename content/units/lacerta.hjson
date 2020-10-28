@@ -29,8 +29,8 @@ mechStepParticles: true
 weapons: [
 {
   name: lacerta-weapon
-  x: 1
-  y: 0
+  x: 10
+  y: 18
   shootY: 13
   reload: 80
   ejectEffect: none
@@ -38,15 +38,15 @@ weapons: [
   continous: true
   shootSound: laser
   cooldownTime: 80
-  mirror: false
+  mirror: true
   bullet: {
     type: ContinuousLaserBulletType
-    length: 215
+    length: 340
     hitEffect: hitMeltHeal
-    damage: 1560
-    drawSize: 320
-    lifeTime: 240
-    shake: 1
+    damage: 210
+    drawSize: 500
+    lifeTime: 350
+    shake: 0.1
     despawnEffect: smokeCloud
     shootEffect: greenLaserChargeSmall
     incendChance: 0.05
@@ -59,7 +59,7 @@ weapons: [
   reload: 20
   rotate: true
   x: 7
-  y: 10
+  y: 7
   mirror: true
   bullet: {
     type: SapBulletType
