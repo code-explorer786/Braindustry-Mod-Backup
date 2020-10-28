@@ -7,7 +7,7 @@ surge-alloy/100
 odinum/1150
 phase-alloy/250
 ] 
-ammo: {
+ammoTypes: {
   plastanium: {
    type: ContinuousLaserBulletType
     length: 50
