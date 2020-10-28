@@ -5,16 +5,16 @@ drag: 0.3
 hitsize: 8
 rotatespeed: 0.03
 targetAir: false
-health: 3500
+health: 1200
 legCount: 2
 legMoveSpace: 1
 legPairOffset: 2
-legLength: 2
+legLength: 7
 legExtension: -4
 legBaseOffset: 5
 landShake: 0.1
 legSpeed: 0.2
-legLengthScl: 0.96
+legLengthScl: 1
 rippleScale: 2
 legSplashDamage: 32
 legSplashRange: 30
@@ -40,8 +40,8 @@ bullet: {
     hitColor: f0e4a8
     color: f0e4a8
     despawnEffect: none
-    width: 0.4
-    lifetime: 25
+    width: 2
+    lifetime: 150
     knockback: -0.65
 }
 }]
