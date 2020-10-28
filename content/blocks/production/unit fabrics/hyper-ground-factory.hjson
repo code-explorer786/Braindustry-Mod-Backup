@@ -1,0 +1,34 @@
+name: Hyper Ground Factory
+type: UnitFactory
+size: 3
+consumes: {
+  power: 2
+}
+plans: [
+  {
+    unit: ibis
+    requirements: [
+      silicon/10
+      graphenite/5
+      coal/5
+    ] 
+    time: 460
+  }
+  {
+    unit: armor
+    requirements: [
+      silicon/10
+      graphenite/5
+      surge-alloy/2
+    ] 
+    time: 460
+  }
+]
+requirements: [
+  copper/50
+  lead/140
+  silicon/70
+  plastanium/60
+]
+category: units
+research: ground-factory

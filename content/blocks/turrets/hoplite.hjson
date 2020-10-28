@@ -9,18 +9,18 @@ phase-alloy/250
 ] 
 ammo: {
   plastanium: {
-    type: PointBulletType
-    shootEffect: instShoot
-    hitEffect: instHit
-    smokeEffect: smokeCloud
-    trailEffect: instTrail
-    despawnEffect: instBomb
-    trailSpacing: 26
-    damage: 3000
-    tileDamageMultiplier: 0.6
-    speed: 500
-    hitShake: 7
-    ammoMultiplier: 2
+   type: ContinuousLaserBulletType
+    length: 50
+    hitEffect: hitMeltHeal
+    damage: 210
+    drawSize: 500
+    lifeTime: 350
+    shake: 0.1
+    despawnEffect: smokeCloud
+    shootEffect: greenLaserChargeSmall
+    incendChance: 0.05
+    incendSpread: 5
+    incendAmount: 3
   }
 }
 reload: 40

@@ -1,0 +1,29 @@
+name: Hyper Multiplicative Reconstructor
+type: Reconstructor
+size: 5
+consumes: {
+  power: 6
+  items: {
+    items: [
+    silicon/60
+    graphenite/50
+    metaglass/30
+    odinum/30
+    ]
+  }
+}
+constructTime: 1500
+requirements: [
+  graphenite/600
+  titanium/300
+  silicon/300
+  odinum/600
+  plastanium/150
+]
+upgrades: [
+  [
+    aries, capra
+  ]
+]
+category: units
+research: multiplicative-reconstructor

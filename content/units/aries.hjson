@@ -1,0 +1,46 @@
+type: LegsUnit
+speed: 0.6
+drag: 0.3
+hitsize: 8
+rotatespeed: 0.03
+targetAir: false
+health: 5000
+legCount: 2
+legMoveSpace: 1
+legPairOffset: 2
+legLength: 12
+legExtension: -15
+legBaseOffset: 10
+landShake: 1
+legSpeed: 0.2
+legLengthScl: 0.96
+rippleScale: 2
+legSplashDamage: 32
+legSplashRange: 30
+hovering: true
+allowLegStep: true
+visualElevation: 0.65
+immunities: [
+burning, melting
+]
+weapons: [{
+name: ibis-weapon
+x: -3
+y: 5
+reload: 12
+alternate: true
+ejectEffect: none
+bullet: {
+	  type: SapBulletType
+    sapStrength: 0.65
+    length: 36
+    damage: 50
+    shootEffect: shootSmall
+    hitColor: f0e4a8
+    color: f0e4a8
+    despawnEffect: none
+    width: 0.4
+    lifetime: 25
+    knockback: -0.65
+}
+}]

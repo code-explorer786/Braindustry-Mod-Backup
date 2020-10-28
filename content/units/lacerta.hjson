@@ -1,0 +1,78 @@
+type: LegsUnit
+name: Lacerta
+itemCapacity: 200
+boostMultiplier: 2.1
+engineOffset: 12
+engineSize: 6
+lowAltitude: true
+speed: 0.35
+drag: 0.4
+hitsize: 23
+rotateSpeed: 1.6
+health: 7000
+armor: 7
+canBoost: true
+landShake: 4
+commandLimit: 8
+legCount: 4
+legLength: 15
+legTrns: 0.8
+legMoveSpace: 1.5
+legBaseOffset: 2
+hovering: true
+buildSpeed: 0.8
+allowLegStep: true
+visualElevation: 0.4
+ammoTypes: powerHigh
+mechStepShake: 0.15
+mechStepParticles: true
+weapons: [
+{
+  name: lacerta-weapon
+  x: 1
+  y: 0
+  shootY: 13
+  reload: 80
+  ejectEffect: none
+  recoil: 0
+  continous: true
+  shootSound: laser
+  cooldownTime: 80
+  mirror: false
+  bullet: {
+    type: ContinuousLaserBulletType
+    length: 215
+    hitEffect: hitMeltHeal
+    damage: 1560
+    drawSize: 320
+    lifeTime: 240
+    shake: 1
+    despawnEffect: smokeCloud
+    shootEffect: greenLaserChargeSmall
+    incendChance: 0.05
+    incendSpread: 5
+    incendAmount: 3
+  }
+}
+{
+  name: capra-weapon
+  reload: 20
+  rotate: true
+  x: 7
+  y: 10
+  mirror: true
+  bullet: {
+    type: SapBulletType
+    sapStrength: 0.8
+    length: 105
+    damage: 1
+    shootEffect: shootSmall
+    hitColor: e88ec9
+    color: e88ec9
+    despawnEffect: none
+    width: 2
+    lifetime: 25
+    knockback: -0.65
+  }
+}
+]

@@ -1,0 +1,27 @@
+name: Hyper Additive Reconstructor
+type: Reconstructor
+size: 3
+consumes: {
+  power: 3
+  items: {
+    items: [
+    silicon/30
+    graphenite/30
+    titanium/15
+    ]
+  }
+}
+constructTime: 900
+requirements: [
+  copper/200
+  titanium/120
+  silicon/90
+  phase-fabric/80
+]
+upgrades: [
+  [
+    ibis, aries
+  ]
+]
+category: units
+research: additive-reconstructor

@@ -1,0 +1,36 @@
+name: Hyper Tetrative Reconstructor
+type: Reconstructor
+size: 9
+consumes: {
+  power: 9
+  items: {
+    items: [
+    silicon/300
+    surge-alloy/300
+    phase-fabric/150
+    plastanium/400
+    exotic-alloy/500
+    ]
+  }
+  liquid: {
+    liquid: thorium-refrigerant
+    amount: 0.3
+  }
+}
+constructTime: 3000
+requirements: [
+  graphenite/3100
+  surge-alloy/500
+  odinum/500
+  plastanium/400
+  phase-fabric/600
+  silicon/1500
+  exotic-alloy/1000
+]
+upgrades: [
+  [
+    lacerta, aquila
+  ]
+]
+category: units
+research: tetrative-reconstructor

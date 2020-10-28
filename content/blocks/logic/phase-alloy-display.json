@@ -5,7 +5,7 @@
  "health": 370,
  "name": "Phase Alloy Display",
  "category": "logic",
- "description": "Big display from Phase Alloy.",
+ "description": "296 pixel resolution display.",
  "requirements": [
 	{ "item": "plastanium", "amount": 70},
 	{ "item": "titanium", "amount": 170 },

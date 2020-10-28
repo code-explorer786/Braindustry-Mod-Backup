@@ -2,18 +2,22 @@
 OFFICIAL CHANGELOG
 ------------------------------------------------------------------------------------------
 
-1.3.6
+1.3.6 "Bleeding Update"
 
 Mod now work on BE Builds.
 New logic blocks!
 Some balance.
 Turrets,units,mechs deleted from mod for compability with BE Builds.
 
-1.3.7
+1.4 "Attack Update"
 
 Bugfixes with walls.
 Some new and old turrets(Brain,Hoplite,Katana).
 Surge Conveyor.
+Units and Reconstructors.
+Surge Alloy Kiln 5x5.
+Fixed some bugs.
+Not fixed some bugs.
 
 ------------------------------------------------------------------------------------------
 Github-pixaxeofpixie/braindustry-mod
