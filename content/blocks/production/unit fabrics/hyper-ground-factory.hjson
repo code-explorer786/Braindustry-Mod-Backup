@@ -12,8 +12,7 @@ plans: [
       graphenite/5
       odinum/5
     ] 
-    time: 550
-    ] 
+    time: 550 
   }
   {
     unit: armor
