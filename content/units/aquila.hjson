@@ -2,21 +2,6 @@ type: LegsUnit
 name: Aquila
 drag: 0.1
 speed: 0.5
-<<<<<<< HEAD
-hitsize: 26
-health: 8000
-armor: 20
-rotateSpeed: 2
-legCount: 8
-legMoveSpace: 0.9
-legPairOffset: 3
-legLength: 45
-legExtension: 21
-legBaseOffset: 8
-landShake: 1.5
-legSpeed: 0.2
-legLengthScl: 1.8
-=======
 hitsize: 21
 health: 69000
 armor: 14
@@ -30,48 +15,26 @@ legBaseOffset: 8
 landShake: 1
 legSpeed: 0.19
 legLengthScl: 0.93
->>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
 rippleScale: 3
 legSplashDamage: 160
 legSplashRange: 80
 hovering: true
 allowLegStep: true
-<<<<<<< HEAD
-visualElevation: 1.5
-=======
 visualElevation: 0.95
->>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
 weapons: [
 {
   name: capra-weapon
   x: 11
-<<<<<<< HEAD
-  y: -8
-=======
   y: -5
->>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
   shootY: 7
   reload: 30
   shake: 4
   rotateSpeed: 2
-<<<<<<< HEAD
-=======
   ejectEffect: shellEjectSmall
->>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
   shootSound: shootBig
   rotate: true
   occlusion: 12
   recoil: 3
-<<<<<<< HEAD
-  shots: 1
-  spacing: 17
-  bullet: {
-    type: ShrapnelBulletType
-    length: 140
-    damage: 510
-    width: 40
-    serrationLenScl: 9
-=======
   shots: 2
   spacing: 17
   bullet: {
@@ -80,7 +43,6 @@ weapons: [
     damage: 430
     width: 25
     serrationLenScl: 7
->>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
     serrationSpaceOffset: 60
     serrationFadeOffset: 0
     serrations: 10
@@ -92,34 +54,6 @@ weapons: [
   }
 }
 {
-<<<<<<< HEAD
-  name: lacerta-weapon
-  x: 0
-  y: -12
-  shootY: 13
-  reload: 180
-  ejectEffect: none
-  recoil: 4
-  continous: true
-  shootSound: laser
-  shootStatus: unmoving
-  shootStatusDuration: 200
-  cooldownTime: 190
-  mirror: false
-  bullet: {
-    type: ContinuousLaserBulletType
-    length: 280
-    hitEffect: hitMeltHeal
-    damage: 1500
-    drawSize: 400
-    lifetime: 120
-    shake: 0.5
-    despawnEffect: smokeCloud
-    shootEffect: greenLaserChargeSmall
-    incendChance: 0.05
-    incendSpread: 5
-    incendAmount: 3
-=======
   name: large-pink-mount
   x: 0
   y: -14
@@ -180,7 +114,6 @@ weapons: [
       status: sapped
       statusDuration: 600
     }
->>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
   }
 }
 ]

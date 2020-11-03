@@ -1,32 +1,8 @@
 type: LegsUnit
 health: 210
-<<<<<<< HEAD
-speed: 0.85
-range: 100
-mechSideSway: 0.25
-hitsize: 5
-rotateSpeed: 1
-armor: 0.5
-canBoost: true
-landShake: 0.1
-commandLimit: 8
-legCount: 4
-legLength: 8
-legTrns: 0.8
-legMoveSpace: 1.5
-legBaseOffset: 2
-hovering: true
-buildSpeed: 0.8
-allowLegStep: true
-visualElevation: 0.4
-ammoTypes: powerHigh
-mechStepShake: 0.15
-mechStepParticles: true
-=======
 speed: 1
 range: 100
 mechSideSway: 0.25
->>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
 weapons: [
 {
   name: ibis-weapon
