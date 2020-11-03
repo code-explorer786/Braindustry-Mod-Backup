@@ -1,0 +1,36 @@
+type: Reconstructor
+name: Hyper Exponential Recontructor
+size: 7
+consumes: {
+  power: 7
+  items: {
+    items: [
+    silicon/100
+    graphenite/100
+    titanium/125
+    plastanium/75
+    exotic-alloy/40
+    ]
+  }
+  liquid: {
+    liquid: thorium-refrigerant
+    amount: 0.1
+  }
+}
+constructTime: 2100
+requirements: [
+  graphenite/1200
+  titanium/900
+  odinum/500
+  plastanium/200
+  phase-fabric/300
+  silicon/750
+  exotic-alloy/130
+]
+upgrades: [
+  [
+    capra, lacerta
+  ]
+]
+category: units
+research: exponential-reconstructor

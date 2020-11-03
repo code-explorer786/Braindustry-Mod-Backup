@@ -1,0 +1,72 @@
+<<<<<<< HEAD
+name: Armor
+speed: 0.7
+maxVelocity: 1
+flying: true
+health: 500
+range: 130
+weaponOffsetY: 1
+engineOffsetY: -100
+rotateSpeed: 10
+mass: 5.0
+targetAir: true
+rotateWeapon: true
+weapons:[
+{
+  name: armor-weapon
+  shots: 1
+  x: 0
+  y: 4
+  mirror: false
+  reload: 70
+  rotate: true
+  spacing: 2
+  inaccuracy: 0.1
+  bullet: {
+    type: ContinuousLaserBulletType
+    length: 90
+    hitEffect: hitMeltHeal
+    damage: 60
+    drawSize: 40
+    lifetime: 50
+=======
+name: поглотитель
+	speed: 0.4
+  maxVelocity: 1
+	flying: true
+	health: 50000
+	range: 200
+  type: UnitEntity
+	weaponOffsetY: 1
+	eangineOffsetY: -100
+	rotateSpeed: 10
+	mass: 5.0
+	targetAir: true
+	rotateWeapon: true
+weapons:[
+{
+  name: armor-weapon
+  shots: 2
+  x: 2
+  y: 2
+  mirror: true
+  reload: 8
+  rotate: true
+  spacing: 5
+  inaccuracy: 0
+  bullet: {
+    type: ContinuousLaserBulletType
+    length: 50
+    hitEffect: hitMeltHeal
+    damage: 210
+    drawSize: 100
+    lifeTime: 110
+>>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
+    shake: 0.1
+    despawnEffect: smokeCloud
+    shootEffect: greenLaserChargeSmall
+    incendChance: 0.05
+    incendSpread: 5
+    incendAmount: 3
+}}
+]

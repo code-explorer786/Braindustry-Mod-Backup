@@ -1,0 +1,39 @@
+name: Shield
+speed: 0.6
+maxVelocity: 1.2
+flying: true
+health: 1000
+armor: 1
+range: 250
+weaponOffsetY: 2
+engineOffsetY: -10
+rotateSpeed: 0.5
+mass: 6.0
+targetAir: true
+rotateWeapon: true
+weapons:[
+{
+  name: shield-weapon
+  shots: 1
+  x: 0
+  y: 10
+  mirror: false
+  reload: 300
+  rotate: true
+  spacing: 7
+  inaccuracy: 0.3
+  bullet: {
+    type: ContinuousLaserBulletType
+    length: 150
+    hitEffect: hitMeltHeal
+    damage: 1000
+    drawSize: 400
+    lifetime: 240
+    shake: 0.3
+    despawnEffect: smokeCloud
+    shootEffect: greenLaserChargeSmall
+    incendChance: 0.05
+    incendSpread: 3
+    incendAmount: 4
+}}
+]

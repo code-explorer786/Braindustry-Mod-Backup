@@ -6,7 +6,7 @@ silicon/120
 surge-alloy/100
 odinum/100
 ] 
-ammo: {
+ammoTypes: {
   plastanium: {
     type: PointBulletType
     shootEffect: instShoot

@@ -1,5 +1,6 @@
+<<<<<<< HEAD
+require("armorUnit");
+=======
 const multiLib=require("wrapper");//Библиотека
-require("Blocks/multi-forge");
-require("Blocks/turrets/eclipse");
-require("Blocks/windmill");
-require("Blocks/surge-conveyor");
+require("armor");
+>>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819

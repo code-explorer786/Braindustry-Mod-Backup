@@ -1,0 +1,93 @@
+type: LegsUnit
+name: Aries
+speed: 0.6
+<<<<<<< HEAD
+drag: 0.5
+hitsize: 3
+rotatespeed: 0.8
+targetAir: false
+health: 120
+legCount: 4
+legMoveSpace: 0.9
+legPairOffset: 0.5
+legLength: 8
+legExtension: 2
+legBaseOffset: 3
+=======
+drag: 0.3
+hitsize: 8
+rotatespeed: 0.03
+targetAir: false
+health: 1200
+legCount: 2
+legMoveSpace: 1
+legPairOffset: 2
+legLength: 7
+legExtension: -4
+legBaseOffset: 5
+>>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
+landShake: 0.1
+legSpeed: 0.2
+legLengthScl: 1
+rippleScale: 2
+<<<<<<< HEAD
+legSplashDamage: 5
+legSplashRange: 5
+=======
+legSplashDamage: 32
+legSplashRange: 30
+>>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
+hovering: true
+allowLegStep: true
+visualElevation: 0.65
+immunities: [
+burning
+]
+weapons: [{
+<<<<<<< HEAD
+  name: ibis-weapon
+  x: 4
+  y: -6
+  shootY: 13
+  reload: 80
+  ejectEffect: none
+  recoil: 0
+  continous: true
+  shootSound: laser
+  cooldownTime: 80
+  mirror: true
+  bullet: {
+    type: ContinuousLaserBulletType
+    length: 70
+    hitEffect: hitMeltHeal
+    damage: 80
+    drawSize: 100
+    lifeеime: 100
+    shake: 0.1
+    despawnEffect: smokeCloud
+    shootEffect: greenLaserChargeSmall
+    incendChance: 0.05
+    incendSpread: 1
+    incendAmount: 1
+=======
+name: ibis-weapon
+x: -6
+y: 5
+reload: 12
+alternate: true
+ejectEffect: none
+bullet: {
+	  type: SapBulletType
+    sapStrength: 1.0
+    length: 40
+    damage: 120
+    shootEffect: shootSmall
+    hitColor: f0e4a8
+    color: f0e4a8
+    despawnEffect: none
+    width: 2
+    lifetime: 150
+    knockback: -0.65
+>>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
+}
+}]
