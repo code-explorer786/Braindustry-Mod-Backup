@@ -39,7 +39,6 @@ weapons: [
   reload: 30
   shake: 4
   rotateSpeed: 2
-  ejectEffect: shellEjectSmall
   shootSound: shootBig
   rotate: true
   occlusion: 12
