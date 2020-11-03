@@ -2,27 +2,21 @@ type: LegsUnit
 name: Lacerta
 itemCapacity: 200
 boostMultiplier: 2.1
-<<<<<<< HEAD
-=======
 engineOffset: 12
 engineSize: 6
 lowAltitude: true
->>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
 speed: 0.35
 drag: 0.4
 hitsize: 23
 rotateSpeed: 1.6
-<<<<<<< HEAD
 health: 4000
 armor: 7
 canBoost: true
 landShake: 1
-=======
 health: 7000
 armor: 7
 canBoost: true
 landShake: 4
->>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
 commandLimit: 8
 legCount: 4
 legLength: 15
@@ -39,7 +33,6 @@ mechStepParticles: true
 weapons: [
 {
   name: lacerta-weapon
-<<<<<<< HEAD
   x: 0
   y: -1
   shootY: 10
@@ -65,64 +58,26 @@ weapons: [
     incendChance: 0.05
     incendSpread: 7
     incendAmount: 6
-=======
-  x: 10
-  y: 18
-  shootY: 13
-  reload: 80
-  ejectEffect: none
-  recoil: 0
-  continous: true
-  shootSound: laser
-  cooldownTime: 80
-  mirror: true
-  bullet: {
-    type: ContinuousLaserBulletType
-    length: 340
-    hitEffect: hitMeltHeal
-    damage: 210
-    drawSize: 500
-    lifeTime: 350
-    shake: 0.1
-    despawnEffect: smokeCloud
-    shootEffect: greenLaserChargeSmall
-    incendChance: 0.05
-    incendSpread: 5
-    incendAmount: 3
->>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
   }
 }
 {
   name: capra-weapon
   reload: 20
   rotate: true
-<<<<<<< HEAD
   x: 10
   y: -7
   mirror: true
   bullet: {
     type: SapBulletType
-    sapStrength: 2
-    length: 80
-=======
-  x: 7
-  y: 7
-  mirror: true
-  bullet: {
-    type: SapBulletType
     sapStrength: 0.8
     length: 105
->>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
     damage: 1
     shootEffect: shootSmall
     hitColor: e88ec9
     color: e88ec9
     despawnEffect: none
-<<<<<<< HEAD
     width: 3
-=======
     width: 2
->>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
     lifetime: 25
     knockback: -0.65
   }

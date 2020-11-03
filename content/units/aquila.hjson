@@ -2,7 +2,6 @@ type: LegsUnit
 name: Aquila
 drag: 0.1
 speed: 0.5
-<<<<<<< HEAD
 hitsize: 26
 health: 8000
 armor: 20
@@ -16,8 +15,6 @@ legBaseOffset: 8
 landShake: 1.5
 legSpeed: 0.2
 legLengthScl: 1.8
-=======
-hitsize: 21
 health: 69000
 armor: 14
 rotateSpeed: 1.9
@@ -29,50 +26,25 @@ legExtension: -20
 legBaseOffset: 8
 landShake: 1
 legSpeed: 0.19
-legLengthScl: 0.93
->>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
 rippleScale: 3
 legSplashDamage: 160
 legSplashRange: 80
 hovering: true
-allowLegStep: true
-<<<<<<< HEAD
-visualElevation: 1.5
-=======
-visualElevation: 0.95
->>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
 weapons: [
 {
   name: capra-weapon
   x: 11
-<<<<<<< HEAD
   y: -8
-=======
-  y: -5
->>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
   shootY: 7
   reload: 30
   shake: 4
   rotateSpeed: 2
-<<<<<<< HEAD
-=======
   ejectEffect: shellEjectSmall
->>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
   shootSound: shootBig
   rotate: true
   occlusion: 12
   recoil: 3
-<<<<<<< HEAD
   shots: 1
-  spacing: 17
-  bullet: {
-    type: ShrapnelBulletType
-    length: 140
-    damage: 510
-    width: 40
-    serrationLenScl: 9
-=======
-  shots: 2
   spacing: 17
   bullet: {
     type: ShrapnelBulletType
@@ -80,7 +52,6 @@ weapons: [
     damage: 430
     width: 25
     serrationLenScl: 7
->>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
     serrationSpaceOffset: 60
     serrationFadeOffset: 0
     serrations: 10
@@ -92,7 +63,6 @@ weapons: [
   }
 }
 {
-<<<<<<< HEAD
   name: lacerta-weapon
   x: 0
   y: -12
@@ -119,68 +89,7 @@ weapons: [
     incendChance: 0.05
     incendSpread: 5
     incendAmount: 3
-=======
-  name: large-pink-mount
-  x: 0
-  y: -14
-  shootY: 22
-  mirror: false
-  reload: 180
-  shake: 10
-  recoil: 10
-  rotateSpeed: 1
-  ejectEffect: shellEjectBig
-  shootSound: shootBig
-  rotate: true
-  occlusion: 30
-  bullet: {
-    type: ArtilleryBulletType
-    speed: 3
-    damage: 890
-    hitEffect: sapExplosion
-    knockback: 0.8
-    lifetime: 80
-    width: 25
-    height: 25
-    collides: true
-    collidesTiles: true
-    ammoMultiplier: 4
-    splashDamageRadius: 100
-    splashDamage: 250
-    backColor: ffffff
-    frontColor: f0e4a8
-    lightningColor: f0e4a8
-    lightning: 5
-    lightningLength: 20
-    smokeEffect: shootBigSmoke2
-    hitShake: 10
-    status: sapped
-    statusDuration: 10
-    fragLifeMin: 0.3
-    fragBullets: 12
-    fragBullet: {
-      type: ArtilleryBulletType
-      speed: 2.3
-      damage: 90
-      hitEffect: sapExplosion
-      knockback: 0.8
-      lifetime: 90
-      width: 20
-      height: 20
-      collidesTiles: false
-      splashDamageRadius: 90
-      splashDamage: 165
-      backColor: ffffff
-      frontColor: f0e4a8
-      lightningColor: f0e4a8
-      lightning: 2
-      lightningLength: 7
-      smokeEffect: shootBigSmoke2
-      hitShake: 5
-      status: sapped
-      statusDuration: 600
     }
->>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
   }
 }
 ]
