@@ -40,11 +40,36 @@ weapons: [
     color: f0e4a8
     despawnEffect: none
     width: 0.54
+<<<<<<< HEAD
+    lifetime: 60
+=======
     lifetime: 35
+>>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
     knockback: -1.24
   }
 }
 {
+<<<<<<< HEAD
+  name: ibis-weapon
+  reload: 20
+  rotate: true
+  x: 3
+  y: -5
+  bullet: {
+     type: ShrapnelBulletType
+    length: 100
+    damage: 510
+    width: 20
+    serrationLenScl: 9
+    serrationSpaceOffset: 60
+    serrationFadeOffset: 0
+    serrations: 12
+    serrationWidth: 6
+    fromColor: f0e4a8
+    toColor: ffffff
+    shootEffect: sparkShoot
+    smokeEffect: sparkShoot
+=======
   name: capra-weapon
   reload: 20
   rotate: true
@@ -62,6 +87,7 @@ weapons: [
     width: 0.4
     lifetime: 25
     knockback: -0.65
+>>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
   }
 }
 ]

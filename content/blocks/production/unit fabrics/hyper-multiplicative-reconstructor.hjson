@@ -24,6 +24,12 @@ upgrades: [
   [
     aries, capra
   ]
+<<<<<<< HEAD
+  [
+    shield, chestplate
+  ]
+=======
+>>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
 ]
 category: units
 research: multiplicative-reconstructor

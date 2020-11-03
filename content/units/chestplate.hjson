@@ -1,0 +1,53 @@
+name: Chestplate
+speed: 0.6
+maxVelocity: 1.4
+flying: true
+hitSize: 12
+engineSize: 3.2
+armor: 2
+health: 2000
+range: 310
+weaponOffsetY: 3
+engineOffsetY: -10
+rotateSpeed: 0.5
+mass: 7.0
+targetAir: true
+payloadCapacity: 2
+buildSpeed: 1.5
+rotateWeapon: true
+weapons:[
+{
+  name: shield-weapon
+  shots: 1
+  x: 0
+  y: 13
+  mirror: false
+  reload: 400
+  rotate: true
+  spacing: 5
+  inaccuracy: 0.4
+  bullet: {
+    type: ContinuousLaserBulletType
+    length: 160
+    hitEffect: hitMeltHeal
+    damage: 5500
+    drawSize: 600
+    lifetime: 1300
+    shake: 0.5
+    despawnEffect: smokeCloud
+    shootEffect: greenLaserChargeSmall
+    incendChance: 0.05
+    incendSpread: 2
+    incendAmount: 3
+  }
+}
+  {
+  name: shield-weapon
+  reload: 15
+  mirror: true
+  x: 12
+  y: 8
+  rotate: true
+  bullet: healBullet
+  }
+]
