@@ -5,8 +5,8 @@ drag: 0.3
 hitsize: 8
 rotatespeed: 0.03
 targetAir: false
-health: 1200
-legCount: 2
+health: 120
+legCount: 4
 legMoveSpace: 1
 legPairOffset: 2
 legLength: 7
