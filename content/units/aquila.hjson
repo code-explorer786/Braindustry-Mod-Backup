@@ -54,16 +54,16 @@ weapons: [
 {
   name: lacerta-weapon
   x: 0
-  y: -14
+  y: 1
   shootY: 13
-  reload: 180
+  reload: 260
   ejectEffect: none
   recoil: 4
   continous: true
   shootSound: laser
   shootStatus: unmoving
   shootStatusDuration: 120
-  cooldownTime: 190
+  cooldownTime: 270
   mirror: false
   bullet: {
     type: ContinuousLaserBulletType
