@@ -7,7 +7,7 @@ surge-alloy/100
 odinum/100
 ] 
 ammoTypes: {
-  plastanium: {
+  exotic-alloy: {
     type: PointBulletType
     shootEffect: instShoot
     hitEffect: instHit
@@ -15,9 +15,9 @@ ammoTypes: {
     trailEffect: instTrail
     despawnEffect: instBomb
     trailSpacing: 12
-    damage: 1200
+    damage: 800
     tileDamageMultiplier: 0.3
-    speed: 240
+    speed: 210
     hitShake: 3
     ammoMultiplier: 2
   }
