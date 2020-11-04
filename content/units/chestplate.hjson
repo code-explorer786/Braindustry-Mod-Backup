@@ -5,7 +5,7 @@ flying: true
 hitSize: 12
 engineSize: 3.2
 armor: 2
-health: 1200
+health: 2000
 range: 200
 weaponOffsetY: 3
 engineOffsetY: -10
@@ -13,7 +13,7 @@ rotateSpeed: 0.5
 mass: 7.0
 targetAir: true
 payloadCapacity: 2
-buildSpeed: 1.5
+buildSpeed: 1.6
 rotateWeapon: true
 weapons:[
 {
@@ -26,15 +26,15 @@ weapons:[
   rotate: true
   spacing: 5
   inaccuracy: 0.4
-    shootStatus: unmoving
-  shootStatusDuration: 240
+  shootStatus: unmoving
+  shootStatusDuration: 220
   bullet: {
     type: ContinuousLaserBulletType
     length: 160
     hitEffect: hitMeltHeal
     damage: 500
     drawSize: 300
-    lifetime: 230
+    lifetime: 170
     shake: 0.5
     despawnEffect: smokeCloud
     shootEffect: greenLaserChargeSmall
