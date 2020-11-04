@@ -18,7 +18,7 @@ weapons:[
   x: 0
   y: 10
   mirror: false
-  reload: 300
+  reload: 220
   rotate: true
   spacing: 7
   inaccuracy: 0.3
@@ -30,7 +30,7 @@ weapons:[
     hitEffect: hitMeltHeal
     damage: 1000
     drawSize: 400
-    lifetime: 240
+    lifetime: 110
     shake: 0.3
     despawnEffect: smokeCloud
     shootEffect: greenLaserChargeSmall
