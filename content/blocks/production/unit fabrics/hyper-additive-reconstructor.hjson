@@ -7,10 +7,7 @@ consumes: {
     items: [
     silicon/30
     graphenite/30
-<<<<<<< HEAD
     thorium/10
-=======
->>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
     titanium/15
     ]
   }
@@ -18,10 +15,7 @@ consumes: {
 constructTime: 900
 requirements: [
   copper/200
-<<<<<<< HEAD
   odinum/100
-=======
->>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
   titanium/120
   silicon/90
   phase-fabric/80
@@ -30,12 +24,9 @@ upgrades: [
   [
     ibis, aries
   ]
-<<<<<<< HEAD
   [
     armor, shield
   ]
-=======
->>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
 ]
 category: units
 research: additive-reconstructor

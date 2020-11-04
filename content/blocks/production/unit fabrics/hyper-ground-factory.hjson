@@ -10,24 +10,18 @@ plans: [
     requirements: [
       silicon/10
       graphenite/5
-<<<<<<< HEAD
       odinum/5
     ] 
-    time: 550
-=======
-      coal/5
-    ] 
-    time: 460
+    time: 550 
   }
   {
     unit: armor
     requirements: [
       silicon/10
       graphenite/5
-      surge-alloy/2
+      lead/10
     ] 
-    time: 460
->>>>>>> bc68dde6ca3441998b6ecd7b08d6918b50314819
+    time: 550
   }
 ]
 requirements: [

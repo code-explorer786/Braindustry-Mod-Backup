@@ -3,18 +3,13 @@ name: Lacerta
 itemCapacity: 200
 boostMultiplier: 2.1
 engineOffset: 12
-engineSize: 6
-lowAltitude: true
 speed: 0.35
 drag: 0.4
 hitsize: 23
 rotateSpeed: 1.6
 health: 4000
 armor: 7
-canBoost: true
 landShake: 1
-health: 7000
-armor: 7
 canBoost: true
 landShake: 4
 commandLimit: 8
@@ -62,7 +57,7 @@ weapons: [
 }
 {
   name: capra-weapon
-  reload: 20
+  reload: 30
   rotate: true
   x: 10
   y: -7

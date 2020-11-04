@@ -4,7 +4,6 @@ drag: 0.1
 speed: 0.5
 hitsize: 26
 health: 8000
-armor: 20
 rotateSpeed: 2
 legCount: 8
 legMoveSpace: 0.9
@@ -15,31 +14,21 @@ legBaseOffset: 8
 landShake: 1.5
 legSpeed: 0.2
 legLengthScl: 1.8
-health: 69000
 armor: 14
-rotateSpeed: 1.9
-legCount: 6
-legMoveSpace: 0.8
-legPairOffset: 3
-legLength: 52
-legExtension: -20
-legBaseOffset: 8
-landShake: 1
 legSpeed: 0.19
 rippleScale: 3
 legSplashDamage: 160
-legSplashRange: 80
+legSplashRange: 50
 hovering: true
 weapons: [
 {
   name: capra-weapon
-  x: 11
+  x: 13
   y: -8
   shootY: 7
   reload: 30
   shake: 4
   rotateSpeed: 2
-  ejectEffect: shellEjectSmall
   shootSound: shootBig
   rotate: true
   occlusion: 12
@@ -54,7 +43,7 @@ weapons: [
     serrationLenScl: 7
     serrationSpaceOffset: 60
     serrationFadeOffset: 0
-    serrations: 10
+    serrations: 11
     serrationWidth: 6
     fromColor: f0e4a8
     toColor: ffffff
@@ -65,16 +54,16 @@ weapons: [
 {
   name: lacerta-weapon
   x: 0
-  y: -12
+  y: 1
   shootY: 13
-  reload: 180
+  reload: 260
   ejectEffect: none
   recoil: 4
   continous: true
   shootSound: laser
   shootStatus: unmoving
-  shootStatusDuration: 200
-  cooldownTime: 190
+  shootStatusDuration: 120
+  cooldownTime: 270
   mirror: false
   bullet: {
     type: ContinuousLaserBulletType
@@ -82,14 +71,13 @@ weapons: [
     hitEffect: hitMeltHeal
     damage: 1500
     drawSize: 400
-    lifetime: 120
+    lifetime: 100
     shake: 0.5
     despawnEffect: smokeCloud
     shootEffect: greenLaserChargeSmall
     incendChance: 0.05
-    incendSpread: 5
-    incendAmount: 3
+    incendSpread: 8
+    incendAmount: 10
     }
   }
-}
 ]

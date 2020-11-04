@@ -1,6 +1,6 @@
 type: LegsUnit
 health: 210
-speed: 0.85
+speed: 0.7
 range: 100
 mechSideSway: 0.25
 hitsize: 5
@@ -30,22 +30,22 @@ weapons: [
   x: 3
   y: -1.5
   shootY: 3
-  reload: 10
+  reload: 30
   ejectEffect: none
   recoil: 1
   rotate: true
   shootSound: flame
   bullet: {
     type: SapBulletType
-    sapStrength: 0.5
+    sapStrength: 0.8
     length: 30
-    damage: 45
+    damage: 50
     shootEffect: shootSmall
     hitColor: f0e4a8
     color: f0e4a8
     despawnEffect: none
     width: 0.54
     lifetime: 35
-    knockback: -1.24
+    knockback: 1.24
   }
 }]

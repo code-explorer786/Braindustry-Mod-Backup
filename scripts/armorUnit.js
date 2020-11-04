@@ -14,7 +14,7 @@ const unit = extend(UnitEntity, {
 })
 return unit
 }
-shield.abilities.add(new ForceFieldAbility(120, 6, 200, 1200));
+shield.abilities.add(new ForceFieldAbility(120, 6, 150, 1200));
 
 const chestplate = extendContent(UnitType, "chestplate", {});
 /*T3 unit*/
@@ -23,4 +23,4 @@ const unit = extend(UnitEntity, {
 })
 return unit
 }
-shield.abilities.add(new ForceFieldAbility(130, 7, 340, 1200));
+chestplate.abilities.add(new ForceFieldAbility(130, 7, 220, 1200));

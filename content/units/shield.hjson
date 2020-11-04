@@ -22,6 +22,8 @@ weapons:[
   rotate: true
   spacing: 7
   inaccuracy: 0.3
+    shootStatus: unmoving
+  shootStatusDuration: 240
   bullet: {
     type: ContinuousLaserBulletType
     length: 150
