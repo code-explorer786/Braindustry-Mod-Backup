@@ -14,15 +14,6 @@ plans: [
     ] 
     time: 550 
   }
-  {
-    unit: armor
-    requirements: [
-      silicon/10
-      graphenite/5
-      lead/10
-    ] 
-    time: 550
-  }
 ]
 requirements: [
   copper/50
