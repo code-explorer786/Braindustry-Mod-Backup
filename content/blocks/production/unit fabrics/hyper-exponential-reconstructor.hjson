@@ -31,6 +31,9 @@ upgrades: [
   [
     capra, lacerta
   ]
+  [
+    shield, chestplate
+  ]
 ]
 category: units
 research: exponential-reconstructor
