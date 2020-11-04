@@ -8,9 +8,9 @@ odinum/1150
 phase-alloy/250
 ] 
 ammoTypes: {
-  plastanium: {
+  phase-alloy: {
    type: ContinuousLaserBulletType
-    length: 340
+    length: 300
     hitEffect: hitMeltHeal
     damage: 210
     drawSize: 500
@@ -23,11 +23,11 @@ ammoTypes: {
     incendAmount: 3
   }
 }
-reload: 40
-shots: 2
+reload: 60
+shots: 1
 burstSpacing: 3
 inaccuracy: 0.2
-range: 290
+range: 270
 size: 4
 health: 2500
 research: brain
