@@ -2,10 +2,11 @@ name: Hoplite
 type: itemTurret
 requirements: [
 graphenite/100
-silicon/200
+silicon/2000
 surge-alloy/100
 odinum/1150
-phase-alloy/250
+phase-alloy/350
+plastic/350
 ] 
 ammoTypes: {
   phase-alloy: {
