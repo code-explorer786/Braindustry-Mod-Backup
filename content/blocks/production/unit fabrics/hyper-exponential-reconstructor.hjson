@@ -32,7 +32,7 @@ upgrades: [
     capra, lacerta
   ]
   [
-    shield, chestplate
+    chestplate, chainmail
   ]
 ]
 category: units
