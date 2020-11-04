@@ -2,7 +2,6 @@ type: LegsUnit
 name: Lacerta
 itemCapacity: 200
 boostMultiplier: 2.1
-engineOffset: 12
 speed: 0.35
 drag: 0.4
 hitsize: 23
@@ -13,10 +12,10 @@ landShake: 1
 canBoost: true
 landShake: 4
 commandLimit: 8
-legCount: 4
-legLength: 15
-legTrns: 0.8
-legMoveSpace: 1.5
+legCount: 6
+legLength: 19
+legTrns: 1
+legMoveSpace: 2
 legBaseOffset: 2
 hovering: true
 buildSpeed: 0.8
