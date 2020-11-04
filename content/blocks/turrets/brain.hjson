@@ -1,10 +1,11 @@
 name: Brain
 type: itemTurret
 requirements: [
-graphenite/100
-silicon/120
-surge-alloy/100
-odinum/100
+graphenite/400
+silicon/800
+surge-alloy/120
+plastanium/340
+odinum/700
 ] 
 ammoTypes: {
   exotic-alloy: {
