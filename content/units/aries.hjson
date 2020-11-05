@@ -30,10 +30,10 @@ weapons: [{
   name: ibis-weapon
   x: 4
   y: -6
-  shootY: 13
-  reload: 80
+  shootY: 3
+  reload: 60
   ejectEffect: none
-  recoil: 0
+  recoil: 1.2
   continous: true
   shootSound: laser
   cooldownTime: 80
@@ -44,8 +44,8 @@ weapons: [{
     hitEffect: hitMeltHeal
     damage: 80
     drawSize: 100
-    lifeеime: 100
-    shake: 0.1
+    lifetime: 30
+    shake: 0.2
     despawnEffect: smokeCloud
     shootEffect: greenLaserChargeSmall
     incendChance: 0.05
