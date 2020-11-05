@@ -5,7 +5,7 @@ flying: true
 hitSize: 18
 engineSize: 5
 armor: 4
-health: 2600
+health: 7000
 range: 220
 weaponOffsetY: 3
 engineOffsetY: -14
@@ -51,5 +51,34 @@ weapons:[
   y: -2
   rotate: true
   bullet: healBullet
+  }
+  {
+  name: bomb-weapon
+  x: 0
+  y: -4
+  mirror: false
+  reload: 50
+  minShootVelocity: 0.01
+  bullet: {
+    width: 35
+    height: 35
+    range: 40
+    ignoreRotation: true
+    shootCone: 185
+    despawnShake: 4.5
+    collidesAir: false
+    lifetime: 80
+    despawnEffect: greenBomb
+    hitEffect: massiveExplosion
+    keepVelocity: false
+    spin: 3
+    shrinkX: 0.8
+    shrinkY: 0.8
+    speed: 0.002
+    collides: false
+    healPercent: 20
+    splasDamage: 310
+    splashDamageRadius: 140
+    }
   }
 ]
