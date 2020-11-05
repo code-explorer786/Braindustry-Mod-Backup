@@ -1,16 +1,16 @@
-name: "Katana"
+name: Katana
 description: "Strong artillery turret with powerful ammo."
 type: itemTurret
-range: 340
+range: 300
 recoil: 5
-reload: 320
+reload: 300
 size: 4
-shots: 4
-health: 3100
+shots: 2
+health: 3000
 inaccuracy: 0.1
-liquidBoostIntensity: 1.7
-rotatespeed: 6
-targetAir: true
+liquidBoostIntensity: 1.2
+rotatespeed: 2
+targetAir: false
 targetGround: true
 ammoTypes: {
   plastic: artilleryPlasticFrag
@@ -21,9 +21,9 @@ ammoTypes: {
 consumes: {
  liquid: {
   liquid: thorium-refrigerant
-  amount: 0.3
+  amount: 0.5
   booster: true
-  optional: true
+  optional: false
   }
 }
 requirements: [
