@@ -1,4 +1,5 @@
-name: Brain
+name: Neuron
+description: Fast and compact laser turret.
 type: itemTurret
 requirements: [
 graphenite/400
@@ -23,7 +24,7 @@ ammoTypes: {
     ammoMultiplier: 2
   }
 }
-reload: 40
+reload: 80
 shots: 1
 burstSpacing: 6
 inaccuracy: 1.4
