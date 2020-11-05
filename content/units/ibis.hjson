@@ -1,4 +1,5 @@
 type: LegsUnit
+name: Ibis
 health: 210
 speed: 0.7
 range: 100
