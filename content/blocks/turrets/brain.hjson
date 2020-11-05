@@ -1,4 +1,4 @@
-name: Hoplite
+name: Brain
 type: itemTurret
 requirements: [
 graphenite/100
@@ -24,12 +24,12 @@ ammoTypes: {
     incendAmount: 3
   }
 }
-reload: 60
+reload: 120
 shots: 1
 burstSpacing: 3
 inaccuracy: 0.2
 range: 270
 size: 4
 health: 2500
-research: brain
+research: neuron
 category: turret
