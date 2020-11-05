@@ -28,30 +28,34 @@ weapons: [
 {
   name: lacerta-weapon
   x: 0
-  y: -1
-  shootY: 10
-  reload: 340
+  y: -5
+  shootY: 7
+  reload: 310
   ejectEffect: none
   recoil: 2
-  continous: true
   shootStatus: unmoving
   shootStatusDuration: 240
   shootSound: laser
-  cooldownTime: 160
   mirror: false
   bullet: {
-    type: ContinuousLaserBulletType
-    length: 350
-    hitEffect: hitMeltHeal
-    damage: 2100
-    drawSize: 500
-    lifetime: 210
-    shake: 1
-    despawnEffect: smokeCloud
-    shootEffect: greenLaserChargeSmall
-    incendChance: 0.05
-    incendSpread: 7
-    incendAmount: 6
+    type: LaserBulletType
+    length: 490
+    damage: 620
+    width: 90
+    lifetime: 75
+    lightningSpacing: 35f
+    lightningLength: 5
+    lightningDelay: 1.1f
+    lightningLengthRand: 15
+    lightningDamage: 50
+    lightningAngleRand: 40f
+    largeHit: true
+    shootEffect: greenLaserCharge
+    healPercent: 35
+    collidesTeam: true
+    sideAngle: 15
+    sideWidth: 0
+    sideLength: 0
   }
 }
 {
