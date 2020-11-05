@@ -41,8 +41,8 @@ weapons: [
     length: 30
     damage: 50
     shootEffect: shootSmall
-    hitColor: f0e4a8
-    color: f0e4a8
+    hitColor: e88ec9
+    color: e88ec9
     despawnEffect: none
     width: 0.54
     lifetime: 35
