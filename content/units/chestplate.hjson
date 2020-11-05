@@ -5,7 +5,7 @@ flying: true
 hitSize: 12
 engineSize: 3.2
 armor: 2
-health: 2000
+health: 1500
 range: 200
 weaponOffsetY: 3
 engineOffsetY: -10
@@ -22,7 +22,7 @@ weapons:[
   x: 0
   y: 2
   mirror: false
-  reload: 200
+  reload: 220
   rotate: true
   spacing: 5
   inaccuracy: 0.4
@@ -30,11 +30,11 @@ weapons:[
   shootStatusDuration: 220
   bullet: {
     type: ContinuousLaserBulletType
-    length: 160
+    length: 130
     hitEffect: hitMeltHeal
-    damage: 500
-    drawSize: 300
-    lifetime: 170
+    damage: 300
+    drawSize: 200
+    lifetime: 100
     shake: 0.5
     despawnEffect: smokeCloud
     shootEffect: greenLaserChargeSmall
@@ -45,7 +45,7 @@ weapons:[
 }
   {
   name: shield-weapon
-  reload: 15
+  reload: 25
   mirror: true
   x: 7
   y: 2
