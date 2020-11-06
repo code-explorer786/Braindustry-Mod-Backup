@@ -13,30 +13,38 @@ targetAir: true
 rotateWeapon: true
 weapons:[
 {
-  name: shield-weapon
-  shots: 1
+name: lacerta-weapon
   x: 0
-  y: -7
-  mirror: false
-  reload: 120
-  rotate: true
-  spacing: 7
-  inaccuracy: 0.3
+  y: -5
+  shootY: 6
+  reload: 240
+  ejectEffect: none
+  recoil: 2
   shootStatus: unmoving
-  shootStatusDuration: 
+  shootStatusDuration: 100
+  firstShotDelay: 70
+  shootSound: laser
+  mirror: false
   bullet: {
-    type: ContinuousLaserBulletType
-    length: 150
-    hitEffect: hitMeltHeal
-    damage: 550
-    drawSize: 120
-    lifetime: 70
-    shake: 0.3
-    despawnEffect: smokeCloud
-    shootEffect: greenLaserChargeSmall
-    incendChance: 0.05
-    incendSpread: 3
-    incendAmount: 4
+    type: LaserBulletType
+    length: 500
+    damage: 650
+    width: 120
+    lifetime: 85
+    lightningSpacing: 40
+    lightningLength: 12
+    lightningDelay: 1.0
+    lightningLengthRand: 21
+    lightningDamage: 65
+    lightningAngleRand: 30
+    largeHit: true
+    shootEffect: greenLaserCharge
+    healPercent: 40
+    collidesTeam: true
+    sideAngle: 15
+    sideWidth: 0
+    sideLength: 0
+    colors: [d5b2ed, 9671b1, a17dcd]
     }
-  }
+}
 ]
