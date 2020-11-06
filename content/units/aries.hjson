@@ -28,28 +28,36 @@ burning
 ]
 weapons: [{
   name: ibis-weapon
-  x: 4
-  y: -6
-  shootY: 3
-  reload: 60
+  x: 5
+  y: -1
+  shootY: 2
+  reload: 80
   ejectEffect: none
-  recoil: 1.2
-  continous: true
+  recoil: 1
+  shootStatus: unmoving
+  shootStatusDuration: 70
+  firstShotDelay: 40
   shootSound: laser
-  cooldownTime: 80
   mirror: true
   bullet: {
-    type: ContinuousLaserBulletType
-    length: 70
-    hitEffect: hitMeltHeal
-    damage: 80
-    drawSize: 100
-    lifetime: 30
-    shake: 0.2
-    despawnEffect: smokeCloud
-    shootEffect: greenLaserChargeSmall
-    incendChance: 0.05
-    incendSpread: 1
-    incendAmount: 1
+    type: LaserBulletType
+    length: 100
+    damage: 210
+    width: 60
+    lifetime: 60
+    lightningSpacing: 10
+    lightningLength: 4
+    lightningDelay: 1.2
+    lightningLengthRand: 7
+    lightningDamage: 20
+    lightningAngleRand: 12
+    largeHit: true
+    shootEffect: greenLaserCharge
+    healPercent: 15
+    collidesTeam: true
+    sideAngle: 10
+    sideWidth: 0
+    sideLength: 0
+    colors: [d5b2ed, 9671b1, a17dcd]
 }
 }]
