@@ -58,7 +58,7 @@ weapons: [
     sideAngle: 15
     sideWidth: 0
     sideLength: 0
-    colors: {d5b2ed, 9671b1, a17dcd}
+    colors: [d5b2ed, 9671b1, a17dcd]
   }
 }
 {
