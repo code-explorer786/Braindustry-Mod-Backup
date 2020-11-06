@@ -16,21 +16,21 @@ weapons:[
   name: shield-weapon
   shots: 1
   x: 0
-  y: 10
+  y: -7
   mirror: false
-  reload: 220
+  reload: 120
   rotate: true
   spacing: 7
   inaccuracy: 0.3
-    shootStatus: unmoving
-  shootStatusDuration: 240
+  shootStatus: unmoving
+  shootStatusDuration: 
   bullet: {
     type: ContinuousLaserBulletType
     length: 150
     hitEffect: hitMeltHeal
-    damage: 1000
-    drawSize: 400
-    lifetime: 110
+    damage: 550
+    drawSize: 120
+    lifetime: 70
     shake: 0.3
     despawnEffect: smokeCloud
     shootEffect: greenLaserChargeSmall
