@@ -35,7 +35,7 @@ weapons: [
   ejectEffect: none
   recoil: 2
   shootStatus: unmoving
-  shootStatusDuration: 120
+  shootStatusDuration: 100
   firstShotDelay: 70
   shootSound: laser
   mirror: false
@@ -58,7 +58,7 @@ weapons: [
     sideAngle: 15
     sideWidth: 0
     sideLength: 0
-    colors: {#d5b2ed, #9671b1}
+    colors: {d5b2ed, 9671b1, a17dcd}
   }
 }
 {
