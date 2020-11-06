@@ -29,25 +29,26 @@ weapons: [
   name: lacerta-weapon
   x: 0
   y: -5
-  shootY: 7
-  reload: 310
+  shootY: 6
+  reload: 240
   ejectEffect: none
   recoil: 2
   shootStatus: unmoving
-  shootStatusDuration: 240
+  shootStatusDuration: 120
+  firstShotDelay: 70
   shootSound: laser
   mirror: false
   bullet: {
     type: LaserBulletType
-    length: 490
-    damage: 620
-    width: 90
-    lifetime: 75
+    length: 500
+    damage: 650
+    width: 120
+    lifetime: 85
     lightningSpacing: 35f
     lightningLength: 5
     lightningDelay: 1.1f
     lightningLengthRand: 15
-    lightningDamage: 50
+    lightningDamage: 65
     lightningAngleRand: 40f
     largeHit: true
     shootEffect: greenLaserCharge
