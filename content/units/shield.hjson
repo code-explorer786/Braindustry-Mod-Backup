@@ -37,5 +37,6 @@ weapons:[
     incendChance: 0.05
     incendSpread: 3
     incendAmount: 4
-}}
+    }
+  }
 ]
