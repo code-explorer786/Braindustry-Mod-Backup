@@ -27,21 +27,21 @@ name: lacerta-weapon
   mirror: false
   bullet: {
     type: LaserBulletType
-    length: 500
-    damage: 650
-    width: 120
-    lifetime: 85
-    lightningSpacing: 40
-    lightningLength: 12
-    lightningDelay: 1.0
-    lightningLengthRand: 21
-    lightningDamage: 65
-    lightningAngleRand: 30
+    length: 80
+    damage: 80
+    width: 50
+    lifetime: 60
+    lightningSpacing: 10
+    lightningLength: 3
+    lightningDelay: 1.1
+    lightningLengthRand: 6
+    lightningDamage: 25
+    lightningAngleRand: 12
     largeHit: true
     shootEffect: greenLaserCharge
-    healPercent: 40
+    healPercent: 12
     collidesTeam: true
-    sideAngle: 15
+    sideAngle: 12
     sideWidth: 0
     sideLength: 0
     colors: [d5b2ed, 9671b1, a17dcd]
