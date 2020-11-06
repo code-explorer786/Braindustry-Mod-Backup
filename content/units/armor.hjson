@@ -2,8 +2,8 @@ name: Armor
 speed: 0.7
 maxVelocity: 1
 flying: true
-health: 500
-range: 130
+health: 350
+range: 100
 weaponOffsetY: 1
 engineOffsetY: -3
 rotateSpeed: 10
@@ -12,23 +12,37 @@ targetAir: true
 rotateWeapon: true
 weapons:[
 {
-  name: armor-weapon
-  shots: 1
+name: armor-weapon
   x: 0
-  y: 0
-  mirror: false
-  reload: 70
-  rotate: true
-  spacing: 2
-  inaccuracy: 0.1
+  y: -4
+  shootY: 6
+  reload: 65
+  ejectEffect: none
+  recoil: 1
   shootStatus: unmoving
-  shootStatusDuration: 70
+  shootStatusDuration: 40
+  firstShotDelay: 23
+  shootSound: laser
+  mirror: false
   bullet: {
-    type: ContinuousLaserBulletType
-    length: 90
-    hitEffect: hitMeltHeal
-    damage: 60
-    drawSize: 30
-    lifetime: 50
+    type: LaserBulletType
+    length: 70
+    damage: 120
+    width: 25
+    lifetime: 35
+    lightningSpacing: 5
+    lightningLength: 4
+    lightningDelay: 1.1
+    lightningLengthRand: 5
+    lightningDamage: 12
+    lightningAngleRand: 10
+    largeHit: true
+    shootEffect: greenLaserCharge
+    healPercent: 10
+    collidesTeam: true
+    sideAngle: 15
+    sideWidth: 0
+    sideLength: 0
+    colors: [d5b2ed, 9671b1, a17dcd]
 }}
 ]
