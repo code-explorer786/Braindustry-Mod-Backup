@@ -26,9 +26,9 @@ name: armor-weapon
   mirror: false
   bullet: {
     type: LaserBulletType
-    length: 70
-    damage: 120
-    width: 25
+    length: 50
+    damage: 100
+    width: 15
     lifetime: 35
     lightningSpacing: 5
     lightningLength: 4
