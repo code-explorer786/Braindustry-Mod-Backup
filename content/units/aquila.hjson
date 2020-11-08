@@ -1,9 +1,9 @@
 type: LegsUnit
 name: Aquila
 drag: 0.1
-speed: 0.5
-hitsize: 26
-health: 8000
+speed: 0.4
+hitsize: 27
+health: 8500
 rotateSpeed: 2
 legCount: 8
 legMoveSpace: 0.9
@@ -45,8 +45,8 @@ weapons: [
     serrationFadeOffset: 0
     serrations: 11
     serrationWidth: 6
-    fromColor: f0e4a8
-    toColor: ffffff
+    fromColor: d5b2ed
+    toColor: a17dcd
     shootEffect: sparkShoot
     smokeEffect: sparkShoot
   }
@@ -60,7 +60,6 @@ weapons: [
   ejectEffect: none
   recoil: 0
   shootStatus: unmoving
-  shootStatusDuration: 140
   firstShotDelay: 60
   shootSound: laser
   mirror: false
