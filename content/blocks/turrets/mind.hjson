@@ -10,7 +10,7 @@ phase-alloy/350
 plastic/350
 ] 
 ammoTypes: {
-  Plastic: {
+  plastic: {
    type: ShrapnelBulletType
     length: 150
     damage: 650
