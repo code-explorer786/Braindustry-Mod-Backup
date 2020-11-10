@@ -17,19 +17,19 @@ ammoTypes: {
     trailEffect: instTrail
     despawnEffect: instBomb
     trailSpacing: 12
-    damage: 800
+    damage: 540
     tileDamageMultiplier: 0.3
-    speed: 210
+    speed: 160
     hitShake: 3
     ammoMultiplier: 2
   }
 }
-reload: 80
+reloadTime: 130
 shots: 1
 burstSpacing: 6
-inaccuracy: 1.4
-range: 140
+inaccuracy: 1.0
+range: 150
 size: 2
 health: 1200
-research: cyclone
+research: lancer
 category: turret
