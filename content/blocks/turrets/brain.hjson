@@ -24,7 +24,7 @@ ammoTypes: {
     incendAmount: 3
   }
 }
-reload: 240
+reloadTime: 140
 shots: 1
 burstSpacing: 3
 inaccuracy: 0.2
