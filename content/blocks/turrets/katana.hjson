@@ -3,7 +3,7 @@ description: "Strong artillery turret with powerful ammo."
 type: itemTurret
 range: 300
 recoil: 5
-reloadTime: 160
+reloadTime: 20
 size: 4
 shots: 2
 health: 3000
@@ -14,7 +14,6 @@ targetAir: false
 targetGround: true
 ammoTypes: {
   plastic: artilleryPlasticFrag
-  plastanium: artilleryPlastic
   phase-alloy: artilleryDense
   exotic-alloy: artilleryExplosive
 }
