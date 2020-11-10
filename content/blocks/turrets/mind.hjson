@@ -12,9 +12,9 @@ plastic/350
 ammoTypes: {
   plastic: {
    type: ShrapnelBulletType
-    length: 150
+    length: 220
     damage: 650
-    width: 25
+    width: 35
     serrationLenScl: 7
     serrationSpaceOffset: 60
     serrationFadeOffset: 0
@@ -26,11 +26,11 @@ ammoTypes: {
     smokeEffect: sparkShoot
   }
 }
-reloadTime: 100
+reloadTime: 40
 shots: 1
 burstSpacing: 3
 inaccuracy: 0.2
-range: 200
+range: 230
 size: 4
 health: 2200
 research: neuron
