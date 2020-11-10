@@ -15,7 +15,7 @@ ammoTypes: {
     hitEffect: hitMeltHeal
     damage: 210
     drawSize: 700
-    lifetime: 80
+    lifetime: 60
     shake: 0.1
     despawnEffect: smokeCloud
     shootEffect: greenLaserChargeSmall
@@ -24,11 +24,11 @@ ammoTypes: {
     incendAmount: 3
   }
 }
-reloadTime: 40
+reloadTime: 70
 shots: 1
 burstSpacing: 3
 inaccuracy: 0.2
-range: 270
+range: 260
 size: 4
 health: 2500
 research: neuron
