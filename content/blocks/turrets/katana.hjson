@@ -13,8 +13,6 @@ rotatespeed: 2
 targetAir: false
 targetGround: true
 ammoTypes: {
-  plastic: artilleryPlasticFrag
-  phase-alloy: artilleryDense
   exotic-alloy: artilleryExplosive
 }
 consumes: {
