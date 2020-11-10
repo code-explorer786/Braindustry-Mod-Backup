@@ -3,7 +3,7 @@ description: "Strong artillery turret with powerful ammo."
 type: itemTurret
 range: 300
 recoil: 5
-reload: 300
+reloadTime: 160
 size: 4
 shots: 2
 health: 3000
