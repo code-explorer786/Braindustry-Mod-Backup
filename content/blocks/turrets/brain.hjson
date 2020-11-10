@@ -15,7 +15,7 @@ ammoTypes: {
     hitEffect: hitMeltHeal
     damage: 210
     drawSize: 700
-    lifeTime: 350
+    lifetime: 80
     shake: 0.1
     despawnEffect: smokeCloud
     shootEffect: greenLaserChargeSmall
