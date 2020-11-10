@@ -10,18 +10,24 @@ plastic/350
 ] 
 ammoTypes: {
   phase-alloy: {
-   type: ContinuousLaserBulletType
-    length: 300
-    hitEffect: hitMeltHeal
-    damage: 210
-    drawSize: 700
+   type: LaserBulletType
+    length: 250
+    damage: 670
+    width: 90
     lifetime: 60
-    shake: 0.1
-    despawnEffect: smokeCloud
-    shootEffect: greenLaserChargeSmall
-    incendChance: 0.05
-    incendSpread: 5
-    incendAmount: 3
+    lightningSpacing: 40
+    lightningLength: 12
+    lightningDelay: 1.0
+    lightningLengthRand: 21
+    lightningDamage: 65
+    lightningAngleRand: 30
+    largeHit: true
+    shootEffect: greenLaserCharge
+    collidesTeam: true
+    sideAngle: 15
+    sideWidth: 0
+    sideLength: 0
+    colors: [d5b2ed, 9671b1, a17dcd]
   }
 }
 reloadTime: 70
