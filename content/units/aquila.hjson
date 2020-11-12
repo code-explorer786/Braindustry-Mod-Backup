@@ -22,9 +22,9 @@ legSplashRange: 50
 hovering: true
 weapons: [
 {
-  name: capra-weapon
-  x: 15
-  y: -9
+  name: aquila-equip1
+  x: 14
+  y: -4
   shootY: 7
   reload: 40
   shake: 3
@@ -54,7 +54,7 @@ weapons: [
 {
   name: lacerta-weapon
   x: 0
-  y: -7
+  y: -4
   shootY: 7
   reload: 255
   ejectEffect: none
@@ -86,11 +86,11 @@ weapons: [
     }
   }
   {
-  name: capra-weapon
+  name: aquila-equip2
   reload: 30
   rotate: true
-  x: 5
-  y: -7
+  x: 9
+  y: -11
   mirror: true
   bullet: {
     type: SapBulletType
