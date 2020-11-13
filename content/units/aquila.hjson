@@ -2,29 +2,29 @@ type: LegsUnit
 name: Aquila
 drag: 0.1
 speed: 0.4
-hitsize: 27
-health: 8500
+hitsize: 32
+health: 38000
 rotateSpeed: 2
 legCount: 8
-legMoveSpace: 0.9
-legPairOffset: 3
-legLength: 45
-legExtension: 21
+legMoveSpace: 1.4
+legPairOffset: 4
+legLength: 61
+legExtension: 26
 legBaseOffset: 8
-landShake: 1.5
-legSpeed: 0.2
-legLengthScl: 1.8
+landShake: 2.1
+legSpeed: 0.22
+legLengthScl: 3.4
 armor: 14
 legSpeed: 0.19
-rippleScale: 3
+rippleScale: 6
 legSplashDamage: 160
 legSplashRange: 50
 hovering: true
 weapons: [
 {
   name: aquila-equip1
-  x: 14
-  y: -4
+  x: 19
+  y: -9
   shootY: 7
   reload: 40
   shake: 3
@@ -37,9 +37,9 @@ weapons: [
   spacing: 17
   bullet: {
     type: ShrapnelBulletType
-    length: 90
-    damage: 430
-    width: 25
+    length: 140
+    damage: 900
+    width: 40
     serrationLenScl: 7
     serrationSpaceOffset: 60
     serrationFadeOffset: 0
@@ -54,9 +54,9 @@ weapons: [
 {
   name: lacerta-weapon
   x: 0
-  y: -4
+  y: -12
   shootY: 7
-  reload: 255
+  reload: 105
   ejectEffect: none
   recoil: 0
   shootStatus: unmoving
@@ -66,7 +66,7 @@ weapons: [
   bullet: {
     type: LaserBulletType
     length: 340
-    damage: 700
+    damage: 1500
     width: 80
     lifetime: 65
     lightningSpacing: 30
@@ -77,7 +77,7 @@ weapons: [
     lightningAngleRand: 24
     largeHit: true
     shootEffect: greenLaserCharge
-    healPercent: 32
+    healPercent: 12
     collidesTeam: true
     sideAngle: 18
     sideWidth: 0
@@ -89,21 +89,20 @@ weapons: [
   name: aquila-equip2
   reload: 30
   rotate: true
-  x: 9
-  y: -11
+  x: 3
+  y: -4
   mirror: true
   bullet: {
     type: SapBulletType
     sapStrength: 1.3
-    length: 140
-    damage: 230
+    length: 170
+    damage: 780
     shootEffect: shootSmall
     hitColor: e88ec9
     color: e88ec9
     despawnEffect: none
-    width: 3
-    width: 2
-    lifetime: 25
+    width: 8
+    lifetime: 40
     knockback: -0.65
   }
 }
