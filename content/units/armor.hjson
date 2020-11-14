@@ -16,33 +16,23 @@ name: armor-weapon
   x: 0
   y: -4
   shootY: 6
-  reload: 65
+  reload: 45
   ejectEffect: none
   recoil: 1
-  shootStatus: unmoving
-  shootStatusDuration: 40
-  firstShotDelay: 23
   shootSound: laser
   mirror: false
   bullet: {
-    type: LaserBulletType
-    length: 50
-    damage: 100
-    width: 15
-    lifetime: 35
-    lightningSpacing: 5
-    lightningLength: 4
-    lightningDelay: 1.1
-    lightningLengthRand: 5
-    lightningDamage: 12
-    lightningAngleRand: 10
-    largeHit: true
-    shootEffect: greenLaserCharge
-    healPercent: 10
-    collidesTeam: true
-    sideAngle: 15
-    sideWidth: 0
-    sideLength: 0
-    colors: [d5b2ed, 9671b1, a17dcd]
+    type: SapBulletType
+    sapStrength: 0.8
+    length: 24
+    damage: 30
+    shootEffect: shootSmall
+    hitColor: e88ec9
+    color: e88ec9
+    despawnEffect: none
+    width: 0.7
+    lifetime: 30
+    knockback: 1.24
+
 }}
 ]
