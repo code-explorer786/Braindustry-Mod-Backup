@@ -27,36 +27,26 @@ immunities: [
 burning
 ]
 weapons: [{
-  name: ibis-weapon
-  x: 5
-  y: -1
-  shootY: 2
-  reload: 80
+ name: ibis-weapon
+  x: 3
+  y: -1.5
+  shootY: 3
+  reload: 30
   ejectEffect: none
   recoil: 1
-  shootStatus: unmoving
-  shootStatusDuration: 70
-  firstShotDelay: 40
-  shootSound: laser
-  mirror: true
+  rotate: true
+  shootSound: flame
   bullet: {
-    type: LaserBulletType
-    length: 70
-    damage: 210
-    width: 35
-    lifetime: 60
-    lightningSpacing: 7
-    lightningLength: 2
-    lightningDelay: 1.2
-    lightningLengthRand: 7
-    lightningDamage: 20
-    lightningAngleRand: 12
-    largeHit: true
-    healPercent: 5
-    collidesTeam: true
-    sideAngle: 10
-    sideWidth: 0
-    sideLength: 0
-    colors: [d5b2ed, 9671b1, a17dcd]
+    type: SapBulletType
+    sapStrength: 0.95
+    length: 48
+    damage: 80
+    shootEffect: shootSmall
+    hitColor: e88ec9
+    color: e88ec9
+    despawnEffect: none
+    width: 0.7
+    lifetime: 45
+    knockback: 1.34
 }
 }]
