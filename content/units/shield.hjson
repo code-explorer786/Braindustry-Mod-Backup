@@ -13,38 +13,28 @@ targetAir: true
 rotateWeapon: true
 weapons:[
 {
-name: lacerta-weapon
-  x: 0
-  y: -5
-  shootY: 6
-  reload: 240
+name: armor-weapon
+  x: 4
+  y: -4
+  shootY: 4
+  reload: 52
   ejectEffect: none
   recoil: 2
-  shootStatus: unmoving
-  shootStatusDuration: 100
-  firstShotDelay: 70
   shootSound: laser
-  mirror: false
+  mirror: true
   bullet: {
-    type: LaserBulletType
-    length: 80
-    damage: 80
-    width: 19
-    lifetime: 50
-    lightningSpacing: 10
-    lightningLength: 3
-    lightningDelay: 1.1
-    lightningLengthRand: 6
-    lightningDamage: 25
-    lightningAngleRand: 12
-    largeHit: true
-    shootEffect: greenLaserCharge
-    healPercent: 12
-    collidesTeam: true
-    sideAngle: 12
-    sideWidth: 0
-    sideLength: 0
-    colors: [d5b2ed, 9671b1, a17dcd]
+    type: SapBulletType
+    sapStrength: 1
+    length: 42
+    damage: 60
+    shootEffect: shootSmall
+    hitColor: e88ec9
+    color: e88ec9
+    despawnEffect: none
+    width: 0.7
+    lifetime: 45
+    knockback: 1.3
+
     }
 }
 ]
