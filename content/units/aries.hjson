@@ -41,19 +41,18 @@ weapons: [{
   mirror: true
   bullet: {
     type: LaserBulletType
-    length: 100
+    length: 70
     damage: 210
-    width: 60
+    width: 35
     lifetime: 60
-    lightningSpacing: 10
-    lightningLength: 4
+    lightningSpacing: 7
+    lightningLength: 2
     lightningDelay: 1.2
     lightningLengthRand: 7
     lightningDamage: 20
     lightningAngleRand: 12
     largeHit: true
-    shootEffect: greenLaserCharge
-    healPercent: 15
+    healPercent: 5
     collidesTeam: true
     sideAngle: 10
     sideWidth: 0
