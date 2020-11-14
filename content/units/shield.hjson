@@ -2,11 +2,11 @@ name: Shield
 speed: 0.6
 maxVelocity: 1.2
 flying: true
-health: 1000
+health: 700
 armor: 1
 range: 250
 weaponOffsetY: 2
-engineOffsetY: -10
+engineOffsetY: -6
 rotateSpeed: 0.5
 mass: 6.0
 targetAir: true
@@ -21,6 +21,7 @@ name: armor-weapon
   ejectEffect: none
   recoil: 2
   shootSound: laser
+  rotate: true
   mirror: true
   bullet: {
     type: SapBulletType
