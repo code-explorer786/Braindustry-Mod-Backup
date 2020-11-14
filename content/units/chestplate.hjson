@@ -8,32 +8,32 @@ armor: 2
 health: 1500
 range: 200
 weaponOffsetY: 3
-engineOffsetY: -10
-rotateSpeed: 0.5
-mass: 7.0
+engineOffsetY: -13
+rotateSpeed: 1.1
+mass: 8
 targetAir: true
 payloadCapacity: 2
 buildSpeed: 1.6
 rotateWeapon: true
 weapons:[
 {
-  name: lacerta-weapon
+  name: chestplate-weapon
   x: 0
   y: -5
   shootY: 6
-  reload: 85
+  reload: 90
   ejectEffect: none
   recoil: 2
   shootStatus: unmoving
-  shootStatusDuration: 65
-  firstShotDelay: 30
+  shootStatusDuration: 40
+  firstShotDelay: 20
   shootSound: laser
   mirror: false
   bullet: {
     type: LaserBulletType
-    length: 150
+    length: 136
     damage: 140
-    width: 83
+    width: 43
     lifetime: 65
     lightningSpacing: 18
     lightningLength: 7
@@ -43,7 +43,7 @@ weapons:[
     lightningAngleRand: 16
     largeHit: true
     shootEffect: greenLaserCharge
-    healPercent: 40
+    healPercent: 10
     collidesTeam: true
     sideAngle: 20
     sideWidth: 0
@@ -52,11 +52,11 @@ weapons:[
   }
 }
   {
-  name: shield-weapon
+  name: armor-weapon
   reload: 25
   mirror: true
-  x: 7
-  y: 2
+  x: 9
+  y: -2
   rotate: true
   bullet: healBullet
   }
