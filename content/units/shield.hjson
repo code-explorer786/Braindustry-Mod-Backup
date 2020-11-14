@@ -4,20 +4,20 @@ maxVelocity: 1.2
 flying: true
 health: 700
 armor: 1
-range: 250
+range: 160
 weaponOffsetY: 2
 engineOffsetY: -6
-rotateSpeed: 0.5
+rotateSpeed: 0.8
 mass: 6.0
 targetAir: true
 rotateWeapon: true
 weapons:[
 {
 name: armor-weapon
-  x: 4
+  x: 5
   y: -4
   shootY: 4
-  reload: 52
+  reload: 60
   ejectEffect: none
   recoil: 2
   shootSound: laser
@@ -25,14 +25,14 @@ name: armor-weapon
   mirror: true
   bullet: {
     type: SapBulletType
-    sapStrength: 1
+    sapStrength: 1.2
     length: 42
     damage: 60
     shootEffect: shootSmall
     hitColor: e88ec9
     color: e88ec9
     despawnEffect: none
-    width: 0.7
+    width: 0.9
     lifetime: 45
     knockback: 1.3
 
