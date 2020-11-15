@@ -11,14 +11,14 @@ odinum/850
 ammoTypes: {
   exotic-alloy: {
     type: SapBulletType
-    sapStrength: 1.6
-    length: 170
-    damage: 680
+    sapStrength: 1.2
+    length: 230
+    damage: 640
     shootEffect: shootSmall
     hitColor: e88ec9
     color: e88ec9
     despawnEffect: none
-    width: 5
+    width: 3
     lifetime: 78
     knockback: 0.2
   }
