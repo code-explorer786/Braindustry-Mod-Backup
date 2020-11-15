@@ -1,5 +1,5 @@
 type: Reconstructor
-name: Hyper Exponential Recontructor
+name: Hyper Exponential Reconstructor
 size: 7
 consumes: {
   power: 7
