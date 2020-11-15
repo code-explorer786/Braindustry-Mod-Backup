@@ -1,0 +1,34 @@
+name: Axon
+description: Small and powerful sap turret.
+type: itemTurret
+requirements: [
+graphenite/340
+silicon/705
+surge-alloy/100
+plastic/270
+throium/850
+] 
+ammoTypes: {
+  exotic-alloy: {
+    type: SapBulletType
+    sapStrength: 1.6
+    length: 170
+    damage: 680
+    shootEffect: shootSmall
+    hitColor: e88ec9
+    color: e88ec9
+    despawnEffect: none
+    width: 5
+    lifetime: 78
+    knockback: 0.2
+  }
+}
+reloadTime: 90
+shots: 1
+burstSpacing: 6
+inaccuracy: 1.1
+range: 140
+size: 2
+health: 1300
+research: lancer
+category: turret
