@@ -1,4 +1,4 @@
-name: Axon
+name: Soul
 description: Small and powerful sap turret.
 type: itemTurret
 requirements: [
@@ -6,7 +6,7 @@ graphenite/340
 silicon/705
 surge-alloy/100
 plastic/270
-throium/850
+odinum/850
 ] 
 ammoTypes: {
   exotic-alloy: {
