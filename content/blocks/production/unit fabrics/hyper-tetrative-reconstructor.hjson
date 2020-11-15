@@ -5,11 +5,11 @@ consumes: {
   power: 9
   items: {
     items: [
-    silicon/300
+    graphenite/300
     surge-alloy/300
-    phase-fabric/150
+    odinum/200
     plastanium/400
-    exotic-alloy/500
+    exotic-alloy/200
     ]
   }
   liquid: {
@@ -17,7 +17,7 @@ consumes: {
     amount: 0.3
   }
 }
-constructTime: 3000
+constructTime: 3600
 requirements: [
   graphenite/3100
   surge-alloy/500
@@ -30,6 +30,9 @@ requirements: [
 upgrades: [
   [
     lacerta, aquila
+  ]
+  [
+    chainmail, broadsword
   ]
 ]
 category: units
