@@ -9,7 +9,7 @@ plastic/270
 odinum/850
 ] 
 ammoTypes: {
-  exotic-alloy: {
+  surge-alloy: {
     type: SapBulletType
     sapStrength: 1.2
     length: 230
