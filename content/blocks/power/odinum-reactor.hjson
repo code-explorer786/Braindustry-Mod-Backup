@@ -8,7 +8,7 @@ hasItems: true
 itemCapacity: 20
 liquidCapacity: 20
 itemDuration: 90
-powerProduction: 48
+powerProduction: 82
 plasmas: 3
 consumes: {
  power: 9
