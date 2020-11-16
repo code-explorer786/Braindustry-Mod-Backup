@@ -1,5 +1,6 @@
 type: LegsUnit
 name: Ibis
+description: Smallest unit with 4 legs and high speed.
 health: 210
 speed: 0.56
 mechSideSway: 0.25
