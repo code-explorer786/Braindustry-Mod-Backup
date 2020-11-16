@@ -1,5 +1,6 @@
 type: LegsUnit
 name: Aquila
+description: Giant 8-leg unit with shrapnel,sap and laser guns.
 drag: 0.1
 speed: 0.4
 hitsize: 32
@@ -20,6 +21,7 @@ rippleScale: 6
 legSplashDamage: 160
 legSplashRange: 50
 hovering: true
+research: Lacerta
 weapons: [
 {
   name: aquila-equip1
