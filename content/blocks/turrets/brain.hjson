@@ -30,9 +30,6 @@ ammoTypes: {
     colors: [d5b2ed, 9671b1, a17dcd]
   }
 }
-consumes: {
-  power/12
-}
 reloadTime: 70
 shots: 1
 burstSpacing: 3
