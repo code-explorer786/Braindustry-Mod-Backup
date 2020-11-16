@@ -5,7 +5,7 @@ speed: 0.4
 drag: 0.4
 hitsize: 12
 rotateSpeed: 3
-health: 2250
+health: 7800
 immunities: [
   burning, melting
   ]
