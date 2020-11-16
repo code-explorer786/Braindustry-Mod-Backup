@@ -24,6 +24,7 @@ mechStepShake: 0.15
 mechStepParticles: true
 speed: 1
 mechSideSway: 0.25
+research: crawler
 weapons: [
 {
   name: ibis-weapon
