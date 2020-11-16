@@ -7,7 +7,7 @@ speed: 0.35
 drag: 0.4
 hitsize: 23
 rotateSpeed: 1.6
-health: 9800
+health: 17000
 armor: 7
 landShake: 1
 canBoost: true
