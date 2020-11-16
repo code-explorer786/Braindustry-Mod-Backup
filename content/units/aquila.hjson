@@ -21,7 +21,7 @@ rippleScale: 6
 legSplashDamage: 160
 legSplashRange: 50
 hovering: true
-research: Lacerta
+research: lacerta
 weapons: [
 {
   name: aquila-equip1
