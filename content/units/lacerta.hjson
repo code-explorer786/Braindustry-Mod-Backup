@@ -25,6 +25,7 @@ visualElevation: 0.8
 ammoTypes: powerHigh
 mechStepShake: 0.15
 mechStepParticles: true
+research: capra
 weapons: [
 {
   name: lacerta-weapon
