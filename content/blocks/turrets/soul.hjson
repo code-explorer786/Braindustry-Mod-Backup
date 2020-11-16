@@ -23,9 +23,9 @@ ammoTypes: {
     knockback: 0.2
   }
 }
-consumes: [
+consumes: {
   power/2.5
-]
+}
 reloadTime: 90
 shots: 1
 burstSpacing: 6
