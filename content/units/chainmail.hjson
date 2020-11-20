@@ -65,25 +65,25 @@ weapons:[
   reload: 50
   minShootVelocity: 0.01
   bullet: {
-    width: 35
-    height: 35
-    range: 40
+    width: 23
+    height: 23
+    range: 30
     ignoreRotation: true
-    shootCone: 185
-    despawnShake: 4.5
+    shootCone: 170
+    despawnShake: 1.2
     collidesAir: false
-    lifetime: 80
+    lifetime: 60
     despawnEffect: greenBomb
     hitEffect: massiveExplosion
     keepVelocity: false
-    spin: 3
-    shrinkX: 0.8
-    shrinkY: 0.8
-    speed: 0.002
+    spin: 2.2
+    shrinkX: 0.7
+    shrinkY: 0.7
+    speed: 0.001
     collides: false
-    healPercent: 12
-    splashDamage: 310
-    splashDamageRadius: 140
+    healPercent: 18
+    splashDamage: 275
+    splashDamageRadius: 145
     }
   }
 ]
