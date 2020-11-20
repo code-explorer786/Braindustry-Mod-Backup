@@ -1,5 +1,5 @@
 name: Chainmail
-speed: 1.4
+speed: 1.2
 maxVelocity: 1.8
 flying: true
 hitSize: 25
@@ -17,39 +17,7 @@ buildSpeed: 1.3
 rotateWeapon: true
 research: chestplate
 weapons:[
-{
-  name: chainmail-weapon
-  shots: 2
-  x: 0
-  y: -1
-  mirror: true
-  reload: 170
-  cooldownTime: 180
-  rotate: true
-  spacing: 6
-  inaccuracy: 0.2
-  continuous: true
-  shootStatus: slow
-  shootStatusDuration: 120
-  hitEffect: hitMeltHeal
-  despawnEffect: smokeCloud
-  bullet: {
-    type: ContinuousLaserBulletType
-    length: 155
-    hitEffect: hitMeltHeal
-    damage: 34
-    drawSize: 650
-    lifetime: 85
-    shake: 0.4
-    despawnEffect: smokeCloud
-    shootEffect: greenLaserChargeSmall
-    incendChance: 0.2
-    incendSpread: 2
-    incendAmount: 3
-    colors: [d5b2ed, 9671b1, a17dcd]
-  }
-}
-  {
+ {
   name: shield-weapon
   reload: 40
   mirror: true
@@ -66,24 +34,24 @@ weapons:[
   reload: 50
   minShootVelocity: 0.01
   bullet: {
-    width: 23
-    height: 23
-    range: 30
+    width: 34
+    height: 34
+    range: 40
     ignoreRotation: true
-    shootCone: 170
+    shootCone: 180
     despawnShake: 1.2
     collidesAir: false
-    lifetime: 60
+    lifetime: 75
     despawnEffect: greenBomb
     hitEffect: massiveExplosion
     keepVelocity: false
-    spin: 2.2
-    shrinkX: 0.7
-    shrinkY: 0.7
-    speed: 0.001
+    spin: 2.5
+    shrinkX: 0.9
+    shrinkY: 0.9
+    speed: 0.003
     collides: false
-    healPercent: 18
-    splashDamage: 275
+    healPercent: 17
+    splashDamage: 280
     splashDamageRadius: 145
     }
   }
