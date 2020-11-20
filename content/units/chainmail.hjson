@@ -15,6 +15,7 @@ targetAir: true
 payloadCapacity: 4
 buildSpeed: 1.3
 rotateWeapon: true
+research: chestplate
 weapons:[
 {
   name: chainmail-weapon
