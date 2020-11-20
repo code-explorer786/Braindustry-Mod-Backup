@@ -7,7 +7,7 @@ rotateSpeed: 1
 accel: 0.07
 drag: 0.021
 lowAltitude: true
-engineOffset: 47
+engineOffsetY: -47
 engineSize: 8.2
 rotateShooting: true
 hitSize: 64
