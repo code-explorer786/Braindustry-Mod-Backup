@@ -1,8 +1,8 @@
 name: Armor
-speed: 0.7
-maxVelocity: 1
+speed: 0.9
+maxVelocity: 1.6
 flying: true
-health: 400
+health: 600
 range: 100
 weaponOffsetY: 1
 engineOffsetY: -3
@@ -11,6 +11,7 @@ rotateSpeed: 10
 mass: 5.0
 targetAir: true
 rotateWeapon: true
+research: poly
 weapons:[
 {
 name: armor-weapon
