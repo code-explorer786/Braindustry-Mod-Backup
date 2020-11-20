@@ -81,8 +81,8 @@ weapons:[
     shrinkY: 0.8
     speed: 0.002
     collides: false
-    healPercent: 20
-    splasDamage: 310
+    healPercent: 12
+    splashDamage: 310
     splashDamageRadius: 140
     }
   }
