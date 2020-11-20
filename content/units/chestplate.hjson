@@ -29,6 +29,7 @@ weapons:[
   firstShotDelay: 20
   shootSound: laser
   mirror: false
+  research: shield
   bullet: {
     type: LaserBulletType
     length: 136
