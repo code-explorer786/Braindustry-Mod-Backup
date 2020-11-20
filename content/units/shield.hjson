@@ -2,7 +2,7 @@ name: Shield
 speed: 0.6
 maxVelocity: 1.2
 flying: true
-health: 700
+health: 1200
 armor: 1
 range: 160
 weaponOffsetY: 2
@@ -11,6 +11,7 @@ rotateSpeed: 0.8
 mass: 6.0
 targetAir: true
 rotateWeapon: true
+research: armor
 weapons:[
 {
 name: armor-weapon
