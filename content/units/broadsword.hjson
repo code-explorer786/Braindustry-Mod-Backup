@@ -16,7 +16,6 @@ buildSpeed: 5
 commandLimit: 8
 range: 160
 targeAir: true
-ammoType: powerHigh
 ammoCapacity: 1600
 ammoResuplyAmount: 32
 research: chainmail
