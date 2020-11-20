@@ -2,10 +2,10 @@ type: Wall
 name: Graphenite Wall
 description: Medium strength wall,very purple.
 size: 1
-health: 690
+health: 650
 requirements: [
- { item: graphenite, amount: 8 }
- { item: silicon, amount: 4  }
+ { item: graphenite, amount: 6 }
+ { item: silicon, amount: 2  }
  ]
  category: defense
  research: thorium-wall-large
