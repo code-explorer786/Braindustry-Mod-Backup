@@ -15,6 +15,7 @@ targetAir: true
 payloadCapacity: 2
 buildSpeed: 1.6
 rotateWeapon: true
+research: shield
 weapons:[
 {
   name: chestplate-weapon
