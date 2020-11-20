@@ -75,8 +75,6 @@ weapons:[
   	height: 40
   	range: 40
   	ignoreRotation: true
-  	backColor: magenta
-  	mixColorTo: white
   	hitSound: plasmaboom
   	shootCone: 185
   	despawnShake: 4.5
