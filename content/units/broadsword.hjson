@@ -6,7 +6,8 @@ health: 29000
 speed: 0.6
 rotateSpeed: 1
 accel: 0.07
-drag: 0.021
+drag: 0.02
+flying: true
 lowAltitude: true
 engineOffsetY: -47
 engineSize: 8.2
