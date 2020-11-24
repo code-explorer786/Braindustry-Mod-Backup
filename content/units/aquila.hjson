@@ -20,7 +20,6 @@ legSpeed: 0.19
 rippleScale: 6
 legSplashDamage: 160
 legSplashRange: 50
-hovering: true
 research: lacerta
 weapons: [
 {
