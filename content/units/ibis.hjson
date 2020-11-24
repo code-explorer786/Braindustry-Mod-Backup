@@ -1,4 +1,4 @@
-type: LegsUnit
+type: legs
 name: Ibis
 description: Smallest unit with 4 legs and high speed.
 health: 210
