@@ -1,0 +1,54 @@
+type: legs
+name: Aries
+description: 4-leg small unit with strong laser guns.
+speed: 0.6
+drag: 0.3
+hitsize: 8
+rotatespeed: 0.03
+targetAir: false
+health: 120
+legCount: 4
+legMoveSpace: 1
+legPairOffset: 2
+legLength: 7
+legExtension: -4
+legBaseOffset: 5
+landShake: 0.1
+legSpeed: 0.2
+legLengthScl: 1
+rippleScale: 2
+legSplashDamage: 5
+legSplashRange: 5
+legSplashDamage: 32
+legSplashRange: 30
+hovering: true
+allowLegStep: true
+visualElevation: 0.65
+research: ibis
+immunities: [
+burning
+]
+weapons: [{
+ name: ibis-weapon
+  x: 3
+  y: -1.5
+  shootY: 3
+  reload: 30
+  ejectEffect: none
+  recoil: 1
+  rotate: true
+  shootSound: flame
+  bullet: {
+    type: SapBulletType
+    sapStrength: 0.95
+    length: 48
+    damage: 80
+    shootEffect: shootSmall
+    hitColor: e88ec9
+    color: e88ec9
+    despawnEffect: none
+    width: 0.7
+    lifetime: 45
+    knockback: 1.34
+}
+}]

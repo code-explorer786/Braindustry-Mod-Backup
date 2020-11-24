@@ -1,0 +1,112 @@
+type: legs
+name: Aquila
+description: Giant 8-leg unit with shrapnel,sap and laser guns.
+drag: 0.1
+speed: 0.4
+hitsize: 32
+health: 36000
+rotateSpeed: 2
+legCount: 8
+legMoveSpace: 1.4
+legPairOffset: 4
+legLength: 61
+legExtension: 10
+legBaseOffset: 8
+landShake: 2.1
+legSpeed: 0.22
+legLengthScl: 1.3
+armor: 14
+legSpeed: 0.19
+rippleScale: 6
+legSplashDamage: 160
+legSplashRange: 50
+hovering: true
+research: lacerta
+weapons: [
+{
+  name: aquila-equip1
+  x: 19
+  y: -9
+  shootY: 7
+  reload: 40
+  shake: 3
+  rotateSpeed: 1.2
+  shootSound: shootBig
+  rotate: true
+  occlusion: 12
+  recoil: 3
+  shots: 1
+  spacing: 17
+  bullet: {
+    type: ShrapnelBulletType
+    length: 140
+    damage: 900
+    width: 40
+    serrationLenScl: 7
+    serrationSpaceOffset: 60
+    serrationFadeOffset: 0
+    serrations: 11
+    serrationWidth: 6
+    fromColor: d5b2ed
+    toColor: a17dcd
+    shootEffect: sparkShoot
+    smokeEffect: sparkShoot
+  }
+}
+{
+  name: lacerta-weapon
+  x: 0
+  y: -12
+  shootY: 7
+  reload: 130
+  ejectEffect: none
+  recoil: 0
+  shootStatus: unmoving
+    shootStatusDuration: 90
+  firstShotDelay: 60
+  shootSound: laser
+  mirror: false
+  bullet: {
+    type: LaserBulletType
+    length: 340
+    damage: 1500
+    width: 80
+    lifetime: 65
+    lightningSpacing: 30
+    lightningLength: 10
+    lightningDelay: 1.2
+    lightningLengthRand: 16
+    lightningDamage: 55
+    lightningAngleRand: 24
+    largeHit: true
+    shootEffect: greenLaserCharge
+    healPercent: 12
+    collidesTeam: true
+    sideAngle: 18
+    sideWidth: 0
+    sideLength: 0
+    colors: [d5b2ed, 9671b1, a17dcd]
+    }
+  }
+  {
+  name: aquila-equip2
+  reload: 30
+  rotate: true
+  x: 3
+  y: -4
+  mirror: true
+  bullet: {
+    type: SapBulletType
+    sapStrength: 1.3
+    length: 170
+    damage: 780
+    shootEffect: shootSmall
+    hitColor: e88ec9
+    color: e88ec9
+    despawnEffect: none
+    width: 8
+    lifetime: 40
+    knockback: -0.65
+  }
+}
+]

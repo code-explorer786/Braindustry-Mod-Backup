@@ -1,0 +1,40 @@
+name: Armor
+speed: 0.7
+maxVelocity: 1
+flying: true
+health: 400
+range: 100
+weaponOffsetY: 1
+engineOffsetY: -3
+engineSize: 2
+rotateSpeed: 10
+mass: 5.0
+targetAir: true
+rotateWeapon: true
+weapons:[
+{
+name: armor-weapon
+  x: 0
+  y: -3
+  shootY: 6
+  reload: 50
+  ejectEffect: none
+  recoil: 1
+  shootSound: laser
+  rotate: true
+  mirror: false
+  bullet: {
+    type: SapBulletType
+    sapStrength: 0.8
+    length: 24
+    damage: 30
+    shootEffect: shootSmall
+    hitColor: e88ec9
+    color: e88ec9
+    despawnEffect: none
+    width: 0.7
+    lifetime: 30
+    knockback: 1.24
+
+}}
+]
