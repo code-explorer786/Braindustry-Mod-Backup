@@ -1,4 +1,4 @@
-type: LegsUnit
+type: legs
 name: Lacerta
 description: Giant unit with 6 legs and super-powerful laser with lightnings!
 itemCapacity: 200
