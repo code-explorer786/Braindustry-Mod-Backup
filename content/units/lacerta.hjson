@@ -9,7 +9,6 @@ hitsize: 23
 rotateSpeed: 1.6
 health: 17000
 armor: 7
-landShake: 1
 canBoost: true
 landShake: 4
 commandLimit: 8
@@ -18,8 +17,6 @@ legLength: 19
 legTrns: 1
 legMoveSpace: 2
 legBaseOffset: 2
-hovering: true
-buildSpeed: 0.8
 allowLegStep: true
 visualElevation: 0.8
 ammoTypes: powerHigh
