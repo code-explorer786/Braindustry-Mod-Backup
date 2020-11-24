@@ -1,4 +1,4 @@
-type: LegsUnit
+type: legs
 name: Aries
 description: 4-leg small unit with strong laser guns.
 speed: 0.6
