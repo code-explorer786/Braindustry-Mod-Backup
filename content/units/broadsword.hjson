@@ -1,6 +1,6 @@
 name: Broadsword
 description: Colossal unit with the ability to bombard, repair, defend, transport other units and shoot a lasers.
-type: flying
+type: payload
 armor: 18
 health: 29000
 speed: 0.6
