@@ -1,4 +1,5 @@
 name: Chainmail
+type: payload
 speed: 1.2
 maxVelocity: 1.8
 flying: true
