@@ -14,7 +14,7 @@ targetAir: true
 targetGround: true
 ammoTypes: {
   plastanium: missileSurge
-  graphnite: missileIncendiary
+  graphenite: missileIncendiary
   odinum: missileExplosive
 }
 consumes: {
