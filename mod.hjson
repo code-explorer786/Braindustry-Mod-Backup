@@ -1,7 +1,6 @@
 name: "braindustry"
-displayName: "[#f1d26e]Braindustry"
-author: "[#d99f6b]pixaxeofpixie"
-description: "[#f7ea72]High technology mod.Adds a reactors,new super items,solar panels,logic processors and more,now for Mindustry BE!
-Mod on Github-pixaxeofpixie/braindustry-mod"
+displayName: "[f1d26e]Braindustry"
+author: "[d99f6b]pixaxeofpixie"
+description: "[f7ea72]High technology mod.Add a reactors,new super items,solar panels,logic processors and more.!"
 version: "1.4"
 minGameVersion: "105"
