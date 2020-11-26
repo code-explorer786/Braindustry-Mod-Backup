@@ -22,7 +22,6 @@ consumes: {
      liquid:{
       liquid: oil
       amount: 0.2
-  ]
  }
 }
 requirements: [
