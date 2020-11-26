@@ -15,9 +15,11 @@ targetGround: true
 ammoTypes: {
   spore-pod: {
   	bulletType: pyraFlame
+    bulletWidth: 20
+    bulletHeight: 12
   	ammoMultiplier: 4
-  	hitSize: 9
-  	lifetime: 25
+  	hitSize: 16
+  	lifetime: 45
   	pierce: true
   	collidesAir: false
   	statusDuration: 80
@@ -28,6 +30,7 @@ ammoTypes: {
   }
 }
 consumes: {
+power/1
  liquid: {
   liquid: oil
   amount: 0.1
