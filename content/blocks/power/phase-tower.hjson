@@ -4,10 +4,10 @@ health: 240
 size: 4
 maxNodes: 18
 laserRange: 45
-requirements: {
+requirements: [
 	phase-alloy/15
 	silicon/20
 	titanium/ 10
 	lead/10
-}
+]
 research: surge-tower
