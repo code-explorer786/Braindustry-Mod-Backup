@@ -1,0 +1,40 @@
+type: GenericSmelter
+name: Hyper Alloy Smelter
+description: Big Surge Kiln,uses more materials and energy as well as oil for speed and a large amount of material produced.
+health: 300
+liquidCapacity: 80
+size: 5
+hasPower: true
+hasLiquids: true
+hasItems: true
+craftTime: 90
+updateEffect: plasticburn
+consumes: {
+  power: 9
+    items:{
+     items:[
+      copper/4
+      titanium/4
+      lead/5
+      silicon/5
+      ]
+     }
+     liquid:{
+      liquid: [
+      oil/0.2
+  ]
+ }
+}
+requirements: [
+  plastanium/120
+  titanium/150
+  metaglass/100
+  silicon/300
+  graphenite/170
+  surge-alloy/100
+]
+category: crafting
+research: alloy-smelter
+idleSound: respawning
+idleSoundVolume: 0.1
+outputItem: surge-alloy/5
