@@ -30,7 +30,7 @@ ammoTypes: {
   }
 }
 consumes: {
-power/1
+power: 1
  liquid: {
   liquid: oil
   amount: 0.1
