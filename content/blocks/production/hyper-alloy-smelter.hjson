@@ -20,8 +20,8 @@ consumes: {
       ]
      }
      liquid:{
-      liquid: [
-      oil/0.2
+      liquid: oil
+      amount: 0.2
   ]
  }
 }
