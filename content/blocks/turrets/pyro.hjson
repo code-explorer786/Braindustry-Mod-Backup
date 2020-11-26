@@ -1,0 +1,46 @@
+name: Pyro
+description: Flamethrower,use very flamable Spore Pods and Oil to throw a hot flame.
+type: itemTurret
+range: 250
+recoil: 18
+reloadTime: 60
+size: 3
+shots: 5
+health: 1800
+inaccuracy: 0.4
+liquidBoostIntensity: 1.3
+rotatespeed: 1.3
+targetAir: false
+targetGround: true
+ammoTypes: {
+  spore-pod: {
+  	bulletType: pyraFlame
+  	ammoMultiplier: 4
+  	hitSize: 9
+  	lifetime: 25
+  	pierce: true
+  	collidesAir: false
+  	statusDuration: 80
+  	shootEffect: shootPyraFlame
+  	hitEffect: hitFlameSmall
+  	status: burning
+  	hittable: false 
+  }
+}
+consumes: {
+ liquid: {
+  liquid: oil
+  amount: 0.1
+  booster: true
+  optional: false
+  }
+}
+requirements: [
+  graphenite/150
+  plastanium/150
+  silicon/500
+  titanium/180
+  metaglass/140
+]
+ category: turret
+ research: salvo
