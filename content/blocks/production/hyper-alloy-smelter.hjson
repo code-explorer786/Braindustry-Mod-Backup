@@ -20,8 +20,8 @@ consumes: {
   ]
  }
   liquid: {
-    liquid: water
-    amount: 0.1
+    liquid: oil
+    amount: 0.2
     booster: false
   }
 }
