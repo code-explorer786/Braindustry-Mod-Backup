@@ -9,15 +9,19 @@ New logic blocks!
 Some balance.
 Turrets,units,mechs deleted from mod for compability with BE Builds.
 
-1.4 "Attack Update"
+1.4 "Hyper Update"
 
-Bugfixes with walls.
-Some new and old turrets(Brain,Hoplite,Katana).
-Surge Conveyor.
-Units and Reconstructors.
-Surge Alloy Kiln 5x5.
-Fixed some bugs.
-Not fixed some bugs.
+-Walls.
+-Odinum Forge.
+-Chromium Forge.
+-Flying support units.
+-Legs ground attack units.
+-Reconstructors.
+-Full mod resprite.
+-Turret "Mind".
+-Turret "Soul".
+-Turret "Neuron".
+-Phase Tower.
 
 ------------------------------------------------------------------------------------------
 Github-pixaxeofpixie/braindustry-mod
