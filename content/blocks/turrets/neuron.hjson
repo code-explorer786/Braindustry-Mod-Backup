@@ -24,11 +24,21 @@ ammoTypes: {
     ammoMultiplier: 2
   }
 }
+consumes: {
+  power: 4
+  liquid: {
+  liquid: cryofluid
+  amount: 0.1
+  booster: true
+  optional: false
+  }
+}
 reloadTime: 40
 shots: 1
 burstSpacing: 6
 inaccuracy: 1.0
-range: 150
+liquidBoostIntensity: 1.5
+range: 160
 size: 2
 health: 1200
 research: lancer
