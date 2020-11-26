@@ -11,18 +11,19 @@ craftTime: 90
 updateEffect: plasticburn
 consumes: {
   power: 9
-    items:{
-     items:[
-      copper/4
-      titanium/4
-      lead/5
-      silicon/5
-      ]
-     }
-     liquid:{
-      liquid: oil
-      amount: 0.2
+  items:{
+   items:[
+    copper/4
+    titanium/4
+    lead/5
+    silicon/5
+  ]
  }
+  liquid: {
+    liquid: water
+    amount: 0.1
+    booster: false
+  }
 }
 requirements: [
   plastanium/120
