@@ -1,11 +1,12 @@
 name: Odinum Wall Large
-description: Bigger version of standard odinum wall,and too little bit radioactive.
+description: Bigger Odinum Wall,can deflect bullets.
 type: Wall
-health: 3100
+health: 3360
 size: 2
 requirements: [
-  odinum/55
-  thorium/15
+  odinum/28
 ]
 category: defense
+chanceDeflect: 14
+flashHit: true
 research: odinum-wall
