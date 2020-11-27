@@ -7,9 +7,9 @@ reloadTime: 40
 size: 3
 shots: 7
 health: 1800
-inaccuracy: 0.4
-liquidBoostIntensity: 1.3
-rotatespeed: 1.3
+inaccuracy: 0.2
+liquidBoostIntensity: 1.4
+rotatespeed: 1.6
 targetAir: false
 targetGround: true
 ammoTypes: {
