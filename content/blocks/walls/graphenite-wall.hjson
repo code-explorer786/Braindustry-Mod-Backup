@@ -8,4 +8,4 @@ requirements: [
  { item: silicon, amount: 2  }
  ]
  category: defense
- research: large-titanium-wall
+ research: titanium-wall-large
