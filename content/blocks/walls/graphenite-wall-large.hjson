@@ -1,11 +1,11 @@
 name: Large Graphenite Wall
 description: Big version of standard graphenite wall.
 type: Wall
-health: 2100
+health: 2160
 size: 2
 requirements: [
-  graphenite/42
-  silicon/12
+  graphenite/20
+  silicon/6
 ]
 category: defense
 research: graphenite-wall
