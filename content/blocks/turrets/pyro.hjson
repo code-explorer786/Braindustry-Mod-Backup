@@ -15,8 +15,9 @@ targetGround: true
 ammoTypes: {
   spore-pod: {
   	bulletType: pyraFlame
-        width: 7
-        height: 5
+    damage: 300
+    width: 7
+    height: 5
   	ammoMultiplier: 4
   	hitSize: 16
   	lifetime: 45
