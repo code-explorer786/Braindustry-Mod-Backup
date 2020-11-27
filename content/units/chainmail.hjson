@@ -1,20 +1,20 @@
 name: Chainmail
 type: payload
-speed: 1.2
-maxVelocity: 1.8
+speed: 0.9
+maxVelocity: 1.4
 flying: true
 hitSize: 25
-engineSize: 5
+engineSize: 7
 armor: 12
 health: 10000
 range: 220
-weaponOffsetY: 3
-engineOffsetY: -14
-rotateSpeed: 1.3
+weaponOffset: 18
+rotateSpeed: 1.2
 mass: 9.0
 targetAir: true
 payloadCapacity: 4
 buildSpeed: 1.3
+commandLimit: 6
 rotateWeapon: true
 research: chestplate
 weapons:[
