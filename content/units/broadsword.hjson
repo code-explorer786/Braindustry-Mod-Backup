@@ -10,8 +10,8 @@ drag: 0.02
 flying: true
 lowAltitude: true
 commandLimit: 10
-engineOffset: -52
-engineSize: 9
+engineOffset: 38
+engineSize: 10
 rotateShooting: true
 hitSize: 64
 payloadCapacity: 14
