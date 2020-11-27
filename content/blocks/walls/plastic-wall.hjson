@@ -1,11 +1,13 @@
 name: Plastic Wall
 description: This Plastic wall can deflect some bullets.
 type: Wall
-health: 1680
+health: 1500
 size: 1
 requirements: [
   plastic/6
   plastanium/2
 ]
 category: defense
+insulated: true
+absorbLasers: true
 research: plastanium-wall
