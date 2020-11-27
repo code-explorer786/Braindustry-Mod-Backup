@@ -11,9 +11,9 @@ plastic/350
 ammoTypes: {
   phase-alloy: {
    type: LaserBulletType
-    length: 250
-    damage: 670
-    width: 90
+    length: 220
+    damage: 360
+    width: 60
     lifetime: 60
     lightningSpacing: 40
     lightningLength: 12
@@ -30,11 +30,11 @@ ammoTypes: {
     colors: [d5b2ed, 9671b1, a17dcd]
   }
 }
-reloadTime: 70
+reloadTime: 90
 shots: 1
 burstSpacing: 3
 inaccuracy: 0.2
-range: 260
+range: 230
 size: 4
 health: 2500
 research: neuron
