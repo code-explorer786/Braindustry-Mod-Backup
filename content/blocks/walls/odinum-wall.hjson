@@ -2,10 +2,11 @@ type: Wall
 name: Odinum Wall
 description: Medium strength wall,little bit radioactive.
 size: 1
-health: 810
+health: 1020
 requirements: [
- { item: odinum, amount: 10 }
- { item: thorium, amount: 5 }
+ { item: odinum, amount: 8 }
  ]
  category: defense
+ chanceDeflect: 12
+ flashHit: true
  research: graphenite-wall-large
