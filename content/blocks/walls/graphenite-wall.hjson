@@ -2,7 +2,7 @@ type: Wall
 name: Graphenite Wall
 description: Medium strength wall,very purple.
 size: 1
-health: 650
+health: 620
 requirements: [
  { item: graphenite, amount: 6 }
  { item: silicon, amount: 2  }
