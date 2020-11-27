@@ -15,7 +15,7 @@ targetGround: true
 ammoTypes: {
   spore-pod: {
   	bulletType: pyraFlame
-    damage: 300
+    damage: 160
     width: 7
     height: 5
   	ammoMultiplier: 4
