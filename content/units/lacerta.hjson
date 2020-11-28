@@ -39,8 +39,8 @@ weapons: [
   bullet: {
     type: LaserBulletType
     length: 500
-    damage: 650
-    width: 120
+    damage: 400
+    width: 60
     lifetime: 85
     lightningSpacing: 40
     lightningLength: 12
@@ -50,7 +50,7 @@ weapons: [
     lightningAngleRand: 30
     largeHit: true
     shootEffect: greenLaserCharge
-    healPercent: 40
+    healPercent: 20
     collidesTeam: true
     sideAngle: 15
     sideWidth: 0
@@ -67,15 +67,14 @@ weapons: [
   mirror: true
   bullet: {
     type: SapBulletType
-    sapStrength: 0.8
-    length: 105
-    damage: 1
+    sapStrength: 0.7
+    length: 100
+    damage: 70
     shootEffect: shootSmall
     hitColor: e88ec9
     color: e88ec9
     despawnEffect: none
-    width: 3
-    width: 2
+    width: 2.5
     lifetime: 25
     knockback: -0.65
   }
