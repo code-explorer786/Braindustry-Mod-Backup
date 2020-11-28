@@ -27,4 +27,5 @@ weapons:[
   rotate: true
   bullet: missileIncendiary
   }
+}
 ]
