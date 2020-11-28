@@ -17,29 +17,29 @@ ammoTypes: {
     trailEffect: instTrail
     despawnEffect: instBomb
     trailSpacing: 12
-    damage: 540
+    damage: 240
     tileDamageMultiplier: 0.3
-    speed: 160
-    hitShake: 3
+    speed: 50
+    hitShake: 1
     ammoMultiplier: 2
   }
 }
 consumes: {
-  power: 4
+  power: 6
   liquid: {
   liquid: cryofluid
   amount: 0.1
-  booster: true
+  booster: false
   optional: false
   }
 }
-reloadTime: 40
+reloadTime: 90
 shots: 1
 burstSpacing: 6
 inaccuracy: 1.0
-liquidBoostIntensity: 1.5
-range: 160
+liquidBoostIntensity: 1.1
+range: 180
 size: 2
-health: 1200
+health: 1600
 research: lancer
 category: turret
