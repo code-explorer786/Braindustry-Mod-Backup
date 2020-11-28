@@ -23,7 +23,7 @@ weapons:[
   name: chainmail-weapon
   reload: 40
   mirror: false
-  x: 03
+  x: -3
   rotate: true
   bullet: missileIncendiary
   }
