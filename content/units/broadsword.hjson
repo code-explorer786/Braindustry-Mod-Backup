@@ -55,4 +55,37 @@ weapons:[
   	splashDamageRadius: 160
     }
   }
+  {
+  name: broadsword-weapon
+  top: false 
+  y: 2
+  x: 45
+  reload: 25
+  recoil: 3
+  shootSound: missile
+  shots: 1
+  velocityRnd: 0.6
+  inaccuracy: 10
+  alternate: true
+  mirror: true
+  bullet: {
+      type: MissileBulletType
+      width: 3
+      height: 7
+      homingPower: 0.09
+      weaveMag: 5
+      weaveScale: 6
+      lifetime: 60
+      keepVelocity: false
+      shootEffect: shootHeal
+      smokeEffect: hitLaser
+      hitEffect: hitLaser
+      frontColor: white
+      hitSound: none
+      healPercent:  7
+      collidesTeam: true
+      backColor: heal
+      trailColor: heal
+    }
+  }
 ]
