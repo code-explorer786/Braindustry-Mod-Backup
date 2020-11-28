@@ -5,14 +5,14 @@ health: 130
 size: 2
 consumes: {
  power: 3
- liquid: cryofluid/0.2
+ liquid: cryofluid/0.1
  items: {
   items: [
    thorium/1
   ]
  }
 }
-outputLiquid: thorium-refrigerant/2
+outputLiquid: thorium-refrigerant/8
 requirements: [
 plastanium/200
 thorium/200
