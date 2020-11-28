@@ -19,41 +19,6 @@ rotateWeapon: true
 research: shield
 weapons:[
 {
-  name: chestplate-weapon
-  x: 0
-  y: -5
-  shootY: 6
-  reload: 90
-  ejectEffect: none
-  recoil: 2
-  shootStatus: unmoving
-  shootStatusDuration: 40
-  firstShotDelay: 20
-  shootSound: laser
-  mirror: false
-  research: shield
-  bullet: {
-    type: LaserBulletType
-    length: 136
-    damage: 140
-    width: 43
-    lifetime: 65
-    lightningSpacing: 18
-    lightningLength: 7
-    lightningDelay: 0.8
-    lightningLengthRand: 14
-    lightningDamage: 35
-    lightningAngleRand: 16
-    largeHit: true
-    shootEffect: greenLaserCharge
-    healPercent: 10
-    collidesTeam: true
-    sideAngle: 20
-    sideWidth: 0
-    sideLength: 0
-    colors: [d5b2ed, 9671b1, a17dcd]
-  }
-}
   {
   name: chainmail-weapon
   reload: 40
