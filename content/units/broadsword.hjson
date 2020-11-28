@@ -80,12 +80,9 @@ weapons:[
       shootEffect: shootHeal
       smokeEffect: hitLaser
       hitEffect: hitLaser
-      frontColor: white
       hitSound: none
       healPercent:  7
       collidesTeam: true
-      backColor: heal
-      trailColor: heal
     }
   }
 ]
