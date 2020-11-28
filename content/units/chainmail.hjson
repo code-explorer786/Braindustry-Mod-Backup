@@ -18,15 +18,6 @@ commandLimit: 6
 rotateWeapon: true
 research: chestplate
 weapons:[
- {
-  name: shield-weapon
-  reload: 40
-  mirror: true
-  x: 5
-  y: -2
-  rotate: true
-  bullet: healBullet
-  }
   {
   name: bomb-weapon
   x: 0
