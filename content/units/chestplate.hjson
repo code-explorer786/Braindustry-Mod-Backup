@@ -61,6 +61,6 @@ weapons:[
   x: 9
   y: -2
   rotate: true
-  bullet: missileIncendary
+  bullet: missileIncendiary
   }
 ]
