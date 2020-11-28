@@ -55,12 +55,12 @@ weapons:[
   }
 }
   {
-  name: armor-weapon
-  reload: 25
+  name: chainmail-weapon
+  reload: 40
   mirror: true
   x: 9
   y: -2
   rotate: true
-  bullet: healBullet
+  bullet: missileIncendary
   }
 ]
