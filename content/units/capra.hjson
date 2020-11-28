@@ -14,7 +14,6 @@ legLength: 15
 legTrns: 0.8
 legMoveSpace: 1.5
 legBaseOffset: 2
-hovering: true
 armor: 5
 buildSpeed: 0.8
 allowLegStep: true
