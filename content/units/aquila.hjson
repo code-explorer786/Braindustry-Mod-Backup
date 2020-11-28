@@ -5,7 +5,7 @@ drag: 0.1
 speed: 0.5
 hitsize: 48
 hovering: true
-health: 36000
+health: 33000
 rotateSpeed: 2
 legCount: 8
 legMoveSpace: 1.4
@@ -25,12 +25,12 @@ research: lacerta
 weapons: [
 {
   name: aquila-equip1
-  x: 19
-  y: -9
-  shootY: 7
-  reload: 40
-  shake: 3
-  rotateSpeed: 1.2
+  x: 31
+  y: -2
+  shootY: 0
+  reload: 60
+  shake: 2
+  rotateSpeed: 0.5
   shootSound: shootBig
   rotate: true
   occlusion: 12
@@ -39,14 +39,14 @@ weapons: [
   spacing: 17
   bullet: {
     type: ShrapnelBulletType
-    length: 140
-    damage: 900
+    length: 190
+    damage: 300
     width: 40
-    serrationLenScl: 7
+    serrationLenScl: 9
     serrationSpaceOffset: 60
     serrationFadeOffset: 0
-    serrations: 11
-    serrationWidth: 6
+    serrations: 15
+    serrationWidth: 3
     fromColor: d5b2ed
     toColor: a17dcd
     shootEffect: sparkShoot
@@ -57,21 +57,21 @@ weapons: [
   name: lacerta-weapon
   x: 0
   y: -12
-  shootY: 7
-  reload: 130
+  shootY: -1
+  reload: 160
   ejectEffect: none
   recoil: 0
-  shootStatus: unmoving
-    shootStatusDuration: 90
+  shootStatus: slow
+  shootStatusDuration: 80
   firstShotDelay: 60
   shootSound: laser
   mirror: false
   bullet: {
     type: LaserBulletType
-    length: 340
-    damage: 1500
-    width: 80
-    lifetime: 65
+    length: 300
+    damage: 350
+    width: 50
+    lifetime: 50
     lightningSpacing: 30
     lightningLength: 10
     lightningDelay: 1.2
@@ -87,26 +87,6 @@ weapons: [
     sideLength: 0
     colors: [d5b2ed, 9671b1, a17dcd]
     }
-  }
-  {
-  name: aquila-equip2
-  reload: 30
-  rotate: true
-  x: 3
-  y: -4
-  mirror: true
-  bullet: {
-    type: SapBulletType
-    sapStrength: 1.3
-    length: 170
-    damage: 780
-    shootEffect: shootSmall
-    hitColor: e88ec9
-    color: e88ec9
-    despawnEffect: none
-    width: 8
-    lifetime: 40
-    knockback: -0.65
   }
 }
 ]
