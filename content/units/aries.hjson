@@ -21,7 +21,6 @@ legSplashDamage: 5
 legSplashRange: 5
 legSplashDamage: 32
 legSplashRange: 30
-hovering: true
 allowLegStep: true
 visualElevation: 0.65
 research: ibis
