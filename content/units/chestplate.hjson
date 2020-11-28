@@ -19,7 +19,6 @@ rotateWeapon: true
 research: shield
 weapons:[
 {
-  {
   name: chainmail-weapon
   reload: 40
   mirror: false
@@ -27,5 +26,4 @@ weapons:[
   rotate: true
   bullet: missileIncendiary
   }
-}
 ]
