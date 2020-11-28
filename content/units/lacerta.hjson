@@ -4,7 +4,7 @@ description: Giant unit with 6 legs and super-powerful laser with lightnings!
 boostMultiplier: 2.1
 speed: 0.35
 drag: 0.4
-hitsize: 23
+hitsize: 26
 rotateSpeed: 1.6
 health: 17000
 armor: 7
@@ -21,7 +21,6 @@ ammoTypes: powerHigh
 mechStepShake: 0.15
 mechStepParticles: true
 research: capra
-hovering: true
 weapons: [
 {
   name: lacerta-weapon
