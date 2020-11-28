@@ -56,21 +56,12 @@ weapons:[
   }
 }
   {
-  name: chainmail-weapon
-  reload: 40
-  mirror: true
-  x: 10
-  y: -23
-  rotate: true
-  bullet: healBullet
-  }
-  {
   name: bomb-weapon
   x: 0
   y: -18
   mirror: false
   reload: 50
-  minShootVelocity: 0.01
+  minShootVelocity: 0.02
   soundPitchMin: 1
   shootSound: plasmadrop
   bullet: {
@@ -91,7 +82,7 @@ weapons:[
   	shrinkX: 0.8
   	speed: 0.003
   	collides: false
-  	healPercent: 20
+  	healPercent: 15
   	splashDamage: 250
   	splashDamageRadius: 160
     }
