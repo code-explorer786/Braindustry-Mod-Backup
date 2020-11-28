@@ -23,38 +23,6 @@ ammoCapacity: 1600
 ammoResuplyAmount: 32
 research: chainmail
 weapons:[
-{
-  name: broadsword-weapon
-  shots: 1
-  x: 25
-  y: -10
-  mirror: true
-  reload: 170
-  cooldownTime: 180
-  rotate: true
-  spacing: 6
-  inaccuracy: 0.2
-  continuous: true
-  shootStatus: slow
-  shootStatusDuration: 120
-  hitEffect: hitMeltHeal
-  despawnEffect: smokeCloud
-  bullet: {
-    type: ContinuousLaserBulletType
-    length: 155
-    hitEffect: hitMeltHeal
-    damage: 34
-    drawSize: 650
-    lifetime: 85
-    shake: 0.4
-    despawnEffect: smokeCloud
-    shootEffect: greenLaserChargeSmall
-    incendChance: 0.2
-    incendSpread: 2
-    incendAmount: 3
-    colors: [d5b2ed, 9671b1, a17dcd]
-  }
-}
   {
   name: bomb-weapon
   x: 0
