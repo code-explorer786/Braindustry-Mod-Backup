@@ -3,7 +3,7 @@ type: payload
 speed: 0.9
 maxVelocity: 1.4
 flying: true
-hitSize: 25
+hitSize: 27
 engineSize: 7
 armor: 12
 health: 10000
@@ -20,9 +20,9 @@ research: chestplate
 weapons:[
   {
   name: bomb-weapon
-  x: 0
-  y: -4
-  mirror: false
+  x: 17
+  y: -12
+  mirror: true
   reload: 50
   minShootVelocity: 0.01
   bullet: {
@@ -33,7 +33,7 @@ weapons:[
     shootCone: 180
     despawnShake: 1.2
     collidesAir: false
-    lifetime: 75
+    lifetime: 70
     despawnEffect: greenBomb
     hitEffect: massiveExplosion
     keepVelocity: false
