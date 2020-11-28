@@ -22,47 +22,22 @@ research: aries
 weapons: [
 {
   name: capra-weapon
-  x: 8.5
-  y: -1.5
-  shootY: 4
-  reload: 15
-  ejectEffect: none
-  recoil: 2
+  reload: 40
   rotate: true
-  shootSound: flame
-  bullet: {
-    type: SapBulletType
-    sapStrength: 0.5
-    length: 120
-    damage: 540
-    shootEffect: shootSmall
-    hitColor: f0e4a8
-    color: f0e4a8
-    despawnEffect: none
-    width: 0.54
-    lifetime: 60
-    lifetime: 35
-    knockback: -1.24
-  }
-}
-{
-  name: ibis-weapon
-  reload: 20
-  rotate: true
-  x: 3
+  x: 8
   y: -5
   bullet: {
      type: ShrapnelBulletType
-    length: 100
-    damage: 510
-    width: 20
+    length: 80
+    damage: 270
+    width: 30
     serrationLenScl: 9
     serrationSpaceOffset: 60
     serrationFadeOffset: 0
     serrations: 12
     serrationWidth: 6
-    fromColor: f0e4a8
-    toColor: ffffff
+    fromColor: d5b2ed
+    toColor: a17dcd
     shootEffect: sparkShoot
     smokeEffect: sparkShoot
   }
