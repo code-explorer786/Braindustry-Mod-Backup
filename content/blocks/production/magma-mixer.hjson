@@ -1,0 +1,28 @@
+type: GenericCrafter
+name: Magma Mixer
+description: Make liquid and hot Magma from Copper and Slag.
+size: 2
+hasPower: true
+hasLiquids: true
+hasItems: true
+craftTime: 70
+updateEffect: steam
+consumes: {
+  power: 6
+  liquid: slag/0.1
+  items: {
+    items: [
+      copper/4
+    ]
+  }
+}
+requirements: [
+  lead/150
+  chromium/200
+  silicon/90
+  metaglass/100
+  graphenite/85
+]
+category: crafting
+research: chromium-forge
+outputLiquid: magma/26
