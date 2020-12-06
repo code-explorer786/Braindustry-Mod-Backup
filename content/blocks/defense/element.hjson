@@ -17,4 +17,5 @@ rotateSpeed: 12
 consumes: {
 	power: 6
 }
-research: parallax
+research: segment
+category: defense
