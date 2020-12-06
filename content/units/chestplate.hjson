@@ -21,13 +21,13 @@ research: shield
 weapons:[
 {
   name: chestplate-weapon
-  reload: 40
+  reload: 50
   mirror: false
-  shot: 3
+  shot: 2
   x: 5
   y: -4
   rotate: true
-  bullet: missileIncendiary
+  bullet: missileExplosive
   }
 {
 name: chainmail-weapon
@@ -52,7 +52,6 @@ name: chainmail-weapon
     width: 1.1
     lifetime: 30
     knockback: 1.24
-
     }
   }
 ]
