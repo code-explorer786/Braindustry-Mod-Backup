@@ -14,6 +14,7 @@ rotateSpeed: 1.1
 mass: 8
 targetAir: true
 payloadCapacity: 2
+engineOffset: 7
 buildSpeed: 1.6
 rotateWeapon: true
 research: shield
