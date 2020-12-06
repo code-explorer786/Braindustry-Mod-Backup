@@ -12,15 +12,14 @@ restitution: 0.03
 health: 1800
 inaccuracy: 13
 ammoEjectBack: 6
-ammoPerShot: 11
-liquidBoostIntensity: 2.1
+ammoPerShot: 11liquidBoostIntensity: 2.1
 rotatespeed: 0.3
 targetAir: false
 targetGround: true
 ammoTypes: {
   spore-pod: {
   	bulletType: BasicBulletType
-    bulletSprite: braindustry-spore-flame-bullet
+    sprite: braindustry-spore-flame-bullet
     width: 5
     height: 5
     damage: 25
@@ -36,7 +35,7 @@ ammoTypes: {
   }
     blast-compound: {
     bulletType: BasicBulletType
-    bulletSprite: braindustry-flame-bullet
+    sprite: braindustry-flame-bullet
     width: 8
     height: 8
     damage: 20
