@@ -23,4 +23,5 @@ graphenite/190
 category: crafting
 updateEffect: purify 
 updateEffectChance: 0.02
+outputLiquid: thorium-refrigerant/16
 research: graphenite-fluidizer
