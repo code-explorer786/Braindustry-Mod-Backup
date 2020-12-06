@@ -49,4 +49,19 @@ weapons:[
     splashDamageRadius: 150
     }
   }
+    {
+  name: broadsword-weapon
+  top: false 
+  y: -4
+  x: 34
+  reload: 25
+  recoil: 3
+  shootSound: missile
+  shots: 2
+  velocityRnd: 0.1
+  inaccuracy: 1
+  alternate: true
+  mirror: true
+  bullet: artilleryIncendiary
+  }
 ]
