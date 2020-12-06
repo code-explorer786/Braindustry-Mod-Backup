@@ -29,4 +29,30 @@ weapons:[
   rotate: true
   bullet: missileIncendiary
   }
+{
+name: chainmail-weapon
+  x: 0
+  y: -7
+  shootY: -1
+  reload: 60
+  ejectEffect: none
+  recoil: 3
+  shootSound: laser
+  rotate: true
+  mirror: false
+  bullet: {
+    type: SapBulletType
+    sapStrength: 0.9
+    length: 28
+    damage: 80
+    shootEffect: shootSmall
+    hitColor: e88ec9
+    color: e88ec9
+    despawnEffect: none
+    width: 1.1
+    lifetime: 30
+    knockback: 1.24
+
+    }
+  }
 ]
