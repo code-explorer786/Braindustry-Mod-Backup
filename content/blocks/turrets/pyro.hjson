@@ -2,8 +2,8 @@ name: Pyro
 description: Flamethrower,use very flamable Spore Pods or Blast Compound and Oil to throw a hot flame.
 type: itemTurret
 range: 250
-recoil: 10
-reloadTime: 10
+recoil: 9
+reloadTime: 15
 size: 3
 shots: 3
 cooldown: 0.07
