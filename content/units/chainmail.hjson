@@ -20,46 +20,46 @@ research: chestplate
 weapons:[
   {
   name: bomb-weapon
-  x: 17
+  x: 0
   y: -12
-  mirror: true
-  reload: 50
-  minShootVelocity: 0.01
+  mirror: false
+  reload: 75
+  minShootVelocity: 0.02
   shootSound: plasmadrop
   bullet: {
-    width: 30
-    height: 30
-    range: 40
+    width: 60
+    height: 60
+    range: 30
     ignoreRotation: true
-    shootCone: 175
-    despawnShake: 1.2
+    shootCone: 190
+    despawnShake: 3.0
     collidesAir: false
-    lifetime: 80
+    lifetime: 90
     despawnEffect: greenBomb
     hitEffect: massiveExplosion
     hitSound: plasmaboom
     keepVelocity: false
-    spin: 4
-    shrinkX: 0.9
-    shrinkY: 0.9
-    speed: 0.004
+    spin: 3
+    shrinkX: 0.6
+    shrinkY: 0.6
+    speed: 0.002
     collides: false
-    healPercent: 10
-    splashDamage: 230
-    splashDamageRadius: 150
+    healPercent: 15
+    splashDamage: 290
+    splashDamageRadius: 220
     }
   }
     {
   name: broadsword-weapon
   top: false 
-  y: -4
-  x: 34
-  reload: 25
-  recoil: 3
+  y: -3
+  x: 32
+  reload: 40
+  recoil: 2
   shootSound: missile
-  shots: 2
-  velocityRnd: 0.1
-  inaccuracy: 1
+  shots: 4
+  velocityRnd: 0.2
+  inaccuracy: 0.4
   alternate: true
   mirror: true
   bullet: missileExplosive
