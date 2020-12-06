@@ -25,64 +25,49 @@ research: chainmail
 weapons:[
   {
   name: bomb-weapon
-  x: 0
-  y: -18
-  mirror: false
+  x: 12
+  y: -30
+  mirror: true
   reload: 50
   minShootVelocity: 0.02
   soundPitchMin: 1
   shootSound: plasmadrop
   bullet: {
-  	width: 40
-  	height: 40
-  	range: 40
+  	width: 50
+  	height: 50
+  	range: 50
   	ignoreRotation: true
   	hitSound: plasmaboom
-  	shootCone: 185
-  	despawnShake: 4.5
+  	shootCone: 200
+  	despawnShake: 4.0
   	collidesAir: false
-  	lifetime: 85
+  	lifetime: 90
   	despawnEffect: greenBomb
   	hitEffect: massiveExplosion
   	keepVelocity: false
-  	spin: 3.2
-  	shrinkY: 0.8
-  	shrinkX: 0.8
-  	speed: 0.003
+  	spin: 3.0
+  	shrinkY: 0.5
+  	shrinkX: 0.5
+  	speed: 0.002
   	collides: false
-  	healPercent: 15
-  	splashDamage: 250
+  	healPercent: 10
+  	splashDamage: 220
   	splashDamageRadius: 160
     }
   }
   {
   name: broadsword-weapon
   top: false 
-  y: 2
-  x: 45
+  y: -4
+  x: 34
   reload: 25
   recoil: 3
   shootSound: missile
-  shots: 1
-  velocityRnd: 0.6
-  inaccuracy: 10
+  shots: 2
+  velocityRnd: 0.1
+  inaccuracy: 1
   alternate: true
   mirror: true
-  bullet: {
-      type: MissileBulletType
-      width: 3
-      height: 7
-      homingPower: 0.09
-      weaveMag: 5
-      weaveScale: 6
-      lifetime: 60
-      keepVelocity: false
-      shootEffect: shootHeal
-      smokeEffect: hitLaser
-      hitEffect: hitLaser
-      hitSound: none
-      healPercent:  7
-      collidesTeam: true
-    }
+  bullet: artilleryIncendiary
   }
 ]
