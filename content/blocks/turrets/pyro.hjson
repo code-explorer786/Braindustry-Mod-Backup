@@ -1,33 +1,54 @@
 name: Pyro
-description: Flamethrower,use very flamable Spore Pods and Oil to throw a hot flame.
+description: Flamethrower,use very flamable Spore Pods or Blast Compound and Oil to throw a hot flame.
 type: itemTurret
-range: 170
-recoil: 18
-reloadTime: 40
+range: 250
+recoil: 10
+reloadTime: 5
 size: 3
-shots: 7
+shots: 3
+cooldown: 0.05
+velocityInaccuracy: 0.2
+restitution: 0.03 
 health: 1800
-inaccuracy: 0.2
-liquidBoostIntensity: 1.4
+inaccuracy: 13
+ammoEjectBack: 6
+ammoPerShot: 15
+liquidBoostIntensity: 2.1
 rotatespeed: 1.6
 targetAir: false
 targetGround: true
 ammoTypes: {
   spore-pod: {
-  	bulletType: pyraFlame
-    damage: 160
-    width: 7
+  	bulletType: BasicBulletType
+    bulletSprite: braindustry-spore-flame-bullet
+    width: 5
     height: 5
-  	ammoMultiplier: 4
-  	hitSize: 16
-  	lifetime: 45
-  	pierce: true
-  	collidesAir: false
-  	statusDuration: 80
-  	shootEffect: shootPyraFlame
-  	hitEffect: hitFlameSmall
-  	status: burning
-  	hittable: false 
+    damage: 25
+    shrinkY: 0
+    drag: 0.001
+    homingPower: 0.001
+    splashDamageRadius: 2
+    splashDamage: 30
+    makeFire: true
+    hitEffect: blastExplosion
+    status: burning
+    lifetime: 160
+  }
+    blast-compound: {
+    bulletType: BasicBulletType
+    bulletSprite: braindustry-flame-bullet
+    width: 8
+    height: 8
+    damage: 20
+    shrinkY: 0
+    drag: 0.001
+    homingPower: 0.002
+    splashDamageRadius: 8
+    splashDamage: 15
+    makeFire: true
+    hitEffect: blastExplosion
+    status: burning
+    lifetime: 210
   }
 }
 consumes: {
@@ -35,7 +56,7 @@ power: 1
  liquid: {
   liquid: oil
   amount: 0.1
-  booster: true
+  booster: false
   optional: false
   }
 }
@@ -47,4 +68,3 @@ requirements: [
   metaglass/140
 ]
  category: turret
- research: scorch
