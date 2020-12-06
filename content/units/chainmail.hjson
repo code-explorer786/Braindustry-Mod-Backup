@@ -62,6 +62,6 @@ weapons:[
   inaccuracy: 1
   alternate: true
   mirror: true
-  bullet: artilleryIncendiary
+  bullet: missileExplosive
   }
 ]
