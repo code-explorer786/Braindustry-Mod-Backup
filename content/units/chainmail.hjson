@@ -25,26 +25,28 @@ weapons:[
   mirror: true
   reload: 50
   minShootVelocity: 0.01
+  shootSound: plasmadrop
   bullet: {
-    width: 34
-    height: 34
+    width: 30
+    height: 30
     range: 40
     ignoreRotation: true
-    shootCone: 180
+    shootCone: 175
     despawnShake: 1.2
     collidesAir: false
-    lifetime: 70
+    lifetime: 80
     despawnEffect: greenBomb
     hitEffect: massiveExplosion
+    hitSound: plasmaboom
     keepVelocity: false
-    spin: 2.5
+    spin: 4
     shrinkX: 0.9
     shrinkY: 0.9
-    speed: 0.003
+    speed: 0.004
     collides: false
-    healPercent: 17
-    splashDamage: 280
-    splashDamageRadius: 145
+    healPercent: 10
+    splashDamage: 230
+    splashDamageRadius: 150
     }
   }
 ]
