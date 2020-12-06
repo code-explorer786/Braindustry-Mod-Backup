@@ -1,2 +1,2 @@
 const hyperPhase = extendContent (GenericCrafter,"hyper-phase-weaver",{});
-hyperPhase.drawer = new DrawWeave();
+hyperPhase.drawer = new DrawRotator();
