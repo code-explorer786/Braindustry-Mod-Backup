@@ -20,7 +20,7 @@ targetGround: true
 ammoTypes: {
   spore-pod: {
   	bulletType: BasicBulletType
-    sprite: braindustry-spore-flame-bullet
+    sprite: spore-flame-bullet
     width: 5
     height: 5
     damage: 25
@@ -36,7 +36,7 @@ ammoTypes: {
   }
     blast-compound: {
     bulletType: BasicBulletType
-    sprite: braindustry-flame-bullet
+    sprite: flame-bullet
     width: 8
     height: 8
     damage: 20
