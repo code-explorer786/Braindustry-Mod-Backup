@@ -6,8 +6,8 @@ flying: true
 hitSize: 12
 engineSize: 3.2
 armor: 2
-health: 1500
-range: 200
+health: 3500
+range: 120
 weaponOffsetY: 3
 engineOffsetY: -13
 rotateSpeed: 1.1
@@ -22,7 +22,7 @@ weapons:[
   name: chestplate-weapon
   reload: 40
   mirror: false
-  shot" 3
+  shot: 3
   x: 5
   y: -4
   rotate: true
