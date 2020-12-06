@@ -33,37 +33,37 @@ weapons:[
   soundPitchMin: 1
   shootSound: plasmadrop
   bullet: {
-  	width: 50
-  	height: 50
-  	range: 50
+  	width: 45
+  	height: 45
+  	range: 40
   	ignoreRotation: true
   	hitSound: plasmaboom
-  	shootCone: 200
-  	despawnShake: 4.0
+  	shootCone: 160
+  	despawnShake: 2.1
   	collidesAir: false
-  	lifetime: 90
+  	lifetime: 40
   	despawnEffect: greenBomb
   	hitEffect: massiveExplosion
   	keepVelocity: false
-  	spin: 3.0
+  	spin: 4
   	shrinkY: 0.5
   	shrinkX: 0.5
-  	speed: 0.002
+  	speed: 0.004
   	collides: false
   	healPercent: 10
-  	splashDamage: 220
-  	splashDamageRadius: 160
+  	splashDamage: 200
+  	splashDamageRadius: 170
     }
   }
   {
   name: broadsword-weapon
   top: false 
   y: -4
-  x: 34
+  x: 35
   reload: 25
   recoil: 3
   shootSound: missile
-  shots: 2
+  shots: 3
   velocityRnd: 0.1
   inaccuracy: 1
   alternate: true
