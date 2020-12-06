@@ -19,10 +19,12 @@ rotateWeapon: true
 research: shield
 weapons:[
 {
-  name: chainmail-weapon
+  name: chestplate-weapon
   reload: 40
   mirror: false
-  x: -3
+  shot" 3
+  x: 5
+  y: -4
   rotate: true
   bullet: missileIncendiary
   }
