@@ -21,19 +21,19 @@ rotateWeapon: true
 research: shield
 weapons:[
 {
-  name: chestplate-weapon
-  reload: 50
-  mirror: false
+  name: shield-weapon
+  reload: 40
+  mirror: true
   shot: 2
-  x: 5
-  y: -4
+  x: 6
+  y: 0
   rotate: true
   bullet: missileExplosive
   }
 {
 name: chainmail-weapon
   x: 0
-  y: -7
+  y: -8
   shootY: -1
   reload: 60
   ejectEffect: none
@@ -44,15 +44,15 @@ name: chainmail-weapon
   bullet: {
     type: SapBulletType
     sapStrength: 0.9
-    length: 28
-    damage: 80
+    length: 50
+    damage: 100
     shootEffect: shootSmall
     hitColor: e88ec9
     color: e88ec9
     despawnEffect: none
-    width: 1.1
-    lifetime: 30
-    knockback: 1.24
+    width: 1.0
+    lifetime: 40
+    knockback: 1.3
     }
   }
 ]
