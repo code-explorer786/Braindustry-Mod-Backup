@@ -32,7 +32,7 @@ const unit = extend(UnitEntity, {
 })
 return unit
 }
-chainmail.abilities.add(new ForceFieldAbility(100, 7, 220, 1200), new RepairFieldAbility(130, 60, 140));
+chainmail.abilities.add(new ForceFieldAbility(120, 7, 220, 1200), new RepairFieldAbility(90, 60, 140));
 
 const broadsword = extendContent(UnitType, "broadsword", {});
 /*T5 unit with heal field*/
@@ -41,4 +41,4 @@ const unit = extend(UnitEntity, {
 })
 return unit
 }
-broadsword.abilities.add(new ForceFieldAbility(145, 7, 220, 1200), new RepairFieldAbility(210, 80, 210));
+broadsword.abilities.add(new ForceFieldAbility(160, 8, 220, 1200), new RepairFieldAbility(120, 80, 210));
