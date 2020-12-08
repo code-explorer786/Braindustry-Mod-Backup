@@ -47,6 +47,7 @@ ammoTypes: {
     	serrationWidth: 5
 	ammoMultiplier: 7
     	toColor: 94d2d9
+	fromColor: 009ba8
     	lifetime: 80
     	shootEffect: thoriumShoot
     	smokeEffect: sparkShoot
