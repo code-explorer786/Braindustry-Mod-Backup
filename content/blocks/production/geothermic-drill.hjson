@@ -1,0 +1,28 @@
+type: drill
+name: 
+description: A huge drilling rig that heats the drill head with hot magma and electricity, thus increasing the speed and efficiency of drilling.
+size: 9
+health: 1460
+hasLiquids:true
+liquidCapacity: 20
+tier: 8
+hasLiquids: true
+rotateSpeed: 3.2
+drillTime: 170
+consumes: {
+power: 5.8
+	liquid: {
+	   liquid: magma
+	   amount: 0.2
+	}
+}
+requirements: [
+	chromium/290
+	titanium/400
+	silicon/300
+	graphenite/575
+	odinum/190
+	plastanium/120
+]
+category: production
+research: quarry-drill
