@@ -1,0 +1,25 @@
+type:pointDefenseTurret
+name:"Фрагмент"
+description:"Улучшенная Версия Сегмента"
+size:3
+health:400
+range:207
+hasPower:true
+shootLength:8
+bulletDamage:30
+reloadTime:7
+consumes:{
+    power:4.7
+    liquid:{
+      liquid:cryofluid
+      amount:0.2
+      booster:true
+      optional:false
+    }
+}
+liquidBoostIntensity:1.7
+requirements:[
+copper/100
+]
+category:defense
+research:router
