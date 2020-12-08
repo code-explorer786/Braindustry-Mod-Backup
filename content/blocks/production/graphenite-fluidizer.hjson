@@ -8,8 +8,8 @@ hasItems: true
 craftTime: 50
 updateEffect: steam
 consumes: {
-  power: 2
-  liquid: water/0.4
+  power: 4
+  liquid: water/0.1
   items: {
     items: [
       graphenite/1
@@ -26,5 +26,5 @@ requirements: [
 category: crafting
 research: graphenite-forge
 idleSound: respawning
-idleSoundVolume: 0.2
-outputLiquid: liquid-graphenite/24
+idleSoundVolume: 0.01
+outputLiquid: liquid-graphenite/32
