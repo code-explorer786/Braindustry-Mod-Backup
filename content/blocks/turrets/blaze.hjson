@@ -1,0 +1,45 @@
+name: Blaze
+type: ItemTurret
+description: Big and 
+reloadTime: 50
+shootShake: 5
+range: 130
+recoilAmount: 6
+spread: 30
+shootCone: 40
+size: 4
+health: 2560
+shots: 4
+shootSound: laser
+requirements: [
+	graphenite/155
+	silicon/120
+	chromium/185
+] 
+ammoTypes: {
+	chromium: {
+	type: ShrapnelBulletType
+	length: 140
+	damage: 122
+	ammoMultiplier: 6
+	width: 24
+	reloadMultiplier: 2.1
+	}
+	odinum: {
+	length: 105
+	damage: 220
+	ammoMultiplier: 7
+	toColor: 94d2d9
+	shootEffect: thoriumShoot
+	}
+}
+consumes: {
+	liquid: {
+	 liquid: thorium-refrigerant
+	 amount: 0.1
+	 booster: true
+  	 optional: true
+	}
+}
+research: fuse
+category: turret
