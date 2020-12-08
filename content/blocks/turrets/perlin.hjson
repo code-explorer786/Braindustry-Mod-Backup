@@ -1,26 +1,28 @@
 type:tractorBeamTurret
-name:"Покой"
-description:"Улучшеный Параллакс"
-size:3
-force:13
-scaledForce:9
-health:400
-range:217
-damage:2
-rotateSpeed:10
-hasPower:true
-consumes:{
-    power:5.2
-    liquid:{
-      liquid:cryofluid
-      amount:0.3
-      booster:true
-      optional:false
+name: Perlin
+description: Upgraded "Parallax".
+size: 3
+force: 14
+scaledForce: 9
+health: 390
+range: 220
+damage: 5
+rotateSpeed: 10
+hasPower: true
+consumes: {
+    power: 4.2
+    liquid: {
+      liquid: cryofluid
+      amount: 0.1
+      booster: false
+      optional: false
     }
 }
-liquidBoostIntensity:1.8
-requirements:[
-copper/100
+liquidBoostIntensity: 1.8
+requirements: [
+    graphenite/100
+    thorium/100
+    silicon/180
 ]
-category:defense
-research:router
+category: turrets
+research: parallax
