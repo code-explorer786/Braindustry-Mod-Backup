@@ -1,5 +1,5 @@
 type: SingleTypeGenerator
-name: Differential Magma Generator
+name: Hyper Magma Generator
 description: Consumes Magma and Pyratite to create many heat power.
 size: 3
 hasPower: true
@@ -8,13 +8,13 @@ hasItems: true
 itemCapacity: 30
 hasLiquids: true
 liquidCapacity: 40
-itemDuration: 70
-powerProduction: 13.6
+itemDuration: 100
+powerProduction: 20.6
 consumes: {
-  liquid: magma/0.3
+  liquid: magma/0.2
   items: {
   	items: [
-  		pyratite/1
+  		pyratite/3
     ]
   }
 }
