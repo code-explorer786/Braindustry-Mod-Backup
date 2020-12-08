@@ -11,6 +11,7 @@ size: 4
 health: 2560
 shots: 4
 shootSound: laser
+liquidBoostIntencity: 2.6
 requirements: [
 	graphenite/155
 	silicon/120
@@ -18,20 +19,36 @@ requirements: [
 ] 
 ammoTypes: {
 	chromium: {
-	type: ShrapnelBulletType
-	length: 140
-	damage: 122
+   	type: ShrapnelBulletType
+   	length: 150
+   	damage: 120
+   	width: 40
+   	serrationLenScl: 3
+   	serrationSpaceOffset: 42
+  	serrationFadeOffset: 0
+    	serrations: 5
+    	serrationWidth: 7
 	ammoMultiplier: 6
-	width: 24
-	reloadMultiplier: 2.1
+    	lifetime: 40
+    	shootEffect: thoriumShoot
+    	smokeEffect: sparkShoot
 	}
 	odinum: {
-	length: 105
-	damage: 220
+   	type: ShrapnelBulletType
+   	length: 115
+   	damage: 210
+   	width: 20
+   	serrationLenScl: 6
+   	serrationSpaceOffset: 40
+  	serrationFadeOffset: 0
+    	serrations: 7
+    	serrationWidth: 5
 	ammoMultiplier: 7
-	toColor: 94d2d9
-	shootEffect: thoriumShoot
-	}
+    	toColor: 94d2d9
+    	lifetime: 60
+    	shootEffect: thoriumShoot
+    	smokeEffect: sparkShoot
+  }
 }
 consumes: {
 	liquid: {
