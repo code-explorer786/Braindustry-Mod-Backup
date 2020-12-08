@@ -8,11 +8,11 @@ hasItems: true
 itemCapacity: 20
 liquidCapacity: 20
 itemDuration: 90
-powerProduction: 82
+powerProduction: 126
 plasmas: 3
 consumes: {
  power: 9
- liquid: liquid-graphenite/0.2
+ liquid: liquid-graphenite/0.1
   items: {
    items: [
     odinum/1
