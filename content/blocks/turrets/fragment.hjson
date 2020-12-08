@@ -1,25 +1,27 @@
-type:pointDefenseTurret
-name:"Фрагмент"
-description:"Улучшенная Версия Сегмента"
-size:3
-health:400
-range:207
-hasPower:true
-shootLength:8
-bulletDamage:30
-reloadTime:7
+type: pointDefenseTurret
+name: Fragment
+description: Upgraded "Segment", consume more power and Refrigerant for cooling.
+size: 3
+health: 410
+range: 250
+hasPower: true
+shootLength: 14
+bulletDamage: 32
+reloadTime: 10
 consumes:{
     power:4.7
     liquid:{
-      liquid:cryofluid
-      amount:0.2
-      booster:true
-      optional:false
+      liquid: thorium-refrigerant
+      amount: 0.04
+      booster: false
+      optional: false
     }
 }
-liquidBoostIntensity:1.7
+liquidBoostIntensity:1.5
 requirements:[
-copper/100
+ phase-alloy/20
+ silicon/200
+ odinum/120
 ]
-category:defense
-research:router
+category: turret
+research: segment
