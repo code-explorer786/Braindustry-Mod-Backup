@@ -1,5 +1,5 @@
 type: drill
-name: 
+name: Geothermic Drill
 description: A huge drilling rig that heats the drill head with hot magma and electricity, thus increasing the speed and efficiency of drilling.
 size: 9
 health: 1460
