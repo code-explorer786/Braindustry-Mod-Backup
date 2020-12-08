@@ -5,29 +5,31 @@ reloadTime: 50
 shootShake: 5
 range: 130
 recoilAmount: 6
-spread: 30
-shootCone: 40
+spread: 20
+shootCone: 35
 size: 4
-health: 2560
+health: 2600
 shots: 4
+rotate: true
 shootSound: laser
-liquidBoostIntencity: 2.6
+liquidBoostIntencity: 2.4
 requirements: [
 	graphenite/155
 	silicon/120
 	chromium/185
+	odinum/50
 ] 
 ammoTypes: {
 	chromium: {
    	type: ShrapnelBulletType
-   	length: 150
+   	length: 200
    	damage: 120
-   	width: 40
+   	width: 20
    	serrationLenScl: 3
-   	serrationSpaceOffset: 42
-  	serrationFadeOffset: 0
-    	serrations: 5
-    	serrationWidth: 7
+   	serrationSpaceOffset: 40
+  	serrationFadeOffset: 4
+    	serrations: 12
+    	serrationWidth: 10
 	ammoMultiplier: 6
     	lifetime: 40
     	shootEffect: thoriumShoot
@@ -35,17 +37,17 @@ ammoTypes: {
 	}
 	odinum: {
    	type: ShrapnelBulletType
-   	length: 115
-   	damage: 210
-   	width: 20
+   	length: 100
+   	damage: 220
+   	width: 60
    	serrationLenScl: 6
    	serrationSpaceOffset: 40
   	serrationFadeOffset: 0
-    	serrations: 7
+    	serrations: 5
     	serrationWidth: 5
 	ammoMultiplier: 7
     	toColor: 94d2d9
-    	lifetime: 60
+    	lifetime: 80
     	shootEffect: thoriumShoot
     	smokeEffect: sparkShoot
   }
