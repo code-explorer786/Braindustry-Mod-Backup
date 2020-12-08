@@ -1,0 +1,26 @@
+type:tractorBeamTurret
+name:"Покой"
+description:"Улучшеный Параллакс"
+size:3
+force:13
+scaledForce:9
+health:400
+range:217
+damage:2
+rotateSpeed:10
+hasPower:true
+consumes:{
+    power:5.2
+    liquid:{
+      liquid:cryofluid
+      amount:0.3
+      booster:true
+      optional:false
+    }
+}
+liquidBoostIntensity:1.8
+requirements:[
+copper/100
+]
+category:defense
+research:router
