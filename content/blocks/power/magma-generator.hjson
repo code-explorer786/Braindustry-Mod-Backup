@@ -7,10 +7,10 @@ hasItems: true
 itemCapacity: 10
 hasLiquids: true
 liquidCapacity: 15
-itemDuration: 80
-powerProduction: 6
+itemDuration: 90
+powerProduction: 8
 consumes: {
-  liquid: magma/0.1
+  liquid: magma/0.04
   items: {
   	items: [
   		coal/1
