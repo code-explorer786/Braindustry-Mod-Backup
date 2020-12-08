@@ -1,7 +1,7 @@
 name: Blaze
 type: ItemTurret
 description: Big and 
-reloadTime: 50
+reloadTime: 70
 shootShake: 5
 range: 130
 recoilAmount: 6
@@ -27,7 +27,7 @@ ammoTypes: {
    	width: 20
    	serrationLenScl: 3
    	serrationSpaceOffset: 40
-  	serrationFadeOffset: 4
+  	serrationFadeOffset: 0
     	serrations: 12
     	serrationWidth: 10
 	ammoMultiplier: 6
@@ -39,16 +39,16 @@ ammoTypes: {
    	type: ShrapnelBulletType
    	length: 100
    	damage: 220
-   	width: 60
+   	width: 42
    	serrationLenScl: 6
    	serrationSpaceOffset: 40
   	serrationFadeOffset: 0
-    	serrations: 5
+    	serrations: 8
     	serrationWidth: 5
 	ammoMultiplier: 7
     	toColor: 94d2d9
 	fromColor: 009ba8
-    	lifetime: 80
+    	lifetime: 60
     	shootEffect: thoriumShoot
     	smokeEffect: sparkShoot
   }
