@@ -40,7 +40,7 @@ weapons:
     	smokeEffect: melting
 		}
 	}
-]
+
 	{
  	name: lyra-weapon
   	x: 5
@@ -66,5 +66,6 @@ weapons:
     	smokeEffect: melting
 		}
 	}
+	
 
 research: venti
