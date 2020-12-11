@@ -2,13 +2,13 @@ name: Hyper Additive Reconstructor
 type: Reconstructor
 size: 3
 consumes: {
-  power: 3
+  power: 3.2
   items: {
     items: [
-    silicon/30
-    graphenite/30
-    thorium/10
-    titanium/15
+    silicon/35
+    graphenite/15
+    thorium/20
+    titanium/20
     ]
   }
 }
@@ -18,7 +18,7 @@ requirements: [
   odinum/100
   titanium/120
   silicon/90
-  phase-fabric/80
+  plastanium/80
 ]
 upgrades: [
   [
@@ -26,6 +26,9 @@ upgrades: [
   ]
   [
     armor, shield
+  ]
+  [
+    venti, lyra
   ]
 ]
 category: units
