@@ -52,7 +52,7 @@ weapons:
   	rotate: true
   	shootSound: flame
   	bullet: {
-    	type: MissileBuletType
+    	type: MissileBulletType
     	width: 8
     	height: 8
     	shrinkY: 0.1
