@@ -1,0 +1,70 @@
+name: Lyra
+description: T2 sea unit with shrapnel lasers and rocketguns, very nice at attcks to opponent base but need a support.
+health: 860
+speed: 0.65
+drag: 0.18
+hiSize: 17
+armor: 8
+accel: 0.3
+rotateSpeed: 2.0
+rotateShooting: true
+trailLength: 24
+trailX: 7
+trailY: -9
+trailScl: 1.6
+weapons: 
+[
+	{
+ 	name: venti-weapon
+  	x: 0
+  	y: 0
+  	shootY: -1
+  	reload: 50
+  	ejectEffect: none
+  	recoil: 0
+  	rotate: true
+  	shootSound: flame
+  	bullet: {
+    	type: ShrapnelBulletType
+    	length: 50
+    	damage: 50
+    	width: 12
+    	serrationLenScl: 6
+    	serrationSpaceOffset: 4
+    	serrationFadeOffset: 0
+    	serrations: 6
+    	serrationWidth: 17
+    	fromColor: dbf3ff
+    	toColor: 00ffff
+    	shootEffect: sapExplosion
+    	smokeEffect: melting
+		}
+	}
+]
+	{
+ 	name: lyra-weapon
+  	x: 5
+  	y: -1
+  	shootY: -1
+  	reload: 60
+  	ejectEffect: none
+  	recoil: 2
+  	rotate: true
+  	shootSound: flame
+  	bullet: {
+    	type: MissileBuletType
+    	width: 8
+    	height: 8
+    	shrinkY: 0.1
+    	drag: -0.1
+    	splashDamageRadius: 20
+    	splashDamage: 35
+    	hitEffect: blastExpli
+    	fromColor: dbf3ff
+    	toColor: 00ffff
+    	shootEffect: plasticExplosion
+    	smokeEffect: melting
+		}
+	}
+
+research: venti

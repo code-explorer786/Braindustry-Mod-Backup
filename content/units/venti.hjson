@@ -1,0 +1,41 @@
+name: Venti
+description: First naval unit, have powerful shrapnel gun but need support.
+health: 420
+speed: 0.8
+drag: 0.17
+hiSize: 12
+armor: 4
+accel: 0.3
+rotateSpeed: 2.2
+rotateShooting: true
+trailLength: 21
+trailX: 6
+trailY: -5
+trailScl: 2.1
+weapons: [{
+ name: venti-weapon
+  x: 0
+  y: 0
+  shootY: -1
+  reload: 50
+  ejectEffect: none
+  recoil: 0
+  rotate: true
+  shootSound: flame
+  bullet: {
+    type: ShrapnelBulletType
+    length: 50
+    damage: 30
+    width: 7
+    serrationLenScl: 4
+    serrationSpaceOffset: 2
+    serrationFadeOffset: 0
+    serrations: 3
+    serrationWidth: 10
+    fromColor: dbf3ff
+    toColor: 00ffff
+    shootEffect: sparkShoot
+    smokeEffect: sparkShoot
+}
+}]
+research: risso
