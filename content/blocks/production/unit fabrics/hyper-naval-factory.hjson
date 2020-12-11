@@ -1,0 +1,26 @@
+name: Hyper Naval Factory
+type: UnitFactory
+size: 3
+consumes: {
+  power: 2.2
+}
+plans: [
+  {
+    unit: venti
+    requirements: [
+      silicon/5
+      graphenite/10
+      metaglass/10
+    ] 
+    time: 630
+  }
+]
+requirements: [
+  lead/150
+  silicon/80
+  plastanium/25
+  metaglass/85
+  odinum/55
+]
+category: units
+research: naval-factory
