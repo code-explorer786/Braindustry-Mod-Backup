@@ -59,7 +59,7 @@ weapons:
     	drag: -0.1
     	splashDamageRadius: 20
     	splashDamage: 35
-    	hitEffect: blastExpli
+    	hitEffect: blastExplosion
     	fromColor: dbf3ff
     	toColor: 00ffff
     	shootEffect: plasticExplosion
