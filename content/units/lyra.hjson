@@ -1,6 +1,7 @@
 name: Lyra
 description: T2 sea unit with shrapnel lasers and rocketguns, very nice at attcks to opponent base but need a support.
-health: 860
+type: naval
+health: 850
 speed: 0.65
 drag: 0.18
 hiSize: 17
