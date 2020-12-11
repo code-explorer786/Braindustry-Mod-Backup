@@ -1,6 +1,7 @@
 name: Venti
 description: First naval unit, have powerful shrapnel gun but need support.
-health: 420
+type: naval
+health: 400
 speed: 0.8
 drag: 0.17
 hiSize: 12
@@ -26,12 +27,12 @@ weapons: [{
     type: ShrapnelBulletType
     length: 50
     damage: 30
-    width: 7
-    serrationLenScl: 4
-    serrationSpaceOffset: 2
+    width: 15
+    serrationLenScl: 1
+    serrationSpaceOffset: 1
     serrationFadeOffset: 0
     serrations: 3
-    serrationWidth: 10
+    serrationWidth: 5
     fromColor: dbf3ff
     toColor: 00ffff
     shootEffect: sparkShoot
