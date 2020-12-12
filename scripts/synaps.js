@@ -14,7 +14,7 @@ electroSapBullet.damage = 37;
 electroSapBullet.shootEffect = Fx.railShoot;
 electroSapBullet.hitColor = electroSapBullet.color = Color.valueOf("fbff9e");
 electroSapBullet.despawnEffect = Fx.railHit;
-electroSapBullet.width = 8;
+electroSapBullet.width = 4;
 electroSapBullet.lifetime = 45;
 electroSapBullet.knockback = -1;
 electroSapBullet.lightning = 4;//количество молний
