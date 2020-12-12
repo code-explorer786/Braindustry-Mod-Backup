@@ -20,7 +20,7 @@ weapons:
   	x: 0
   	y: 0
   	shootY: -1
-  	reload: 50
+  	reload: 70
   	ejectEffect: none
   	recoil: 0
   	rotate: true
@@ -29,12 +29,13 @@ weapons:
     	type: ShrapnelBulletType
     	length: 50
     	damage: 50
-    	width: 12
+    	width: 19
     	serrationLenScl: 6
     	serrationSpaceOffset: 4
     	serrationFadeOffset: 0
     	serrations: 6
-    	serrationWidth: 17
+    	serrationWidth: 4
+	lifeTime: 40
     	fromColor: dbf3ff
     	toColor: 00ffff
     	shootEffect: sapExplosion
@@ -50,6 +51,7 @@ weapons:
   	reload: 60
   	ejectEffect: none
   	recoil: 2
+	shots: 2
   	rotate: true
   	shootSound: flame
   	bullet: {
