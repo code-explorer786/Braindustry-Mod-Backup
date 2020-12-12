@@ -8,13 +8,13 @@ Lightning.create(b, this.lightningColor, this.lightningDamage < 0 ? this.damage 
 this.super$update(b);
 }
 });
-electroSapBullet.sapStrength = 0.85;
+electroSapBullet.sapStrength = 3;
 electroSapBullet.length = 55;
 electroSapBullet.damage = 37;
 electroSapBullet.shootEffect = Fx.railShoot;
 electroSapBullet.hitColor = electroSapBullet.color = Color.valueOf("fbff9e");
 electroSapBullet.despawnEffect = Fx.railHit;
-electroSapBullet.width = 0.55;
+electroSapBullet.width = 30;
 electroSapBullet.lifetime = 30;
 electroSapBullet.knockback = -1;
 electroSapBullet.lightning = 10;//количество молний
