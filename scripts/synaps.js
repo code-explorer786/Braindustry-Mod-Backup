@@ -8,7 +8,7 @@ Lightning.create(b, this.lightningColor, this.lightningDamage < 0 ? this.damage 
 this.super$update(b);
 }
 });
-electroSapBullet.sapStrength = 3;
+electroSapBullet.sapStrength = 0.48;
 electroSapBullet.length = 55;
 electroSapBullet.damage = 37;
 electroSapBullet.shootEffect = Fx.railShoot;
