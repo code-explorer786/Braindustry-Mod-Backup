@@ -28,6 +28,7 @@ weapons: [{
     length: 50
     damage: 30
     width: 15
+    lifeTime: 32
     serrationLenScl: 1
     serrationSpaceOffset: 1
     serrationFadeOffset: 0
