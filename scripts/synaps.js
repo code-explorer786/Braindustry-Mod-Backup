@@ -27,8 +27,8 @@ electroSapBullet.largeHit = true;
 electroSapBullet.lightColor = electroSapBullet.lightningColor = Color.valueOf("fbff9e");
 
 const synaps = extendContent(ItemTurret, "synaps", {});
-synaps.health = 1200;
-synaps.size = 3;
+synaps.health = 1260;
+synaps.size = 2;
 synaps.hasItems = true;
 synaps.hasLiquids = true;
 synaps.localizedName = "Synaps";
