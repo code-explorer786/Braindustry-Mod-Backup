@@ -38,3 +38,6 @@ synaps.requirements = ItemStack.with(Items.titanium, 200, Items.lead, 250, Items
 synaps.consumes.items(new ItemStack(Vars.content.getByName(ContentType.item,"braindustry-exotic-alloy"), 150));
 synaps.category = Category.turret;
 synaps.shootType = electroSapBullet
+synaps.ammo(
+    Items.plastanium, electroSapBullet, 
+);
