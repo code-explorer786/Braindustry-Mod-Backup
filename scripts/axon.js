@@ -8,7 +8,7 @@ Lightning.create(b, this.lightningColor, this.lightningDamage < 0 ? this.damage 
 this.super$update(b);
 }
 });
-electroBasicBullet.backColor = draw.color("c2cc37");
+electroBasicBullet.backColor = Draw.color("c2cc37");
 electroBasicBullet.width = 10;
 electroBasicBullet.height = 10;
 electroBasicBullet.shrinkY = 0.1;
