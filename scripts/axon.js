@@ -17,7 +17,7 @@ electroBasicBullet.spin = 3.5;
 electroBasicBullet.speed = 4;
 electroBasicBullet.damage = 43;
 electroBasicBullet.shootEffect = Fx.railShoot;
-electroBasicBullet.hitColor = electroSapBullet.frontColor = Color.valueOf("f1fc58");
+electroBasicBullet.hitColor = electroBasicBullet.frontColor = Color.valueOf("f1fc58");
 electroBasicBullet.despawnEffect = Fx.railHit;
 electroBasicBullet.lifetime = 90;
 electroBasicBullet.knockback = 1;
