@@ -41,5 +41,6 @@ axon.requirements = ItemStack.with(Items.titanium, 200, Vars.content.getByName(C
 axon.category = Category.turret;
 synaps.shootType = electroSapBullet;
 axon.ammo(
-    Vars.content.getByName(ContentType.item,"braindustry-exotic-alloy"), electroBasicBullet
+    Vars.content.getByName(ContentType.item, "braindustry-exotic-alloy"), electroBasicBullet
+
 );
