@@ -1,4 +1,5 @@
 const exoAlloy = extendContent(Item, "exotic-alloy", {});
+exoAlloy.localizedName = "Exo Metal"
 exoAlloy.description = "Heavy organic metal with high durability and low weight."
 exoAlloy.cost = 3;
 exoAlloy.alwaysUnlocked = true;
