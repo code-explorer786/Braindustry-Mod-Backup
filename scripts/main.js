@@ -2,4 +2,5 @@ require("unitAbilities");
 require("hyperPhaseRotator");
 require("synaps");
 require("axon");
-require("items");
+require("exotic-alloy");
+require("graphenite");
