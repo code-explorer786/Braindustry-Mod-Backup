@@ -1,4 +1,3 @@
-//exometal
 const exoAlloy = extendContent(Item, "exotic-alloy", {});
 exoAlloy.description = "Heavy organic metal with high durability and low weight."
 exoAlloy.cost = 3;
