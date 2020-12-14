@@ -13,18 +13,19 @@ consumes: {
   power: 1.2
     items:{
      items:[
-      plastanium/1
-      thorium/1
-      titanium/1
+      spore-pod/4
+      thorium/4
+      titanium/3
       ]
    }
 }
 requirements: [
   plastanium/40
-  titanium/100
+  lead/100
   graphite/80
-  graphenite/280
+  graphenite/100
+  metaglass/80
 ]
 category: crafting
 research: graphenite-forge
-outputItem: exotic-alloy/2
+outputItem: exometal/2
