@@ -30,7 +30,7 @@ electroBasicBullet.lightningCone = 32;//рандомизация угла нап
 
 const axon = extendContent(ItemTurret, "axon", {});
 axon.health = 1260;
-axon.size = 2;
+axon.size = 3;
 axon.shots = 5;
 axon.hasItems = true;
 axon.hasLiquids = true;
@@ -40,5 +40,5 @@ axon.buildVisibility = BuildVisibility.shown;
 axon.requirements = ItemStack.with(Items.titanium, 200, Vars.content.getByName(ContentType.item,"braindustry-graphenite"), 480, Items.silicon, 350, Vars.content.getByName(ContentType.item,"braindustry-exotic-alloy"), 140);
 axon.category = Category.turret;
 axon.ammo(
-    Vars.content.getByName(ContentType.item,"braindustry-exotic-alloy"), electroBasicBullet
+    Vars.content.getByName(ContentType.item,"braindustry-exotic-alloy"), electroBasicBullet,
 );
