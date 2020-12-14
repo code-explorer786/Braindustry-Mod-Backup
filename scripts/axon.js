@@ -39,7 +39,6 @@ axon.description = "Powerful Electric shotgun.";
 axon.buildVisibility = BuildVisibility.shown;
 axon.requirements = ItemStack.with(Items.titanium, 200, Vars.content.getByName(ContentType.item,"braindustry-graphenite"), 480, Items.silicon, 350, Vars.content.getByName(ContentType.item,"braindustry-exotic-alloy"), 140);
 axon.category = Category.turret;
-axon.shootType = electroBasicBullet;
 axon.ammo(
     Vars.content.getByName(ContentType.item,"braindustry-exotic-alloy"), electroBasicBullet
 );
