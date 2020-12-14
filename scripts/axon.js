@@ -30,10 +30,11 @@ electroBasicBullet.lightningCone = 45;//рандомизация угла нап
 electroBasicBullet.lightningColor = Color.valueOf("f1fc58");
 
 const axon = extendContent(ItemTurret, "axon", {});
-axon.health = 1260;
+axon.health = 2300;
 axon.size = 3;
 axon.rotateSpeed = 0.5;
 axon.shots = 3;
+axon.reloadTime = 60;
 axon.hasItems = true;
 axon.hasLiquids = true;
 axon.localizedName = "Axon";
