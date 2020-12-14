@@ -1,4 +1,5 @@
 const graphenite = extendContent(Item, "graphenite", {});
+graphenite.localizedName = "Graphenite"
 graphenite.description = "Basic material for high-tec structures, has a low mass and normal durability.Produces in Graphenite forge."
 graphenite.cost = 2;
 graphenite.alwaysUnlocked = true;
