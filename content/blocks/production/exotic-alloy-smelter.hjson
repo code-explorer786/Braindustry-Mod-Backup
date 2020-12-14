@@ -1,6 +1,6 @@
 type: GenericSmelter
-name: Exotic Alloy Smelter
-description: Craft Exotic Alloy from Thorium,Titanium and Plastanium.
+name: Exometal Smelter
+description: Cultivate Exometal from Thorium,Titanium and Spore Pods.
 health: 140
 liquidCapacity: 10
 size: 3
