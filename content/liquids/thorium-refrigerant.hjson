@@ -2,6 +2,6 @@ name: Thorium Refrigerant
 description: Very cold liquid,made from Thorium and Cryofluid.
 temperature: 0.01
 viscosity: 0.9
-heatCapacity: 1.65
+heatCapacity: 1.32
 color: dac5fc
 research: cryofluid
