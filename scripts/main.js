@@ -1,5 +1,5 @@
 require("graphenite");
-require("exotic-alloy");
+require("exoticAlloy");
 require("synaps");
 require("axon");
 require("unitAbilities");
