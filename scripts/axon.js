@@ -37,6 +37,7 @@ axon.shots = 4;
 axon.reloadTime = 40;
 axon.hasItems = true;
 axon.hasLiquids = true;
+axon.range = 310;
 axon.localizedName = "Axon";
 axon.description = "Powerful Electric shotgun.";
 axon.buildVisibility = BuildVisibility.shown;
