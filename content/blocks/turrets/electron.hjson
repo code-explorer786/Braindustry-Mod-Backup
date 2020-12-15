@@ -12,4 +12,4 @@ requirements: [
   titanium/310
   metaglass/120
 ]
-reloadTime: 5
+reloadTime: 3
