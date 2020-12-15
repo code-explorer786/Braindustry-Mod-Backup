@@ -48,6 +48,7 @@ electroMeltdown.hasLiquids = true;
 electroMeltdown.shootX = 10;
 electroMeltdown.shootY = -12;
 electroMeltdown.alternate = true;
+electroMeltdown.rotate = false;
 electroMeltdown.range = 400;
 electroMeltdown.localizedName = "Dendrite";
 electroMeltdown.description = "Monstruous turret with Electric Laser.";
