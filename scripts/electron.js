@@ -9,16 +9,17 @@ this.super$update(b);
 }
 });
 //electroContinuousLaserBullet.colors = [Color.valueOf("c2cc37"), Color.valueOf("f1fc58"), Color.valueOf("fbffcc")];
-electroContinuousLaserBullet.hitSize = 25;
-electroContinuousLaserBullet.drawSize = 540;
-electroContinuousLaserBullet.width = 50;
+electroContinuousLaserBullet.hitSize = 14;
+electroContinuousLaserBullet.drawSize = 520;
+electroContinuousLaserBullet.width = 20;
+electroContinuousLaserBullet.length = 250;
 electroContinuousLaserBullet.largeHit = true;
 electroContinuousLaserBullet.lifetime = 140;
-electroContinuousLaserBullet.hitColor = Color.valueOf("f1fc58")
+electroContinuousLaserBullet.hitColor = Color.valueOf("f1fc58");
 electroContinuousLaserBullet.incendAmount = 4;
 electroContinuousLaserBullet.incendSpread = 10;
 electroContinuousLaserBullet.incendChance = 0.7;
-electroContinuousLaserBullet.lightColor = Color.valueOf("fbffcc")
+electroContinuousLaserBullet.lightColor = Color.valueOf("fbffcc");
 electroContinuousLaserBullet.keepVelocity = true;
 electroContinuousLaserBullet.collides = true;
 electroContinuousLaserBullet.pierce = true;
@@ -29,17 +30,19 @@ electroContinuousLaserBullet.shootEffect = Fx.railShoot;
 electroContinuousLaserBullet.despawnEffect = Fx.railHit;
 electroContinuousLaserBullet.hitEffect = Fx.hitMeltdown;
 electroContinuousLaserBullet.knockback = 1;
-electroContinuousLaserBullet.lightning = 8;//количество молний
-electroContinuousLaserBullet.lightningLength = 20;//длина молнии
-electroContinuousLaserBullet.lightningLengthRand = 25;//рандомное число от 0 до 50 будет прибавляться к длине молнии, то есть рандомизация длины
-electroContinuousLaserBullet.lightningDamage = 32;//урон молнии
-electroContinuousLaserBullet.lightningAngle = 5;//угол направления молний относительно угла пули
+electroContinuousLaserBullet.lightning = 11;//количество молний
+electroContinuousLaserBullet.lightningLength = 30;//длина молнии
+electroContinuousLaserBullet.lightningLengthRand = 30;//рандомное число от 0 до 50 будет прибавляться к длине молнии, то есть рандомизация длины
+electroContinuousLaserBullet.lightningDamage = 78;//урон молнии
+electroContinuousLaserBullet.lightningAngle = 15;//угол направления молний относительно угла пули
 electroContinuousLaserBullet.lightningCone = 50;//рандомизация угла направления молний 
 electroContinuousLaserBullet.lightningColor = Color.valueOf("f1fc58");
 
 const electroMeltdown = extendContent(ItemTurret, "electron", {});
 electroMeltdown.health = 5600;
 electroMeltdown.size = 10;
+electroMeltdown.recoilAmount = 4;
+electroMeltdown.shootCone = 40;
 electroMeltdown.rotateSpeed = 0.9;
 electroMeltdown.shots = 1;
 electroMeltdown.shootSound = loadSound("electronShoot.mp3");
