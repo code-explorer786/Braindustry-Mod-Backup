@@ -28,7 +28,6 @@ electroContinuousLaserBullet.absorbable = false;
 electroContinuousLaserBullet.damage = 74;
 electroContinuousLaserBullet.shootEffect = Fx.railShoot;
 electroContinuousLaserBullet.despawnEffect = Fx.railHit;
-electroContinuousLaserBullet.hitEffect = Fx.hitMeltdown;
 electroContinuousLaserBullet.knockback = 1;
 electroContinuousLaserBullet.lightning = 24;//количество молний
 electroContinuousLaserBullet.lightningLength = 30;//длина молнии
