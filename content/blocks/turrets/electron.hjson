@@ -1,3 +1,4 @@
 name: Dendrite
 shootSound: electronShoot
 loopSounds: electronCharge
+reloadTime: 110
