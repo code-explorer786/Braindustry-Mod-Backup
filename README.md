@@ -5,6 +5,8 @@ High Technology mod for Mindustry game with new super beatiful and useful materi
 
 **Minimal Mindustry Build - 105**
 
+**YouTube channel with spoilers and other stuff - https://www.youtube.com/channel/UCIN35lW7fC3tXcNDd-Ip7Pw?view_as=subscriber**
+
 **VK Group - https://vk.com/braindustry**
 
 ![alt tag](https://sun9-41.userapi.com/impg/jB_FylhwINfHEw0vyA3suZ-oQTxWgCLO3AIoWA/19iB70aAoKc.jpg?size=1280x713&quality=96&sign=9e91344d66d56150149c768012735f1c "Screenshot")​
