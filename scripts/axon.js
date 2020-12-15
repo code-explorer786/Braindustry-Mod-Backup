@@ -14,7 +14,7 @@ electroBasicBullet.height = 14;
 electroBasicBullet.shrinkY = 0.1;
 electroBasicBullet.shrinkX = 0.2;
 electroBasicBullet.spin = 3.5;
-electroBasicBullet.speed = 3;
+electroBasicBullet.speed = 3.3;
 electroBasicBullet.damage = 62;
 electroBasicBullet.shootEffect = Fx.railShoot;
 electroBasicBullet.hitColor = electroBasicBullet.frontColor = Color.valueOf("f1fc58");
