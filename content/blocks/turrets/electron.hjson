@@ -1,2 +1,4 @@
 name: Dendrite
+shootSound: electronShoot
+loopSounds: electronCharge
 colors: [c2cc37, f1fc58, fbffcc]
