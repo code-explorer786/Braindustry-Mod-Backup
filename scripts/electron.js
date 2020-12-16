@@ -50,7 +50,7 @@ load(){
 		];
 	}
 });
-electroMeltdown.health = 6460;
+electroMeltdown.health = electron.size * electron.size * 240;
 electroMeltdown.size = 10;
 electroMeltdown.recoilAmount = 11;
 electroMeltdown.shootShake = 4;
@@ -69,4 +69,4 @@ electroMeltdown.description = "Monstruous turret with Electric Laser.";
 electroMeltdown.buildVisibility = BuildVisibility.shown;
 electroMeltdown.category = Category.turret;
 electroMeltdown.shootType = electroContinuousLaserBullet;
-new TechTree.TechNode(TechTree.all.find(boolf(t=>t.content.name == "synaps")), electroMeltdown, ItemStack.with());
+new TechTree.TechNode(TechTree.all.find(boolf(t=>t.content.name == "braindustry-synaps")), electroMeltdown, ItemStack.with());
