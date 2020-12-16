@@ -1,3 +1,4 @@
+require("mod");
 require("graphenite");
 require("exoticAlloy");
 require("synaps");
