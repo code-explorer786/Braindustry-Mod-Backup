@@ -64,4 +64,6 @@ electroMeltdown.buildVisibility = BuildVisibility.shown;
 //electroMeltdown.requirements = ItemStack.with(Items.surgeAlloy, 890, Items.phaseFabric, 640, Vars.content.getByName(ContentType.item,"braindustry-graphenite"), 1400, Items.silicon, 2010, Vars.content.getByName(ContentType.item, "braindustry-exotic-alloy"), 1050);
 electroMeltdown.category = Category.turret;
 electroMeltdown.shootType = electroContinuousLaserBullet;
+electroMeltdown.baseRegion = Core.atlas.find("block-10");
+electroMeltdown.icon = Core.atlas.find("electron");
 new TechTree.TechNode(TechTree.all.find(boolf(t=>t.content.name == "synaps")), electroMeltdown, ItemStack.with());
