@@ -45,10 +45,10 @@ load(){
   
 	icons(){
 		return [
-			Core.atlas.find("block-10");
-      Core.atlas.find("electron");
+			Core.atlas.find("block-10"),
+      			Core.atlas.find("electron");
 		];
-   }
+	}
 });
 electroMeltdown.health = 6460;
 electroMeltdown.size = 10;
