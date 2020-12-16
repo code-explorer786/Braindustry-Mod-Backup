@@ -1,5 +1,5 @@
 const graphenite = extendContent(Item, "graphenite", {});
-graphenite.localizedName = "Exo Metal"
+graphenite.localizedName = "Graphenite"
 graphenite.description = "Progressed synthetic metal with low weight."
 graphenite.cost = 2;
 graphenite.alwaysUnlocked = true;
