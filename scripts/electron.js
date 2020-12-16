@@ -69,6 +69,4 @@ electroMeltdown.description = "Monstruous turret with Electric Laser.";
 electroMeltdown.buildVisibility = BuildVisibility.shown;
 electroMeltdown.category = Category.turret;
 electroMeltdown.shootType = electroContinuousLaserBullet;
-electroMeltdown.baseRegion = Core.atlas.find("block-10");
-electroMeltdown.icon = Core.atlas.find("electron");
 new TechTree.TechNode(TechTree.all.find(boolf(t=>t.content.name == "synaps")), electroMeltdown, ItemStack.with());
