@@ -50,7 +50,7 @@ load(){
 		];
 	}
 });
-electroMeltdown.health = electron.size * electron.size * 240;
+electroMeltdown.health = electroMeltdown.size * electroMeltdown.size * 240;
 electroMeltdown.size = 10;
 electroMeltdown.recoilAmount = 11;
 electroMeltdown.shootShake = 4;
