@@ -36,7 +36,20 @@ electroContinuousLaserBullet.lightningAngle = 15;//угол направлени
 electroContinuousLaserBullet.lightningCone = 50;//рандомизация угла направления молний 
 electroContinuousLaserBullet.lightningColor = Color.valueOf("f1fc58");
 
-const electroMeltdown = extendContent(LaserTurret, "electron", {});
+const electroMeltdown = extendContent(LaserTurret, "electron", {
+load(){
+	    this.super$load();
+
+	    this.baseRegion = Core.atlas.find("block-10");
+    }, 
+  
+	icons(){
+		return [
+			Core.atlas.find("block-10");
+      Core.atlas.find("electron");
+		];
+   }
+});
 electroMeltdown.health = 6460;
 electroMeltdown.size = 10;
 electroMeltdown.recoilAmount = 11;
@@ -44,24 +57,16 @@ electroMeltdown.shootShake = 4;
 electroMeltdown.shootCone = 15;
 electroMeltdown.rotateSpeed = 0.9;
 electroMeltdown.shots = 1;
-//electroMeltdown.shootSound = loadSound("electronShoot.ogg");
-//electroMeltdown.loopSound = loadSound("electronCharge.ogg");
-//electroMeltdown.loopSoundVolume = 2;
 electroMeltdown.hasItems = true;
 electroMeltdown.hasLiquids = true;
-//electroMeltdown.shootX = 10;
-//electroMeltdown.shootY = -12;
-//electroMeltdown.alternate = true;
 electroMeltdown.rotate = true;
 electroMeltdown.shootDuration = 170;
 electroMeltdown.powerUse = 42;
 electroMeltdown.range = 400;
 electroMeltdown.firingMoveFract = 0.2;
-//electroMeltdown.reloadTime = 200;
 electroMeltdown.localizedName = "Dendrite";
 electroMeltdown.description = "Monstruous turret with Electric Laser.";
 electroMeltdown.buildVisibility = BuildVisibility.shown;
-//electroMeltdown.requirements = ItemStack.with(Items.surgeAlloy, 890, Items.phaseFabric, 640, Vars.content.getByName(ContentType.item,"braindustry-graphenite"), 1400, Items.silicon, 2010, Vars.content.getByName(ContentType.item, "braindustry-exotic-alloy"), 1050);
 electroMeltdown.category = Category.turret;
 electroMeltdown.shootType = electroContinuousLaserBullet;
 electroMeltdown.baseRegion = Core.atlas.find("block-10");
