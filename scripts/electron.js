@@ -46,7 +46,7 @@ load(){
 	icons(){
 		return [
 			Core.atlas.find("block-10"),
-      			Core.atlas.find("electron");
+      			Core.atlas.find("electron")
 		];
 	}
 });
