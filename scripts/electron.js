@@ -36,21 +36,8 @@ electroContinuousLaserBullet.lightningAngle = 15;//угол направлени
 electroContinuousLaserBullet.lightningCone = 50;//рандомизация угла направления молний 
 electroContinuousLaserBullet.lightningColor = Color.valueOf("f1fc58");
 
-const electroMeltdown = extendContent(LaserTurret, "electron", {
-load(){
-	    this.super$load();
-
-	    this.baseRegion = Core.atlas.find("braindustry-block-10");
-    }, 
-  
-	icons(){
-		return [
-			Core.atlas.find("braindustry-block-10"),
-      			Core.atlas.find("braindustry-electron")
-		];
-	}
-});
-electroMeltdown.health = electroMeltdown.size * electroMeltdown.size * 240;
+const electroMeltdown = extendContent(LaserTurret, "electron", {});
+electroMeltdown.health = 8600;
 electroMeltdown.size = 10;
 electroMeltdown.recoilAmount = 11;
 electroMeltdown.shootShake = 4;
@@ -63,7 +50,7 @@ electroMeltdown.rotate = true;
 electroMeltdown.shootDuration = 170;
 electroMeltdown.powerUse = 42;
 electroMeltdown.range = 400;
-electroMeltdown.firingMoveFract = 0.2;
+electroMeltdown.firingMoveFract = 0.4;
 electroMeltdown.localizedName = "Dendrite";
 electroMeltdown.description = "Monstruous turret with Electric Laser.";
 electroMeltdown.buildVisibility = BuildVisibility.shown;
