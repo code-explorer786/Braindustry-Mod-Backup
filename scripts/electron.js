@@ -40,13 +40,13 @@ const electroMeltdown = extendContent(LaserTurret, "electron", {
 load(){
 	    this.super$load();
 
-	    this.baseRegion = Core.atlas.find("block-10");
+	    this.baseRegion = Core.atlas.find("braindustry-block-10");
     }, 
   
 	icons(){
 		return [
-			Core.atlas.find("block-10"),
-      			Core.atlas.find("electron")
+			Core.atlas.find("braindustry-block-10"),
+      			Core.atlas.find("braindustry-electron")
 		];
 	}
 });
