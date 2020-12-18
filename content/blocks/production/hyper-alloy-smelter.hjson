@@ -1,6 +1,6 @@
 type: GenericSmelter
 name: Hyper Alloy Smelter
-description: Big Surge Kiln,uses more materials and energy as well as oil for speed and a large amount of material produced.
+description: Bigger Surge Kiln, uses more materials and energy as well as oil for speed and a higher amount of material produced.
 health: 300
 liquidCapacity: 80
 size: 5
