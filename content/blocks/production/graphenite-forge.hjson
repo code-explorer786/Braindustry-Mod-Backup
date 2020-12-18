@@ -1,6 +1,6 @@
 type: GenericSmelter
 name: Graphenite Forge
-description: Combines Graphite,Titanium and Silicon to produce Graphenite.
+description: Combines Graphite, Titanium and Silicon to produce Graphenite.
 health: 80
 liquidCapacity: 0
 size: 3
