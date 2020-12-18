@@ -6,4 +6,4 @@ require("synaps");
 require("axon");
 require("electron");
 require("unitAbilities");
-require("hyperPhaseRotator");
+require("rotators");
