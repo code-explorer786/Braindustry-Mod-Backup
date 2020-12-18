@@ -1,6 +1,6 @@
 type: GenericSmelter
 name: Odinum Extractor
-description: This forge can extract Odinum from Plastanium,Titanium and Thorium.
+description: This forge extracts Odinum from Plastanium, Titanium and Thorium.
 health: 250
 liquidCapacity: 0
 size: 3
