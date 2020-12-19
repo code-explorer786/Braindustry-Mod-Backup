@@ -1,4 +1,4 @@
-type: material
+type: Item
 name: Chromium
 description: A very infusible resource.
 hardness: 4
