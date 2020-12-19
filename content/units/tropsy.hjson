@@ -1,0 +1,79 @@
+name: Tropsy
+description: An enlarged and improved unit created on the basis of Lyra unit.
+type: Naval
+health: 1120
+speed: 0.83
+accel: 0.16
+rotateSpeed: 1.7
+drag: 0.18
+hitSize: 19
+armor: 8
+rotateShooting: false
+trailLength: 26
+trailX: 8
+trailY: 11
+trailScl: 1.8
+research: lyra
+weapons: [
+	{
+		name: cenda-weapon
+		reload: 30
+		x: 0
+		y: -2
+		shadow: 7
+		rotateSpeed: 2
+		rotate: true
+		shots: 4
+		shotDelay: 3
+		inaccuracy: 4
+		velocityRnd: 0.14
+		shootSound: missile
+		bullet: {
+			type: MissileBulletType
+			width: 14
+			height: 14d
+			shrinkY: 0.3
+			drag: 0.1
+			splashDamageRadius: 50
+      splashDamage: 28
+      hitEffect: blastExplosion
+      despawnEffect: blastExplosion
+      lightningDamage: 12
+      lightning: 8
+      lightningLength: 9
+      lifetime: 80
+      trailColor: blue
+      backColor: bulletYellowBack
+      frontColor: bulletYellow
+			weaveScale: 8
+      weaveMag: 1
+		}
+  }
+  {
+  name: lyra-weapon
+  x: 0
+  y: 0
+  shootY: -1
+  reload: 50
+  ejectEffect: none
+  recoilAmount: 2
+  rotate: true
+  shootSound: flame
+  bullet: {
+    type: ShrapnelBulletType
+    length: 40
+    damage: 30
+    width: 32
+    lifeTime: 70
+    serrationLenScl: 2
+    serrationSpaceOffset: 1
+    serrationFadeOffset: 0
+    serrations: 6
+    serrationWidth: 10
+    fromColor: dbf3ff
+    toColor: 00ffff
+    shootEffect: sparkShoot
+    smokeEffect: sparkShoot
+    }
+  }
+]
