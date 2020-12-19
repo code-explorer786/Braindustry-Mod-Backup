@@ -19,5 +19,5 @@
 	{ "item": "silicon", "amount": 160 },
 	{ "item": "phase-alloy", "amount": 65 }
 	],
-    "description": "Super fast processor.Need liquid cooling!"
+    "description": "Super fast processor. Needs liquid cooling!"
 }
