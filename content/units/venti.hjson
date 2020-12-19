@@ -14,7 +14,7 @@ trailX: 6
 trailY: -5
 trailScl: 2.1
 weapons: [{
- name: venti-weapon
+ name: lyra-weapon
   x: 0
   y: 0
   shootY: -1
@@ -28,7 +28,7 @@ weapons: [{
     length: 50
     damage: 30
     width: 28
-    lifeTime: 40
+    lifeTime: 60
     serrationLenScl: 1
     serrationSpaceOffset: 1
     serrationFadeOffset: 0
