@@ -1,5 +1,5 @@
 name: Exotic Alloy Wall Large
-description: Large Exotic Alloy wall,can creates lightings when shot.
+description: A bigger Exotic Alloy wall, creates lightings when shot.
 type: Wall
 health: 4060
 size: 2
