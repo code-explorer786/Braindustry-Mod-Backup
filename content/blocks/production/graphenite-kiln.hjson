@@ -1,0 +1,37 @@
+type: GenericSmelter
+name: Graphenite Kiln
+description: Big version of legacy Graphenite forge, consumes more resources to produce more Graphenite.
+health: 240
+liquidCapacity: 20
+size: 5
+hasPower: true
+hasLiquids: false
+hasItems: true
+craftTime: 90
+updateEffect: plasticburn
+consumes: {
+  power: 2.2
+    items:{
+     items:[
+      graphite/3
+      silicon/1
+      titanium/1
+      blast-compound/1
+      ]
+   }
+   liquid: water
+   amount: 0.1
+}
+requirements: [
+  lead/240
+  graphenite/120
+  titanium/50
+  odinum/70
+  silicon/130
+  graphite/100
+]
+category: crafting
+research: graphenite-forge
+idleSound: flame
+idleSoundVolume: 0.3
+outputItem: graphenite/4
