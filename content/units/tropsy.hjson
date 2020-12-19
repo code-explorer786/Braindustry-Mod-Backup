@@ -15,7 +15,7 @@ trailY: 11
 trailScl: 1.8
 research: lyra
 weapons: [
-	{
+		{
 		name: cenda-weapon
 		reload: 30
 		x: 0
@@ -35,45 +35,45 @@ weapons: [
 			shrinkY: 0.3
 			drag: 0.1
 			splashDamageRadius: 50
-      splashDamage: 28
-      hitEffect: blastExplosion
-      despawnEffect: blastExplosion
-      lightningDamage: 12
-      lightning: 8
-      lightningLength: 9
-      lifetime: 80
-      trailColor: blue
-      backColor: bulletYellowBack
-      frontColor: bulletYellow
+      			splashDamage: 28
+	      		hitEffect: blastExplosion
+      			despawnEffect: blastExplosion
+      			lightningDamage: 12
+      			lightning: 8
+      			lightningLength: 9
+      			lifetime: 80
+      			trailColor: blue
+     			backColor: bulletYellowBack
+      			frontColor: bulletYellow
 			weaveScale: 8
-      weaveMag: 1
-		}
-  }
-  {
-  name: lyra-weapon
-  x: 0
-  y: 0
-  shootY: -1
-  reload: 50
-  ejectEffect: none
-  recoilAmount: 2
-  rotate: true
-  shootSound: flame
-  bullet: {
-    type: ShrapnelBulletType
-    length: 40
-    damage: 30
-    width: 32
-    lifeTime: 70
-    serrationLenScl: 2
-    serrationSpaceOffset: 1
-    serrationFadeOffset: 0
-    serrations: 6
-    serrationWidth: 10
-    fromColor: dbf3ff
-    toColor: 00ffff
-    shootEffect: sparkShoot
-    smokeEffect: sparkShoot
-    }
-  }
+      			weaveMag: 1
+			}
+  		}
+  	{
+  	name: lyra-weapon
+  	x: 0
+  	y: 0
+  	shootY: -1
+  	reload: 50
+  	ejectEffect: none
+  	recoilAmount: 2
+  	rotate: true
+  	shootSound: flame
+  	bullet: {
+    		type: ShrapnelBulletType
+    		length: 40
+    		damage: 42
+    		width: 32
+    		lifeTime: 70
+    		serrationLenScl: 2
+    		serrationSpaceOffset: 1
+    		serrationFadeOffset: 0
+    		serrations: 6
+    		serrationWidth: 10
+    		fromColor: 995ce8
+    		toColor: 00ffff
+    		shootEffect: sparkShoot
+    		smokeEffect: sparkShoot
+    		}
+  	}
 ]
