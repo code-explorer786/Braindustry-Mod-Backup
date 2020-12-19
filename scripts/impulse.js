@@ -41,7 +41,6 @@ electricArc.range = 130;
 electricArc.localizedName = "Impulse";
 electricArc.description = "Arc upgraded version, can make more lightnings and shot a one basic bullet.";
 electricArc.buildVisibility = BuildVisibility.shown;
-electricArc.requirements = ItemStack.with(Items.lead, 80, Vars.content.getByName(ContentType.item,"braindustry-graphenite"), 20, Items.silicon, 45, Items.copper, 100);
 electricArc.category = Category.turret;
 electricArc.ammo(
     Items.silicon, electroBasicBullet2
