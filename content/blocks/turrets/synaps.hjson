@@ -1,0 +1,8 @@
+name: Synaps
+requirements: [
+odinum/200
+graphenite/120
+silicon/120
+lead/200
+exotic-alloy/60
+]
