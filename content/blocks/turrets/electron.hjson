@@ -2,15 +2,15 @@ name: Dendrite
 shootSound: electronShoot
 loopSound: electronCharge
 requirements: [
-  phase-alloy/320
-  exotic-alloy/600
-  plastic/510
-  surge-alloy/430
-  chromium/400
-  odinum/340
-  graphenite/460
-  titanium/310
+  phase-alloy/250
+  exotic-alloy/400
+  surge-alloy/300
+  chromium/200
+  odinum/300
+  graphenite/420
   metaglass/120
 ]
-reloadTime: 3
+reloadTime: 4
+research: axon
+
 
