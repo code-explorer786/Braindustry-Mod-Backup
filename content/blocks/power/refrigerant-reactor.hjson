@@ -1,6 +1,6 @@
 type: NuclearReactor
 name: "Refrigerant Reactor"
-description: "Upgraded Thorium Reactor.Now he use the Refrigerant."
+description: "Upgraded Thorium Reactor. Now it uses the Refrigerant."
 size: 4
 hasPower: true
 hasLiquids: true
