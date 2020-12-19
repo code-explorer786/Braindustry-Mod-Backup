@@ -17,7 +17,7 @@ electroBasicBullet2.spin = 1.2;
 electroBasicBullet2.speed = 2.1;
 electroBasicBullet2.damage = 11;
 electroBasicBullet2.shootEffect = Fx.shockwave;
-electroBasicBullet2.hitColor = electroBasicBullet.frontColor = Color.valueOf("f1fc58");
+electroBasicBullet2.hitColor = electroBasicBullet2.frontColor = Color.valueOf("f1fc58");
 electroBasicBullet2.despawnEffect = Fx.hitLancer;
 electroBasicBullet2.lifetime = 60;
 electroBasicBullet2.knockback = 1;
