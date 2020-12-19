@@ -1,4 +1,4 @@
-name: Synaps
+name: Axon
 requirements: [
 odinum/200
 graphenite/120
