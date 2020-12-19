@@ -12,9 +12,9 @@ consumes: {
   power: 1.2
     items:{
      items:[
-      spore-pod/4
-      thorium/4
-      titanium/3
+      spore-pod/1
+      thorium/2
+      titanium/1
       ]
    }
 }
