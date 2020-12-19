@@ -19,7 +19,7 @@ weapons: [
 		name: cenda-weapon
 		reload: 30
 		x: 0
-		y: -2
+		y: -4
 		shadow: 7
 		rotateSpeed: 2
 		rotate: true
@@ -52,25 +52,26 @@ weapons: [
   		}
   	{
   	name: lyra-weapon
-  	x: 0
-  	y: 0
+  	x: 6
+  	y: 4
   	shootY: -1
   	reload: 50
   	ejectEffect: none
   	recoilAmount: 2
   	rotate: true
   	shootSound: flame
+	alternate: true
   	bullet: {
     		type: ShrapnelBulletType
     		length: 40
     		damage: 42
     		width: 32
     		lifeTime: 70
-    		serrationLenScl: 2
+    		serrationLenScl: 1
     		serrationSpaceOffset: 1
     		serrationFadeOffset: 0
     		serrations: 6
-    		serrationWidth: 10
+    		serrationWidth: 32
     		fromColor: 995ce8
     		toColor: 00ffff
     		shootEffect: sparkShoot
