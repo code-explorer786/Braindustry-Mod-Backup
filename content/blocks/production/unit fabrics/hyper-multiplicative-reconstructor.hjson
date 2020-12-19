@@ -2,22 +2,23 @@ name: Hyper Multiplicative Reconstructor
 type: Reconstructor
 size: 5
 consumes: {
-  power: 6
+  power: 6.2
   items: {
     items: [
     silicon/60
     graphenite/50
     metaglass/30
+    titanium/30
     odinum/30
     ]
   }
 }
-constructTime: 1500
+constructTime: 1620
 requirements: [
   graphenite/600
   titanium/300
   silicon/300
-  odinum/600
+  odinum/500
   plastanium/150
 ]
 upgrades: [
@@ -26,6 +27,9 @@ upgrades: [
   ]
   [
     shield, chestplate
+  ]
+  [
+   lyra, tropsy
   ]
 ]
 category: units
