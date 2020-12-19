@@ -1,6 +1,6 @@
 type: Wall
 name: Graphenite Wall
-description: Medium strength wall,very purple.
+description: A purple, medium strength wall.
 size: 1
 health: 620
 requirements: [
