@@ -41,7 +41,7 @@ axon.range = 310;
 axon.localizedName = "Axon";
 axon.description = "Powerful Electric shotgun.";
 axon.buildVisibility = BuildVisibility.shown;
-axon.requirements = ItemStack.with(Items.titanium, 560, Vars.content.getByName(ContentType.item,"braindustry-graphenite"), 600, Items.silicon, 540, Vars.content.getByName(ContentType.item, "braindustry-exotic-alloy"), 160);
+//axon.requirements = ItemStack.with(Items.titanium, 560, Vars.content.getByName(ContentType.item,"braindustry-graphenite"), 600, Items.silicon, 540, Vars.content.getByName(ContentType.item, "braindustry-exotic-alloy"), 160);
 axon.category = Category.turret;
 axon.ammo(
     Vars.content.getByName(ContentType.item, "braindustry-exotic-alloy"), electroBasicBullet
