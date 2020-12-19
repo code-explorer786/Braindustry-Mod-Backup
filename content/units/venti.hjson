@@ -1,5 +1,5 @@
 name: Vixy
-description: First naval unit, have powerful shrapnel gun but need support.
+description: First naval unit, has powerful shrapnel gun but needs support.
 type: naval
 health: 520
 speed: 0.8
