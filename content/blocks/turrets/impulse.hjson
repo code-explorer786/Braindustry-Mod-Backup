@@ -1,0 +1,7 @@
+name: Impulse
+requirements: [
+  silicon/30
+  graphenite/20
+  titanium/20
+  metaglass/20
+]
