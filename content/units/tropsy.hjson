@@ -42,7 +42,7 @@ weapons: [
       			lightning: 8
       			lightningLength: 9
       			lifetime: 80
-      			trailColor: blue
+      			trailColor: 64b2e5
      			backColor: bulletYellowBack
       			frontColor: bulletYellow
 			weaveScale: 8
