@@ -15,7 +15,7 @@ electroBasicBullet.shrinkY = 0.1;
 electroBasicBullet.shrinkX = 0.2;
 electroBasicBullet.spin = 3.5;
 electroBasicBullet.speed = 4.1;
-electroBasicBullet.damage = 62;
+electroBasicBullet.damage = 35;
 electroBasicBullet.shootEffect = Fx.railShoot;
 electroBasicBullet.hitColor = electroBasicBullet.frontColor = Color.valueOf("f1fc58");
 electroBasicBullet.despawnEffect = Fx.railHit;
@@ -24,7 +24,7 @@ electroBasicBullet.knockback = 1;
 electroBasicBullet.lightning = 6;//количество молний
 electroBasicBullet.lightningLength = 5;//длина молнии
 electroBasicBullet.lightningLengthRand = 15;//рандомное число от 0 до 50 будет прибавляться к длине молнии, то есть рандомизация длины
-electroBasicBullet.lightningDamage = 32;//урон молнии
+electroBasicBullet.lightningDamage = 28;//урон молнии
 electroBasicBullet.lightningAngle = 5;//угол направления молний относительно угла пули
 electroBasicBullet.lightningCone = 45;//рандомизация угла направления молний 
 electroBasicBullet.lightningColor = Color.valueOf("f1fc58");
