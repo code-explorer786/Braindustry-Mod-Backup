@@ -19,8 +19,10 @@ consumes: {
       blast-compound/1
       ]
    }
-   liquid: water
-   amount: 0.1
+    liquid: {
+      liquid: oil
+      amount: 0.04
+      }
 }
 requirements: [
   lead/240
