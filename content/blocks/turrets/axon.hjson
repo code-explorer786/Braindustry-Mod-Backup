@@ -1,9 +1,9 @@
 name: Axon
 requirements: [
-thorium/240
-graphenite/100
-silicon/90
-lead/200
-copper/100
+odinum/100
+graphenite/200
+silicon/140
+metaglass/70
+exotic-alloy/140
 ]
-research: impulse
+research: synaps
