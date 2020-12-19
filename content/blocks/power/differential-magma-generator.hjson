@@ -1,6 +1,6 @@
 type: SingleTypeGenerator
 name: Hyper Magma Generator
-description: Consumes Magma and Pyratite to create many heat power.
+description: Consumes Magma and Pyratite to produce much heat power.
 size: 3
 hasPower: true
 health: 130
