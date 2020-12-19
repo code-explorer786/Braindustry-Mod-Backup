@@ -10,7 +10,7 @@ this.super$update(b);
 });
 electroBasicBullet2.backColor = Color.valueOf("c2cc37");
 electroBasicBullet2.width = 4;
-electroBasicBullet2.height = 4;
+electroBasicBullet2.height = 6;
 electroBasicBullet2.shrinkY = 0.1;
 electroBasicBullet2.shrinkX = 0.2;
 electroBasicBullet2.spin = 1.2;
@@ -21,10 +21,10 @@ electroBasicBullet2.hitColor = electroBasicBullet2.frontColor = Color.valueOf("f
 electroBasicBullet2.despawnEffect = Fx.hitLancer;
 electroBasicBullet2.lifetime = 60;
 electroBasicBullet2.knockback = 1;
-electroBasicBullet2.lightning = 3;//количество молний
-electroBasicBullet2.lightningLength = 5;//длина молнии
-electroBasicBullet2.lightningLengthRand = 5;//рнадомная длина
-electroBasicBullet2.lightningDamage = 32;//урон молнии
+electroBasicBullet2.lightning = 5;//количество молний
+electroBasicBullet2.lightningLength = 7;//длина молнии
+electroBasicBullet2.lightningLengthRand = 7;//рнадомная длина
+electroBasicBullet2.lightningDamage = 20;//урон молнии
 electroBasicBullet2.lightningAngle = 5;//угол направления молний относительно угла пули
 electroBasicBullet2.lightningCone = 20;//рандомизация угла направления молний 
 electroBasicBullet2.lightningColor = Color.valueOf("f1fc58");
