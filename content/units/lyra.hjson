@@ -27,9 +27,9 @@ weapons:
   	shootSound: flame
   	bullet: {
     	type: ShrapnelBulletType
-    	length: 50
+    	length: 40
     	damage: 50
-    	width: 19
+    	width: 24
     	serrationLenScl: 6
     	serrationSpaceOffset: 4
     	serrationFadeOffset: 0
