@@ -3,7 +3,7 @@ name: Graphenite Kiln
 description: Big version of legacy Graphenite forge, consumes more resources to produce more Graphenite.
 health: 240
 liquidCapacity: 20
-size: 5
+size: 6
 hasPower: true
 hasLiquids: false
 hasItems: true
