@@ -1,7 +1,7 @@
 name: Blaze
 type: ItemTurret
-description: Big and 
-reloadTime: 70
+description: Big and strong
+reloadTime: 90
 shootShake: 5
 range: 130
 recoilAmount: 6
@@ -14,51 +14,51 @@ rotate: true
 shootSound: laser
 liquidBoostIntencity: 2.4
 requirements: [
-	graphenite/155
-	silicon/120
-	chromium/185
-	odinum/50
+	graphenite/1000
+	silicon/1800
+	chromium/450
+	odinum/400
 ] 
 ammoTypes: {
 	chromium: {
    	type: ShrapnelBulletType
    	length: 200
-   	damage: 120
+   	damage: 180
    	width: 20
    	serrationLenScl: 3
    	serrationSpaceOffset: 40
   	serrationFadeOffset: 0
-    	serrations: 12
-    	serrationWidth: 10
-	ammoMultiplier: 6
-    	lifetime: 40
-    	shootEffect: thoriumShoot
-    	smokeEffect: sparkShoot
+    serrations: 12
+    serrationWidth: 10
+    ammoMultiplier: 6
+    lifetime: 40
+    shootEffect: thoriumShoot
+    smokeEffect: sparkShoot
 	}
 	odinum: {
    	type: ShrapnelBulletType
    	length: 100
-   	damage: 220
+   	damage: 280
    	width: 42
    	serrationLenScl: 6
    	serrationSpaceOffset: 40
   	serrationFadeOffset: 0
-    	serrations: 8
-    	serrationWidth: 5
-	ammoMultiplier: 7
-    	toColor: c2f9ff
-	fromColor: 9ee1e8
-    	lifetime: 60
-    	shootEffect: thoriumShoot
-    	smokeEffect: sparkShoot
+    serrations: 8
+    serrationWidth: 5
+    ammoMultiplier: 7
+    toColor: c2f9ff
+    fromColor: 9ee1e8
+    lifetime: 60
+    shootEffect: thoriumShoot
+    smokeEffect: sparkShoot
   }
 }
 consumes: {
 	liquid: {
-	 liquid: thorium-refrigerant
-	 amount: 0.1
-	 booster: true
-  	 optional: true
+    liquid: thorium-refrigerant
+    amount: 0.04
+    booster: true
+    optional: true
 	}
 }
 research: fuse

@@ -2,11 +2,11 @@ name: Neuron
 description: Fast and compact laser turret.
 type: itemTurret
 requirements: [
-graphenite/400
-silicon/800
-surge-alloy/120
-plastanium/340
-thorium/700
+graphenite/250
+silicon/400
+surge-alloy/70
+plastanium/120
+thorium/350
 ] 
 ammoTypes: {
   exotic-alloy: {
@@ -17,7 +17,7 @@ ammoTypes: {
     trailEffect: instTrail
     despawnEffect: instBomb
     trailSpacing: 12
-    damage: 240
+    damage: 360
     tileDamageMultiplier: 0.3
     speed: 50
     hitShake: 1
@@ -25,7 +25,7 @@ ammoTypes: {
   }
 }
 consumes: {
-  power: 6
+  power: 4
   liquid: {
   liquid: cryofluid
   amount: 0.1
@@ -33,13 +33,13 @@ consumes: {
   optional: false
   }
 }
-reloadTime: 90
+reloadTime: 30
 shots: 1
 burstSpacing: 6
 inaccuracy: 1.0
 liquidBoostIntensity: 1.1
-range: 180
+range: 190
 size: 2
-health: 1600
+health: 800
 research: lancer
 category: turret

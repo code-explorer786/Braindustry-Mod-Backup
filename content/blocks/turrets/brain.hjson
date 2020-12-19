@@ -1,18 +1,18 @@
 name: Brain
 type: itemTurret
 requirements: [
-graphenite/100
-silicon/2000
+graphenite/570
+silicon/1200
 surge-alloy/100
-thorium/1150
-phase-alloy/350
+thorium/720
+phase-alloy/230
 plastic/350
 ] 
 ammoTypes: {
   phase-alloy: {
    type: LaserBulletType
     length: 220
-    damage: 360
+    damage: 330
     width: 60
     lifetime: 60
     lightningSpacing: 40
