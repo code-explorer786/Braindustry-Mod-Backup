@@ -1,9 +1,9 @@
-type: material
+type: Item
 name: Plastic
 description: A lightweight and durable material.
 cost: 4
-flammability: 0.1
-explosiveness: 0.1
-radioactivity: 0.4
+flammability: 0
+explosiveness: 0
+radioactivity: 0.01
 color: f6bfff
 research: plastanium
