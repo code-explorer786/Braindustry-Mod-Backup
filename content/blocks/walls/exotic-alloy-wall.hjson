@@ -1,5 +1,5 @@
 name: Exotic Alloy Wall 
-description: Wall from Exotic Alloy,can creates lightings when shot.
+description: An Exotic Alloy wall, creates lightnings when shot.
 type: Wall
 health: 1160
 size: 1
