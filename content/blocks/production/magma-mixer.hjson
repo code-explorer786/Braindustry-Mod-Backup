@@ -1,6 +1,6 @@
 type: GenericCrafter
 name: Magma Mixer
-description: Make liquid and hot Magma from Copper and Slag.
+description: Makes hot Magma liquid from Copper and Slag.
 size: 2
 hasPower: true
 hasLiquids: true

@@ -1,6 +1,6 @@
 type: GenericSmelter
 name: Exometal Smelter
-description: Cultivate Exometal from Thorium,Titanium and Spore Pods.
+description: Cultivates Exometal from Thorium, Titanium and Spore Pods.
 health: 140
 liquidCapacity: 10
 size: 3

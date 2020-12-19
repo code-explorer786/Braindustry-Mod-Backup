@@ -1,5 +1,5 @@
 name: Hydraulic Drill
-description: This drill use hydraulic for more effective work.Consumes water.
+description: This drill uses hydraulics for more effective work. Consumes water.
 type: Drill
 size: 3
 tier: 4

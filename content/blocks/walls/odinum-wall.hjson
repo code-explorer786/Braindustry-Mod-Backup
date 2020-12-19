@@ -1,6 +1,6 @@
 type: Wall
 name: Odinum Wall
-description: Medium strength wall,little bit radioactive.
+description: Medium strength wall, a little radioactive.
 size: 1
 health: 1020
 requirements: [

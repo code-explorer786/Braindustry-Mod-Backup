@@ -1,6 +1,6 @@
 type: GenericSmelter
 name: Plastic Forge
-description: Consumes Plastanium,Oil and Thorium to produce super light Plastic .
+description: Consumes Plastanium, Oil and Thorium to produce ultra-light Plastic .
 health: 330
 liquidCapacity: 15
 size: 4

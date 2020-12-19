@@ -1,5 +1,5 @@
 name: Plastic Wall
-description: This Plastic wall can deflect some bullets.
+description: A Plastic wall, can deflect some bullets.
 type: Wall
 health: 980
 size: 1

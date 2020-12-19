@@ -1,6 +1,6 @@
 type: genericCrafter
 name: Graphenite Fluidizer
-description: A fluidizer that turns graphenite into slurry using strong pressure.Consumes water and graphenite.
+description: A fluidizer that turns graphenite into slurry using huge pressure. Consumes water and graphenite.
 size: 2
 hasPower: true
 hasLiquids: true

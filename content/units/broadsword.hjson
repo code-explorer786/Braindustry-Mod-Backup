@@ -1,5 +1,5 @@
 name: Helmet
-description: Colossal unit with the ability to bombard, repair, defend, transport other units and shoot a lasers.
+description: A colossal unit with ability to bombard, repair, defend, transport other units and shoot lasers.
 type: payload
 armor: 18
 health: 29000
