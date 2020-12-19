@@ -1,4 +1,5 @@
-type: material
+type: Item
+
 name: Odinum
 description: A radioactive resource.
 hardness: 5
