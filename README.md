@@ -1,13 +1,15 @@
 # Braindustry-Mod
 High Technology mod for Mindustry game with new super beatiful and useful materials,liquids,logic,reactors and too much more,now for the Mindustry 6.0 version!
 
-**Mod Actual Version - 1.4.1**
+**Mod Stable Version - 1.4.1**
 
-**Minimal Mindustry Build - 105**
+**Minimal Mindustry Build - 121**
 
-**YouTube channel with spoilers and other stuff - https://www.youtube.com/channel/UCIN35lW7fC3tXcNDd-Ip7Pw?view_as=subscriber**
+**YouTube(https://www.youtube.com/channel/UCIN35lW7fC3tXcNDd-Ip7Pw?view_as=subscriber)**
 
-**VK Group - https://vk.com/braindustry**
+**VK Group(https://vk.com/braindustry)**
+
+**discord(https://discord.gg/Q2qdHE2t)**
 
 ![alt tag](https://sun9-41.userapi.com/impg/jB_FylhwINfHEw0vyA3suZ-oQTxWgCLO3AIoWA/19iB70aAoKc.jpg?size=1280x713&quality=96&sign=9e91344d66d56150149c768012735f1c "Screenshot")​
 ![alt tag](https://user-images.githubusercontent.com/63517945/101539745-0f616300-39b0-11eb-99ec-5c2fc6d75d80.png "Screenshot")​
