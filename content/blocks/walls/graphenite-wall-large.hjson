@@ -1,5 +1,5 @@
 name: Large Graphenite Wall
-description: Big version of standard graphenite wall.
+description: A bigger version of standard graphenite wall.
 type: Wall
 health: 2160
 size: 2
