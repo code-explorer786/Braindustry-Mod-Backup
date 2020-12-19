@@ -1,6 +1,6 @@
 type: material
 name: Plastic
-description: Lightewight and very strong material.
+description: A lightweight and durable material.
 cost: 4
 flammability: 0.1
 explosiveness: 0.1
