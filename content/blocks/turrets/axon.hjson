@@ -1,8 +1,8 @@
 name: Axon
 requirements: [
-odinum/200
-graphenite/120
-silicon/120
+thorium/240
+graphenite/100
+silicon/90
 lead/200
-exotic-alloy/60
+copper/100
 ]
