@@ -2,9 +2,9 @@ name: Tropsy
 description: An enlarged and improved unit created on the basis of Lyra unit.
 type: naval
 health: 1120
-speed: 0.83
+speed: 0.51
 accel: 0.16
-rotateSpeed: 1.7
+rotateSpeed: 1.6
 drag: 0.18
 hitSize: 19
 armor: 8
@@ -33,7 +33,8 @@ weapons: [
 			width: 14
 			height: 14d
 			shrinkY: 0.3
-			drag: 0.1
+			speed: 4.7
+			drag: 0.05
 			splashDamageRadius: 50
       			splashDamage: 28
 	      		hitEffect: blastExplosion
@@ -42,9 +43,9 @@ weapons: [
       			lightning: 8
       			lightningLength: 9
       			lifetime: 80
-      			trailColor: 64b2e5
-     			backColor: bulletYellowBack
-      			frontColor: bulletYellow
+      			trailColor: b3bee0
+     			backColor: 7bafc4
+      			frontColor: b5eff4
 			weaveScale: 8
       			weaveMag: 1
 			}
