@@ -1,5 +1,5 @@
 name: Chestplate
-description: Big T3 defense unit with sap laser guns.
+description: A big T3 defense unit with sap laser guns.
 type: payload
 speed: 0.6
 maxVelocity: 1.4
