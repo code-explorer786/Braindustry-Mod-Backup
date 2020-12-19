@@ -1,6 +1,6 @@
 name: Tropsy
 description: An enlarged and improved unit created on the basis of Lyra unit.
-type: Naval
+type: naval
 health: 1120
 speed: 0.83
 accel: 0.16
