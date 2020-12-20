@@ -18,9 +18,7 @@ payloadCapacity: 14
 buildSpeed: 5
 commandLimit: 8
 range: 160
-targeAir: true
 ammoCapacity: 1600
-ammoResuplyAmount: 32
 research: chainmail
 weapons:[
   {
