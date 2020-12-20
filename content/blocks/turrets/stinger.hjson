@@ -1,5 +1,5 @@
 name: Stinger
-description: Powerful rocket launcher with different bullet types.
+description: A huge, powerful rocket launcher. Doesn't require expensive ammo to fire. May be a better Ripple.
 type: itemTurret
 range: 280
 recoil: 18
