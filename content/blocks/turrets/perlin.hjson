@@ -1,6 +1,6 @@
 type: TractorBeamTurret
 name: Perlin
-description: Upgraded "Parallax".
+description: Upgraded "Parallax". Does more damage to targets at cost of power and cooling.
 size: 3
 force: 14
 scaledForce: 9
