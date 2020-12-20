@@ -1,4 +1,5 @@
 name: Brain
+description: Fires a beam of death at enemies. Requires Phase Alloy to concentrate energy. Total destruction.
 type: itemTurret
 requirements: [
 graphenite/570
