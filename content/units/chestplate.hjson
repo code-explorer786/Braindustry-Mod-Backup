@@ -2,22 +2,18 @@ name: Chestplate
 description: A big T3 defense unit with sap laser guns.
 type: payload
 speed: 0.6
-maxVelocity: 1.4
 flying: true
 hitSize: 12
 engineSize: 3.2
 armor: 2
 health: 3500
 range: 120
-weaponOffsetY: 3
-engineOffsetY: -13
+engineOffset: 13
 rotateSpeed: 1.1
-mass: 8
 targetAir: true
 payloadCapacity: 2
 engineOffset: 7
 buildSpeed: 1.6
-rotateWeapon: true
 research: shield
 weapons:[
 {
