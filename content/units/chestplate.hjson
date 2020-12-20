@@ -20,7 +20,7 @@ weapons:[
   name: shield-weapon
   reload: 40
   mirror: true
-  shot: 2
+  shots: 2
   x: 6
   y: 0
   rotate: true
