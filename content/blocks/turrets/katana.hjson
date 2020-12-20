@@ -1,5 +1,5 @@
 name: Katana
-description: "Strong artillery turret with powerful ammo."
+description: "Strong artillery turret with powerful ammo. Requires a strong alloy to fire. Better in groups."
 type: itemTurret
 range: 300
 recoil: 12
