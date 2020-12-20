@@ -4,7 +4,7 @@ type: naval
 health: 520
 speed: 0.8
 drag: 0.17
-hiSize: 12
+hitSize: 12
 armor: 4
 accel: 0.3
 rotateSpeed: 2.3
@@ -28,7 +28,7 @@ weapons: [{
     length: 50
     damage: 30
     width: 28
-    lifeTime: 60
+    lifetime: 60
     serrationLenScl: 1
     serrationSpaceOffset: 1
     serrationFadeOffset: 0
