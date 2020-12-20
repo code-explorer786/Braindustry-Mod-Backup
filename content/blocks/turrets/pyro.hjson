@@ -1,5 +1,5 @@
 name: Pyro
-description: Flamethrower,use very flamable Spore Pods or Blast Compound and Oil to throw a hot flame.
+description: A deadly flamethrower that requires oil and a flammable resource to work. A dream of a pyro.
 type: itemTurret
 range: 250
 recoil: 9
