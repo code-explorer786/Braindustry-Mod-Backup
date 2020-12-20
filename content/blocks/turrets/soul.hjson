@@ -1,5 +1,5 @@
 name: Soul
-description: Small and powerful sap turret.
+description: A small, but powerful turret. Requires expensive Surge Alloy to fire. Can literally reap your soul.
 type: itemTurret
 requirements: [
 graphenite/340

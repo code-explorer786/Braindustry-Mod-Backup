@@ -1,5 +1,5 @@
 name: Neuron
-description: Fast and compact laser turret.
+description: A small turret that fires lasers that do splash damage. Requires power aswell as Exotic Alloy to shoot.
 type: itemTurret
 requirements: [
 graphenite/250
