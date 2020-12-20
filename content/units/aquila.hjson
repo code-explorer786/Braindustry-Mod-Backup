@@ -25,32 +25,23 @@ research: lacerta
 weapons: [
 {
   name: aquila-equip1
-  x: 31
-  y: -2
-  shootY: 0
-  reload: 60
-  shake: 2
-  rotateSpeed: 0.5
-  shootSound: shootBig
+  reload: 30
   rotate: true
-  occlusion: 12
-  recoil: 3
-  shots: 1
-  spacing: 17
+  x: 10
+  y: -7
+  mirror: true
   bullet: {
-    type: ShrapnelBulletType
-    length: 190
-    damage: 300
-    width: 40
-    serrationLenScl: 9
-    serrationSpaceOffset: 60
-    serrationFadeOffset: 0
-    serrations: 15
-    serrationWidth: 3
-    fromColor: d5b2ed
-    toColor: a17dcd
-    shootEffect: sparkShoot
-    smokeEffect: sparkShoot
+    type: SapBulletType
+    sapStrength: 0.7
+    length: 140
+    damage: 90
+    shootEffect: shootSmall
+    hitColor: e88ec9
+    color: e88ec9
+    despawnEffect: none
+    width: 4
+    lifetime: 40
+    knockback: -0.65
   }
 }
 {
@@ -68,10 +59,10 @@ weapons: [
   mirror: false
   bullet: {
     type: LaserBulletType
-    length: 300
-    damage: 350
-    width: 50
-    lifetime: 50
+    length: 380
+    damage: 390
+    width: 90
+    lifetime: 60
     lightningSpacing: 30
     lightningLength: 10
     lightningDelay: 1.2
