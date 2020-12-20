@@ -1,7 +1,9 @@
 # Braindustry-Mod
 High-technology mod for Mindustry game with many new beatiful and useful materials, liquids, logic, reactors and much more, now for Mindustry 6.0 version!
 
-**Mod Stable Version - 1.4.1**
+**Stable Version - 1.4.1**
+
+**Newest Alpha/Beta version - 1.4.2 build 2**
 
 **Minimal Mindustry Build - 121**
 
