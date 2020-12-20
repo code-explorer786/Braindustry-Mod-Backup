@@ -1,6 +1,6 @@
 type: pointDefenseTurret
 name: Fragment
-description: Upgraded "Segment", consume more power and Refrigerant for cooling.
+description: Upgraded "Segment", consumes more power aswell Refrigerant for cooling.
 size: 3
 health: 410
 range: 250
