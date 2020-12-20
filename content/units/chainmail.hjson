@@ -6,7 +6,6 @@ hitSize: 27
 engineSize: 7
 armor: 12
 health: 10000
-range: 220
 rotateSpeed: 1.2
 targetAir: true
 payloadCapacity: 4
@@ -26,7 +25,6 @@ weapons:[
     width: 60
     height: 60
     range: 30
-    ignoreRotation: true
     shootCone: 190
     despawnShake: 3.0
     collidesAir: false
