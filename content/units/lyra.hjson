@@ -35,7 +35,7 @@ weapons:
     	serrationFadeOffset: 0
     	serrations: 6
     	serrationWidth: 4
-	lifeTime: 40
+	lifetime: 40
     	fromColor: dbf3ff
     	toColor: 00ffff
     	shootEffect: sapExplosion
