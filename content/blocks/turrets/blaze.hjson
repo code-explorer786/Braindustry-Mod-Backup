@@ -1,6 +1,6 @@
 name: Blaze
 type: ItemTurret
-description: Big and strong
+description: Fires lots of powerful beams at enemies. Every beam has 1/4 of the damage. Requires high-tech ammo to fire. 
 reloadTime: 90
 shootShake: 5
 range: 130
