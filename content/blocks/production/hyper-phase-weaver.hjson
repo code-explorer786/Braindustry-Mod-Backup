@@ -1,4 +1,5 @@
 name: Hyper Phase Weaver
+type: GenericSmelter
 description: Bigger Phase Weaver, uses more materials and Silicon to produce more Phase Fabric.
 health: 100
 liquidCapacity: 0
