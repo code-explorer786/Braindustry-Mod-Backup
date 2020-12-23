@@ -18,7 +18,7 @@ weapons: [
       {
     name: cenda-weapon
     reload: 38
-    x: 5
+    x: 14
     y: -17
     shadow: 8
     rotateSpeed: 2.1
@@ -53,7 +53,7 @@ weapons: [
       }
   	{
   	name: cenda-weapon2
-  	x: 8
+  	x: 9
   	y: 7
   	shootY: -1
   	reload: 50
