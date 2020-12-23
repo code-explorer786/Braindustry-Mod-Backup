@@ -34,6 +34,9 @@ upgrades: [
   [
     chestplate, chainmail
   ]
+  [
+    tropsy, cenda
+  ]
 ]
 category: units
 research: exponential-reconstructor
