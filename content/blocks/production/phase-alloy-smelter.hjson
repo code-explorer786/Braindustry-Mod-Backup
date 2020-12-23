@@ -28,6 +28,4 @@ requirements: [
 ]
 category: crafting
 research: plastic-forge
-idleSound: respawning
-idleSoundVolume: 0.5
 outputItem: phase-alloy/2
