@@ -27,6 +27,4 @@ requirements: [
 ]
 category: crafting
 research: graphenite-forge
-idleSound: respawning
-idleSoundVolume: 0.3
 outputItem: chromium/1
