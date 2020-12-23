@@ -3,7 +3,7 @@ name: Aquila
 description: A giant 8-leg unit with shrapnel, sap and laser guns.
 drag: 0.1
 speed: 0.5
-hitsize: 48
+hitSize: 48
 hovering: true
 health: 33000
 rotateSpeed: 2
