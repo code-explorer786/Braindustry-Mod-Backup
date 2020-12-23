@@ -17,7 +17,6 @@ legMoveSpace: 2
 legBaseOffset: 2
 allowLegStep: true
 visualElevation: 0.8
-ammoTypes: powerHigh
 mechStepShake: 0.15
 mechStepParticles: true
 research: capra
