@@ -1,15 +1,15 @@
 name: Katana
-description: "Strong artillery turret with powerful ammo. Requires a strong alloy to fire. Better in groups."
+description: Strong artillery turret with powerful ammo. Requires a strong alloy to fire. Better in groups.
 type: itemTurret
 range: 300
-recoil: 12
+recoilAmount: 6
 reloadTime: 15
 size: 4
 shots: 4
 health: 3000
 inaccuracy: 0.1
 liquidBoostIntensity: 1.2
-rotatespeed: 2
+rotateSpeed: 1.4
 targetAir: false
 targetGround: true
 ammoTypes: {
@@ -19,9 +19,9 @@ ammoTypes: {
 consumes: {
  liquid: {
   liquid: thorium-refrigerant
-  amount: 0.5
+  amount: 0.1
   booster: true
-  optional: false
+  optional: true
   }
 }
 requirements: [
