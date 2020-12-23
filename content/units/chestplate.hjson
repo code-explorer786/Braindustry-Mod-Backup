@@ -11,7 +11,7 @@ range: 120
 engineOffset: 13
 rotateSpeed: 1.1
 targetAir: true
-payloadCapacity: 2
+payloadCapacity: 240
 engineOffset: 7
 buildSpeed: 1.6
 research: shield
