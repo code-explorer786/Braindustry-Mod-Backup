@@ -8,7 +8,7 @@ armor: 12
 health: 10000
 rotateSpeed: 1.2
 targetAir: true
-payloadCapacity: 4
+payloadCapacity: 300
 buildSpeed: 1.3
 commandLimit: 6
 research: chestplate
