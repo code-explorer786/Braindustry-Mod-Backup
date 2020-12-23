@@ -1,6 +1,5 @@
 name: Helmet
 description: A colossal unit with ability to bombard, repair, defend, transport other units and shoot lasers.
-type: payload
 armor: 18
 health: 29000
 speed: 0.6
@@ -14,11 +13,10 @@ engineOffset: 38
 engineSize: 10
 rotateShooting: true
 hitSize: 64
-payloadCapacity: 14
+payloadCapacity: 380
 buildSpeed: 5
 commandLimit: 8
 range: 160
-ammoCapacity: 1600
 research: chainmail
 weapons:[
   {
