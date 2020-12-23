@@ -12,7 +12,6 @@ health: 2600
 shots: 4
 rotate: true
 shootSound: laser
-liquidBoostIntencity: 2.4
 requirements: [
 	graphenite/1000
 	silicon/1800
