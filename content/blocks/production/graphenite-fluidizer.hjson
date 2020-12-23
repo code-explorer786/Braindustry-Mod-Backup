@@ -25,6 +25,4 @@ requirements: [
 ]
 category: crafting
 research: graphenite-forge
-idleSound: respawning
-idleSoundVolume: 0.01
 outputLiquid: liquid-graphenite/32
