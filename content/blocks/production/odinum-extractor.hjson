@@ -28,6 +28,4 @@ requirements: [
 ]
 category: crafting
 research: graphenite-forge
-idleSound: respawning
-idleSoundVolume: 0.1
 outputItem: odinum/1
