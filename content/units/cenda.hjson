@@ -1,0 +1,117 @@
+name: Cenda
+description: A large and heavy attacking naval unit built on the proven "Tropsy" design, but with improvements in everything.
+type: naval
+health: 5300
+speed: 0.4
+accel: 0.13
+rotateSpeed: 1.3
+drag: 0.23
+hitSize: 38
+armor: 10
+rotateShooting: false
+trailLength: 43
+trailX: 12
+trailY: 18
+trailScl: 2.8
+research: tropsy
+weapons: [
+		{
+		name: cenda-weapon
+		reload: 48
+		x: 18
+		y: 3
+		shadow: 9
+		rotateSpeed: 1.7
+		rotate: true
+		shots: 5
+		shotDelay: 4
+		inaccuracy: 3.2
+		velocityRnd: 0.3
+		shootSound: missile
+		bullet: {
+			type: MissileBulletType
+			width: 12
+			height: 20
+			shrinkY: 0.1
+			speed: 6.1
+			drag: 0.05
+			splashDamageRadius: 38
+      splashDamage: 70
+	    hitEffect: blastExplosion
+      despawnEffect: blastExplosion
+      lightningDamage: 24
+      lightning: 10
+      lightningLength: 5
+      lifetime: 100
+      trailColor: b3bee0
+     	backColor: 7bafc4
+      frontColor: b5eff4
+			weaveScale: 5
+      weaveMag: 3
+			}
+  		}
+      {
+    name: cenda-weapon
+    reload: 38
+    x: 4
+    y: -8
+    shadow: 8
+    rotateSpeed: 2.1
+    rotate: true
+    shots: 3
+    shotDelay: 2
+    inaccuracy: 1
+    velocityRnd: 0.1
+    shootSound: missile
+    bullet: {
+      type: MissileBulletType
+      width: 20
+      height: 20
+      shrinkY: 0.3
+      speed: 3.8
+      drag: -0.01
+      splashDamageRadius: 60
+      splashDamage: 28
+      hitEffect: blastExplosion
+      despawnEffect: blastExplosion
+      homingPower: 0.096
+      makeFire: true
+      hitEffect: blastExplosion
+      status: burning
+      lifetime: 90
+      trailColor: b3bee0
+      backColor: 7bafc4
+      frontColor: b5eff4
+      weaveScale: 3
+      weaveMag: 6
+      }
+      }
+  	{
+  	name: cenda-weapon2
+  	x: 6
+  	y: 4
+  	shootY: -1
+  	reload: 50
+  	ejectEffect: none
+  	recoilAmount: 2
+  	rotate: true
+  	shootSound: flame
+	  alternate: true
+  	bullet: {
+    		type: ShrapnelBulletType
+    		length: 80
+    		damage: 62
+    		width: 48
+    		lifeTime: 90
+    		serrationLenScl: 2
+    		serrationSpaceOffset: 1
+    		serrationFadeOffset: 0
+    		serrations: 16
+    		serrationWidth: 51
+    		fromColor: 995ce8
+    		toColor: 00ffff
+    		shootEffect: sparkShoot
+    		smokeEffect: sparkShoot
+    		}
+  	}
+]
