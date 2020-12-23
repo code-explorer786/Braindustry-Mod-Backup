@@ -34,6 +34,4 @@ requirements: [
 ]
 category: crafting
 research: graphenite-forge
-idleSound: flame
-idleSoundVolume: 0.3
 outputItem: graphenite/4
