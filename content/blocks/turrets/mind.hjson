@@ -1,5 +1,5 @@
 name: Mind
-dscription: An alternative to Brain. Fires a splash-damage beam. Requires lightweight Plastic to shoot.
+description: An alternative to Brain. Fires a splash-damage beam. Requires lightweight Plastic to shoot.
 type: itemTurret
 requirements: [
 graphenite/100
