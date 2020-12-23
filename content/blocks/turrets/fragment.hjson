@@ -17,7 +17,6 @@ consumes:{
       optional: false
     }
 }
-liquidBoostIntensity:1.5
 requirements:[
  phase-alloy/20
  silicon/200
