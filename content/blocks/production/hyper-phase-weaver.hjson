@@ -28,6 +28,4 @@ requirements: [
 ]
 category: crafting
 research: phase-weaver
-idleSound: respawning
-idleSoundVolume: 0.2
 outputItem: phase-fabric/3
