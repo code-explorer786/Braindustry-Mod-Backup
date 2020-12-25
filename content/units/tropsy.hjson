@@ -17,14 +17,14 @@ research: lyra
 weapons: [
 		{
 		name: cenda-weapon
-		reload: 30
+		reload: 60
 		x: 0
 		y: -4
 		shadow: 7
-		rotateSpeed: 2
+		rotateSpeed: 0.7
 		rotate: true
-		shots: 4
-		shotDelay: 3
+		shots: 6 
+		shotDelay: 15
 		inaccuracy: 4
 		velocityRnd: 0.14
 		shootSound: missile
@@ -33,49 +33,49 @@ weapons: [
 			width: 14
 			height: 14d
 			shrinkY: 0.3
-			speed: 4.7
+			speed: 6.7
 			drag: 0.05
 			splashDamageRadius: 50
-      			splashDamage: 28
-	      		hitEffect: blastExplosion
-      			despawnEffect: blastExplosion
-      			lightningDamage: 12
-      			lightning: 8
-      			lightningLength: 9
-      			lifetime: 80
-      			trailColor: b3bee0
-     			backColor: 7bafc4
-      			frontColor: b5eff4
-			weaveScale: 8
-      			weaveMag: 1
-			}
-  		}
-  	{
+     	splashDamage: 28
+	    hitEffect: blastExplosion
+  		despawnEffect: blastExplosion
+  		lightningDamage: 7
+  		lightning: 5
+    	lightningLength: 7
+			lifetime: 120
+  		trailColor: b3bee0
+  	  backColor: 7bafc4
+    	frontColor: b5eff4
+		  weaveScale: 8
+    	weaveMag: 1
+		}
+  }
+  {
   	name: lyra-weapon
   	x: 6
   	y: 4
   	shootY: -1
-  	reload: 50
+  	reload: 30
   	ejectEffect: none
   	recoilAmount: 2
   	rotate: true
   	shootSound: flame
-	alternate: true
+	  alternate: true
   	bullet: {
-    		type: ShrapnelBulletType
-    		length: 40
-    		damage: 42
-    		width: 32
-    		lifeTime: 70
-    		serrationLenScl: 1
-    		serrationSpaceOffset: 1
-    		serrationFadeOffset: 0
-    		serrations: 6
-    		serrationWidth: 32
-    		fromColor: 995ce8
-    		toColor: 00ffff
-    		shootEffect: sparkShoot
-    		smokeEffect: sparkShoot
-    		}
-  	}
+    	type: ShrapnelBulletType
+    	length: 60
+    	damage: 62
+    	width: 32
+    	lifeTime: 35
+    	serrationLenScl: 1
+    	serrationSpaceOffset: 1
+    	serrationFadeOffset: 0
+    	serrations: 6
+    	serrationWidth: 32
+    	fromColor: 995ce8
+    	toColor: 00ffff
+    	shootEffect: sparkShoot
+    	smokeEffect: sparkShoot
+    }
+  }
 ]

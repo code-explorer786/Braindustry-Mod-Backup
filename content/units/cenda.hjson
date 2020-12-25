@@ -2,7 +2,7 @@ name: Cenda
 description: A large and heavy attacking naval unit built on the proven "Tropsy" design, but with improvements in everything.
 type: naval
 health: 5300
-speed: 0.8
+speed: 0.6
 accel: 0.13
 rotateSpeed: 1.3
 drag: 0.23
@@ -17,33 +17,36 @@ research: tropsy
 weapons: [
       {
     name: cenda-weapon
-    reload: 38
+    reload: 35
     x: 14
     y: -17
     shadow: 8
-    rotateSpeed: 2.1
+    rotateSpeed: 0.5
     rotate: true
-    shots: 3
-    shotDelay: 2
+    shots: 9
+    shotDelay: 15
     inaccuracy: 1
     velocityRnd: 0.1
     shootSound: missile
     bullet: {
       type: MissileBulletType
-      width: 20
-      height: 20
+      width: 15
+      height: 21
       shrinkY: 0.3
-      speed: 3.8
+      speed: 2.9
       drag: -0.01
-      splashDamageRadius: 60
-      splashDamage: 28
+      splashDamageRadius: 30
+      splashDamage: 22
       hitEffect: blastExplosion
       despawnEffect: blastExplosion
-      homingPower: 0.096
+      homingPower: 0.1
+	  lightningDamage: 6
+      lightning: 8
+      lightningLength: 5
       makeFire: true
       hitEffect: blastExplosion
       status: burning
-      lifetime: 90
+      lifetime: 85
       trailColor: b3bee0
       backColor: 7bafc4
       frontColor: b5eff4
@@ -64,10 +67,10 @@ weapons: [
 	  alternate: true
   	bullet: {
     		type: ShrapnelBulletType
-    		length: 80
-    		damage: 62
-    		width: 48
-    		lifeTime: 120
+    		length: 130
+    		damage: 92
+    		width: 58
+    		lifeTime: 20
     		serrationLenScl: 2
     		serrationSpaceOffset: 1
     		serrationFadeOffset: 0

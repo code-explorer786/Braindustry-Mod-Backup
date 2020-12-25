@@ -2,7 +2,7 @@ name: Vixy
 description: First naval unit, has powerful shrapnel gun but needs support.
 type: naval
 health: 520
-speed: 0.8
+speed: 1.2
 drag: 0.17
 hitSize: 12
 armor: 4
@@ -18,17 +18,17 @@ weapons: [{
   x: 0
   y: 0
   shootY: -1
-  reload: 50
+  reload: 32
   ejectEffect: none
   recoil: 0
   rotate: true
   shootSound: flame
   bullet: {
     type: ShrapnelBulletType
-    length: 50
-    damage: 30
+    length: 60
+    damage: 50
     width: 28
-    lifetime: 60
+    lifetime: 10
     serrationLenScl: 1
     serrationSpaceOffset: 1
     serrationFadeOffset: 0
