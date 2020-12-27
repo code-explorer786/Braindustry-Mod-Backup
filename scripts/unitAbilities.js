@@ -37,20 +37,20 @@ broadsword.abilities.add(new ForceFieldAbility(160, 8, 220, 1200), new RepairFie
 const lyra = extendContent(UnitType, "lyra", {});
 /*T2 Naval*/
 lyra.constructor = function(){
-  return extend(NavalUnit, {});
+  return extend(UnitWaterMove, {});
 };
 lyra.abilities.add(new StatusFieldAbility(StatusEffects.overclock, 60 * 8, 60 * 8, 70));
 
 const tropsy = extendContent(UnitType, "tropsy", {});
 /*T3 Naval*/
 tropsy.constructor = function(){
-  return extend(NavalUnit, {});
+  return extend(UnitWaterMove, {});
 };
 tropsy.abilities.add(new StatusFieldAbility(StatusEffects.overclock, 60 * 6, 60 *6, 60), new ShieldRegenFieldAbility(12, 35, 60 * 4, 60));
 
 const cenda = extendContent(UnitType, "cenda", {});
 /*T4 Naval*/
 cenda.constructor = function(){
-  return extend(NavalUnit, {});
+  return extend(UnitWaterMove, {});
 };
 cenda.abilities.add(new StatusFieldAbility(StatusEffects.overclock, 60 * 8, 60 *8, 60), new ShieldRegenFieldAbility(22, 45, 60 * 4, 60), new UnitSpawnAbility(Vars.content.getByName(ContentType.unit,"braindustry-armor"), spawnTime, 19.25, -31.75));
