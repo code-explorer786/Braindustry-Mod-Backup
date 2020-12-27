@@ -48,7 +48,7 @@ tropsy.constructor = function(){
 };
 tropsy.abilities.add(new StatusFieldAbility(StatusEffects.overclock, 60 * 6, 60 *6, 60), new ShieldRegenFieldAbility(12, 35, 60 * 4, 60));
 
-const cenda = extendContent(UnitType, "cenda, {});
+const cenda = extendContent(UnitType, "cenda", {});
 /*T4 Naval*/
 cenda.constructor = function(){
   return extend(NavalUnit, {});
