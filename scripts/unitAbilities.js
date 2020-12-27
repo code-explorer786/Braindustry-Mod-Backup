@@ -53,4 +53,4 @@ const cenda = extendContent(UnitType, "cenda", {});
 cenda.constructor = function(){
   return extend(NavalUnit, {});
 };
-cenda.abilities.add(new StatusFieldAbility(StatusEffects.overclock, 60 * 8, 60 *8, 60), new ShieldRegenFieldAbility(22, 45, 60 * 4, 60), new UnitSpawnAbility(Vars.content.getByName(ContentType.unit,"braindustry-armor"), spawnTime, 19.25f, -31.75f));
+cenda.abilities.add(new StatusFieldAbility(StatusEffects.overclock, 60 * 8, 60 *8, 60), new ShieldRegenFieldAbility(22, 45, 60 * 4, 60), new UnitSpawnAbility(Vars.content.getByName(ContentType.unit,"braindustry-armor"), spawnTime, 19.25, -31.75));
