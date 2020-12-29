@@ -27,21 +27,42 @@ weapons: [
   name: aquila-equip1
   reload: 30
   rotate: true
-  x: 10
-  y: -7
+  x: 25
+  y: 5
   mirror: true
   bullet: {
     type: SapBulletType
-    sapStrength: 0.7
-    length: 140
-    damage: 90
+    sapStrength: 0.9
+    length: 100
+    damage: 100
     shootEffect: shootSmall
     hitColor: e88ec9
     color: e88ec9
     despawnEffect: none
-    width: 4
-    lifetime: 40
+    width: 5
+    lifetime: 50
     knockback: -0.65
+  }
+}
+{
+  name: aquila-equip2
+  reload: 50
+  rotate: true
+  x: 13
+  y: -7
+  mirror: true
+  bullet: {
+    type: SapBulletType
+    sapStrength: 0.5
+    length: 160
+    damage: 70
+    shootEffect: shootSmall
+    hitColor: e88ec9
+    color: e88ec9
+    despawnEffect: none
+    width: 3
+    lifetime: 40
+    knockback: -1
   }
 }
 {
