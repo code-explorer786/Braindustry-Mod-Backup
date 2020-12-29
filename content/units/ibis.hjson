@@ -15,7 +15,6 @@ legLength: 8
 legTrns: 0.8
 legMoveSpace: 1.5
 legBaseOffset: 2
-hovering: true
 buildSpeed: 0.8
 allowLegStep: true
 visualElevation: 0.4
