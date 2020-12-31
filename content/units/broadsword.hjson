@@ -37,17 +37,17 @@ weapons:[
   	shootCone: 160
   	despawnShake: 2.1
   	collidesAir: false
-  	lifetime: 40
+  	lifetime: 20
   	despawnEffect: greenBomb
   	hitEffect: massiveExplosion
   	keepVelocity: false
-  	spin: 4
+  	spin: 1
   	shrinkY: 0.5
   	shrinkX: 0.5
   	speed: 0.004
   	collides: false
   	healPercent: 10
-  	splashDamage: 200
+  	splashDamage: 400
   	splashDamageRadius: 170
     }
   }
@@ -55,11 +55,12 @@ weapons:[
   name: broadsword-weapon
   top: false 
   y: -4
-  x: 35
+  x: 29
   reload: 25
   recoil: 3
   shootSound: missile
-  shots: 3
+  shots: 7
+  inaccuracy: 9
   velocityRnd: 0.1
   inaccuracy: 1
   alternate: true

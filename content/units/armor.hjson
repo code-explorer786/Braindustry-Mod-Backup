@@ -14,7 +14,7 @@ name: armor-weapon
   x: 0
   y: -3
   shootY: 6
-  reload: 50
+  reload: 20
   ejectEffect: none
   recoil: 1
   shootSound: laser
@@ -22,15 +22,15 @@ name: armor-weapon
   mirror: false
   bullet: {
     type: SapBulletType
-    sapStrength: 0.8
-    length: 24
-    damage: 30
+    sapStrength: 0.5
+    length: 75
+    damage: 40
     shootEffect: shootSmall
-    hitColor: e88ec9
-    color: e88ec9
+    hitColor: D6FF33
+    color: FFE70F
     despawnEffect: none
     width: 0.7
-    lifetime: 30
+    lifetime: 20
     knockback: 1.24
 
 }}

@@ -1,11 +1,11 @@
 name: Shield
-speed: 0.6
+speed: 0.8
 flying: true
 health: 1200
 armor: 1
 range: 160
 engineOffset: 6
-rotateSpeed: 0.8
+rotateSpeed: 3
 research: armor
 weapons:[
 {
@@ -13,7 +13,9 @@ name: armor-weapon
   x: 5
   y: -4
   shootY: 4
-  reload: 60
+  reload: 30
+  shots:2
+  innacuracy:6
   ejectEffect: none
   recoil: 2
   shootSound: laser
@@ -21,15 +23,15 @@ name: armor-weapon
   mirror: true
   bullet: {
     type: SapBulletType
-    sapStrength: 1.2
-    length: 42
-    damage: 60
+    sapStrength: 0.8
+    length: 90
+    damage: 90
     shootEffect: shootSmall
-    hitColor: e88ec9
-    color: e88ec9
+    hitColor: D6FF33
+    color: FFE70F
     despawnEffect: none
     width: 0.9
-    lifetime: 45
+    lifetime: 20
     knockback: 1.3
     }
 }

@@ -28,18 +28,18 @@ weapons:[
     shootCone: 190
     despawnShake: 3.0
     collidesAir: false
-    lifetime: 90
+    lifetime: 30
     despawnEffect: greenBomb
     hitEffect: massiveExplosion
     hitSound: plasmaboom
     keepVelocity: false
-    spin: 3
+    spin: 1
     shrinkX: 0.6
     shrinkY: 0.6
     speed: 0.002
     collides: false
     healPercent: 15
-    splashDamage: 290
+    splashDamage: 450
     splashDamageRadius: 220
     }
   }
@@ -51,7 +51,8 @@ weapons:[
   reload: 40
   recoil: 2
   shootSound: missile
-  shots: 4
+  shots: 5
+  inaccuracy: 8
   velocityRnd: 0.2
   inaccuracy: 0.4
   alternate: true

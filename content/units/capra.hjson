@@ -5,7 +5,7 @@ speed: 0.4
 drag: 0.4
 hitSize: 12
 rotateSpeed: 3
-health: 7800
+health: 4200
 immunities: [
   burning, melting
   ]
@@ -22,22 +22,25 @@ research: aries
 weapons: [
 {
   name: capra-weapon
-  reload: 45
+  reload: 120
   rotate: true
   x: 10
   y: -7
+  shots: 24
+  shotDelay: 1
+  inaccuracy: 15
   mirror: true
   bullet: {
     type: SapBulletType
     sapStrength: 0.8
     length: 150
-    damage: 90
+    damage: 60
     shootEffect: shootSmall
     hitColor: e88ec9
     color: e88ec9
     despawnEffect: none
-    width: 4
-    lifetime: 40
+    width: 1
+    lifetime: 30
     knockback: -0.65
   }
 }

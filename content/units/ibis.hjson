@@ -30,7 +30,7 @@ weapons: [
   x: 3
   y: -1.5
   shootY: 3
-  reload: 30
+  reload: 13
   ejectEffect: none
   recoil: 1
   rotate: true
@@ -45,7 +45,7 @@ weapons: [
     color: e88ec9
     despawnEffect: none
     width: 0.54
-    lifetime: 35
+    lifetime: 15
     knockback: 1.24
   }
 }]

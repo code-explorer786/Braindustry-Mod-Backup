@@ -5,7 +5,7 @@ drag: 0.1
 speed: 0.5
 hitSize: 48
 hovering: true
-health: 33000
+health: 22000
 rotateSpeed: 2
 legCount: 8
 legMoveSpace: 1.4
@@ -25,63 +25,72 @@ research: lacerta
 weapons: [
 {
   name: aquila-equip1
-  reload: 30
+  reload: 60
   rotate: true
   x: 25
   y: 5
+  shots:6
+  shotDelay: 10
+  inaccuracy: 7
   mirror: true
   bullet: {
     type: SapBulletType
-    sapStrength: 0.9
-    length: 100
-    damage: 100
+    sapStrength: 0.8
+    length: 350
+    damage: 270
     shootEffect: shootSmall
     hitColor: e88ec9
     color: e88ec9
     despawnEffect: none
-    width: 3
-    lifetime: 50
+    width:2
+    lifetime: 20
     knockback: -0.65
   }
 }
 {
   name: aquila-equip2
-  reload: 50
+  reload: 75
   rotate: true
   x: 13
   y: -7
+  shots: 20
+  shotDelay: 0.7
+  inaccuracy: 13
   mirror: true
   bullet: {
     type: SapBulletType
-    sapStrength: 0.5
-    length: 100
-    damage: 70
+    sapStrength: 0.7
+    length: 350
+    damage: 90
     shootEffect: shootSmall
     hitColor: 8ef3ff
     color: 8ef3ff
     despawnEffect: none
-    width: 2
-    lifetime: 40
+    width: 1
+    lifetime: 20
     knockback: -1
   }
 }
 {
   name: lacerta-weapon
   x: 0
-  y: -12
+  y: 2
   shootY: -1
-  reload: 160
+  reload: 500
   ejectEffect: none
   recoil: 0
-  shootStatus: slow
-  shootStatusDuration: 80
-  firstShotDelay: 60
+  shots:3
+  shotDelay: 5
+  inaccuracy: 5
+  shootStatus: unmoving
+  shootStatusDuration: 130
+  firstShotDelay: 20
   shootSound: laser
   mirror: false
   bullet: {
     type: LaserBulletType
     length: 380
-    damage: 390
+    damage: 400
     width: 90
     lifetime: 60
     lightningSpacing: 30
