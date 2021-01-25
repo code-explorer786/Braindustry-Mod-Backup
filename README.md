@@ -1,9 +1,8 @@
 # Braindustry-Mod
-Huge Mindustry modification which expands end-game content and adds many new useful things.
 
-**Stable Version - 1.4.1**
+#IN FEBRUARY I REALISE THE BRAINDUSTRY 2.0, WHEN IT HAPPENS MOD WILL BE ABLE ONLY IN JAVA VERSION, THIS REPOSITORY WILL BE CHANGED TO JAVA VERSION OF BRAINDUSTRY. FOR PC OR MONILE WILL BE DIFFERENT BUILDS AT RELEASE.
 
-**Newest Alpha/Beta version - 1.4.2 build 2**
+##BAINDUSTRY 2.0 COMING SOON
 
 **Minimal Mindustry Build - 121**
 
