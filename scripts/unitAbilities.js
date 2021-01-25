@@ -53,4 +53,4 @@ const cenda = extendContent(UnitType, "cenda", {});
 cenda.constructor = function(){
   return extend(UnitWaterMove, {});
 };
-cenda.abilities.add(new StatusFieldAbility(StatusEffects.overclock, 60 * 8, 60 *8, 60), new ShieldRegenFieldAbility(22, 45, 60 * 4, 60), new UnitSpawnAbilitycenda.abilities.add(new StatusFieldAbility(StatusEffects.overclock, 60 * 8, 60 *8, 60), new ShieldRegenFieldAbility(22, 45, 60 * 4, 60), new UnitSpawnAbility(armor, 2500, 19.25, -31.75));
+cenda.abilities.add(new StatusFieldAbility(StatusEffects.overclock, 60 * 8, 60 *8, 60), new ShieldRegenFieldAbility(22, 45, 60 * 4, 60), new UnitSpawnAbility(armor, 2500, 19.25, -31.75));
