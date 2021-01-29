@@ -1,7 +1,5 @@
 # Braindustry-Mod
 
-BRAINDUSTRY 2.0 COMING SOON
-
 **Minimal Mindustry Build - 121**
 
 **[YouTube](https://www.youtube.com/channel/UCIN35lW7fC3tXcNDd-Ip7Pw?view_as=subscriber)**
