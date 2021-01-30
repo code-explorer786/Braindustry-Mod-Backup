@@ -7,7 +7,7 @@ hasLiquids:true
 liquidCapacity: 20
 tier: 8
 hasLiquids: true
-rotateSpeed: 3.2
+rotateSpeed: 6.5
 drillTime: 170
 consumes: {
 power: 5.8
