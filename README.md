@@ -1,12 +1,40 @@
-# Braindustry-Mod
+![alt tag]( https://github.com/pixaxeofpixie/pictures/blob/main/logo.png?raw=true)
+## Java Mod By Braindustry Team 
 
-**Minimal Mindustry Build - 121**
+# Installation Guide
 
-**[YouTube](https://www.youtube.com/channel/UCIN35lW7fC3tXcNDd-Ip7Pw?view_as=subscriber)**
+* 1.Go to [releases]( https://github.com/pixaxeofpixie/Braindustry-Mod/releases ).
 
-**[VK Group](https://vk.com/braindustry)**
+* 2.Download the latest .jar file(if you android download -droid.jar version).
 
-**[Discord](https://discord.gg/Q2qdHE2t)**
+* 3.Launch Mindustry.
 
-![alt tag](https://sun9-41.userapi.com/impg/jB_FylhwINfHEw0vyA3suZ-oQTxWgCLO3AIoWA/19iB70aAoKc.jpg?size=1280x713&quality=96&sign=9e91344d66d56150149c768012735f1c "Screenshot")​
-![alt tag](https://user-images.githubusercontent.com/63517945/101539745-0f616300-39b0-11eb-99ec-5c2fc6d75d80.png "Screenshot")​
+* 4.Open "Mods".
+
+* 5."Import Mod".
+
+* 6."Impot File"
+
+* 7.Find file with name "braindustry2.0.jar"(android - droid-braindustry2.0.jar) and click "load".
+
+# Build Guide
+
+## PC
+
+* 1.Download intelijIDEA.
+
+* 2.Clone this repository.
+
+* 3.When importing is end, go to Intelij console and type:
+
+If you Windows  |  If you MacOSX  | If you Linux
+------------ | ------------------------- | -------------
+gradlew jar | ./gradlew jar | gradlew jar
+
+* 4.When compilation is end, your build will be in "braindustry/build/libs"
+
+# Mod Screenshots
+
+![a](https://github.com/pixaxeofpixie/pictures/blob/main/screen2.png?raw=true)
+![b](https://user-images.githubusercontent.com/63517945/102699428-a69ea400-4255-11eb-8bb0-484f630e79f3.png)
+![c](https://user-images.githubusercontent.com/63517945/101539745-0f616300-39b0-11eb-99ec-5c2fc6d75d80.png)
