@@ -1,5 +1,5 @@
 ![alt]( https://github.com/pixaxeofpixie/pictures/blob/main/logo.png?raw=true)
-## Java Mod By Braindustry Team 
+## Mod By Braindustry Team 
 
 # Installation Guide
 
