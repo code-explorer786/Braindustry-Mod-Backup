@@ -1,7 +1,7 @@
 ![alt]( https://github.com/pixaxeofpixie/pictures/blob/main/logo.png?raw=true)
 ## Mod By Braindustry Team 
 
-# Installation Guide
+# Installation Guide For Java Version(in development)
 
 * 1.Go to [releases]( https://github.com/pixaxeofpixie/Braindustry-Mod/releases ).
 
