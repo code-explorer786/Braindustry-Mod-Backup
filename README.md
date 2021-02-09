@@ -1,37 +1,15 @@
-![alt]( https://github.com/pixaxeofpixie/pictures/blob/main/logo.png?raw=true)
-## Mod By Braindustry Team 
+# Mindustry Mod by Pixaxeofpixie
 
-# Installation Guide For Java Version(in development)
+## New content:
+### -2 branches of units
 
-* 1.Go to [releases]( https://github.com/pixaxeofpixie/Braindustry-Mod/releases ).
+### -More than 10 turrets
 
-* 2.Download the latest .jar file(if you android download -droid.jar version).
+### -New redactor blocks
 
-* 3.Launch Mindustry.
+### -New liquids
 
-* 4.Open "Mods".
-
-* 5."Import Mod".
-
-* 6."Impot File"
-
-* 7.Find file with name "braindustry2.0.jar"(android - droid-braindustry2.0.jar) and click "load".
-
-# Build Guide
-
-## PC
-
-* 1.Download intelijIDEA.
-
-* 2.Clone this repository.
-
-* 3.When importing is end, go to Intelij console and type:
-
-If you Windows  |  If you MacOSX  | If you Linux
------------- | ------------------------- | -------------
-gradlew jar | ./gradlew jar | gradlew jar
-
-* 4.When compilation is end, your build will be in "braindustry/build/libs"
+### -New materials
 
 # Mod Screenshots
 
