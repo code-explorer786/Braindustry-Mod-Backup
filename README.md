@@ -1,6 +1,6 @@
 # Mindustry Mod by Pixaxeofpixie
 
-![a](https://raw.githubusercontent.com/pixaxeofpixie/pictures/main/braindustry1.png)
+![a](https://repository-images.githubusercontent.com/274246613/227ef200-6bf0-11eb-9821-5dc5546c4bc7)
 
 
 ## New content:
