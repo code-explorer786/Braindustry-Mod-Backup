@@ -2,6 +2,7 @@
 
 ![a](https://repository-images.githubusercontent.com/274246613/227ef200-6bf0-11eb-9821-5dc5546c4bc7)
 
+Latest version - 1.4.2
 
 ## New content:
 ### -2 branches of units
