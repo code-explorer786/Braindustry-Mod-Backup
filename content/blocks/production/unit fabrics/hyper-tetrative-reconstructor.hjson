@@ -34,6 +34,9 @@ upgrades: [
   [
     chainmail, broadsword
   ]
+  [
+   cenda, vyvna
+  ]
 ]
 category: units
 research: tetrative-reconstructor
