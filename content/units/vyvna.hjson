@@ -1,8 +1,8 @@
 name: Vyvna
 description: A large and heavy attacking naval unit built on the proven "Tropsy" design, but with improvements in everything.
 type: naval
-health: 16200
-speed: 0.56
+health: 19800
+speed: 0.6
 accel: 0.12
 rotateSpeed: 1.0
 drag: 0.21
@@ -40,47 +40,50 @@ weapons: [
       hitEffect: blastExplosion
       despawnEffect: blastExplosion
       homingPower: 0.4
-	  lightningDamage: 10
+      lightningDamage: 10
       lightning: 4
       lightningLength: 40
       makeFire: true
       hitEffect: blastExplosion
       status: burning
       lifetime: 90
-      trailColor: b3bee0
-      backColor: 7bafc4
-      frontColor: b5eff4
+      trailColor: cdaaff
+      backColor: f38cff
+      frontColor: f7d8ff
       weaveScale: 5
       weaveMag: 1
       }
       }
   	{
   	name: vyvna-weapon
-  	x: 0
-  	y: -5
-  	shootY: -1
-  	reload: 50
-  	ejectEffect: none
-  	recoilAmount: 2
-  	rotate: true
-  	shootSound: laser
-	alternate: false
+        x: 0
+        y: -30
+        shootY: -3
+        reload: 125
+        recoil: 5
+        rotate : true
+        shadow: 50
         mirror: false
+        rotateSpeed: 0.5
+        shootSound: flame
+        alternate: true
   	bullet: {
-    		type: ShrapnelBulletType
-    		length: 130
-    		damage: 92
-    		width: 58
-    		lifeTime: 20
-    		serrationLenScl: 2
-    		serrationSpaceOffset: 1
-    		serrationFadeOffset: 0
-    		serrations: 16
-    		serrationWidth: 51
-    		fromColor: 995ce8
-    		toColor: 00ffff
-    		shootEffect: sparkShoot
-    		smokeEffect: sparkShoot
+    		type: RailBulletType
+                shootEffect: instShoot
+                length: 420
+                updateEffectSeg: 60
+                pierceEffect: instHit
+		hitEffect: instHit
+                updateEffect: instTrail
+		trailEffect: instTrail
+                hitEffect = massiveExplosion
+                smokeEffect = shootBig2
+                damage = 1250
+                pierceDamageFactor = 0.5
+                despawnEffect: instBomb
+                buildingDamageMultiplier: 0.4
+                speed: 1
+                hitShake: 7
     		}
   	}
 ]
