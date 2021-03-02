@@ -76,10 +76,10 @@ weapons: [
 		hitEffect: instHit
                 updateEffect: instTrail
 		trailEffect: instTrail
-                hitEffect = massiveExplosion
-                smokeEffect = shootBig2
+                hitEffect: massiveExplosion
+                smokeEffect: shootBig2
                 damage = 1250
-                pierceDamageFactor = 0.5
+                pierceDamageFactor: 0.5
                 despawnEffect: instBomb
                 buildingDamageMultiplier: 0.4
                 speed: 1
