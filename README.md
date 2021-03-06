@@ -5,7 +5,7 @@
 [![Stars](https://img.shields.io/github/stars/pixaxeofpixie/Braindustry-Mod?label=Star%20Me%21&style=social)](https://github.com/pixaxeofpixie/Braindustry-Mod/tree/master)
 [![Steam](https://github.com/pixaxeofpixie/pictures/blob/main/steam32.png?raw=true)](https://steamcommunity.com/sharedfiles/filedetails/?id=2409840996)
 
-![a](https://repository-images.githubusercontent.com/274246613/227ef200-6bf0-11eb-9821-5dc5546c4bc7)
+![a](https://reposi
 
 Latest version - 1.4.2
 
