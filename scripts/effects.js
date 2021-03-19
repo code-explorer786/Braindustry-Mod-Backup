@@ -11,3 +11,4 @@ const purpleLaserCharge = new Effect(80, 100, e => {
 
     Fill.circle(e.x, e.y, e.fin() * 10);
 });
+
