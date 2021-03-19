@@ -6,6 +6,7 @@ require("synaps");
 require("axon");
 require("electron");
 require("unitAbilities");
+require("effects");
 
 Vars.defaultServers.clear();
 Vars.defaultServers.add(ServerGroup("Unjown Server", ["braindustryserver.ddns.net:25647"]));
