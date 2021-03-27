@@ -21,7 +21,7 @@ legSplashRange: 5
 legSplashDamage: 32
 legSplashRange: 30
 allowLegStep: true
-visualElevation: 0.65
+visualElevation: 75
 research: ibis
 immunities: [
 burning
