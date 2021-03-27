@@ -16,7 +16,7 @@ legTrns: 1
 legMoveSpace: 3
 legBaseOffset: 2
 allowLegStep: true
-visualElevation: 0.8
+visualElevation: 75
 mechStepShake: 0.15
 mechStepParticles: true
 research: capra
