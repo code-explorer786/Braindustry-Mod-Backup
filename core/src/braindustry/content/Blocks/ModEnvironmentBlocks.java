@@ -91,6 +91,7 @@ class ModEnvironmentBlocks implements ContentList {
                 this.variants = 3;
             }};
         graysand = new Floor("graysand"){{
+            this.localizedName = "Gray Sand";
             itemDrop = Items.sand;
             playerUnmineable = true;
         }};
@@ -140,6 +141,7 @@ class ModEnvironmentBlocks implements ContentList {
                 //attributes.set(Attribute.water, 0.2f);
             }};
         swampSandWater = new ShallowLiquid("swamp-sand-water-floor"){{
+            this.localizedName = "Swamp Sand Water";
             speedMultiplier = 0.7f;
             statusDuration = 60f;
             variants = 1;
@@ -159,14 +161,20 @@ class ModEnvironmentBlocks implements ContentList {
                 this.walkEffect = Fx.muddy;
                 this.drownUpdateEffect = Fx.muddy;
             }};
-        greenTree = new TreeBlock("green-tree");
+        greenTree = new TreeBlock("green-tree"){{
+            this.localizedName = "Green Tree";
+        }};
 
-        blackTree = new TreeBlock("black-tree");
+        blackTree = new TreeBlock("black-tree"){{
+            this.localizedName = "Black Tree";
+        }};
 
         darkPine = new StaticTree("dark-pine"){{
+            localizedName = "Dark Pine";
             variants = 0;
         }};
         metallicPine = new StaticTree("metallic-pine"){{
+            localizedName = "Metallic Pine";
             variants = 0;
         }};
         darkShrubsFloor = new Floor("black-grass") {{
