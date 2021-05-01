@@ -1,8 +1,0 @@
-name: Synaps
-requirements: [
-graphenite/120
-silicon/140
-lead/190
-titanium/120
-]
-research: impulse

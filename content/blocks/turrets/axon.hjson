@@ -1,9 +1,0 @@
-name: Axon
-requirements: [
-odinum/100
-graphenite/200
-silicon/140
-metaglass/70
-exotic-alloy/140
-]
-research: synaps

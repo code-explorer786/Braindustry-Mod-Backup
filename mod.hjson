@@ -1,6 +1,8 @@
-name: "braindustry"
+name: "braindustry-java"
 displayName: "Braindustry"
-description: "Huge Mindustry mod that expands end game content with new materials, units and turrets."
-author: PixaxeOfPixie
-minGameVersion: 124
-version: 1.4.2
+author: "Zelaux, KOSTOLOM, PixaxeOfPixie, Vervalamis, SuperJaba2000, GorillaGlue, Toxin"
+description: "The biggest RU mod, add new star system, more than 20 units, 19 turrets, 11 new maps for planets, gasses and much more!"
+main: "braindustry.Starter"
+version: 2.0
+minGameVersion: 126.2
+

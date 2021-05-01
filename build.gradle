@@ -1,0 +1,304 @@
+apply plugin: "java"
+
+version '1.0'
+
+sourceCompatibility = 1.8
+
+sourceSets.main.java.srcDirs = ["core/starter/"]
+//sourceSets.main.resources.srcDirs = ["core/resources/"]
+
+repositories {
+    mavenCentral()
+    maven { url 'https://www.jitpack.io' }
+}
+buildscript {
+    ext {
+//        prop = new Properties().with { p -> p.load(file('gradle.properties').newReader()); return p }
+//        serverModFolder = prop["serverModFolder"]
+//        gameModFolder = prop["gameModFolder"]
+        serverModFolder=null;
+        gameModFolder=null;
+        mindustryVersion = 'v126.2'
+        arcModule = { String name ->
+            //skip to last submodule
+            if (name.contains(':')) name = name.split(':').last()
+            return "com.github.Anuken.Arc:$name:0e99b0291f81d74d335dca8b0cf3bf26931f1197"
+        }
+    }
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        google()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url 'https://jitpack.io' }
+    }
+
+    dependencies {
+        classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.3.11'
+        classpath "com.github.anuken:packr:-SNAPSHOT"
+//        classpath "com.github.Anuken.Arc:packer:$mindustryVersion"
+        classpath arcModule("packer")
+        classpath arcModule("g3d")
+        classpath "com.github.Anuken.Arc:arc-core:$mindustryVersion"
+        classpath "com.github.Anuken.Mindustry:annotations:$mindustryVersion"
+        classpath "com.github.Anuken.Mindustry:core:$mindustryVersion"
+        classpath "com.github.Anuken.Mindustry:tools:$mindustryVersion"
+    }
+}
+ext {
+    //the build number that this mod is made for
+    //version of SDK you will be using
+    sdkVersion = '30'
+    sdkRoot = System.getenv("ANDROID_HOME")
+
+    doExec = { cmd ->
+        def proc = cmd.execute(null, new File("$buildDir/libs"))
+        proc.waitForProcessOutput(System.out, System.err)
+    }
+    arcModule = { String name ->
+        //skip to last submodule
+        if (name.contains(':')) name = name.split(':').last()
+        return "com.github.Anuken.Arc:$name:0e99b0291f81d74d335dca8b0cf3bf26931f1197"
+    }
+}
+dependencies {
+    compile project(":core")
+    implementation project(":core")
+    implementation "com.github.Anuken.Arc:arc-core:$mindustryVersion"
+    implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
+    implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersion"
+    implementation "com.github.Anuken.Mindustry:tools:$mindustryVersion"
+    implementation 'com.squareup:javapoet:1.12.1'
+
+}
+
+
+allprojects {
+    tasks.withType(JavaCompile) {
+        if (JavaVersion.current() != JavaVersion.VERSION_1_8) {
+            options.compilerArgs.addAll(['--release', '8'])
+        }
+    }
+    apply plugin: 'maven'
+    repositories {
+        mavenLocal()
+        google()
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url 'https://jitpack.io' }
+        jcenter()
+    }
+    tasks.withType(JavaCompile){
+        targetCompatibility = 14
+        sourceCompatibility = 8
+        options.encoding = "UTF-8"
+        options.compilerArgs += ["-Xlint:deprecation"]
+    }
+}
+
+configure(project(":annotations")) {
+    tasks.withType(JavaCompile) {
+        targetCompatibility = 8
+        sourceCompatibility = 14
+    }
+}
+
+//compile with java 8 compatibility for everything except the annotation project
+configure(subprojects - project(":annotations")) {
+    tasks.withType(JavaCompile) {
+        if (JavaVersion.current() != JavaVersion.VERSION_1_8) {
+            options.compilerArgs.addAll(['--release', '8', '--enable-preview'])
+        }
+
+        doFirst {
+            options.compilerArgs = options.compilerArgs.findAll { it != '--enable-preview' }
+        }
+    }
+
+    tasks.withType(Javadoc) {
+        options {
+            addStringOption('Xdoclint:none', '-quiet')
+            addBooleanOption('-enable-preview', true)
+            addStringOption('-release', '8')
+            addStringOption('-source','14')
+        }
+    }
+}
+
+project(":annotations") {
+    tasks.withType(JavaCompile) {
+        if (JavaVersion.current() != JavaVersion.VERSION_1_8) {
+            options.compilerArgs.addAll(['--release', '14'])
+        }
+    }
+    apply plugin: 'maven'
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url 'https://jitpack.io' }
+        jcenter()
+    }
+    apply plugin: "java-library"
+    dependencies {
+//        implementation "com.sun"
+        implementation "com.github.Anuken.Arc:arc-core:$mindustryVersion"
+//        compileOnly project(":core")
+        implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersion"
+        implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
+        implementation "com.github.Anuken.Mindustry:tools:$mindustryVersion"
+//                if(name!="tools")compile  project(":tools")
+//        implementation  project(":core")
+
+        apply plugin: "java"
+        compile 'com.squareup:javapoet:1.12.1'
+//        implementation "com.github.Anuken.Mindustry:entities:$mindustryVersion"
+    }
+}
+configure (project(":core")){
+
+    tasks.withType(JavaCompile) {
+        options.compilerArgs.addAll(['--release', '8'])
+        if (JavaVersion.current() != JavaVersion.VERSION_1_8) {
+        }
+
+        doFirst {
+//            options.compilerArgs = options.compilerArgs.findAll { it != '--enable-preview' }
+        }
+    }
+
+    tasks.withType(Javadoc) {
+        options {
+//            addStringOption('Xdoclint:none', '-quiet')
+            addStringOption('-release', '8')
+        }
+    }
+}
+project(":core") {
+    apply plugin: "java-library"
+
+    compileJava.options.fork = true
+
+    task preGen {
+        outputs.upToDateWhen { false }
+//        generateLocales()
+//        writeVersion()
+//        writeProcessors()
+//        writePlugins()
+    }
+
+    task copyChangelog {
+    }
+
+    dependencies {
+        compileJava.dependsOn(preGen)
+
+        api "org.lz4:lz4-java:1.4.1"
+        implementation arcModule("arc-core")
+        implementation arcModule("extensions:freetype")
+        implementation arcModule("extensions:g3d")
+        implementation arcModule("extensions:fx")
+        implementation arcModule("extensions:arcnet")
+//        compileOnly "com.github.Anuken.Mindustry:entities:$mindustryVersion"
+        implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersion"
+        implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
+        implementation "com.github.Anuken.Mindustry:tools:$mindustryVersion"
+//        api "com.github.Anuken:rhino:$rhinoVersion"
+
+        compileOnly project(":annotations")
+        annotationProcessor project(":annotations")
+//        annotationProcessor 'com.github.Anuken:jabel:34e4c172e65b3928cd9eabe1993654ea79c409cd'
+
+    }
+
+    afterEvaluate {
+        task mergedJavadoc(type: Javadoc) {
+            if (true) return null;
+            def blacklist = [ project(":annotations")]
+            if (findProject(":android") != null) {
+                blacklist += project(":android")
+            }
+
+            source rootProject.subprojects.collect { project ->
+                if (!blacklist.contains(project) && project.hasProperty("sourceSets")) {
+                    return project.sourceSets.main.allJava
+                }
+            }
+
+            classpath = files(rootProject.subprojects.collect { project ->
+                if (!blacklist.contains(project) && project.hasProperty("sourceSets")) {
+                    return project.sourceSets.main.compileClasspath
+                }
+            })
+            destinationDir = new File(buildDir, 'javadoc')
+        }
+    }
+}
+
+project(":tools") {
+    apply plugin: "java"
+    dependencies {
+
+        implementation project(":core")
+
+        implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersion"
+        implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
+        implementation "com.github.Anuken.Mindustry:tools:$mindustryVersion"
+        compile arcModule("natives:natives-desktop")
+        compile arcModule("natives:natives-freetype-desktop")
+        compile arcModule("backends:backend-headless")
+    }
+}
+task jarAndroid {
+    dependsOn "jar"
+
+    doLast {
+        //collect dependencies needed for desugaring
+        def files = (configurations.compileClasspath.asList() + configurations.runtimeClasspath.asList() + [new File("$sdkRoot/platforms/android-$sdkVersion/android.jar")])
+        def dependencies = files.collect { "--classpath $it.path" }.join(" ")
+
+        //dex and desugar files - this requires d8 in your PATH
+        doExec("d8 $dependencies --min-api 14 --output ${project.archivesBaseName}Android.jar ${project.archivesBaseName}Desktop.jar")
+    }
+}
+task pjar {
+    dependsOn "tools:pack"
+    dependsOn "jar"
+    doFirst {
+    }
+    doLast {
+
+    }
+}
+jar {
+    dependsOn "core:jar"
+    archiveFileName = "${project.archivesBaseName}Desktop.jar"
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+    from(rootDir) {
+        include "mod.hjson"
+    }
+
+    from("core/assets/") {
+        include "**"
+    }
+    doLast{
+//        doExec("python ../../cmp.py")
+    }
+}
+task deploy(type: Jar) {
+    dependsOn jarAndroid
+    dependsOn jar
+    archiveFileName = "${project.archivesBaseName}.jar"
+
+    from { [zipTree("$buildDir/libs/${project.archivesBaseName}Desktop.jar"), zipTree("$buildDir/libs/${project.archivesBaseName}Android.jar")] }
+
+    doLast {
+        delete { delete "$buildDir/libs/${project.archivesBaseName}Desktop.jar" }
+        delete { delete "$buildDir/libs/${project.archivesBaseName}Android.jar" }
+    }
+}

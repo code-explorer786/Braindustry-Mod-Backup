@@ -1,8 +1,0 @@
-name: Impulse
-requirements: [
-  silicon/30
-  graphenite/20
-  lead/60
-  copper/70
-]
-research: arc

@@ -1,6 +1,0 @@
-name: Crimzes Wall
-type: StaticWall
-breakable: false
-alwaysReplace: false
-solid: true
-variants: 2
