@@ -16,6 +16,8 @@ public class ModPlanets implements ContentList {
     public void load() {
         zetsubo = new Planet("zetsubo", Planets.sun, 3, 2.4f) {
             {
+                localizedName = "Zetsubo";
+                description = "Beatiful blue stars with high in Methane.";
                 hasAtmosphere = true;
                 meshLoader = () -> new SunMesh(
                         this, 4, 5, 0.3f, 1.0f, 1.2f, 1, 1.3f,
@@ -28,6 +30,8 @@ public class ModPlanets implements ContentList {
         };
         osore = new Planet("osore", zetsubo, 3, 1f) {
             {
+                localizedName = "Osore";
+                description = "An unfavorable planet that survived a cataclysm and infection.";
                 generator = new OsorePlanetGenerator();
                 startSector = 25;
                 atmosphereColor = Color.valueOf("8c3149");
@@ -43,6 +47,8 @@ public class ModPlanets implements ContentList {
         };
         shinrin = new Planet("shinrin", osore, 3, 0.4f) {
             {
+                localizedName = "Shinrin";
+                description = "Companion Osore, is a favorable planet with developed flora and many forests, it was here that the enemy of Civilization first landed";
                 generator = new ShinrinPlanetGenerator();
                 startSector = 42;
                 atmosphereColor = Color.valueOf("36af54");

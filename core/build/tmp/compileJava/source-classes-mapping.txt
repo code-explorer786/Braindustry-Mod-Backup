@@ -850,6 +850,8 @@ braindustry/content/Blocks/ModEnvironmentBlocks.java
  braindustry.content.Blocks.ModEnvironmentBlocks$20
  braindustry.content.Blocks.ModEnvironmentBlocks$21
  braindustry.content.Blocks.ModEnvironmentBlocks$22
+ braindustry.content.Blocks.ModEnvironmentBlocks$23
+ braindustry.content.Blocks.ModEnvironmentBlocks$24
  braindustry.content.Blocks.ModEnvironmentBlocks$3
  braindustry.content.Blocks.ModEnvironmentBlocks$4
  braindustry.content.Blocks.ModEnvironmentBlocks$5
