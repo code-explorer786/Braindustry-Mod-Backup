@@ -23,7 +23,7 @@ public class ModTechTree extends TechTreeManager implements ContentList {
         loaded = true;
 
          //osore sectors
-        parentNode(SectorPresets.planetaryTerminal, Blocks.interplanetaryAccelerator, () -> {
+        node(SectorPresets.planetaryTerminal, () -> {
             node(ModSectorPresets.spacePort, () -> {
                 node(ModSectorPresets.FFOf, () -> {
                     node(ModSectorPresets.meltingPoint, () -> {

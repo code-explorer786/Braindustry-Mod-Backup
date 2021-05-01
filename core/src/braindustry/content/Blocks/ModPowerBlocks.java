@@ -158,10 +158,10 @@ class ModPowerBlocks implements ContentList {
             this.liquidCapacity = 100;
             this.itemDuration = 240;
             this.powerProduction = 220;
-            this.consumes.addGas(new ConsumeGasses(Gasses.methane, 1));
+            this.consumes.addGas(new ConsumeGasses(Gasses.methane, 0.2f));
             this.consumes.power(46f);
-            this.consumes.liquid(ModLiquids.thoriumRefrigerant, 0.5f);
-            this.consumes.item(ModItems.odinum, 12);
+            this.consumes.liquid(ModLiquids.thoriumRefrigerant, 0.2f);
+            this.consumes.item(ModItems.odinum, 7);
             this.requirements(Category.power, ItemStack.with(ModItems.chloroAlloy, 300, Items.surgeAlloy, 200, Items.graphite, 500, ModItems.odinum, 100));
         }};
         phaseAlloySolarPanel = new SolarGenerator("phase-alloy-solar-panel") {{

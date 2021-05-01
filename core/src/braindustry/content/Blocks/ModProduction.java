@@ -290,9 +290,9 @@ class ModProduction implements ContentList {
                 this.hasLiquids = true;
                 this.hasGas = true;
                 this.hasItems = true;
-                this.consumes.power(3f);
-                this.consumes.liquid(Liquids.oil, 0.3f);
-                this.outputGas = new GasStack(Gasses.methane, 1);
+                this.consumes.power(2.5f);
+                this.consumes.liquid(Liquids.oil, 0.12f);
+                this.outputGas = new GasStack(Gasses.methane, 2);
                 this.requirements(Category.crafting, ItemStack.with(ModItems.odinum, 100, Items.titanium, 100, Items.metaglass, 130, ModItems.chromium, 190));
                 this.updateEffect = Fx.purify;
                 this.updateEffectChance = 0.02f;
@@ -332,7 +332,7 @@ class ModProduction implements ContentList {
             this.updateEffect = ModFx.contritumUpdate;
             this.consumes.power(3f);
             this.consumes.liquid(Liquids.water, 0.1f);
-            this.consumes.addGas(new ConsumeGasses(Gasses.methane, 1));
+            this.consumes.addGas(new ConsumeGasses(Gasses.methane, 2));
             this.requirements(Category.crafting, ItemStack.with(ModItems.chromium, 150, Items.plastanium, 100, Items.metaglass, 150, ModItems.graphenite, 200));
             this.outputLiquid = new LiquidStack(ModLiquids.liquidMethane, 1f);
         }};
