@@ -201,6 +201,10 @@ public class Cloud implements Pool.Poolable,  Drawc, Posc, ModEntityc {
                 this.amount=Math.max(0,this.amount-explosiveness-flammability-radius/8f);
             }
         }
+        Bullet bullet1 = Groups.bullet.find(bullet -> bullet.dst(this) < 8);
+        if (bullet1!=null ){
+            Damage.dynamicExplosion(this.x, this.y, getFlammability(), gas.explosiveness, 0, Mathf.clamp((amount*1.2f),0,30), Vars.state.rules.damageExplosions,true,Team.derelict);
+        }
         this.updateTime -= Time.delta;
     }
 

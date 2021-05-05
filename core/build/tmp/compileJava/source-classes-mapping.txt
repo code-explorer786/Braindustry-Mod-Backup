@@ -251,6 +251,8 @@ braindustry/content/Blocks/ModBlocks.java
  braindustry.content.Blocks.ModBlocks$9
 Gas/GasStats.java
  Gas.GasStats
+braindustry/entities/bullets/GasBulletType.java
+ braindustry.entities.bullets.GasBulletType
 braindustry/ModListener.java
  braindustry.ModListener
 Gas/world/blocks/distribution/GasRouter.java
