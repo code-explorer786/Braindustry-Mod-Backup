@@ -1,14 +1,10 @@
 package braindustry.content;
 
-import mindustry.Vars;
 import mindustry.ctype.ContentList;
-import mindustry.type.Planet;
 import mindustry.type.SectorPreset;
 
-import static ModVars.modFunc.fullName;
-
 public class ModSectorPresets implements ContentList {
-    public static SectorPreset meltingPoint, FFOf,icyBeach,magmaticElectrostation,methaneLaboratories,ritual,polarRift,spacePort,
+    public static SectorPreset meltingPoint, _451F,icyBeach,magmaticElectrostation,methaneLaboratories,ritual,polarRift,spacePort,
             azureLandscape, icyDarkness, deentForest, emeraldSwamp, jungleExplorationComplex;
 //osore sectors
     public void load() {
@@ -21,7 +17,7 @@ public class ModSectorPresets implements ContentList {
             }
         };
 
-        FFOf = new SectorPreset("451F", ModPlanets.osore, 50) {
+        _451F = new SectorPreset("451F", ModPlanets.osore, 50) {
             {
                 localizedName = "451F";
                 description = "Cataclysm covered this area one of the first";
