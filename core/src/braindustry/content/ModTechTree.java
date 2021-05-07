@@ -228,30 +228,30 @@ public class ModTechTree extends TechTreeManager implements ContentList {
                 node(ModBlocks.hyperMethaneBurner);
             });
         });
-
-        nodeProduce(ModItems.graphenite, ()->{
-            nodeProduce(ModItems.odinum, ()->{
-                nodeProduce(ModItems.exoticAlloy, ()->{
-                    nodeProduce(ModItems.phaseAlloy, ()->{
-                        nodeProduce(ModItems.chloroAlloy, ()->{
+            node(Items.silicon,()-> {
+                nodeProduce(Gasses.methane);
+                nodeProduce(ModItems.graphenite, () -> {
+                    nodeProduce(ModItems.odinum, () -> {
+                        nodeProduce(ModItems.exoticAlloy, () -> {
+                            nodeProduce(ModItems.phaseAlloy, () -> {
+                                nodeProduce(ModItems.chloroAlloy, () -> {
+                                });
+                            });
+                            nodeProduce(ModItems.plastic, () -> {
+                            });
                         });
                     });
-                    nodeProduce(ModItems.plastic, ()->{
+                    nodeProduce(ModItems.chromium, () -> {
                     });
+
                 });
             });
-            nodeProduce(ModItems.chromium, ()->{
+        node(Liquids.water,()->{
+            nodeProduce(ModLiquids.liquidGraphenite, ()->{
+                nodeProduce(ModLiquids.thoriumRefrigerant,()->{
+                    nodeProduce(ModLiquids.liquidMethane);
+                });
             });
-
-        });
-
-        nodeProduce(Gasses.methane);
-
-        nodeProduce(ModLiquids.liquidGraphenite, ()->{
-            nodeProduce(ModLiquids.thoriumRefrigerant,()->{
-                nodeProduce(ModLiquids.liquidMethane);
-            });
-
         });
 
         parentNode(Blocks.parallax, ModBlocks.perlin);

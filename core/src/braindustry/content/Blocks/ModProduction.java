@@ -254,7 +254,7 @@ class ModProduction implements ContentList {
         }};
         plasticForge = new GenericSmelter("plastic-forge") {{
             this.localizedName = "Plastic Forge";
-            this.description = "Consumes Plastanium, Oil and Thorium to produce ultra-light Plastic .";
+            this.description = "Consumes Plastanium, Oil and Thorium to produce ultra-light Plastic.";
             this.health = 330;
             this.liquidCapacity = 15;
             this.size = 4;
@@ -334,7 +334,7 @@ class ModProduction implements ContentList {
             this.updateEffect = ModFx.contritumUpdate;
             this.consumes.power(3f);
             this.consumes.liquid(Liquids.water, 0.1f);
-            this.consumes.addGas(new ConsumeGasses(Gasses.methane, 2));
+            this.consumes.addGas(new ConsumeGasses(Gasses.methane, 0.5f));
             this.requirements(Category.crafting, ItemStack.with(ModItems.chromium, 150, Items.plastanium, 100, Items.metaglass, 150, ModItems.graphenite, 200));
             this.outputLiquid = new LiquidStack(ModLiquids.liquidMethane, 1f);
         }};
