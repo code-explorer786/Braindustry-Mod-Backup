@@ -41,7 +41,6 @@ public class GasBlock extends Block {
     public boolean outputsGas = false;
     public AStats aStats = new AStats();
 
-    //    4a4b53
     public GasBlock(String name) {
         super(name);
         super.stats=aStats.copy(stats);

@@ -183,6 +183,11 @@ ModVars/modFunc.java
  ModVars.modFunc$2
 braindustry/gen/WritableInterface.java
  braindustry.gen.WritableInterface
+braindustry/cfunc/Cons3.java
+ braindustry.cfunc.Cons3
+braindustry/type/Rotor.java
+ braindustry.type.Rotor
+ braindustry.type.Rotor$DrillRotorCons
 ModVars/Classes/ModSettings.java
  ModVars.Classes.ModSettings
 Gas/world/meta/GasValue.java
@@ -246,6 +251,8 @@ braindustry/content/Blocks/ModBlocks.java
  braindustry.content.Blocks.ModBlocks$9
 Gas/GasStats.java
  Gas.GasStats
+braindustry/entities/bullets/GasBulletType.java
+ braindustry.entities.bullets.GasBulletType
 braindustry/ModListener.java
  braindustry.ModListener
 Gas/world/blocks/distribution/GasRouter.java

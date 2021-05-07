@@ -4,6 +4,7 @@ import Gas.world.blocks.distribution.GasRouter;
 import arc.math.geom.Vec2;
 import braindustry.content.ModItems;
 import braindustry.content.ModLiquids;
+import braindustry.type.Rotor;
 import braindustry.world.blocks.distribution.CrossItemBridge;
 import braindustry.world.blocks.production.MultiRotorDrill;
 import mindustry.content.Items;
@@ -118,7 +119,7 @@ class ModOtherBlocks implements ContentList {
             this.liquidCapacity = 20;
             this.drawMineItem = false;
             this.tier = 8;
-            rotatorPoints.add(new Vec2(2, 2), new Vec2(2, 6), new Vec2(6, 2), new Vec2(6, 6));
+            rotors(new Rotor(2, 2), new Rotor(2, 6), new Rotor(6, 2), new Rotor(6, 6));
             this.rotateSpeed = 3.2f;
             this.consumes.power(6.8F);
             this.consumes.liquid(ModLiquids.magma, 0.4F);
@@ -139,4 +140,6 @@ class ModOtherBlocks implements ContentList {
             this.requirements(Category.production, ItemStack.with(ModItems.plastic, 150, ModItems.graphenite, 120, ModItems.odinum, 140, Items.plastanium, 100));
         }};
     }
+
+
 }

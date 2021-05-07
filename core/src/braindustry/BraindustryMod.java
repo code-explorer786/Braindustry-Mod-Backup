@@ -49,7 +49,7 @@ public class BraindustryMod extends Mod {
     static Seq<String> names = new Seq<>();
 
     public BraindustryMod() {
-
+        mods.getScripts().runConsole("importPackage(Packages.braindustry.net.ModNet);");
         EventOn(DisposeEvent.class, (d) -> {
             modUI.dispose();
             Vars.ui.dispose();
@@ -182,7 +182,7 @@ public class BraindustryMod extends Mod {
             try {
                 ModSounds.load();
                 ModMusics.load();
-            } catch (Exception ignored){
+            } catch (Exception ignored) {
             }
         }
         new ModContentLoader((load) -> {
