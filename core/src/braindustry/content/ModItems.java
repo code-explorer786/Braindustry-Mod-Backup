@@ -28,7 +28,7 @@ public class ModItems implements ContentList {
                 this.localizedName="Exo Metal";
                 this.description="Heavy organic metal with high durability and low weight.";
                 this.cost = 1;
-                this.alwaysUnlocked = true;
+                this.alwaysUnlocked = false;
                 this.explosiveness = 0.02f;
                 this.color = Color.valueOf("e2f723");
                 this.radioactivity = 0;
@@ -41,7 +41,7 @@ public class ModItems implements ContentList {
                 this.localizedName = "Graphenite";
                 this.description = "Progressed synthetic metal with low weight.";
                 this.cost = 1;
-                this.alwaysUnlocked = true;
+                this.alwaysUnlocked = false;
                 this.color = Color.valueOf("9868AB");
                 this.explosiveness = 0;
                 this.radioactivity = 0;
@@ -88,7 +88,7 @@ public class ModItems implements ContentList {
                 this.localizedName="Chlorophilum Bar";
                 this.description="[green]Super light, strong and organical material.";
                 this.cost = 1.5f;
-                this.alwaysUnlocked = true;
+                this.alwaysUnlocked = false;
                 this.explosiveness = 0.7f;
                 this.color = Color.valueOf("4adb9e");
                 this.radioactivity = 0.94f;
