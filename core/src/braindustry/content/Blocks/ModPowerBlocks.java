@@ -28,7 +28,7 @@ class ModPowerBlocks implements ContentList {
             this.powerProduction = 5f;
             this.gasCapacity = 11f;
             this.size = 2;
-            this.consumes.addGas(new ConsumeGasses(Gasses.methane, 1));
+            this.consumes.addGas(new ConsumeGasses(Gasses.methane, 0.3f));
             this.requirements(Category.power, ItemStack.with(Items.silicon, 60, Items.titanium, 50, ModItems.chromium, 90));
         }};
         hyperMethaneBurner = new AllBurnerGenerator("hyper-methane-burner") {{
@@ -39,7 +39,7 @@ class ModPowerBlocks implements ContentList {
             this.powerProduction = 11f;
             this.gasCapacity = 25f;
             this.size = 3;
-            this.consumes.addGas(new ConsumeGasses(Gasses.methane, 1));
+            this.consumes.addGas(new ConsumeGasses(Gasses.methane, 0.4f));
             this.consumes.liquid(Liquids.water, 0.5f);
             this.requirements(Category.power, ItemStack.with(Items.silicon, 60, Items.plastanium, 60, Items.titanium, 50, ModItems.chromium, 1200));
         }};
@@ -52,7 +52,7 @@ class ModPowerBlocks implements ContentList {
             this.requirements(Category.power, ItemStack.with(ModItems.phaseAlloy, 15, Items.silicon, 20, Items.titanium, 10, Items.lead, 10));
         }};
         grapheniteSolarCollectorLarge = new SolarGenerator("graphenite-solar-collector-large") {{
-            this.localizedName = "Graphenite Solar Collector Large";
+            this.localizedName = "Graphenite Solar Panel";
             this.description = "Solar panel with Graphenite elements, better than Large Solar Panel.";
             this.powerProduction = 1.6f;
             this.size = 3;
@@ -131,7 +131,7 @@ class ModPowerBlocks implements ContentList {
         materialReactor = new MaterialReactor("materia-reactor") {
             {
                 localizedName = "Material Reactor";
-                description = "Produce power from different type of matter, amount of power depends on the characteristics of matter ";
+                description = "Produce power from different type of matter, amount of power depends on the characteristics of matter.";
                 itemCapacity = 150;
                 liquidCapacity = 150;
                 hasPower = true;

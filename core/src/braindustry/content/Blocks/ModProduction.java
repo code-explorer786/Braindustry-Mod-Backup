@@ -31,7 +31,8 @@ class ModProduction implements ContentList {
     public void load() {
         multiCrafter = new MultiCrafter("multi-crafter") {{
             this.size = 3;
-            this.localizedName = "Universal Smelter";
+            this.localizedName = "Multi Smelter";
+            this.description = "A furnace that can melt several resources depending on your choice";
             this.update = true;
             this.destructible = true;
             this.hasLiquids = true;
@@ -51,6 +52,7 @@ class ModProduction implements ContentList {
         largeMultiCrafter = new MultiCrafter("multi-kiln") {{
             this.size = 6;
             this.localizedName = "Multi Kiln";
+            this.description = "A bigger furnace that can melt several resources depending on your choice";
             this.update = true;
             this.destructible = true;
             this.hasLiquids = true;
@@ -85,7 +87,7 @@ class ModProduction implements ContentList {
             this.outputItem = new ItemStack(ModItems.chromium, 1);
         }};
         exoticAlloySmelter = new GenericSmelter("exotic-alloy-smelter") {{
-            this.localizedName = "Exometal Smelter";
+            this.localizedName = "Exotic Alloy Smelter";
             this.description = "Cultivates Exometal from Thorium, Titanium and Spore Pods.";
             this.health = 140;
             this.liquidCapacity = 10;
@@ -175,7 +177,7 @@ class ModProduction implements ContentList {
             this.craftTime = 70;
             this.updateEffect = Fx.steam;
             this.consumes.power(6f);
-            this.consumes.liquid(Liquids.slag, 0.3f);
+            this.consumes.liquid(Liquids.slag, 0.2f);
             this.consumes.items(ItemStack.with(Items.copper, 8));
             this.requirements(Category.crafting, ItemStack.with(Items.lead, 150, ModItems.chromium, 200, Items.silicon, 90, Items.metaglass, 100, ModItems.graphenite, 85));
             this.outputLiquid = new LiquidStack(ModLiquids.magma, 26f);

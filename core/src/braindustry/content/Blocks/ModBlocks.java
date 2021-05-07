@@ -30,7 +30,7 @@ public class ModBlocks implements ContentList {
     public static Block
 
 //transportation
-            armoredPlastaniumConveyor, chromiumConduit, phaseAlloyConveyor, plasticConveyor, surgeConveyor,
+            armoredPlastaniumConveyor, chromiumConduit, phaseAlloyConveyor, plasticConveyor, surgeConveyor,smartRouter,
 
     //environment
     magmaFloor, obsidianBlock, obsidianFloor, oreChromium, oreOdinum,
@@ -39,21 +39,21 @@ public class ModBlocks implements ContentList {
 
     //power
     differentialMagmaGenerator, grapheniteSolarCollectorLarge, magmaGenerator, odinumReactor, blackHoleReactor, phaseAlloySolarPanel,
-            phaseTower, materialReactor,
+            phaseTower, materialReactor, refrigerantReactor,
 
     //production
-    refrigerantReactor, chromiumForge, exoticAlloySmelter, grapheniteFluidizer, grapheniteForge,
+             chromiumForge, exoticAlloySmelter, grapheniteFluidizer, grapheniteForge,
             hydraulicDrill, hyperAlloySmelter, hyperPhaseWeaver, magmaMixer, odinumExtractor,
             phaseAlloySmelter, plasticForge, quarryDrill, geothermicDrill, grapheniteKiln, refrigerantmixer, methaneGasifier, methaneLiquifier,
-            hyperDenseCompositeSmelter, hyperExoAlloySmelter,
+            hyperDenseCompositeSmelter, hyperExoAlloySmelter, multiCrafter, largeMultiCrafter,
 
     //units
     hyperAdditiveReconstructor, hyperAirFactory, hyperExponentialReconstructor, hyperGroundFactory,
             hyperMultiplicativeReconstructor, hyperNavalFactory, hyperTetrativeReconstructor, ultraReconstructor,
 
     //turrets
-    axon, blaze, brain, electron, fragment, impulse, katana, mind, neuron,
-    perlin, soul, stinger, synaps, gem, rapier, shinigami, voidwave, spark, archer,
+    blaze, brain, fragment, katana, mind, neuron,
+    perlin, soul, stinger, impulse, synaps, axon, electron, gem, rapier, shinigami, voidwave, spark,
 
     //walls
     exoticAlloyWallLarge, exoticAlloyWall, grapheniteWallLarge, grapheniteWall, odinumWallLarge, odinumWall, plasticWallLarge,
@@ -64,11 +64,8 @@ public class ModBlocks implements ContentList {
     //logic
     advancedSwitcher,
 
-    //sandbox
-    payloadSource, payloadVoid,
-
     //experimental
-    smartRouter, turretSwitcher, blockHealer, dpsMeter, unitGenerator, unitNode, multiCrafter, largeMultiCrafter, unitSpawner,
+    turretSwitcher, blockHealer, dpsMeter, unitGenerator, unitNode,unitSpawner,
             examplePayloadBridge, testBlock, node1, node2;
 
     public static Block methaneBurner, hyperMethaneBurner;
@@ -133,6 +130,7 @@ public class ModBlocks implements ContentList {
         smartRouter = new SmartRouter("smart-router") {
             {
                 localizedName = "Smart Router";
+                description = "Router ";
                 size = 1;
                 requirements(Category.distribution, ItemStack.with(Items.copper, 3, Items.silicon, 10));
                 buildCostMultiplier = 4.0F;

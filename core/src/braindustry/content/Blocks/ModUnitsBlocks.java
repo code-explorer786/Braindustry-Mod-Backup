@@ -52,7 +52,7 @@ class ModUnitsBlocks implements ContentList {
             this.consumes.power(3.2f);
             this.consumes.items(ItemStack.with(Items.silicon, 55, ModItems.graphenite, 25, Items.thorium, 20));
             this.constructTime = 900;
-            this.requirements(Category.units, ItemStack.with(Items.copper, 300, ModItems.graphenite, 100, Items.titanium, 120, Items.silicon, 190, ModItems.plastic, 20));
+            this.requirements(Category.units, ItemStack.with(Items.copper, 300, ModItems.graphenite, 100, Items.titanium, 120, Items.silicon, 190, Items.plastanium, 20));
             this.upgrades = Seq.with(
                     new UnitType[]{ModUnitTypes.ibis, ModUnitTypes.aries},
                     new UnitType[]{ModUnitTypes.armor, ModUnitTypes.shield},

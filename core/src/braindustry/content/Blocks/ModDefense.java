@@ -341,27 +341,25 @@ class ModDefense implements ContentList {
         }};
         fragment = new PointDefenseTurret("fragment") {{
             this.localizedName = "Fragment";
-            this.description = "Upgraded \"Segment\", consumes more power as well Refrigerant for cooling.";
+            this.description = "Upgraded Segment, consumes more power as well Refrigerant for cooling.";
             this.size = 3;
-            this.health = 410;
+            this.health = 420;
             this.range = 250;
             this.hasPower = true;
-            this.shootLength = 14;
+            this.shootLength = 15;
             this.bulletDamage = 32;
             this.reloadTime = 5;
-            this.consumes.power(4.7f);
-            this.consumes.liquid(ModLiquids.thoriumRefrigerant, 0.04f).optional(false, false);
+            this.consumes.power(6f);
+            this.consumes.liquid(ModLiquids.thoriumRefrigerant, 0.1f).optional(false, false);
             this.requirements(Category.turret, ItemStack.with(ModItems.phaseAlloy, 70, Items.silicon, 180, ModItems.odinum, 150));
         }};
         impulse = new ItemTurret("impulse") {{
-            this.localizedName = "Impulse";
             this.health = 840;
             this.size = 1;
             this.rotateSpeed = 1.8f;
             this.shots = 1;
             this.reloadTime = 30;
             this.hasItems = true;
-            shootLength = -6;
             this.hasLiquids = true;
             this.range = 130;
             this.localizedName = "Impulse";
@@ -468,7 +466,7 @@ class ModDefense implements ContentList {
         }};
         perlin = new TractorBeamTurret("perlin") {{
             this.localizedName = "Perlin";
-            this.description = "Upgraded \"Parallax\". Does more damage to targets at cost of power and cooling.";
+            this.description = "Upgraded Parallax. Does more damage to targets at cost of power and cooling.";
             this.size = 3;
             this.force = 14;
             this.scaledForce = 9;
@@ -477,7 +475,7 @@ class ModDefense implements ContentList {
             this.damage = 5;
             this.rotateSpeed = 10;
             this.hasPower = true;
-            this.consumes.power(4.2f);
+            this.consumes.power(6.8f);
             this.consumes.liquid(Liquids.cryofluid, 0.1f).optional(false, false);
             this.requirements(Category.turret, ItemStack.with(ModItems.graphenite, 130, Items.thorium, 160, Items.silicon, 180));
         }};
@@ -531,7 +529,7 @@ class ModDefense implements ContentList {
         synaps = new ItemTurret("synaps") {{
             this.localizedName = "Synaps";
             this.health = 1260;
-            this.size = 3;
+            this.size = 2;
             this.hasItems = true;
             this.hasLiquids = true;
             this.description = "Electrical Sap turret, can shoot a sap bullet with mane lightnings.";
@@ -595,7 +593,7 @@ class ModDefense implements ContentList {
             float brange = range = 880f;
             localizedName = "Shinigami";
             description = "Railgun turret to defense from higher tiers of units, consumes Dense Composite to shoot, don't use this turret to attack buildings. ";
-            requirements(Category.turret, ItemStack.with(ModItems.graphenite, 3000, Items.metaglass, 800, ModItems.phaseAlloy, 400, Items.plastanium, 900, Items.silicon, 2400));
+            requirements(Category.turret, ItemStack.with(ModItems.graphenite, 2000, Items.metaglass, 800, ModItems.phaseAlloy, 300, Items.plastanium, 700, Items.silicon, 2000));
             ammo(
                     ModItems.plastic, new PointBulletType() {{
                         shootEffect = Fx.lightningShoot;
@@ -604,8 +602,8 @@ class ModDefense implements ContentList {
                         trailEffect = ModFx.shinigamiTrail;
                         despawnEffect = ModFx.instBomb;
                         trailSpacing = 25f;
-                        damage = 20480;
-                        buildingDamageMultiplier = 0.2f;
+                        damage = 18480;
+                        buildingDamageMultiplier = 0.4f;
                         speed = brange;
                         hitShake = 9f;
                         ammoMultiplier = 2f;
@@ -614,7 +612,7 @@ class ModDefense implements ContentList {
             maxAmmo = 40;
             ammoPerShot = 10;
             rotateSpeed = 1.5f;
-            reloadTime = 8000f;
+            reloadTime = 7700f;
             ammoUseEffect = Fx.casing3Double;
             recoilAmount = 10f;
             restitution = 0.009f;
@@ -628,7 +626,7 @@ class ModDefense implements ContentList {
             coolantMultiplier = 0.8f;
             health = 260 * size * size;
             coolantUsage = 1.1f;
-            consumes.add(new ConsumeLiquidFilter(liquid -> liquid.temperature <= 0.5f && liquid.flammability < 0.1f, 10f)).update(false);
+            consumes.add(new ConsumeLiquidFilter(liquid -> liquid.temperature <= 0.5f && liquid.flammability < 0.1f, 7f)).update(false);
             consumes.powerCond(24f, TurretBuild::isActive);
         }};
 
@@ -671,7 +669,7 @@ class ModDefense implements ContentList {
                     }
             );
             this.consumes.liquid(ModLiquids.liquidMethane, 0.1f).optional(false, true);
-            this.requirements(Category.turret, ItemStack.with(ModItems.graphenite, 1000, Items.titanium, 600, ModItems.phaseAlloy, 400, Items.phaseFabric, 100, Items.silicon, 1400));
+            this.requirements(Category.turret, ItemStack.with(ModItems.graphenite, 2000, Items.titanium, 600, ModItems.phaseAlloy, 400, Items.phaseFabric, 300, Items.silicon, 1900));
         }};
         spark = new ItemTurret("spark"){
             {
@@ -681,7 +679,7 @@ class ModDefense implements ContentList {
                 ammo(
                         ModItems.graphenite, new BasicBulletType() {
                             {
-                                this.damage = 78;
+                                this.damage = 60;
                                 this.width = 10;
                                 this.height = 11;
                                 this.shrinkY = 0.1f;
@@ -704,7 +702,7 @@ class ModDefense implements ContentList {
                         },
                         Items.copper, new BasicBulletType() {
                             {
-                                this.damage = 27;
+                                this.damage = 32;
                                 this.width = 8;
                                 this.height = 9;
                                 this.shrinkY = 0.1f;
@@ -727,7 +725,7 @@ class ModDefense implements ContentList {
                         },
                         Items.titanium, new BasicBulletType() {
                             {
-                                this.damage = 38;
+                                this.damage =48;
                                 this.width = 9;
                                 this.height = 10;
                                 this.shrinkY = 0.1f;

@@ -44,7 +44,16 @@ public class ModFx {
             fireworkShoot=new Effect(28f,e->{
 
             }),
+            hitKrakenCoil = new Effect(12, e -> {
+                Draw.color(Color.scarlet);
+                Lines.stroke(e.fout() * 1.5f);
 
+                Angles.randLenVectors(e.id, 9, e.finpow() * 17f, e.rotation, 360f, (x, y) -> {
+                    float ang = Mathf.angle(x, y);
+                    Lines.lineAngle(e.x + x, e.y + y, ang, e.fout() * 4 + 1f);
+                    Lines.circle(e.x, e.y, 3);
+                });
+            }),
     chlorophiteDropping = new Effect(22.0F, e -> {
         Angles.randLenVectors(e.id, 10, e.finpow() * 90f, (x, y) -> {
             float size = e.fout() * 14f;

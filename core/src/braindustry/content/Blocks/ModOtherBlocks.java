@@ -58,8 +58,8 @@ class ModOtherBlocks implements ContentList {
             this.localizedName = "Chromium Conduit";
             this.size = 1;
             this.description = "Heat resistant and fast conduit.";
-            this.health = 140;
-            this.liquidCapacity = 18;
+            this.health = 190;
+            this.liquidCapacity = 20;
             this.rotate = true;
             this.solid = false;
             this.floating = true;
@@ -70,7 +70,7 @@ class ModOtherBlocks implements ContentList {
             this.description = "The most fast and durable conveyor.";
             this.health = 168;
             this.requirements(Category.distribution, ItemStack.with(Items.silicon, 1, ModItems.graphenite, 1, ModItems.plastic, 1));
-            this.speed = 0.45f;
+            this.speed = 0.4f;
         }};
         surgeConveyor = new StackConveyor("surge-conveyor") {{
             this.localizedName = "Surge Conveyor";
@@ -92,15 +92,6 @@ class ModOtherBlocks implements ContentList {
                 return block.acceptsItems || block instanceof StorageBlock;
             };
         }};
-        /*surgePayloadConveyor = new PayloadConveyor("surge-payload-conveyor"){
-            {
-                this.health = 310;
-                this.requirements(Category.distribution, ItemStack.with(ModItems.graphenite, 10, Items.surgeAlloy, 5));
-                this.canOverdrive = true;
-                this.size = 6;
-            }};*/
-
-
         hydraulicDrill = new Drill("hydraulic-drill") {{
             this.localizedName = "Hydraulic Drill";
             this.description = "This drill uses hydraulics for more effective work. Consumes water.";
@@ -115,6 +106,8 @@ class ModOtherBlocks implements ContentList {
             this.ambientSoundVolume = 0.01f;
         }};
         geothermicDrill = new MultiRotorDrill("geothermic-drill") {{
+            this.localizedName = "Geothermic Drill";
+            this.description = "4 rotators, more efficiency, consumes Magma";
             this.requirements(Category.production, ItemStack.with(
                     ModItems.chromium, 290, Items.titanium, 400,
                     Items.silicon, 300, ModItems.graphenite, 575,
