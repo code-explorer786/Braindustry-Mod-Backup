@@ -227,7 +227,7 @@ public class ModMenuFragment extends MenuFragment {
                     new Buttoni("@settings", Icon.settings, ui.settings::show),
                     new Buttoni("@menu.title",Icon.menu,
                             new ButtoniUnClose("@rebuild_menu",Icon.refresh,renderer::rebuild),
-                            new ButtoniUnClose("@background.stiles",Icon.effect,()->{}),
+                            new ButtoniUnClose("@background.styles",Icon.effect,()->ui.announce("@not_completed")),
                             new ButtoniUnClose("@background.screenshot",Icon.copy,renderer::takeBackgroundScreenshot)
                             ),
                     new Buttoni("@about.button", Icon.info, ui.about::show),

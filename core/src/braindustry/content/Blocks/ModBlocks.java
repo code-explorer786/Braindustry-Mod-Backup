@@ -95,6 +95,7 @@ public class ModBlocks implements ContentList {
         testBlock = new TestBlock("test-block") {{
             this.size = 2;
             this.requirements(Category.logic, ItemStack.with(), true);
+            buildVisibility = BuildVisibility.debugOnly;
         }};
         node1 = new ReceivingPowerNode("unit-power-node") {{
             size = 3;
