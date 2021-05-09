@@ -1,6 +1,11 @@
 ![alt tag]( https://github.com/pixaxeofpixie/pictures/blob/main/btposter.png?raw=true)
 ## Mindustry Java Mod By Braindustry Team
 
+## Resources
+- [Trello](https://trello.com/b/raByco4v/braindustry-trello)
+- [YouTube](https://www.youtube.com/channel/UCIN35lW7fC3tXcNDd-Ip7Pw/videos)
+- [Last Releases](https://github.com/pixaxeofpixie/Braindustry-Mod/releases)
+
 ## Authors
 - Zelaux(main-programmer)
 - KOSTOLOM(concept-artist, balance-artist, map-maker)
