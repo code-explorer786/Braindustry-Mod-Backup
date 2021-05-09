@@ -1,5 +1,23 @@
 ![alt tag]( https://github.com/pixaxeofpixie/pictures/blob/main/btposter.png?raw=true)
-## Biggest Java Mod By Braindustry Team
+## Mindustry Java Mod By Braindustry Team
+
+## Authors
+- Zelaux(main-programmer)
+- KOSTOLOM(concept-artist, balance-artist, map-maker)
+- PixaxeOfPixie(co-programmer, compositor, spriter, map-maker)
+- Toxin(co-spriter)
+- Vervalamis(co-spriter)
+- Plolq(co-spriter)
+
+## Contributors
+- SuperJaba2000
+- Mya4ta
+- Vladislav117
+- ThatOneBepis
+- FrozenEdge
+- RebornTrack970
+- Skat
+- Leyn
 
 # Installation Guide
 ## 1.Via .jar File
