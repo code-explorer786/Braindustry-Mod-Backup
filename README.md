@@ -17,6 +17,8 @@
 
 * 7.Find file with name "braindustry.jar" and click "load".
 
+* 8.Play!
+
 ## 2.Via Mod Browser
 * 1.Go to in-game Mod Browser.
 
