@@ -410,7 +410,8 @@ class ModDefense implements ContentList {
             this.targetAir = false;
             this.targetGround = true;
             this.ammo(
-                    ModItems.exoticAlloy, artilleryExplosive,
+//                    ModItems.exoticAlloy, artilleryExplosive,
+//                    ModItems.exoticAlloy, ModBullets.heavyMethaneShot,
                     Items.surgeAlloy, artilleryIncendiary
             );
             this.consumes.liquid(ModLiquids.thoriumRefrigerant, 0.14f).optional(true, true);

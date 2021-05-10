@@ -1,23 +1,18 @@
-apply plugin: "java"
+//apply plugin: "java"
+//
+//version '1.0'
 
-version '1.0'
-
-sourceCompatibility = 1.8
+//sourceCompatibility = 1.8
 
 //sourceSets.main.java.srcDirs = ["core/starter/"]
 //sourceSets.main.resources.srcDirs = ["core/resources/"]
 
-repositories {
-    mavenCentral()
-    maven { url 'https://www.jitpack.io' }
-}
+//repositories {
+//    mavenCentral()
+//    maven { url 'https://www.jitpack.io' }
+//}
 buildscript {
     ext {
-//        prop = new Properties().with { p -> p.load(file('gradle.properties').newReader()); return p }
-//        serverModFolder = prop["serverModFolder"]
-//        gameModFolder = prop["gameModFolder"]
-        serverModFolder=null;
-        gameModFolder=null;
         mindustryVersion = 'v126.2'
         arcModule = { String name ->
             //skip to last submodule
@@ -45,7 +40,12 @@ buildscript {
         classpath "com.github.Anuken.Mindustry:tools:$mindustryVersion"
     }
 }
-ext {
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.4.32'
+    id "org.jetbrains.kotlin.kapt" version "1.4.32"
+}
+//sourceSets.main.java.srcDirs = ["core/starter/"]
+/*ext {
     //the build number that this mod is made for
     //version of SDK you will be using
     sdkVersion = '30'
@@ -60,17 +60,18 @@ ext {
         if (name.contains(':')) name = name.split(':').last()
         return "com.github.Anuken.Arc:$name:0e99b0291f81d74d335dca8b0cf3bf26931f1197"
     }
-}
-dependencies {
+
+}*/
+/*dependencies {
 //    compile project(":core")
-//    implementation project(":core")
+    implementation project(":core")
     implementation "com.github.Anuken.Arc:arc-core:$mindustryVersion"
     implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
     implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersion"
     implementation "com.github.Anuken.Mindustry:tools:$mindustryVersion"
     implementation 'com.squareup:javapoet:1.12.1'
 
-}
+}*/
 
 
 allprojects {
@@ -80,20 +81,20 @@ allprojects {
         }
     }
     apply plugin: 'maven'
+    version = 'release'
     repositories {
         mavenLocal()
-        google()
         mavenCentral()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
-        maven { url 'https://jitpack.io' }
-        jcenter()
+        maven{ url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven{ url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven{ url 'https://jitpack.io' }
     }
-    tasks.withType(JavaCompile){
-        targetCompatibility = 14
-        sourceCompatibility = 8
+    tasks.withType(JavaCompile) {
+        targetCompatibility = 8
+        sourceCompatibility = 14
         options.encoding = "UTF-8"
         options.compilerArgs += ["-Xlint:deprecation"]
+        options.compilerArgs += ["--enable-preview"]
     }
 }
 
@@ -101,6 +102,8 @@ configure(project(":annotations")) {
     tasks.withType(JavaCompile) {
         targetCompatibility = 8
         sourceCompatibility = 14
+        options.compilerArgs.addAll(['--release', '14', '--enable-preview'])
+        //TODO пиздец иначе не сказать. костыль на костыле так ещё и прикрыто костылём
     }
 }
 
@@ -120,65 +123,22 @@ configure(subprojects - project(":annotations")) {
         options {
             addStringOption('Xdoclint:none', '-quiet')
             addBooleanOption('-enable-preview', true)
-            addStringOption('-release', '8')
-            addStringOption('-source','14')
+            addStringOption('-release', '14')
         }
     }
 }
 
-project(":annotations") {
-    tasks.withType(JavaCompile) {
-        if (JavaVersion.current() != JavaVersion.VERSION_1_8) {
-            options.compilerArgs.addAll(['--release', '14'])
-        }
-    }
-    apply plugin: 'maven'
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
-        maven { url 'https://jitpack.io' }
-        jcenter()
-    }
-    apply plugin: "java-library"
-    dependencies {
-//        implementation "com.sun"
-        implementation "com.github.Anuken.Arc:arc-core:$mindustryVersion"
-//        compileOnly project(":core")
-        implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersion"
-        implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
-        implementation "com.github.Anuken.Mindustry:tools:$mindustryVersion"
-//                if(name!="tools")compile  project(":tools")
-//        implementation  project(":core")
-
-        apply plugin: "java"
-        compile 'com.squareup:javapoet:1.12.1'
-//        implementation "com.github.Anuken.Mindustry:entities:$mindustryVersion"
-    }
-}
-configure (project(":core")){
-
-    tasks.withType(JavaCompile) {
-        options.compilerArgs.addAll(['--release', '8'])
-        if (JavaVersion.current() != JavaVersion.VERSION_1_8) {
-        }
-
-        doFirst {
-//            options.compilerArgs = options.compilerArgs.findAll { it != '--enable-preview' }
-        }
-    }
-
-    tasks.withType(Javadoc) {
-        options {
-//            addStringOption('Xdoclint:none', '-quiet')
-            addStringOption('-release', '8')
-        }
-    }
-}
 project(":core") {
     apply plugin: "java-library"
-
+    apply plugin: "kotlin"
+    apply plugin: "kotlin-kapt"
+    kapt{
+        javacOptions{
+            option("-source", "14")
+            option("-target", "1.8")
+            option("--enable-preview")
+        }
+    }
     compileJava.options.fork = true
 
     task preGen {
@@ -191,16 +151,38 @@ project(":core") {
 
     task copyChangelog {
     }
+    task sourcesJar(type: Jar, dependsOn: classes){
+        archiveClassifier = 'sources'
+        from sourceSets.main.allSource
+    }
 
+    task assetsJar(type: Jar, dependsOn: ":tools:pack"){
+        archiveClassifier = 'assets'
+        from files("assets"){
+            exclude "config", "cache", "music", "sounds"
+        }
+    }
+
+    task musicJar(type: Jar){
+        archiveClassifier = 'music'
+        from files("assets"){
+            include "music/*", "sounds/*"
+        }
+    }
+    artifacts{
+        archives sourcesJar
+        archives assetsJar
+    }
     dependencies {
         compileJava.dependsOn(preGen)
 
         api "org.lz4:lz4-java:1.4.1"
-        implementation arcModule("arc-core")
-        implementation arcModule("extensions:freetype")
-        implementation arcModule("extensions:g3d")
-        implementation arcModule("extensions:fx")
-        implementation arcModule("extensions:arcnet")
+        api arcModule("arc-core")
+        api arcModule("extensions:freetype")
+        api arcModule("extensions:g3d")
+        api arcModule("extensions:fx")
+        api arcModule("extensions:arcnet")
+//        api "com.github.Anuken:rhino:$rhinoVersion"
 //        compileOnly "com.github.Anuken.Mindustry:entities:$mindustryVersion"
         implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersion"
         implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
@@ -216,7 +198,7 @@ project(":core") {
     afterEvaluate {
         task mergedJavadoc(type: Javadoc) {
             if (true) return null;
-            def blacklist = [ project(":annotations")]
+            def blacklist = [project(":annotations")]
             if (findProject(":android") != null) {
                 blacklist += project(":android")
             }
@@ -235,8 +217,11 @@ project(":core") {
             destinationDir = new File(buildDir, 'javadoc')
         }
     }
+    //todo
+    jar{
+        exclude("mindustry/entities/comp/**")
+    }
 }
-
 project(":tools") {
     apply plugin: "java"
     dependencies {
@@ -246,11 +231,63 @@ project(":tools") {
         implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersion"
         implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
         implementation "com.github.Anuken.Mindustry:tools:$mindustryVersion"
-        compile arcModule("natives:natives-desktop")
-        compile arcModule("natives:natives-freetype-desktop")
-        compile arcModule("backends:backend-headless")
+        implementation arcModule("natives:natives-desktop")
+        implementation arcModule("natives:natives-freetype-desktop")
+        implementation arcModule("backends:backend-headless")
     }
 }
+project(":annotations") {
+    tasks.withType(JavaCompile) {
+    if (JavaVersion.current() != JavaVersion.VERSION_1_8) {
+        options.compilerArgs.addAll(['--release', '14'])
+    }
+}
+    apply plugin: 'maven'
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url 'https://jitpack.io' }
+        jcenter()
+    }
+    apply plugin: "java-library"
+
+    dependencies{
+//        implementation 'com.squareup:javapoet:1.12.1'
+        implementation "com.github.Anuken.Arc:arc-core:$mindustryVersion"
+        implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersion"
+        implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
+        implementation "com.github.Anuken.Mindustry:tools:$mindustryVersion"
+        apply plugin: "java"
+        compile 'com.squareup:javapoet:1.12.1'
+    }
+}
+task downloadComp{
+    dependsOn "tools:downloadComp"
+    doFirst {}
+    doLast {}
+}
+configure(project(":core")) {
+
+    tasks.withType(JavaCompile) {
+        options.compilerArgs.addAll(['--release', '8'])
+        if (JavaVersion.current() != JavaVersion.VERSION_1_8) {
+        }
+
+        doFirst {
+//            options.compilerArgs = options.compilerArgs.findAll { it != '--enable-preview' }
+        }
+    }
+
+    tasks.withType(Javadoc) {
+        options {
+//            addStringOption('Xdoclint:none', '-quiet')
+            addStringOption('-release', '8')
+        }
+    }
+}
+
 task jarAndroid {
     dependsOn "jar"
 
@@ -276,10 +313,11 @@ jar {
     dependsOn "core:jar"
     archiveFileName = "${project.archivesBaseName}Desktop.jar"
     from {
-//        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-        project(":core").fileTree("build/libs/core.jar").collect{ it.isDirectory() ? it : zipTree(it) }
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
-
+    doFirst {
+        "tools:dowloadComp"
+    }
     from(rootDir) {
         include "mod.hjson"
     }
@@ -287,7 +325,7 @@ jar {
     from("core/assets/") {
         include "**"
     }
-    doLast{
+    doLast {
 //        doExec("python ../../cmp.py")
     }
 }

@@ -32,6 +32,7 @@ import mindustry.game.EventType.DisposeEvent;
 import mindustry.gen.EntityMapping;
 import mindustry.io.JsonIO;
 import mindustry.mod.Mod;
+import mindustry.mod.Mods;
 import mindustry.type.Item;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
@@ -54,6 +55,9 @@ public class BraindustryMod extends Mod {
             modUI.dispose();
             Vars.ui.dispose();
         });
+        Object o=mods;
+//        if (o instanceof Mods mods){
+//        }
         modInfo = Vars.mods.getMod(this.getClass());
         modVars.load();
         Events.on(EventType.Trigger.class, e -> {

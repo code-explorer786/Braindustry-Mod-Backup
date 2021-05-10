@@ -39,7 +39,7 @@ braindustry/annotations/ModAnnotations.java
  braindustry.annotations.ModAnnotations$EntityDef
  braindustry.annotations.ModAnnotations$EntityInterface
  braindustry.annotations.ModAnnotations$EntitySuperClass
- braindustry.annotations.ModAnnotations$EntitySuperComp
+ braindustry.annotations.ModAnnotations$EntitySuperInterface
  braindustry.annotations.ModAnnotations$Final
  braindustry.annotations.ModAnnotations$GroupDef
  braindustry.annotations.ModAnnotations$Import

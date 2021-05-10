@@ -89,7 +89,7 @@ public class ModAnnotations {
     }
 
     /** Indicates an entity definition. */
-    @Target(ElementType.FIELD)
+//    @Target(ElementType.FIELD)
     @Retention(RetentionPolicy.SOURCE)
     public @interface EntityDef{
         /** List of component interfaces */
@@ -256,7 +256,7 @@ public class ModAnnotations {
     public @interface EntitySuperClass {
     }
     @Retention(RetentionPolicy.SOURCE)
-    public @interface EntitySuperComp {
+    public @interface EntitySuperInterface {
     }
 
     @Retention(RetentionPolicy.SOURCE)

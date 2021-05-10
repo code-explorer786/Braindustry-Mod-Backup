@@ -2,7 +2,7 @@ name: "braindustry-java"
 displayName: "Braindustry"
 author: "[violet]Zelaux, KOSTOLOM, PixaxeOfPixie, Vervalamis, SuperJaba2000, GorillaGlue, Toxin"
 description: "[violet]The biggest RU mod, add new star system, more than 20 units, 19 turrets, 11 new maps for planets, gasses and much more!"
-main: "braindustry.Starter"
+main: "braindustry.BraindustryMod"
 version: 2.0
 minGameVersion: 126.2
 

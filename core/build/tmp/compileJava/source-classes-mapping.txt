@@ -72,6 +72,7 @@ ModVars/Classes/TechTreeManager.java
 braindustry/content/ModBullets.java
  braindustry.content.ModBullets
  braindustry.content.ModBullets$1
+ braindustry.content.ModBullets$2
 Gas/world/blocks/gas/GasSource.java
  Gas.world.blocks.gas.GasSource
  Gas.world.blocks.gas.GasSource$GasSourceBuild

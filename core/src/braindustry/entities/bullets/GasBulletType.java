@@ -46,7 +46,9 @@ public class GasBulletType extends BulletType {
     public GasBulletType(){
         this(null);
     }
-
+    public boolean explodes(Gas gas, float amount){
+        return false;
+    }
     @Override
     public float range(){
         return speed * lifetime / 2f;
@@ -56,7 +58,7 @@ public class GasBulletType extends BulletType {
     public void update(Bullet b){
         super.update(b);
 
-        if(true){
+        if(false){
             Tile tile = world.tileWorld(b.x, b.y);
             if(tile != null && Fires.has(tile.x, tile.y)){
                 Fires.extinguish(tile, 100f);
@@ -84,9 +86,9 @@ public class GasBulletType extends BulletType {
     @Override
     public void hit(Bullet b, float hitx, float hity){
         hitEffect.at(hitx, hity, gas.color);
-        Clouds.deposit(world.tileWorld(hitx, hity), gas, puddleSize);
+        Clouds.deposit(world.tileWorld(hitx, hity), gas, puddleSize*10f);
 
-        if(gas.temperature <= 0.5f && gas.flammability < 0.3f){
+        if(gas.temperature <= 0.5f && gas.flammability < 0.3f && false){
             float intensity = 400f * puddleSize/6f;
             Fires.extinguish(world.tileWorld(hitx, hity), intensity);
             for(Point2 p : Geometry.d4){

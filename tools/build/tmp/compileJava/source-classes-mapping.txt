@@ -1,3 +1,5 @@
+braindustry/tools/AnukeCompDownloader.java
+ braindustry.tools.AnukeCompDownloader
 braindustry/tools/Generators.java
  braindustry.tools.Generators
 braindustry/tools/Image.java

@@ -16,11 +16,13 @@ import arc.math.geom.Point2;
 import arc.math.geom.Position;
 import arc.math.geom.Rect;
 import arc.util.Time;
+import arc.util.Tmp;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
 import arc.util.pooling.Pool;
 import arc.util.pooling.Pools;
 import braindustry.content.ModFx;
+import braindustry.entities.bullets.GasBulletType;
 import braindustry.versions.ModEntityc;
 import mindustry.Vars;
 import mindustry.content.Blocks;
@@ -201,9 +203,17 @@ public class Cloud implements Pool.Poolable,  Drawc, Posc, ModEntityc {
                 this.amount=Math.max(0,this.amount-explosiveness-flammability-radius/8f);
             }
         }
-        Bullet bullet1 = Groups.bullet.find(bullet -> bullet.dst(this) < 8);
-        if (bullet1!=null ){
-            Damage.dynamicExplosion(this.x, this.y, getFlammability(), gas.explosiveness, 0, Mathf.clamp((amount*1.2f),0,30), Vars.state.rules.damageExplosions,true,Team.derelict);
+        Bullet bullet1 = Groups.bullet.find(bullet -> {
+            bullet.hitbox(Tmp.r1);
+            rect.setSize(Mathf.clamp(this.amount / 46.666668F) * 10.0F).setCenter(this.x, this.y);
+            return Tmp.r1.overlaps(rect);
+        });
+        if (bullet1!=null && bullet1.type instanceof GasBulletType && ((GasBulletType) bullet1.type).explodes(gas,amount)){
+            float flammability = getFlammability();
+            float explosiveness = gas.explosiveness;
+            float radius = Mathf.clamp((amount * 1.2f), 0, 30);
+            Damage.dynamicExplosion(this.x, this.y, flammability, explosiveness, 0, radius, Vars.state.rules.damageExplosions,true,bullet1.team);
+            this.amount=Math.max(0,this.amount-explosiveness-flammability-radius/8f);
         }
         this.updateTime -= Time.delta;
     }

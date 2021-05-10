@@ -12,7 +12,6 @@ import braindustry.annotations.ModAnnotations;
 import braindustry.annotations.ModBaseProcessor;
 import braindustry.annotations.RemoteProc.ModTypeIOResolver;
 import com.squareup.javapoet.*;
-import com.sun.source.tree.ClassTree;
 import com.sun.source.tree.CompilationUnitTree;
 import com.sun.source.tree.Tree;
 import com.sun.source.tree.VariableTree;
@@ -26,6 +25,9 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.type.MirroredTypesException;
 import java.lang.annotation.Annotation;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Scanner;
 
 @SupportedAnnotationTypes({
         "braindustry.annotations.ModAnnotations.EntityDef",
@@ -36,6 +38,7 @@ import java.lang.annotation.Annotation;
 public class ModEntitiesProc extends ModBaseProcessor {
     Seq<EntityDefinition> definitions = new Seq<>();
     Seq<Stype> allInterfaces = new Seq<>();
+    Seq<Stype> anukeSuperInterfaces = new Seq<>();
     Seq<Selement> allGroups = new Seq<>();
     Seq<Selement> allDefs = new Seq<>();
     Seq<Stype> baseComponents;
@@ -49,7 +52,7 @@ public class ModEntitiesProc extends ModBaseProcessor {
     ObjectSet<String> imports = new ObjectSet<>();
     Seq<TypeSpec.Builder> baseClasses = new Seq<>();
     TypeIOResolver.ClassSerializer serializer;
-
+    Seq<String> anukeComponents;
     {
         rounds = 3;
     }
@@ -74,7 +77,35 @@ public class ModEntitiesProc extends ModBaseProcessor {
     }
 
     private void zeroRound() {
-//        createMindustryComponets();
+        try {
+            if (true)return;
+            long nanos=System.nanoTime();
+//            Fi dir=new Fi("files"),fi;
+//            if(dir.exists())dir.deleteDirectory();
+            URLConnection connection = new URL("https://github.com/Anuken/Mindustry/tree/master/core/src/mindustry/entities/comp").openConnection();
+            Scanner scanner = new Scanner(connection.getInputStream());
+            boolean prepare=false;
+            anukeComponents=new Seq<>();
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (prepare){
+                    prepare=false;
+                    try {
+                        int c=0;
+                        String fileName = line.split("<span class=\"css-truncate css-truncate-target d-block width-fit\"><a class=\"js-navigation-open Link--primary\" title=\"")[1]
+                                .split("\"")[0];
+                       anukeComponents.add(fileName.split(".")[0]);
+                    } catch (Exception ignored) {
+                    }
+                } else if (line.contains("role=\"rowheader\"")) {
+                    prepare=true;
+                }
+            }
+//            System.out.println(Strings.format("Time taken: @s", Time.nanosToMillis(Time.timeSinceNanos(nanos))/1000f));
+        } catch (Exception e){
+                e.printStackTrace();
+        }
+        createMindustrySuperInterface();
     }
 
     private void updateRounds() {
@@ -82,141 +113,183 @@ public class ModEntitiesProc extends ModBaseProcessor {
         allGroups.addAll(elements(ModAnnotations.GroupDef.class));
 //        allInterfaces.clear();
         allInterfaces.addAll(types(ModAnnotations.EntityInterface.class));
-
-        allDefs.addAll(elements(ModAnnotations.EntityDef.class));
+anukeSuperInterfaces.addAll(getMindsutryComponents()) ;
+allDefs.addAll(elements(ModAnnotations.EntityDef.class).select(el->!anukeComponents.contains(el.name())));
 //        print("allDefs: @", allDefs.map(Selement::fullName).toString(", "));
 //        print("allGroups: @", allGroups.map(Selement::fullName).toString(", "));
 //        print("EntityConfig: @", elements(ModAnnotations.EntityInterface.class).map(Selement::fullName).toString(", "));
     }
+    private void firstRound() throws Exception {
+        baseComponents = types(ModAnnotations.BaseComponent.class);
+        Seq<Stype> allComponents = types(ModAnnotations.Component.class);
+//        allComponents.addAll(getMindsutryComponents());
 
-    private void thirdRound() throws Exception {
-        //round 3: generate actual classes and implement interfaces
+// mindustry.entities.comp.
+        //store code
+        for (Stype component : allComponents) {
+            for (Svar f : component.fields()) {
+                VariableTree tree = f.tree();
 
-        //write base classes
-        for (TypeSpec.Builder b : baseClasses) {
-            write(b, imports.asArray());
-        }
-
-        //implement each definition
-        for (EntityDefinition def : definitions) {
-
-            ObjectSet<String> methodNames = def.components.flatMap(type -> type.methods().map(Smethod::simpleString)).<String>as().asSet();
-
-            //add base class extension if it exists
-            if (def.extend != null) {
-                def.builder.superclass(def.extend);
-            }
-
-            //get interface for each component
-            for (Stype comp : def.components) {
-
-                //implement the interface
-                Stype inter = allInterfaces.find(i -> i.name().equals(interfaceName(comp)));
-                if (inter == null) {
-                    err("Failed to generate interface for", comp);
-                    return;
-                }
-
-                def.builder.addSuperinterface(inter.tname());
-
-                //generate getter/setter for each method
-                for (Smethod method : inter.methods()) {
-                    String var = method.name();
-                    FieldSpec field = Seq.with(def.fieldSpecs).find(f -> f.name.equals(var));
-                    //make sure it's a real variable AND that the component doesn't already implement it somewhere with custom logic
-                    if (field == null || methodNames.contains(method.simpleString())) continue;
-
-                    //getter
-                    if (!method.isVoid()) {
-                        def.builder.addMethod(MethodSpec.overriding(method.e).addStatement("return " + var).build());
-                    }
-
-                    //setter
-                    if (method.isVoid() && !Seq.with(field.annotations).contains(f -> f.type.toString().equals("@mindustry.annotations.ModAnnotations.ReadOnly"))) {
-                        def.builder.addMethod(MethodSpec.overriding(method.e).addStatement("this." + var + " = " + var).build());
-                    }
+                //add initializer if it exists
+                if (tree.getInitializer() != null) {
+                    String init = tree.getInitializer().toString();
+//                    print("varInitializers.put(@, @);",f.descString(), init);
+                    varInitializers.put(f.descString(), init);
                 }
             }
 
-            write(def.builder, imports.asArray());
+            for (Smethod elem : component.methods()) {
+                if (elem.is(Modifier.ABSTRACT) || elem.is(Modifier.NATIVE)) continue;
+                //get all statements in the method, store them
+                String value = elem.tree().getBody().toString()
+                        .replaceAll("this\\.<(.*)>self\\(\\)", "this") //fix parameterized self() calls
+                        .replaceAll("self\\(\\)", "this") //fix self() calls
+                        .replaceAll(" yield ", "") //fix enchanced switch
+                        .replaceAll("\\/\\*missing\\*\\/", "var");
+//                print("methodBlocks.put(@, @);",elem.descString(), value);
+                methodBlocks.put(elem.descString(), value //fix vars
+                );
+            }
         }
 
-        //store nulls
-        TypeSpec.Builder nullsBuilder = TypeSpec.classBuilder("Nulls").addModifiers(Modifier.PUBLIC).addModifiers(Modifier.FINAL);
-        //create mock types of all components
-        for (Stype interf : allInterfaces) {
-            //indirect interfaces to implement methods for
-            Seq<Stype> dependencies = interf.allInterfaces().and(interf);
-            Seq<Smethod> methods = dependencies.flatMap(Stype::methods);
-            methods.sortComparing(Object::toString);
+        //store components
+        for (Stype type : allComponents) {
+            componentNames.put(type.name(), type);
+        }
+        Seq<Stype> configs = types(ModAnnotations.EntitySuperClass.class);
+        for (Stype type : configs.map(u -> u.superclasses().select(b -> !b.name().contains("Object")).first())) {
+            componentNames.put(type.fullName(), type);
+            componentNames.put(type.name(), type);
+            allInterfaces.add(type);
+//            print("typeSuper: @ or @", type.name(), type.fullName());
+        }
 
-            //optionally add superclass
-            Stype superclass = dependencies.map(this::interfaceToComp).find(s -> s != null && s.annotation(ModAnnotations.Component.class).base());
-            //use the base type when the interface being emulated has a base
-            TypeName type = superclass != null && interfaceToComp(interf).annotation(ModAnnotations.Component.class).base() ? tname(baseName(superclass)) : interf.tname();
 
-            //used method signatures
+        //add component imports
+        for (Stype comp : allComponents) {
+            imports.addAll(getImports(comp.e));
+        }
+
+        //create component interfaces
+//        System.out.println("types:");
+//        System.out.println(Strings.join(", ",allComponents.map(type->type.fullName())));
+        for (Stype component : allComponents) {
+            TypeSpec.Builder inter = TypeSpec.interfaceBuilder(interfaceName(component))
+                    .addModifiers(Modifier.PUBLIC).addAnnotation(ModAnnotations.EntityInterface.class);
+
+            inter.addJavadoc("Interface for {@link $L}", component.fullName());
+
+            //implement extra interfaces these components may have, e.g. position
+            for (Stype extraInterface : component.interfaces().select(i -> !isCompInterface(i))) {
+                //javapoet completely chokes on this if I add `addSuperInterface` or create the type name with TypeName.get
+                inter.superinterfaces.add(tname(extraInterface.fullName()));
+            }
+
+            //implement super interfaces
+            Seq<Stype> depends = getDependencies(component);
+            for (Stype type : depends) {
+                inter.addSuperinterface(ClassName.get(packageName, interfaceName(type)));
+            }
+
             ObjectSet<String> signatures = new ObjectSet<>();
 
-            //create null builder
-            String baseName = interf.name().substring(0, interf.name().length() - 1);
-            String className = "Null" + baseName;
-            TypeSpec.Builder nullBuilder = TypeSpec.classBuilder(className)
-                    .addModifiers(Modifier.FINAL);
+            //add utility methods to interface
+            for (Smethod method : component.methods()) {
+                //skip private methods, those are for internal use.
+                if (method.isAny(Modifier.PRIVATE, Modifier.STATIC)) continue;
 
-            nullBuilder.addSuperinterface(interf.tname());
-            if (superclass != null) nullBuilder.superclass(tname(baseName(superclass)));
+                //keep track of signatures used to prevent dupes
+                signatures.add(method.e.toString());
 
-            for (Smethod method : methods) {
-                String signature = method.toString();
-                if (signatures.contains(signature)) continue;
+                inter.addMethod(MethodSpec.methodBuilder(method.name())
+                        .addJavadoc(method.doc() == null ? "" : method.doc())
+                        .addExceptions(method.thrownt())
+                        .addTypeVariables(method.typeVariables().map(TypeVariableName::get))
+                        .returns(method.ret().toString().equals("void") ? TypeName.VOID : method.retn())
+                        .addParameters(method.params().map(v -> ParameterSpec.builder(v.tname(), v.name())
+                                .build())).addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT).build());
+            }
 
-                Stype compType = interfaceToComp(method.type());
-                MethodSpec.Builder builder = MethodSpec.overriding(method.e).addModifiers(Modifier.PUBLIC, Modifier.FINAL);
-                builder.addAnnotation(ModAnnotations.OverrideCallSuper.class); //just in case
+            for (Svar field : component.fields().select(e -> !e.is(Modifier.STATIC) && !e.is(Modifier.PRIVATE) && !e.has(ModAnnotations.Import.class))) {
+                String cname = field.name();
 
-                if (!method.isVoid()) {
-                    if (method.name().equals("isNull")) {
-                        builder.addStatement("return true");
-                    } else if (method.name().equals("id")) {
-                        builder.addStatement("return -1");
-                    } else {
-                        Svar variable = compType == null || method.params().size > 0 ? null : compType.fields().find(v -> v.name().equals(method.name()));
-                        String desc = variable == null ? null : variable.descString();
-                        if (variable == null || !varInitializers.containsKey(desc)) {
-                            builder.addStatement("return " + getDefault(method.ret().toString()));
-                        } else {
-                            String init = varInitializers.get(desc);
-                            builder.addStatement("return " + (init.equals("{}") ? "new " + variable.mirror().toString() : "") + init);
-                        }
-                    }
+                //getter
+                if (!signatures.contains(cname + "()")) {
+                    inter.addMethod(MethodSpec.methodBuilder(cname).addModifiers(Modifier.ABSTRACT, Modifier.PUBLIC)
+                            .addAnnotations(Seq.with(field.annotations()).select(a -> a.toString().contains("Null")).map(AnnotationSpec::get))
+                            .addJavadoc(field.doc() == null ? "" : field.doc())
+                            .returns(field.tname()).build());
                 }
 
-                nullBuilder.addMethod(builder.build());
+                //setter
+                if (!field.is(Modifier.FINAL) && !signatures.contains(cname + "(" + field.mirror().toString() + ")") &&
+                    !field.annotations().contains(f -> f.toString().equals("@mindustry.annotations.ModAnnotations.ReadOnly"))) {
+                    inter.addMethod(MethodSpec.methodBuilder(cname).addModifiers(Modifier.ABSTRACT, Modifier.PUBLIC)
+                            .addJavadoc(field.doc() == null ? "" : field.doc())
+                            .addParameter(ParameterSpec.builder(field.tname(), field.name())
+                                    .addAnnotations(Seq.with(field.annotations())
+                                            .select(a -> a.toString().contains("Null")).map(AnnotationSpec::get)).build()).build());
+                }
+            }
+            write(inter);
+            //generate base class if necessary
+            //SPECIAL CASE: components with EntityDefs don't get a base class! the generated class becomes the base class itself
+            if (component.annotation(ModAnnotations.Component.class).base()) {
 
-                signatures.add(signature);
+                Seq<Stype> deps = depends.copy().and(component);
+                baseClassDeps.get(component, ObjectSet::new).addAll(deps);
+
+                //do not generate base classes when the component will generate one itself
+                if (!component.has(ModAnnotations.EntityDef.class)) {
+                    TypeSpec.Builder base = TypeSpec.classBuilder(baseName(component)).addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT);
+
+                    //go through all the fields.
+                    for (Stype type : deps) {
+                        //add public fields
+                        for (Svar field : type.fields().select(e -> !e.is(Modifier.STATIC) && !e.is(Modifier.PRIVATE) && !e.has(ModAnnotations.Import.class) && !e.has(ModAnnotations.ReadOnly.class))) {
+                            FieldSpec.Builder builder = FieldSpec.builder(field.tname(), field.name(), Modifier.PUBLIC);
+
+                            //keep transience
+                            if (field.is(Modifier.TRANSIENT)) builder.addModifiers(Modifier.TRANSIENT);
+                            //keep all annotations
+                            builder.addAnnotations(field.annotations().map(AnnotationSpec::get));
+
+                            //add initializer if it exists
+                            if (varInitializers.containsKey(field.descString())) {
+                                builder.initializer(varInitializers.get(field.descString()));
+                            }
+
+                            base.addField(builder.build());
+                        }
+                    }
+
+                    //add interfaces
+                    for (Stype type : deps) {
+                        base.addSuperinterface(tname(packageName, interfaceName(type)));
+                    }
+
+                    //add to queue to be written later
+                    baseClasses.add(base);
+                }
             }
 
-            nullsBuilder.addField(FieldSpec.builder(type, Strings.camelize(baseName)).initializer("new " + className + "()").addModifiers(Modifier.FINAL, Modifier.STATIC, Modifier.PUBLIC).build());
+            //LOGGING
 
-            write(nullBuilder);
+            Log.debug("&gGenerating interface for " + component.name());
+
+            for (TypeName tn : inter.superinterfaces) {
+                Log.debug("&g> &lbimplements @", simpleName(tn.toString()));
+            }
+
+            //log methods generated
+            for (MethodSpec spec : inter.methodSpecs) {
+                Log.debug("&g> > &c@ @(@)", simpleName(spec.returnType.toString()), spec.name, Seq.with(spec.parameters).toString(", ", p -> simpleName(p.type.toString()) + " " + p.name));
+            }
+
+            Log.debug("");
         }
 
-        write(nullsBuilder);
-        deleteMindustryComps();
     }
-
-    private void deleteMindustryComps() {
-        if (true)return;
-        Seq<String> mindustryComponentsName = getMindustryComponentsName();
-        mindustryComponentsName.each(name -> {
-            try {
-                delete(name);
-            } catch (Exception e) {
-            }
-        });
-    }
-
     private void secondRound() throws Exception {
         //round 2: get component classes and generate interfaces for
         //parse groups
@@ -708,14 +781,142 @@ public class ModEntitiesProc extends ModBaseProcessor {
         }
     }
 
-    private void createMindustryComponets() {
-        Seq<String> midnsutryComponentsNames = getMindustryComponentsName();
+    private void thirdRound() throws Exception {
+        //round 3: generate actual classes and implement interfaces
+
+        //write base classes
+        for (TypeSpec.Builder b : baseClasses) {
+            write(b, imports.asArray());
+        }
+
+        //implement each definition
+        for (EntityDefinition def : definitions) {
+
+            ObjectSet<String> methodNames = def.components.flatMap(type -> type.methods().map(Smethod::simpleString)).<String>as().asSet();
+
+            //add base class extension if it exists
+            if (def.extend != null) {
+                def.builder.superclass(def.extend);
+            }
+
+            //get interface for each component
+            for (Stype comp : def.components) {
+
+                //implement the interface
+                Stype inter = allInterfaces.find(i -> i.name().equals(interfaceName(comp)));
+                if (inter == null) {
+                    err("Failed to generate interface for", comp);
+                    return;
+                }
+
+                def.builder.addSuperinterface(inter.tname());
+
+                //generate getter/setter for each method
+                for (Smethod method : inter.methods()) {
+                    String var = method.name();
+                    FieldSpec field = Seq.with(def.fieldSpecs).find(f -> f.name.equals(var));
+                    //make sure it's a real variable AND that the component doesn't already implement it somewhere with custom logic
+                    if (field == null || methodNames.contains(method.simpleString())) continue;
+
+                    //getter
+                    if (!method.isVoid()) {
+                        def.builder.addMethod(MethodSpec.overriding(method.e).addStatement("return " + var).build());
+                    }
+
+                    //setter
+                    if (method.isVoid() && !Seq.with(field.annotations).contains(f -> f.type.toString().equals("@mindustry.annotations.ModAnnotations.ReadOnly"))) {
+                        def.builder.addMethod(MethodSpec.overriding(method.e).addStatement("this." + var + " = " + var).build());
+                    }
+                }
+            }
+
+            write(def.builder, imports.asArray());
+        }
+
+        //store nulls
+        TypeSpec.Builder nullsBuilder = TypeSpec.classBuilder("Nulls").addModifiers(Modifier.PUBLIC).addModifiers(Modifier.FINAL);
+        //create mock types of all components
+        for (Stype interf : allInterfaces) {
+            //indirect interfaces to implement methods for
+            Seq<Stype> dependencies = interf.allInterfaces().and(interf);
+            Seq<Smethod> methods = dependencies.flatMap(Stype::methods);
+            methods.sortComparing(Object::toString);
+
+            //optionally add superclass
+            Stype superclass = dependencies.map(this::interfaceToComp).find(s -> s != null && s.annotation(ModAnnotations.Component.class).base());
+            //use the base type when the interface being emulated has a base
+            TypeName type = superclass != null && interfaceToComp(interf).annotation(ModAnnotations.Component.class).base() ? tname(baseName(superclass)) : interf.tname();
+
+            //used method signatures
+            ObjectSet<String> signatures = new ObjectSet<>();
+
+            //create null builder
+            String baseName = interf.name().substring(0, interf.name().length() - 1);
+            String className = "Null" + baseName;
+            TypeSpec.Builder nullBuilder = TypeSpec.classBuilder(className)
+                    .addModifiers(Modifier.FINAL);
+
+            nullBuilder.addSuperinterface(interf.tname());
+            if (superclass != null) nullBuilder.superclass(tname(baseName(superclass)));
+
+            for (Smethod method : methods) {
+                String signature = method.toString();
+                if (signatures.contains(signature)) continue;
+
+                Stype compType = interfaceToComp(method.type());
+                MethodSpec.Builder builder = MethodSpec.overriding(method.e).addModifiers(Modifier.PUBLIC, Modifier.FINAL);
+                builder.addAnnotation(ModAnnotations.OverrideCallSuper.class); //just in case
+
+                if (!method.isVoid()) {
+                    if (method.name().equals("isNull")) {
+                        builder.addStatement("return true");
+                    } else if (method.name().equals("id")) {
+                        builder.addStatement("return -1");
+                    } else {
+                        Svar variable = compType == null || method.params().size > 0 ? null : compType.fields().find(v -> v.name().equals(method.name()));
+                        String desc = variable == null ? null : variable.descString();
+                        if (variable == null || !varInitializers.containsKey(desc)) {
+                            builder.addStatement("return " + getDefault(method.ret().toString()));
+                        } else {
+                            String init = varInitializers.get(desc);
+                            builder.addStatement("return " + (init.equals("{}") ? "new " + variable.mirror().toString() : "") + init);
+                        }
+                    }
+                }
+
+                nullBuilder.addMethod(builder.build());
+
+                signatures.add(signature);
+            }
+
+            nullsBuilder.addField(FieldSpec.builder(type, Strings.camelize(baseName)).initializer("new " + className + "()").addModifiers(Modifier.FINAL, Modifier.STATIC, Modifier.PUBLIC).build());
+
+            write(nullBuilder);
+        }
+
+        write(nullsBuilder);
+        deleteMindustryComps();
+    }
+
+    private void deleteMindustryComps() {
+        if (true)return;
+        Seq<String> mindustryComponentsName = anukeComponents;
+        mindustryComponentsName.each(name -> {
+            try {
+                delete(name);
+            } catch (Exception e) {
+            }
+        });
+    }
+
+    private void createMindustrySuperInterface() {
+        Seq<String> midnsutryComponentsNames = anukeComponents;
         midnsutryComponentsNames.each(name -> {
-            ClassName className = ClassName.get("mindustry.entities.comp", name);
+            ClassName className = ClassName.get("mindustry.gen.", interfaceName(name));
             String reflectionName = className.reflectionName();
 //        print("className: @", reflectionName);
-            TypeSpec.Builder inter = TypeSpec.classBuilder(name)
-                    .addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT).addAnnotation(ModAnnotations.EntitySuperComp.class)
+            TypeSpec.Builder inter = TypeSpec.classBuilder(interfaceName(name))
+                    .addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT).addAnnotation(ModAnnotations.EntitySuperInterface.class)
                     .superclass(className);
 //        inter.build().superclass=new TypeSpec();
             try {
@@ -729,232 +930,14 @@ public class ModEntitiesProc extends ModBaseProcessor {
 
     private Seq<Stype> getMindsutryComponents() {
         Seq<Stype> stypes = Seq.with();
-        for (Stype type : types(ModAnnotations.EntitySuperComp.class)) {
+        if (true)
+        return stypes;
+        for (Stype type : types(ModAnnotations.EntitySuperInterface.class)) {
             Stype object = type.superclasses().select(b -> !b.name().contains("Object")).first();
             print("object: @", object);
             stypes.add(object);
         }
         return stypes;
-    }
-
-    private Seq<String> getMindustryComponentsName() {
-        return Seq.with(
-                "PlayerComp",
-                "BuilderComp",
-                "DecalComp",
-                "PayloadComp",
-                "BulletComp",
-                "LegsComp",
-                "DamageComp",
-                "PosComp",
-                "ChildComp",
-                "CommanderComp",
-                "HealthComp",
-                "BoundedComp",
-                "PosTeamDef",
-                "ItemsComp",
-                "MinerComp",
-                "EntityComp",
-                "OwnerComp",
-                "AmmoDistributeComp",
-                "DrawComp",
-                "PuddleComp",
-                "ElevationMoveComp",
-                "BlockUnitComp",
-                "MechComp",
-                "FireComp",
-                "BuildingComp",
-                "FlyingComp",
-                "LaunchCoreComp",
-                "EffectStateComp",
-                "PhysicsComp",
-                "HitboxComp",
-                "RotComp",
-                "ShieldComp",
-                "ShielderComp",
-                "StatusComp",
-                "SyncComp",
-                "TimedComp",
-                "TeamComp",
-                "TimerComp",
-                "TrailComp",
-                "UnitComp",
-                "VelComp",
-                "WaterMoveComp",
-                "WeaponsComp"
-        );
-    }
-
-    private void firstRound() throws Exception {
-        baseComponents = types(ModAnnotations.BaseComponent.class);
-        Seq<Stype> allComponents = types(ModAnnotations.Component.class);
-        allComponents.addAll(getMindsutryComponents());
-
-// mindustry.entities.comp.
-        //store code
-        for (Stype component : allComponents) {
-            for (Svar f : component.fields()) {
-                VariableTree tree = f.tree();
-
-                //add initializer if it exists
-                if (tree.getInitializer() != null) {
-                    String init = tree.getInitializer().toString();
-//                    print("varInitializers.put(@, @);",f.descString(), init);
-                    varInitializers.put(f.descString(), init);
-                }
-            }
-
-            for (Smethod elem : component.methods()) {
-                if (elem.is(Modifier.ABSTRACT) || elem.is(Modifier.NATIVE)) continue;
-                //get all statements in the method, store them
-                String value = elem.tree().getBody().toString()
-                        .replaceAll("this\\.<(.*)>self\\(\\)", "this") //fix parameterized self() calls
-                        .replaceAll("self\\(\\)", "this") //fix self() calls
-                        .replaceAll(" yield ", "") //fix enchanced switch
-                        .replaceAll("\\/\\*missing\\*\\/", "var");
-//                print("methodBlocks.put(@, @);",elem.descString(), value);
-                methodBlocks.put(elem.descString(), value //fix vars
-                );
-            }
-        }
-
-        //store components
-        for (Stype type : allComponents) {
-            componentNames.put(type.name(), type);
-        }
-        Seq<Stype> configs = types(ModAnnotations.EntitySuperClass.class);
-        for (Stype type : configs.map(u -> u.superclasses().select(b -> !b.name().contains("Object")).first())) {
-            componentNames.put(type.fullName(), type);
-            componentNames.put(type.name(), type);
-            allInterfaces.add(type);
-//            print("typeSuper: @ or @", type.name(), type.fullName());
-        }
-
-
-        //add component imports
-        for (Stype comp : allComponents) {
-            imports.addAll(getImports(comp.e));
-        }
-
-        //create component interfaces
-//        System.out.println("types:");
-//        System.out.println(Strings.join(", ",allComponents.map(type->type.fullName())));
-        for (Stype component : allComponents) {
-            TypeSpec.Builder inter = TypeSpec.interfaceBuilder(interfaceName(component))
-                    .addModifiers(Modifier.PUBLIC).addAnnotation(ModAnnotations.EntityInterface.class);
-
-            inter.addJavadoc("Interface for {@link $L}", component.fullName());
-
-            //implement extra interfaces these components may have, e.g. position
-            for (Stype extraInterface : component.interfaces().select(i -> !isCompInterface(i))) {
-                //javapoet completely chokes on this if I add `addSuperInterface` or create the type name with TypeName.get
-                inter.superinterfaces.add(tname(extraInterface.fullName()));
-            }
-
-            //implement super interfaces
-            Seq<Stype> depends = getDependencies(component);
-            for (Stype type : depends) {
-                inter.addSuperinterface(ClassName.get(packageName, interfaceName(type)));
-            }
-
-            ObjectSet<String> signatures = new ObjectSet<>();
-
-            //add utility methods to interface
-            for (Smethod method : component.methods()) {
-                //skip private methods, those are for internal use.
-                if (method.isAny(Modifier.PRIVATE, Modifier.STATIC)) continue;
-
-                //keep track of signatures used to prevent dupes
-                signatures.add(method.e.toString());
-
-                inter.addMethod(MethodSpec.methodBuilder(method.name())
-                        .addJavadoc(method.doc() == null ? "" : method.doc())
-                        .addExceptions(method.thrownt())
-                        .addTypeVariables(method.typeVariables().map(TypeVariableName::get))
-                        .returns(method.ret().toString().equals("void") ? TypeName.VOID : method.retn())
-                        .addParameters(method.params().map(v -> ParameterSpec.builder(v.tname(), v.name())
-                                .build())).addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT).build());
-            }
-
-            for (Svar field : component.fields().select(e -> !e.is(Modifier.STATIC) && !e.is(Modifier.PRIVATE) && !e.has(ModAnnotations.Import.class))) {
-                String cname = field.name();
-
-                //getter
-                if (!signatures.contains(cname + "()")) {
-                    inter.addMethod(MethodSpec.methodBuilder(cname).addModifiers(Modifier.ABSTRACT, Modifier.PUBLIC)
-                            .addAnnotations(Seq.with(field.annotations()).select(a -> a.toString().contains("Null")).map(AnnotationSpec::get))
-                            .addJavadoc(field.doc() == null ? "" : field.doc())
-                            .returns(field.tname()).build());
-                }
-
-                //setter
-                if (!field.is(Modifier.FINAL) && !signatures.contains(cname + "(" + field.mirror().toString() + ")") &&
-                        !field.annotations().contains(f -> f.toString().equals("@mindustry.annotations.ModAnnotations.ReadOnly"))) {
-                    inter.addMethod(MethodSpec.methodBuilder(cname).addModifiers(Modifier.ABSTRACT, Modifier.PUBLIC)
-                            .addJavadoc(field.doc() == null ? "" : field.doc())
-                            .addParameter(ParameterSpec.builder(field.tname(), field.name())
-                                    .addAnnotations(Seq.with(field.annotations())
-                                            .select(a -> a.toString().contains("Null")).map(AnnotationSpec::get)).build()).build());
-                }
-            }
-            write(inter);
-            //generate base class if necessary
-            //SPECIAL CASE: components with EntityDefs don't get a base class! the generated class becomes the base class itself
-            if (component.annotation(ModAnnotations.Component.class).base()) {
-
-                Seq<Stype> deps = depends.copy().and(component);
-                baseClassDeps.get(component, ObjectSet::new).addAll(deps);
-
-                //do not generate base classes when the component will generate one itself
-                if (!component.has(ModAnnotations.EntityDef.class)) {
-                    TypeSpec.Builder base = TypeSpec.classBuilder(baseName(component)).addModifiers(Modifier.PUBLIC, Modifier.ABSTRACT);
-
-                    //go through all the fields.
-                    for (Stype type : deps) {
-                        //add public fields
-                        for (Svar field : type.fields().select(e -> !e.is(Modifier.STATIC) && !e.is(Modifier.PRIVATE) && !e.has(ModAnnotations.Import.class) && !e.has(ModAnnotations.ReadOnly.class))) {
-                            FieldSpec.Builder builder = FieldSpec.builder(field.tname(), field.name(), Modifier.PUBLIC);
-
-                            //keep transience
-                            if (field.is(Modifier.TRANSIENT)) builder.addModifiers(Modifier.TRANSIENT);
-                            //keep all annotations
-                            builder.addAnnotations(field.annotations().map(AnnotationSpec::get));
-
-                            //add initializer if it exists
-                            if (varInitializers.containsKey(field.descString())) {
-                                builder.initializer(varInitializers.get(field.descString()));
-                            }
-
-                            base.addField(builder.build());
-                        }
-                    }
-
-                    //add interfaces
-                    for (Stype type : deps) {
-                        base.addSuperinterface(tname(packageName, interfaceName(type)));
-                    }
-
-                    //add to queue to be written later
-                    baseClasses.add(base);
-                }
-            }
-
-            //LOGGING
-
-            Log.debug("&gGenerating interface for " + component.name());
-
-            for (TypeName tn : inter.superinterfaces) {
-                Log.debug("&g> &lbimplements @", simpleName(tn.toString()));
-            }
-
-            //log methods generated
-            for (MethodSpec spec : inter.methodSpecs) {
-                Log.debug("&g> > &c@ @(@)", simpleName(spec.returnType.toString()), spec.name, Seq.with(spec.parameters).toString(", ", p -> simpleName(p.type.toString()) + " " + p.name));
-            }
-
-            Log.debug("");
-        }
-
     }
 
     Seq<String> getImports(Element elem) {
@@ -963,16 +946,16 @@ public class ModEntitiesProc extends ModBaseProcessor {
             print("can't find path to @", elem);
             if (elem.toString().startsWith("mindustry.")) {
                 Stype type = new Selement<>(elem).asType();
-                Tree tree = trees.getTree(elem);
+//                Tree tree = trees.getTree(elem);
 
 //                TreePath path1 = new TreePath((TreePath) tree,);
-                CompilationUnitTree path1=(CompilationUnitTree) tree;
+//                CompilationUnitTree path1=(CompilationUnitTree) tree;
 //                TreePath path1 = trees.getPath((CompilationUnitTree) tree,tree);
 //                JCTree.JCClassDecl tree = (JCTree.JCClassDecl) trees.getTree(type.e);
 
 //                tree.getTypeParameters().get(0).
-                print("doc: @ @", path1,tree);
-                print("trees: @", BaseProcessor.trees.getClass().getName());
+//                print("doc: @ @", path1,tree);
+//                print("trees: @", BaseProcessor.trees.getClass().getName());
 
             }
             return Seq.with();
@@ -989,6 +972,16 @@ public class ModEntitiesProc extends ModBaseProcessor {
 
         //example: BlockComp -> IBlock
         return comp.name().substring(0, comp.name().length() - suffix.length()) + "c";
+    }
+    /**
+     * @return interface for a component type
+     */
+    String interfaceName(String name) {
+        String suffix = "Comp";
+        if (!name.endsWith(suffix)) err("All components must have names that end with 'Comp': "+name);
+
+        //example: BlockComp -> IBlock
+        return name.substring(0, name.length() - suffix.length()) + "c";
     }
 
     /**
