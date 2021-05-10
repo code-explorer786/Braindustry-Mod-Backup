@@ -25,7 +25,7 @@ class ModPowerBlocks implements ContentList {
             this.hasGas = true;
             this.localizedName = "Methane Burner";
             this.description = "Burn Methane to produce heat energy.";
-            this.powerProduction = 5f;
+            this.powerProduction = 7f;
             this.gasCapacity = 11f;
             this.size = 2;
             this.consumes.addGas(new ConsumeGasses(Gasses.methane, 0.3f));
@@ -36,7 +36,7 @@ class ModPowerBlocks implements ContentList {
             this.hasGas = true;
             this.localizedName = "Hyper Methane Burner";
             this.description = "Burn Methane more effective but consumes water.";
-            this.powerProduction = 11f;
+            this.powerProduction = 18f;
             this.gasCapacity = 25f;
             this.size = 3;
             this.consumes.addGas(new ConsumeGasses(Gasses.methane, 0.4f));
@@ -85,7 +85,7 @@ class ModPowerBlocks implements ContentList {
             this.hasLiquids = true;
             this.liquidCapacity = 15;
             this.itemDuration = 90;
-            this.powerProduction = 8;
+            this.powerProduction = 9;
             this.consumes.liquid(ModLiquids.magma, 0.04f);
             this.consumes.items(ItemStack.with(Items.coal, 1));
             this.requirements(Category.power, ItemStack.with(ModItems.graphenite, 50, Items.silicon, 80, Items.plastanium, 120, ModItems.chromium, 160));
@@ -100,7 +100,7 @@ class ModPowerBlocks implements ContentList {
             this.itemCapacity = 10;
             this.liquidCapacity = 10;
             this.itemDuration = 120;
-            this.powerProduction = 78;
+            this.powerProduction = 88;
             this.heating = 0.07f;
             this.smokeThreshold = 0.48f;
             this.explosionRadius = 90;
@@ -122,7 +122,7 @@ class ModPowerBlocks implements ContentList {
             this.itemCapacity = 20;
             this.liquidCapacity = 20;
             this.itemDuration = 90;
-            this.powerProduction = 126;
+            this.powerProduction = 120;
             this.consumes.power(9f);
             this.consumes.liquid(ModLiquids.liquidGraphenite, 0.1f);
             this.consumes.items(ItemStack.with(ModItems.odinum, 1));
@@ -157,7 +157,7 @@ class ModPowerBlocks implements ContentList {
             this.itemCapacity = 60;
             this.liquidCapacity = 100;
             this.itemDuration = 240;
-            this.powerProduction = 220;
+            this.powerProduction = 380;
             this.consumes.addGas(new ConsumeGasses(Gasses.methane, 0.2f));
             this.consumes.power(46f);
             this.consumes.liquid(ModLiquids.thoriumRefrigerant, 0.2f);

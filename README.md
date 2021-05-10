@@ -1,5 +1,28 @@
 ![alt tag]( https://github.com/pixaxeofpixie/pictures/blob/main/btposter.png?raw=true)
-## Java Mod By Braindustry Team
+## Mindustry Java Mod By Braindustry Team
+
+## Resources
+- [Trello](https://trello.com/b/raByco4v/braindustry-trello)
+- [YouTube](https://www.youtube.com/channel/UCIN35lW7fC3tXcNDd-Ip7Pw/videos)
+- [Last Releases](https://github.com/pixaxeofpixie/Braindustry-Mod/releases)
+
+## Authors
+- Zelaux(main-programmer)
+- KOSTOLOM(concept-artist, balance-artist, map-maker)
+- PixaxeOfPixie(co-programmer, compositor, spriter, map-maker)
+- Toxin(co-spriter)
+- Vervalamis(co-spriter)
+- Plolq(co-spriter)
+
+## Contributors
+- SuperJaba2000
+- Mya4ta
+- Vladislav117
+- ThatOneBepis
+- FrozenEdge
+- RebornTrack970
+- Skat
+- Leyn
 
 # Installation Guide
 ## 1.Via .jar File
@@ -16,6 +39,8 @@
 * 6."Impot File"
 
 * 7.Find file with name "braindustry.jar" and click "load".
+
+* 8.Play!
 
 ## 2.Via Mod Browser
 * 1.Go to in-game Mod Browser.
