@@ -623,8 +623,6 @@ braindustry/content/ModUnitTypes.java
  braindustry.content.ModUnitTypes$22$2$1
  braindustry.content.ModUnitTypes$22$3
  braindustry.content.ModUnitTypes$22$3$1
- braindustry.content.ModUnitTypes$22$4
- braindustry.content.ModUnitTypes$22$4$1
  braindustry.content.ModUnitTypes$23
  braindustry.content.ModUnitTypes$23$1
  braindustry.content.ModUnitTypes$23$1$1
@@ -651,6 +649,13 @@ braindustry/content/ModUnitTypes.java
  braindustry.content.ModUnitTypes$25$2$1
  braindustry.content.ModUnitTypes$25$3
  braindustry.content.ModUnitTypes$25$3$1
+ braindustry.content.ModUnitTypes$25$4
+ braindustry.content.ModUnitTypes$25$4$1
+ braindustry.content.ModUnitTypes$26
+ braindustry.content.ModUnitTypes$26$1
+ braindustry.content.ModUnitTypes$26$1$1
+ braindustry.content.ModUnitTypes$26$2
+ braindustry.content.ModUnitTypes$26$2$1
  braindustry.content.ModUnitTypes$3
  braindustry.content.ModUnitTypes$3$1
  braindustry.content.ModUnitTypes$3$1$1

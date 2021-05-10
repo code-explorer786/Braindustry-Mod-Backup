@@ -528,11 +528,12 @@ class ModDefense implements ContentList {
         }};
         synaps = new ItemTurret("synaps") {{
             this.localizedName = "Synaps";
+            this.description = "Electrical Sap turret, can shoot a sap bullet with mane lightnings.";
             this.health = 1260;
             this.size = 2;
+            this.shootSound = ModSounds.shooting1;
             this.hasItems = true;
             this.hasLiquids = true;
-            this.description = "Electrical Sap turret, can shoot a sap bullet with mane lightnings.";
             this.ammo(
                     Items.plastanium, new SapBulletType() {
                         public void update(Bullet b) {
@@ -571,8 +572,8 @@ class ModDefense implements ContentList {
             health = 280 * size * size;
             range = 240f;
             reloadTime = 210;
-            shootSound = ModSounds.electronShoot;
-            loopSound = ModSounds.electronCharge;
+            shootSound = ModSounds.gemShoot;
+            loopSound = ModSounds.gemCharge;
             firingMoveFract = 0.4f;
             shootLength = -8;
             this.shootType = new ContinuousRainbowLaserBulletType() {{
@@ -583,7 +584,7 @@ class ModDefense implements ContentList {
                 hittable = false;
                 absorbable = false;
                 hitEffect = Fx.hitMeltHeal;
-                despawnEffect = ModFx.curseEffect;
+                despawnEffect = ModFx.spikeSmoke;
                 shootEffect = Fx.hitMeltdown;
                 smokeEffect = Fx.rocketSmokeLarge;
             }};
