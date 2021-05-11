@@ -1,6 +1,8 @@
 ![alt tag]( https://github.com/pixaxeofpixie/pictures/blob/main/btposter.png?raw=true)
 ## Mindustry Java Mod By Braindustry Team
 
+## Warning! Android version is unstable and may have bugs/crashes.
+
 ## Resources
 - [Trello](https://trello.com/b/raByco4v/braindustry-trello)
 - [YouTube](https://www.youtube.com/channel/UCIN35lW7fC3tXcNDd-Ip7Pw/videos)
