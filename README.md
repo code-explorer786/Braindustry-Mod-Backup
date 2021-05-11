@@ -10,7 +10,7 @@
 
 ## Authors
 - Zelaux(main-programmer)
-- KOSTOLOM(concept-artist, balance-artist, map-maker)
+- KOSTOLOM(concept-artist, balance tester, map-maker)
 - PixaxeOfPixie(co-programmer, compositor, spriter, map-maker)
 - Toxin(co-spriter)
 - Vervalamis(co-spriter)
