@@ -2149,8 +2149,8 @@ public class ModUnitTypes implements ContentList {
             {
                 this.range = 620;
                 this.constructor = Types.naval;
-                this.localizedName = "[violet]Kraken";
-                this.description = "[violet]Naval terror with Black Hole Reactor, built-in unit factories, lasers and rocket launchers.";
+                this.localizedName = "[#65267A]Kraken";
+                this.description = "[#65267A]Naval terror with Black Hole Reactor, built-in unit factories, lasers and rocket launchers.";
                 this.health = 1065000;
                 this.speed = 0.6f;
                 this.accel = 0.12f;
@@ -2170,11 +2170,11 @@ public class ModUnitTypes implements ContentList {
                         abilities.addAll(
                                 new RepairFieldAbility(6f, 60f * 5, 250f),
                                 new ForceFieldAbility(180f, 7f, 360f, 60f * 8),
-                                new BlackHoleReactorAbility(this, 30f, 35, Integer.MAX_VALUE, 15.0f, new Vec2(-32.25f, 0)),
-                                new UnitSpawnAbility(ModUnitTypes.armor, spawnTime, 68.25f, -40.75f),
-                                new UnitSpawnAbility(ModUnitTypes.armor, spawnTime, -68.25f, -40.75f),
-                                new UnitSpawnAbility(UnitTypes.flare, spawnTime, 64.25f, -62.75f),
-                                new UnitSpawnAbility(UnitTypes.flare, spawnTime, -64.25f, -62.75f)
+                                new BlackHoleReactorAbility(this, 30f, 35, Integer.MAX_VALUE, 15.0f, new Vec2(-34.25f, 0)),
+                                new UnitSpawnAbility(ModUnitTypes.armor, spawnTime, 68.25f, -72.75f),
+                                new UnitSpawnAbility(ModUnitTypes.armor, spawnTime, -68.25f, -72.75f),
+                                new UnitSpawnAbility(UnitTypes.flare, spawnTime, 46.25f, -78.75f),
+                                new UnitSpawnAbility(UnitTypes.flare, spawnTime, -46.25f, -78.75f)
                                 );
                 weapons.add(
                         new ModWeapon("kraken-launcher") {
@@ -2199,7 +2199,7 @@ public class ModUnitTypes implements ContentList {
                                     this.speed = 2.3f;
                                     this.drag = 0f;
                                     this.splashDamageRadius = 42f;
-                                    this.splashDamage = 340f;
+                                    this.splashDamage = 560f;
                                     this.hitEffect =this.despawnEffect = ModFx.krakenRocketExplosion;
                                     this.homingPower = 0.5f;
                                     this.lightningDamage = 18f;
@@ -2224,7 +2224,7 @@ public class ModUnitTypes implements ContentList {
                                         this.speed = 2.4f;
                                         this.drag = 0f;
                                         this.splashDamageRadius = 35f;
-                                        this.splashDamage = 98f;
+                                        this.splashDamage = 240f;
                                         this.hitEffect =this.despawnEffect = ModFx.krakenRocketExplosion;
                                         this.homingPower = 0.3f;
                                         this.lightningDamage = 15f;
@@ -2243,7 +2243,7 @@ public class ModUnitTypes implements ContentList {
                                 }};
                             }},
                       new ModWeapon("kraken-canon"){{
-                              this.x = 30f;
+                              this.x = 37f;
                               this.y = -38f;
                               this.shootY = -3f;
                               this.reload = 125f;
@@ -2262,7 +2262,7 @@ public class ModUnitTypes implements ContentList {
                                       this.pierceEffect = this.hitEffect = ModFx.krakenHit;
                                       this.updateEffect = this.trailEffect = ModFx.krakenTrail;
                                       this.smokeEffect = ModFx.spikeSmoke;
-                                      this.damage = 10650.0F;
+                                      this.damage = 14650.0F;
                                       this.pierceDamageFactor = 0.8F;
                                       this.despawnEffect = Fx.instBomb;
                                       this.buildingDamageMultiplier = 0.8f;
@@ -2271,8 +2271,8 @@ public class ModUnitTypes implements ContentList {
                                   }};
                           }},
                       new ModWeapon("kraken-coil"){{
-                                this.x = 28f;
-                                this.y = 34f;
+                                this.x = 38f;
+                                this.y = 36f;
                                 this.shootY = 0.1f;
                                 this.reload = 18f;
                                 this.ejectEffect = ModFx.rapierSmoke;
@@ -2293,7 +2293,7 @@ public class ModUnitTypes implements ContentList {
                                         keepVelocity = false;
                                         hittable = false;
                                         status = StatusEffects.shocked;
-                                        damage = 218;
+                                        damage = 400;
                                         lightningLength = 40;
                                         collidesAir = false;
                                 }};
@@ -2306,8 +2306,8 @@ public class ModUnitTypes implements ContentList {
                     mirror = true;
                     shake = 1f;
                     shootY = 5f;
-                    x = 60;
-                    y = -64;
+                    x = 69;
+                    y = -70;
                     reload = 50f;
                     recoil = 2f;
                     this.rotate = true;
@@ -2316,7 +2316,7 @@ public class ModUnitTypes implements ContentList {
                     firstShotDelay = ModFx.redLaserCharge.lifetime;
                     bullet = new LaserBulletType(){{
                         length = 410f;
-                        damage = 2100f;
+                        damage = 3200f;
                         width = 50f;
                         lifetime = 50f;
                         lightningSpacing = 35f;
@@ -2341,9 +2341,9 @@ public class ModUnitTypes implements ContentList {
             {
                 this.constructor = Types.legs;
                 this.groundLayer = 60.0F;
-                this.localizedName = "[violet]Orochi";
-                this.description = "[violet]Huge spider unit with laser orbitals and incredible destruction abilities";
-                this.health = 960000;
+                this.localizedName = "[#65267A]Orochi";
+                this.description = "[#65267A]Huge spider unit with laser orbitals and incredible destruction abilities";
+                this.health = 910000;
                 this.speed = 0.5f;
                 this.mechSideSway = 0.25f;
                 this.hitSize = 226;
@@ -2352,47 +2352,80 @@ public class ModUnitTypes implements ContentList {
                 this.armor = 24f;
                 this.hovering = true;
                 this.commandLimit = 6;
-                this.legCount = 8;
-                this.legMoveSpace = 8f;
-                this.legPairOffset = 9;
-                this.legLength = 78;
-                this.legExtension = 6;
-                this.legBaseOffset = 18;
-                this.landShake = 2.1f;
-                this.legSpeed = 0.8f;
-                this.legLengthScl = 1f;
-                this.allowLegStep = true;
-                this.visualElevation = 2.85f;
-                this.ammoType = AmmoTypes.powerHigh;
-                this.mechStepShake = 0.8f;
-                this.mechStepParticles = true;
+                legCount = 8;
+                legMoveSpace = 0.85f;
+                legPairOffset = 3;
+                legLength = 220f;
+                legExtension = -22;
+                legBaseOffset = 10f;
+                landShake = 2f;
+                legSpeed = 0.1f;
+                legLengthScl = 0.93f;
+                rippleScale = 3f;
+                legSpeed = 0.19f;
+                ammoType = AmmoTypes.powerHigh;
+                buildSpeed = 1f;
+                legSplashDamage = 1200;
+                legSplashRange = 80;
+                hovering = true;
+                allowLegStep = true;
+                visualElevation = 2.15f;
+                groundLayer = Layer.legUnit;
                 this.immunities = ObjectSet.with(StatusEffects.freezing, StatusEffects.disarmed);
                 weapons.add(
+                        new ModWeapon("orochi-coil"){{
+                            this.x = -22f;
+                            this.y = 32f;
+                            this.shootY = 0.1f;
+                            this.reload = 18f;
+                            this.ejectEffect = ModFx.rapierSmoke;
+                            this.recoil = 2f;
+                            this.rotate = true;
+                            this.shadow = 22;
+                            this.mirror = true;
+                            this.rotateSpeed = 0.6f;
+                            this.shootSound = ModSounds.zap;
+                            this.shots = 9;
+                            this.alternate = true;
+                            this.bullet = new LightningBulletType(){{
+                                lifetime = 1;
+                                despawnEffect = Fx.flakExplosion;
+                                hitEffect = ModFx.hitKrakenCoil;
+                                lightningLengthRand = 5;
+                                lightningColor = ModPal.orochiFrontColor;
+                                keepVelocity = false;
+                                hittable = false;
+                                status = StatusEffects.shocked;
+                                damage = 190;
+                                lightningLength = 70;
+                                collidesAir = false;
+                            }};
+                        }},
                         new ModWeapon("orochi-cannon") {
                             {
-                                this.reload = 50;
+                                this.reload = 36;
                                 this.rotate = true;
                                 this.rotateSpeed = 0.6f;
-                                this.x = 62;
+                                this.x = 78;
                                 this.y = 14f;
                                 this.top = true;
-                                this.shootY = 10;
-                                this.shots = 21;
+                                this.shootY = 48;
+                                this.shots = 20;
                                 this.shotDelay = 0.1f;
                                 this.inaccuracy = 16;
                                 this.mirror = true;
                                 this.shootSound = Sounds.sap;
                                 this.bullet = new SapBulletType() {
                                     {
-                                        this.sapStrength = 1.55f;
-                                        this.length = 290;
-                                        this.damage = 1000;
+                                        this.sapStrength = 0.5f;
+                                        this.length = 330;
+                                        this.damage = 740;
                                         this.shootEffect = Fx.shootSmall;
                                         this.hitColor = ModPal.orochiFrontColor;
                                         this.color = ModPal.orochiColor;
                                         this.despawnEffect = Fx.none;
                                         this.width = 1.35f;
-                                        this.lifetime = 28;
+                                        this.lifetime = 32;
                                         this.knockback = 1f;
                                     }
                                 };
@@ -2417,7 +2450,7 @@ public class ModUnitTypes implements ContentList {
                 firstShotDelay = ModFx.orochiLaserCharge.lifetime;
                 bullet = new LaserBulletType(){{
                     length = 430f;
-                    damage = 2820f;
+                    damage = 2120f;
                     width = 72f;
                     lifetime = 54f;
                     lightningSpacing = 35f;

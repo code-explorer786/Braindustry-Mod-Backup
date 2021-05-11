@@ -296,8 +296,8 @@ class ModDefense implements ContentList {
             this.hasItems = true;
             this.hasLiquids = true;
             this.rotate = true;
-            this.shootDuration = 170;
-            this.powerUse = 162;
+            this.shootDuration = 230;
+            this.powerUse = 160;
             this.range = 400;
             this.firingMoveFract = 0.4f;
             this.localizedName = "Dendrite";
@@ -323,19 +323,18 @@ class ModDefense implements ContentList {
                     this.pierce = true;
                     this.hittable = true;
                     this.absorbable = false;
-                    this.damage = 560;
+                    this.damage = 590;
                     this.shootEffect = Fx.railShoot;
                     this.despawnEffect = Fx.railHit;
                     this.knockback = 1;
                     this.lightning = 4;
                     this.lightningLength = 20;
                     this.lightningLengthRand = 20;
-                    this.lightningDamage = 48;
+                    this.lightningDamage = 58;
                     this.lightningAngle = 15;
                     this.lightningCone = 50;
                     this.lightningColor = Color.valueOf("f1fc58");
-                }
-            };
+                }};
             this.requirements(Category.turret, ItemStack.with(ModItems.phaseAlloy, 550, ModItems.exoticAlloy, 600, Items.surgeAlloy, 450, ModItems.chromium, 420, ModItems.graphenite, 1020, Items.metaglass, 420));
             this.reloadTime = 4;
         }};

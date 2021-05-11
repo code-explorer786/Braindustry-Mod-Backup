@@ -656,6 +656,8 @@ braindustry/content/ModUnitTypes.java
  braindustry.content.ModUnitTypes$26$1$1
  braindustry.content.ModUnitTypes$26$2
  braindustry.content.ModUnitTypes$26$2$1
+ braindustry.content.ModUnitTypes$26$3
+ braindustry.content.ModUnitTypes$26$3$1
  braindustry.content.ModUnitTypes$3
  braindustry.content.ModUnitTypes$3$1
  braindustry.content.ModUnitTypes$3$1$1
