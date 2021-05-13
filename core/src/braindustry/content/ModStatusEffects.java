@@ -1,12 +1,16 @@
 package braindustry.content;
 
+import arc.graphics.Color;
+import arc.math.Mathf;
 import arc.struct.Seq;
 import arc.util.Log;
+import mindustry.content.Fx;
+import mindustry.content.StatusEffects;
 import mindustry.ctype.ContentList;
 import mindustry.type.StatusEffect;
 
 public class ModStatusEffects implements ContentList {
-    public static Seq<StatusEffect> speedMul;
+    public static Seq<StatusEffect> speedMul, darkBurning;
 
     private static Seq<StatusEffect> StatusEffectSeq(int amount, float value, float startValue, String name) {
         Seq<StatusEffect> seq = new Seq<>();
@@ -32,6 +36,7 @@ public class ModStatusEffects implements ContentList {
         }
         return seq;
     }
+
 
     @Override
     public void load() {

@@ -296,8 +296,8 @@ class ModDefense implements ContentList {
             this.hasItems = true;
             this.hasLiquids = true;
             this.rotate = true;
-            this.shootDuration = 170;
-            this.powerUse = 162;
+            this.shootDuration = 230;
+            this.powerUse = 160;
             this.range = 400;
             this.firingMoveFract = 0.4f;
             this.localizedName = "Dendrite";
@@ -323,19 +323,18 @@ class ModDefense implements ContentList {
                     this.pierce = true;
                     this.hittable = true;
                     this.absorbable = false;
-                    this.damage = 560;
+                    this.damage = 590;
                     this.shootEffect = Fx.railShoot;
                     this.despawnEffect = Fx.railHit;
                     this.knockback = 1;
                     this.lightning = 4;
                     this.lightningLength = 20;
                     this.lightningLengthRand = 20;
-                    this.lightningDamage = 48;
+                    this.lightningDamage = 58;
                     this.lightningAngle = 15;
                     this.lightningCone = 50;
                     this.lightningColor = Color.valueOf("f1fc58");
-                }
-            };
+                }};
             this.requirements(Category.turret, ItemStack.with(ModItems.phaseAlloy, 550, ModItems.exoticAlloy, 600, Items.surgeAlloy, 450, ModItems.chromium, 420, ModItems.graphenite, 1020, Items.metaglass, 420));
             this.reloadTime = 4;
         }};
@@ -529,11 +528,12 @@ class ModDefense implements ContentList {
         }};
         synaps = new ItemTurret("synaps") {{
             this.localizedName = "Synaps";
+            this.description = "Electrical Sap turret, can shoot a sap bullet with mane lightnings.";
             this.health = 1260;
             this.size = 2;
+            this.shootSound = ModSounds.shooting1;
             this.hasItems = true;
             this.hasLiquids = true;
-            this.description = "Electrical Sap turret, can shoot a sap bullet with mane lightnings.";
             this.ammo(
                     Items.plastanium, new SapBulletType() {
                         public void update(Bullet b) {
@@ -572,8 +572,8 @@ class ModDefense implements ContentList {
             health = 280 * size * size;
             range = 240f;
             reloadTime = 210;
-            shootSound = ModSounds.electronShoot;
-            loopSound = ModSounds.electronCharge;
+            shootSound = ModSounds.gemShoot;
+            loopSound = ModSounds.gemCharge;
             firingMoveFract = 0.4f;
             shootLength = -8;
             this.shootType = new ContinuousRainbowLaserBulletType() {{
@@ -584,7 +584,7 @@ class ModDefense implements ContentList {
                 hittable = false;
                 absorbable = false;
                 hitEffect = Fx.hitMeltHeal;
-                despawnEffect = ModFx.curseEffect;
+                despawnEffect = ModFx.spikeSmoke;
                 shootEffect = Fx.hitMeltdown;
                 smokeEffect = Fx.rocketSmokeLarge;
             }};

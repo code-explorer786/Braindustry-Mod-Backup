@@ -41,8 +41,38 @@ class FxValues {
 public class ModFx {
     public static final Effect
             nul = null,
-            fireworkShoot=new Effect(28f,e->{
+            redLaserCharge = new Effect(30.0F, 130.0F, (e) -> {
+                Color color = ModPal.krakenTrailColor;
+                Draw.color(color);
+                Lines.stroke(e.fin() * 2.0F);
+                Lines.circle(e.x, e.y, 4.0F + e.fout() * 100.0F);
+                Fill.circle(e.x, e.y, e.fin() * 20.0F);
+                Angles.randLenVectors((long) e.id, 20, 40.0F * e.fout(), (x, y) -> {
+                    Fill.circle(e.x + x, e.y + y, e.fin() * 7.0F);
+                    Fill.square(e.x +x, e.y+y, e.fin() * 5.0f);
+                });
+                Draw.color();
+                Fill.circle(e.x, e.y, e.fin() * 10.0F);
+            }),
+            orochiLaserCharge = new Effect(30.0F, 130.0F, (e) -> {
+                Color color = ModPal.orochiColor;
+                Draw.color(color);
+                Lines.stroke(e.fin() * 2.0F);
+                Lines.circle(e.x, e.y, 4.0F + e.fout() * 100.0F);
+                Fill.circle(e.x, e.y, e.fin() * 20.0F);
+                Angles.randLenVectors((long) e.id, 20, 40.0F * e.fout(), (x, y) -> {
+                    Fill.circle(e.x + x, e.y + y, e.fin() * 7.0F);
+                    Fill.square(e.x +x, e.y+y, e.fin() * 5.0f);
+                });
+                Draw.color();
+                Fill.circle(e.x, e.y, e.fin() * 10.0F);
+            }),
+            darkBurning = new Effect(35f, e -> {
+                Draw.color(ModPal.lilithFrontColor, ModPal.lilithBackColor, e.fin());
 
+                Angles.randLenVectors(e.id, 4, 3f + e.fin() * 7f, (x, y) -> {
+                    Fill.circle(e.x + x, e.y + y, 0.1f + e.fout() * 1.4f);
+                });
             }),
             hitKrakenCoil = new Effect(12, e -> {
                 Draw.color(Color.scarlet);

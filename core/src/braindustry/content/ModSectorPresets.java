@@ -13,6 +13,7 @@ public class ModSectorPresets implements ContentList {
                 localizedName = "Melting point";
                 description = "Tremors, caused by such a massive explosion created this place";
                 difficulty = 3;
+                alwaysUnlocked = true;
                 captureWave = 20;
             }
         };
@@ -21,6 +22,7 @@ public class ModSectorPresets implements ContentList {
             {
                 localizedName = "451F";
                 description = "Cataclysm covered this area one of the first";
+                alwaysUnlocked = false;
                 difficulty = 4;
                 captureWave = 35;
             }
@@ -31,6 +33,7 @@ public class ModSectorPresets implements ContentList {
                 description = "Earlier, the most important Space Dock, now, the ruins that are captured and flooded";
                 difficulty = 7;
                 captureWave = 35;
+                alwaysUnlocked = false;
             }
         };
         methaneLaboratories = new SectorPreset("methane-laboratories", ModPlanets.osore, 71) {
@@ -38,6 +41,7 @@ public class ModSectorPresets implements ContentList {
                 localizedName = "Methane Laboratories";
                 description = "The beginning of the end was laid here, black hole energy was a mistake";
                 difficulty = 7;
+                alwaysUnlocked = false;
             }
         };
         magmaticElectrostation = new SectorPreset("magmatic-electrostation", ModPlanets.osore, 10) {
@@ -47,6 +51,7 @@ public class ModSectorPresets implements ContentList {
                         "Unfortunaly, the scale and bad architcture ruined it, and together the entire Civilization";
                 difficulty = 6;
                 captureWave = 40;
+                alwaysUnlocked = false;
             }
         };
         ritual = new SectorPreset("ritual", ModPlanets.osore, 86) {
@@ -56,6 +61,7 @@ public class ModSectorPresets implements ContentList {
                         "But when the enemies got there they sprayed a crimson terror that infected and eradicated most of the life...";
                 difficulty = 9;
                 captureWave = 15;
+                alwaysUnlocked = false;
             }
         };
         polarRift = new SectorPreset("polar-rift", ModPlanets.osore, 38) {
@@ -64,6 +70,7 @@ public class ModSectorPresets implements ContentList {
                 description = "Failed prototype station for the production of magmatic and black hole energy";
                 difficulty = 6;
                 captureWave = 40;
+                alwaysUnlocked = false;
             }
         };
         spacePort= new SectorPreset("space-port", ModPlanets.osore, 25) {
@@ -74,6 +81,7 @@ public class ModSectorPresets implements ContentList {
                 alwaysUnlocked = false;
                 difficulty = 4;
                 captureWave = 30;
+                alwaysUnlocked = false;
             }
         };
         //shinrin sectors
@@ -84,6 +92,7 @@ public class ModSectorPresets implements ContentList {
                             + "[red]WARNING!Impossible sector!Use this sector only for Chlorophylum farm from TX units";
                 difficulty = 9;
                 captureWave = 85;
+                alwaysUnlocked = false;
             }
         };
         jungleExplorationComplex = new SectorPreset("jungle-explorer-complex", ModPlanets.shinrin, 42) {
@@ -93,6 +102,7 @@ public class ModSectorPresets implements ContentList {
                         +   "[red]WARNING!Impossible sector!Use this sector only for Chlorophylum farm from TX units";
                 difficulty = 9;
                 captureWave = 85;
+                alwaysUnlocked = false;
             }
         };
         icyDarkness= new SectorPreset("black-polus-oil-fabrics", ModPlanets.shinrin, 12) {
@@ -102,6 +112,7 @@ public class ModSectorPresets implements ContentList {
                             "[red]WARNING!Impossible sector!Use this sector only for Chlorophylum farm from TX units";
                 difficulty = 9;
                 captureWave = 85;
+                alwaysUnlocked = false;
             }
         };
         deentForest= new SectorPreset("deent-forest", ModPlanets.shinrin, 63) {
@@ -110,6 +121,7 @@ public class ModSectorPresets implements ContentList {
                 description = "Strange forest with interesting flora"+"[red]WARNING!Impossible sector!Use this sector only for Chlorophylum farm from TX units";
                 difficulty = 9;
                 captureWave = 85;
+                alwaysUnlocked = false;
             }
         };
         emeraldSwamp= new SectorPreset("emerald-swamp", ModPlanets.shinrin, 98) {
@@ -118,6 +130,7 @@ public class ModSectorPresets implements ContentList {
                 description = "The sector from which the war with Ozore was controlled"+"[red]WARNING!Impossible sector!Use this sector only for Chlorophylum farm from TX units";
                 difficulty = 9;
                 captureWave = 85;
+                alwaysUnlocked = false;
             }
         };
     }
