@@ -1,5 +1,5 @@
 ![alt tag]( https://github.com/pixaxeofpixie/pictures/blob/main/btposter.png?raw=true)
-## Mindustry Java Mod By Braindustry Team
+## Mindustry Java Mod By Braindustry Team(public beta)
 
 ## WARNING! Mod still in dev and may cause a crashes!
 
