@@ -1,7 +1,7 @@
 name: "braindustry-java"
 displayName: "Braindustry"
 author: "[#9e41ea[]]Zelaux, KOSTOLOM, PixaxeOfPixie, Vervalamis, SuperJaba2000, GorillaGlue, Toxin[[]]"
-description: "Тhe biggest Java mod, add new star system, more than 20 units, 19 turrets, 11 new maps for planets, gasses and much more! From Russia with love."
+description: "One of the biggest Java mod, add new star system, more than 20 units, 19 turrets, 11 new maps for planets, gasses and much more! From Russia with love."
 main: "braindustry.Starter"
 version: 2.0
 minGameVersion: 126.2
