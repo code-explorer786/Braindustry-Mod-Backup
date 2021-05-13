@@ -1,6 +1,8 @@
 ![alt tag]( https://github.com/pixaxeofpixie/pictures/blob/main/btposter.png?raw=true)
 ## Mindustry Java Mod By Braindustry Team
 
+##WARNING! Mod still in dev and may cause a crashes!
+
 ## Warning! Android version is unstable and may have bugs/crashes.
 
 ## Resources
