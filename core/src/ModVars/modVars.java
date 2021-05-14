@@ -36,7 +36,9 @@ import static mindustry.Vars.*;
 
 public class modVars {
     public static final byte MOD_CONTENT_ID = 66;
-    public static final String successfulMessage = "\n\nEE__EE\n\n";
+    private static final String braindustryPacketPrefix = "braindustry-java-packet";
+    public static final String braindustryPacketPrefixClient =braindustryPacketPrefix+ "-client";
+    public static final String braindustryPacketPrefixServer =braindustryPacketPrefix+"-server";
     private static final int classOffset = 40;
     public static ModSettings settings;
     public static ModAtlas modAtlas;
@@ -74,7 +76,7 @@ public class modVars {
 
     public static void init() {
         ModSave4 save4 = new ModSave4();
-        net = new ModNet(platform.getNet(), net);
+//        net = new ModNet(platform.getNet(), net);
         if (false) {
             for (int i = 0; i < EntityMapping.idMap.length; i++) {
                 Prov prov = EntityMapping.idMap[i];

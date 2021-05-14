@@ -8,7 +8,6 @@ import arc.struct.Seq;
 import braindustry.entities.Advanced.AdvancedLegsUnit;
 import braindustry.entities.Advanced.AdvancedPayloadUnit;
 import braindustry.entities.Advanced.AdvancedUnitWaterMove;
-import braindustry.entities.PowerGeneratorUnit;
 import braindustry.versions.ModEntityc;
 
 import java.lang.reflect.Constructor;
@@ -31,11 +30,11 @@ public class ModEntityMapping {
         lastClass=0;
         mapClasses(
                 null,
-                PowerGeneratorUnit.class,
+                null,
                 AdvancedLegsUnit.class,
                 AdvancedPayloadUnit.class,
                 AdvancedUnitWaterMove.class,
-                StealthMechUnit.class,
+                SpecialMechUnit.class,
                 Cloud.class,
                 null
         );

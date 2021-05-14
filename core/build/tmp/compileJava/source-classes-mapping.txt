@@ -69,6 +69,8 @@ braindustry/type/AnnotationConfig.java
  braindustry.type.AnnotationConfig$Unitc
 ModVars/Classes/TechTreeManager.java
  ModVars.Classes.TechTreeManager
+braindustry/gen/SpecialMechUnit.java
+ braindustry.gen.SpecialMechUnit
 braindustry/content/ModBullets.java
  braindustry.content.ModBullets
  braindustry.content.ModBullets$1
@@ -346,8 +348,6 @@ braindustry/type/ModWeapon.java
 braindustry/maps/generators/OsorePlanetGenerator.java
  braindustry.maps.generators.OsorePlanetGenerator
  braindustry.maps.generators.OsorePlanetGenerator$1Room
-braindustry/gen/StealthMechUnit.java
- braindustry.gen.StealthMechUnit
 ModVars/Classes/ModEventType.java
  ModVars.Classes.ModEventType
  ModVars.Classes.ModEventType$ModContentLoad

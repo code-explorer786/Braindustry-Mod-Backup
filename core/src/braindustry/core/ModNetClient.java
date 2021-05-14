@@ -12,6 +12,7 @@ import arc.util.io.ReusableByteInStream;
 import braindustry.annotations.ModAnnotations;
 import braindustry.cfunc.Couple;
 import braindustry.gen.ModRemoteReadClient;
+import braindustry.gen.ModRemoteReadServer;
 import mindustry.Vars;
 import mindustry.annotations.Annotations;
 import mindustry.core.NetClient;
@@ -27,7 +28,10 @@ import mindustryAddition.graphics.ModDraw;
 import java.io.DataInputStream;
 import java.io.IOException;
 
+import static ModVars.modVars.*;
 import static mindustry.Vars.*;
+import static mindustry.Vars.netClient;
+import static mindustry.Vars.netServer;
 
 public class ModNetClient implements ApplicationListener {
     protected ReusableByteInStream byteStream = new ReusableByteInStream();
@@ -111,7 +115,7 @@ public class ModNetClient implements ApplicationListener {
                         entity = (Syncc) EntityMapping.map(typeID).get();
                     }
                     ((Syncc) entity).id(id);
-                    if (!Vars.netClient.isEntityUsed(((Syncc) entity).id())) {
+                    if (!netClient.isEntityUsed(((Syncc) entity).id())) {
                         add = true;
                     }
 
@@ -125,7 +129,7 @@ public class ModNetClient implements ApplicationListener {
 
                 if (add) {
                     (entity).add();
-                    Vars.netClient.addRemovedEntity((entity).id());
+                    netClient.addRemovedEntity((entity).id());
                 }
             }
 
@@ -167,7 +171,7 @@ public class ModNetClient implements ApplicationListener {
                         entity = (Syncc) EntityMapping.map(typeID).get();
                     }
                     ((Syncc) entity).id(id);
-                    if (!Vars.netClient.isEntityUsed(((Syncc) entity).id())) {
+                    if (!netClient.isEntityUsed(((Syncc) entity).id())) {
                         add = true;
                     }
 
@@ -181,7 +185,7 @@ public class ModNetClient implements ApplicationListener {
 
                 if (add) {
                     (entity).add();
-                    Vars.netClient.addRemovedEntity((entity).id());
+                    netClient.addRemovedEntity((entity).id());
                 }
             }
 
@@ -236,12 +240,16 @@ public class ModNetClient implements ApplicationListener {
     private static ReusableByteInStream bin;
     private static Reads read = new Reads(new DataInputStream(bin = new ReusableByteInStream()));
     public void loadNetHandler() {
-        net.handleClient(Packets.InvokePacket.class, packet -> {
-            byte[] clone = packet.bytes.clone();
-            bin.setBytes(clone);
-            ModRemoteReadClient.readPacket(read, packet.type);
-//            Events.fire(new Object[]{"net.handleClient", packet.reader(), packet.type});
 
+        netClient.addPacketHandler(braindustryPacketPrefixClient,(string)->{
+            ModRemoteReadClient.readPacket(string);
         });
+//        net.handleClient(Packets.InvokePacket.class, packet -> {
+//            byte[] clone = packet.bytes.clone();
+//            bin.setBytes(clone);
+//            ModRemoteReadClient.readPacket(read, packet.type);
+////            Events.fire(new Object[]{"net.handleClient", packet.reader(), packet.type});
+//
+//        });
     }
 }

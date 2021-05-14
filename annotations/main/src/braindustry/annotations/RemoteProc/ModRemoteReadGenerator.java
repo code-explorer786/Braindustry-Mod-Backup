@@ -12,6 +12,7 @@ import mindustry.annotations.remote.MethodEntry;
 import mindustry.annotations.remote.RemoteProcess;
 import mindustry.annotations.remote.SerializerResolver;
 import mindustry.annotations.util.TypeIOResolver;
+import mindustry.gen.Player;
 
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
@@ -31,11 +32,20 @@ public class ModRemoteReadGenerator {
     public ModRemoteReadGenerator(TypeIOResolver.ClassSerializer serializers){
         this.serializers = serializers;
     }
-
+    private MethodSpec.Builder createFromBase64Method() {
+        MethodSpec.Builder method = MethodSpec.methodBuilder("fromBase64")
+                .addParameter(String.class,"encoded")
+                .addModifiers(Modifier.STATIC)
+                .returns(byte[].class);
+        method.addStatement("return java.util.Base64.getDecoder().decode(encoded)");
+        return method;
+    }
     public void generateFor(Seq<MethodEntry> entries, String className, String packageName,String parentName, boolean needsPlayer) throws Exception{
 
         TypeSpec.Builder classBuilder = TypeSpec.classBuilder(className).addModifiers(Modifier.PUBLIC);
         classBuilder.addJavadoc(RemoteProcess.autogenWarning);
+        classBuilder.addMethod(createFromBase64Method().build());
+        createFromStringMethod(classBuilder,needsPlayer);
         //create main method builder
         MethodSpec.Builder readMethod = MethodSpec.methodBuilder("readPacket")
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
@@ -136,9 +146,28 @@ addEnd.get(readBlock);
 //        classBuilder.alwaysQualifiedNames.add(ClassName.get(parentName,className.replace("Mod","")).reflectionName());
 //        classBuilder.originatingElements.add();
         classBuilder.addMethod(readMethod.build());
+/*
+* */
         write(classBuilder,Seq.with(ClassName.get(parentName,className.replace("Mod",""))),0);
         TypeSpec spec = classBuilder.build();
 
 //        JavaFile.builder(packageName, spec).build().writeTo(BaseProcessor.filer);
+    }
+
+    private void createFromStringMethod(TypeSpec.Builder classBuilder, boolean needsPlayer) {
+        //create main method builder
+        MethodSpec.Builder readMethod = MethodSpec.methodBuilder("readPacket")
+                .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                .addParameter(String.class, "base64") //buffer to read form
+                .returns(void.class);
+        if (needsPlayer)readMethod.addParameter(Player.class,"player");
+        /*
+        *
+         * new ByteArrayInputStream()
+        * */
+        readMethod.addStatement("arc.util.io.Reads reads=new arc.util.io.Reads(new java.io.DataInputStream(new java.io.ByteArrayInputStream(fromBase64(base64))))");
+        readMethod.addStatement("int id=reads.b()");
+        readMethod.addStatement("readPacket(reads,id"+(needsPlayer?",player)":")"));
+        classBuilder.addMethod(readMethod.build());
     }
 }

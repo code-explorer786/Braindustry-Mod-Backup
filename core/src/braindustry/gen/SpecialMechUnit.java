@@ -43,7 +43,7 @@ import mindustry.world.blocks.storage.CoreBlock;
 
 import java.util.Arrays;
 
-public class StealthMechUnit extends MechUnit implements StealthUnitc, ModEntityc {
+public class SpecialMechUnit extends MechUnit implements StealthUnitc, ModEntityc {
     public static int classId = 0;
     public boolean inStealth = false;
     public float cooldownStealth = 0;
@@ -56,7 +56,7 @@ public class StealthMechUnit extends MechUnit implements StealthUnitc, ModEntity
     public Interval timer=new Interval(10);
     private static final float stealthCheckDuration=12;
 
-    public StealthMechUnit() {
+    public SpecialMechUnit() {
         super();
 
         /*
@@ -68,8 +68,8 @@ public class StealthMechUnit extends MechUnit implements StealthUnitc, ModEntity
         this.buildAlpha = 0.0F;*/
     }
 
-    public static StealthMechUnit create() {
-        return new StealthMechUnit();
+    public static SpecialMechUnit create() {
+        return new SpecialMechUnit();
     }
 
     public String toString() {

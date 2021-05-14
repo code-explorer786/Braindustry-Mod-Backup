@@ -1,9 +1,9 @@
 braindustry/tools/AnukeCompDownloader.java
  braindustry.tools.AnukeCompDownloader
-braindustry/tools/Generators.java
- braindustry.tools.Generators
 braindustry/tools/Image.java
  braindustry.tools.Image
+braindustry/tools/Generators.java
+ braindustry.tools.Generators
 braindustry/tools/ModImagePacker.java
  braindustry.tools.ModImagePacker
  braindustry.tools.ModImagePacker$1

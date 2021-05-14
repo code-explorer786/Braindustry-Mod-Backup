@@ -24,6 +24,7 @@ import mindustry.gen.Building;
 import mindustry.gen.Call;
 import mindustry.gen.EntityMapping;
 import mindustry.io.TypeIO;
+import mindustry.net.NetConnection;
 import mindustry.type.UnitType;
 import mindustry.ui.Styles;
 
@@ -32,25 +33,13 @@ import java.util.Objects;
 import static ModVars.modVars.*;
 
 public class modFunc {
-    public static void spawnUnit(UnitType type, float x, float y, int amount, Team team){
-        if (Vars.net.active() && !Vars.net.server()){
-            Call.serverPacketReliable("spawn unit",Strings.format("@ @ @ @ @",type.id,x,y,amount,team.id));
-        } else {
-            for (int i = 0; i < amount; i++) {
-                type.spawn(team,x,y);
-            }
+    public static void clientPacketReliableExcept(NetConnection except,String type, String contents){
+    }
+    public static void serverPacketReliableExcept(NetConnection except,String type, String contents){
+        for (NetConnection con : Vars.net.getConnections()) {
+            if (con!=except)Call.clientPacketReliable(con,type,contents);
         }
     }
-    public static int addEntityMappingIdMap(Prov prov) {
-        for (int i = 0; i < EntityMapping.idMap.length; i++) {
-            if (EntityMapping.idMap[i] == null){
-                EntityMapping.idMap[i] = prov;
-                return i;
-            }
-        }
-        return -1;
-    }
-
     public static void inTry(Runnable runnable) {
         try{
             runnable.run();

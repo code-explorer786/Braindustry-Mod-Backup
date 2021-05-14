@@ -7,7 +7,6 @@ import arc.math.geom.Point2;
 import arc.math.geom.Vec2;
 import arc.struct.ObjectSet;
 import arc.struct.Seq;
-import arc.util.Log;
 import braindustry.ai.types.StealthGroundAI;
 import braindustry.entities.abilities.BlackHoleReactorAbility;
 import braindustry.entities.abilities.ImpactReactorAbility;
@@ -16,7 +15,7 @@ import braindustry.entities.bullets.AdamBulletType;
 import braindustry.entities.bullets.EveBulletType;
 import braindustry.entities.bullets.LilithBulletType;
 import braindustry.gen.ModSounds;
-import braindustry.gen.StealthMechUnit;
+import braindustry.gen.SpecialMechUnit;
 import braindustry.graphics.ModPal;
 import braindustry.type.ModUnitType;
 import braindustry.type.ModWeapon;
@@ -35,7 +34,6 @@ import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.type.AmmoTypes;
 import mindustry.type.Weapon;
-import mindustry.world.meta.BlockFlag;
 
 
 public class ModUnitTypes implements ContentList {
@@ -2488,6 +2486,6 @@ public class ModUnitTypes implements ContentList {
         static Prov<? extends Unit> naval = UnitWaterMove::create;
         static Prov<? extends Unit> legs = LegsUnit::create;
         static Prov<? extends Unit> mech = MechUnit::create;
-        static Prov<? extends Unit> stealthMech = StealthMechUnit::new;
+        static Prov<? extends Unit> stealthMech = SpecialMechUnit::new;
     }
 }

@@ -13,7 +13,6 @@ import arc.struct.Seq;
 import arc.util.CommandHandler;
 import braindustry.audio.ModAudio;
 import braindustry.core.ModContentLoader;
-import braindustry.entities.bullets.ModLightningBulletType;
 import braindustry.gen.ModContentRegions;
 import braindustry.gen.ModMusics;
 import braindustry.gen.ModPlayer;
@@ -137,40 +136,7 @@ public class BraindustryMod extends Mod {
         modInfo = Vars.mods.getMod(this.getClass());
 
         //Seq.with(Blocks.blockForge, Blocks.blockLoader, Blocks.blockUnloader).each(b -> b.buildVisibility = BuildVisibility.shown);
-        Blocks.interplanetaryAccelerator.buildVisibility = BuildVisibility.shown;
-        Boolf<BulletType> replace = (b) -> (b instanceof LightningBulletType && !(b instanceof ModLightningBulletType));
-        Func<BulletType, ModLightningBulletType> newBullet = (old) -> {
-
-            ModLightningBulletType newType = new ModLightningBulletType();
-            JsonIO.copy(old, newType);
-            return newType;
-        };
-        Vars.content.each((c) -> {
-            if (c instanceof UnlockableContent) {
-                UnlockableContent content = (UnlockableContent) c;
-                if (content instanceof Block) {
-                    if (content instanceof Turret) {
-                        if (content instanceof PowerTurret) {
-                            PowerTurret powerTurret = (PowerTurret) content;
-                            if (replace.get(powerTurret.shootType)) {
-                                powerTurret.shootType = newBullet.get(powerTurret.shootType);
-                            }
-                        } else if (content instanceof ItemTurret) {
-                            ItemTurret itemTurret = (ItemTurret) content;
-                            ObjectMap<Item, BulletType> toReplace = new ObjectMap<>();
-                            for (ObjectMap.Entry<Item, BulletType> entry : itemTurret.ammoTypes.entries()) {
-                                if (replace.get(entry.value)) {
-                                    toReplace.put(entry.key, entry.value);
-                                }
-                            }
-                            for (ObjectMap.Entry<Item, BulletType> entry : toReplace.entries()) {
-                                itemTurret.ammoTypes.put(entry.key, newBullet.get(entry.value));
-                            }
-                        }
-                    }
-                }
-            }
-        });
+//        Blocks.interplanetaryAccelerator.buildVisibility = BuildVisibility.shown;
     }
 
     public void loadContent() {
