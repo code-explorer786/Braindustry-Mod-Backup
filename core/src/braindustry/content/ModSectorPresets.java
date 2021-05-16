@@ -13,7 +13,7 @@ public class ModSectorPresets implements ContentList {
                 localizedName = "Melting point";
                 description = "Tremors, caused by such a massive explosion created this place";
                 difficulty = 3;
-                alwaysUnlocked = true;
+                alwaysUnlocked = false;
                 captureWave = 20;
             }
         };
@@ -81,7 +81,7 @@ public class ModSectorPresets implements ContentList {
                 alwaysUnlocked = false;
                 difficulty = 4;
                 captureWave = 30;
-                alwaysUnlocked = false;
+                alwaysUnlocked = true;
             }
         };
         //shinrin sectors
