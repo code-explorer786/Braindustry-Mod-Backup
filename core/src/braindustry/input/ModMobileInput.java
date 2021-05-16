@@ -122,7 +122,7 @@ public class ModMobileInput extends MobileInput {
             }else if(target == null){
                 player.shooting = false;
                 BlockUnitUnit u;
-                if(Core.settings.getBool("autotarget") && !(player.unit() instanceof BlockUnitUnit &&((u=player.as())!=null) && u.tile() instanceof ControlBlock  && !((ControlBlock) u.tile()).shouldAutoTarget())){
+                if(Core.settings.getBool("autotarget") && !(player.unit() instanceof BlockUnitUnit &&((u=player.unit().as())!=null) && u.tile() instanceof ControlBlock  && !((ControlBlock) u.tile()).shouldAutoTarget())){
                     target = Units.closestTarget(unit.team, unit.x, unit.y, range, u1 -> u1.team != Team.derelict, u1 -> u1.team != Team.derelict);
 
                     if(allowHealing && target == null){
