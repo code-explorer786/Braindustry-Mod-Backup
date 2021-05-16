@@ -40,6 +40,13 @@ public class modFunc {
             if (con!=except)Call.clientPacketReliable(con,type,contents);
         }
     }
+    public static void clientPacketUnreliableExcept(NetConnection except,String type, String contents){
+    }
+    public static void serverPacketUnreliableExcept(NetConnection except,String type, String contents){
+        for (NetConnection con : Vars.net.getConnections()) {
+            if (con!=except)Call.clientPacketUnreliable(con,type,contents);
+        }
+    }
     public static void inTry(Runnable runnable) {
         try{
             runnable.run();

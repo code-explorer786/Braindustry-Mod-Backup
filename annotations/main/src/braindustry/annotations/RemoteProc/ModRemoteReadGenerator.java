@@ -32,19 +32,20 @@ public class ModRemoteReadGenerator {
     public ModRemoteReadGenerator(TypeIOResolver.ClassSerializer serializers){
         this.serializers = serializers;
     }
-    private MethodSpec.Builder createFromBase64Method() {
-        MethodSpec.Builder method = MethodSpec.methodBuilder("fromBase64")
+    private MethodSpec.Builder createConvToBytesMethod() {
+        MethodSpec.Builder method = MethodSpec.methodBuilder("convToBytes")
                 .addParameter(String.class,"encoded")
                 .addModifiers(Modifier.STATIC)
                 .returns(byte[].class);
-        method.addStatement("return java.util.Base64.getDecoder().decode(encoded)");
+//        method.addStatement("return java.util.Base64.getDecoder().decode(encoded)");
+        method.addStatement("return encoded.getBytes()");
         return method;
     }
     public void generateFor(Seq<MethodEntry> entries, String className, String packageName,String parentName, boolean needsPlayer) throws Exception{
 
         TypeSpec.Builder classBuilder = TypeSpec.classBuilder(className).addModifiers(Modifier.PUBLIC);
         classBuilder.addJavadoc(RemoteProcess.autogenWarning);
-        classBuilder.addMethod(createFromBase64Method().build());
+        classBuilder.addMethod(createConvToBytesMethod().build());
         createFromStringMethod(classBuilder,needsPlayer);
         //create main method builder
         MethodSpec.Builder readMethod = MethodSpec.methodBuilder("readPacket")
@@ -158,14 +159,14 @@ addEnd.get(readBlock);
         //create main method builder
         MethodSpec.Builder readMethod = MethodSpec.methodBuilder("readPacket")
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
-                .addParameter(String.class, "base64") //buffer to read form
+                .addParameter(String.class, "str") //buffer to read form
                 .returns(void.class);
         if (needsPlayer)readMethod.addParameter(Player.class,"player");
         /*
         *
          * new ByteArrayInputStream()
         * */
-        readMethod.addStatement("arc.util.io.Reads reads=new arc.util.io.Reads(new java.io.DataInputStream(new java.io.ByteArrayInputStream(fromBase64(base64))))");
+        readMethod.addStatement("arc.util.io.Reads reads=new arc.util.io.Reads(new java.io.DataInputStream(new java.io.ByteArrayInputStream(convToBytes(str))))");
         readMethod.addStatement("int id=reads.b()");
         readMethod.addStatement("readPacket(reads,id"+(needsPlayer?",player)":")"));
         classBuilder.addMethod(readMethod.build());

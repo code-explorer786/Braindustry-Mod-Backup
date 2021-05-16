@@ -1,7 +1,6 @@
 package braindustry.annotations.RemoteProc;
 
 import arc.struct.Seq;
-import arc.util.Strings;
 import arc.util.io.ReusableByteOutStream;
 import arc.util.io.Writes;
 import com.squareup.javapoet.*;
@@ -30,14 +29,15 @@ public class ModRemoteWriteGenerator {
         this.serializers = serializers;
     }
     /**
-     * Generates toBase64 method
+     * Generates convToStr method
      * */
-    private MethodSpec.Builder createToBase64Method() {
-        MethodSpec.Builder method = MethodSpec.methodBuilder("toBase64")
+    private MethodSpec.Builder createConvToStrMethod() {
+        MethodSpec.Builder method = MethodSpec.methodBuilder("convToStr")
                 .addParameter(byte[].class,"bytes")
                 .addModifiers(Modifier.STATIC)
                 .returns(String.class);
-        method.addStatement("return new String(java.util.Base64.getEncoder().encode(bytes))");
+//        method.addStatement("return new String(java.util.Base64.getEncoder().encode(bytes))");
+        method.addStatement("return new String(bytes)");
         return method;
     }
 
@@ -48,7 +48,7 @@ public class ModRemoteWriteGenerator {
         for (ClassEntry entry : entries) {
             //create builder
             TypeSpec.Builder classBuilder = TypeSpec.classBuilder(entry.name).addModifiers(Modifier.PUBLIC);
-            classBuilder.addMethod(createToBase64Method().build());
+            classBuilder.addMethod(createConvToStrMethod().build());
             classBuilder.addJavadoc(RemoteProcess.autogenWarning);
 
             //add temporary write buffer
@@ -243,22 +243,23 @@ public class ModRemoteWriteGenerator {
         } else{
 
             String sendStringServer,sendStringClient;
+            String func = "PacketUnreliable";
             if (forwarded) { //forward packet
                 if (!methodEntry.local.isClient) { //if the client doesn't get it called locally, forward it back after validation
-                    sendStringServer = "mindustry.gen.Call.clientPacketReliable(ModVars.modVars.braindustryPacketPrefixClient,base64)";
-                    sendStringClient = "mindustry.gen.Call.serverPacketReliable(ModVars.modVars.braindustryPacketPrefixServer,base64)";
+                    sendStringServer = "mindustry.gen.Call.client" + func + "(ModVars.modVars.braindustryPacketPrefixClient,str)";
+                    sendStringClient = "mindustry.gen.Call.server" + func + "(ModVars.modVars.braindustryPacketPrefixServer,str)";
                 } else {
-                    sendStringServer = "ModVars.modFunc.clientPacketReliableExcept(exceptConnection,ModVars.modVars.braindustryPacketPrefixClient,base64)";
-                    sendStringClient = "ModVars.modFunc.serverPacketReliableExcept(exceptConnection,ModVars.modVars.braindustryPacketPrefixServer,base64)";
+                    sendStringServer = "ModVars.modFunc.client" + func + "Except(exceptConnection,ModVars.modVars.braindustryPacketPrefixClient,str)";
+                    sendStringClient = "ModVars.modFunc.server" + func + "Except(exceptConnection,ModVars.modVars.braindustryPacketPrefixServer,str)";
                 }
             } else if (toAll) { //send to all players / to server
-                sendStringServer = "mindustry.gen.Call.clientPacketReliable(ModVars.modVars.braindustryPacketPrefixClient,base64)";
-                sendStringClient = "mindustry.gen.Call.serverPacketReliable(ModVars.modVars.braindustryPacketPrefixClient,base64)";
+                sendStringServer = "mindustry.gen.Call.client" + func + "(ModVars.modVars.braindustryPacketPrefixClient,str)";
+                sendStringClient = "mindustry.gen.Call.server" + func + "(ModVars.modVars.braindustryPacketPrefixClient,str)";
             } else { //send to specific client from server
-                sendStringServer = "mindustry.gen.Call.clientPacketReliable(playerConnection,ModVars.modVars.braindustryPacketPrefixClient,base64)";
-                sendStringClient = "mindustry.gen.Call.serverPacketReliable(ModVars.modVars.braindustryPacketPrefixServer,base64)";
+                sendStringServer = "mindustry.gen.Call.client" + func + "(playerConnection,ModVars.modVars.braindustryPacketPrefixClient,str)";
+                sendStringClient = "mindustry.gen.Call.server" + func + "(ModVars.modVars.braindustryPacketPrefixServer,str)";
             }
-            method.addStatement("String base64=toBase64(OUT.getBytes())");
+            method.addStatement("String str=convToStr(OUT.getBytes())");
             method.beginControlFlow("if (mindustry.Vars.net.client())");
             method.addStatement(sendStringClient);
             method.endControlFlow("else { "+sendStringServer+";}");

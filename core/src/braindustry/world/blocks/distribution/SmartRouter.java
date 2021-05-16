@@ -7,23 +7,29 @@ import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
 import arc.math.geom.Vec2;
 import arc.scene.ui.layout.Table;
+import arc.util.Log;
 import arc.util.Strings;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
 import braindustry.annotations.ModAnnotations;
-import mindustry.annotations.Annotations;
 import mindustry.content.Blocks;
-import mindustry.ctype.MappableContent;
-import mindustry.gen.*;
+import mindustry.gen.Building;
+import mindustry.gen.Icon;
+import mindustry.gen.Teamc;
 import mindustry.type.Item;
 import mindustry.world.Tile;
 import mindustry.world.blocks.distribution.Router;
 import mindustry.world.meta.BlockGroup;
 
+import java.util.Arrays;
+
 public class SmartRouter extends Router {
 
-    public @ModAnnotations.Load("@-cross") TextureRegion cross;
-    public @ModAnnotations.Load("@-arrow") TextureRegion arrow;
+    public @ModAnnotations.Load("@-cross")
+    TextureRegion cross;
+    public @ModAnnotations.Load("@-arrow")
+    TextureRegion arrow;
+
     public SmartRouter(String name) {
         super(name);
         this.solid = true;
@@ -182,11 +188,13 @@ public class SmartRouter extends Router {
 
         @Override
         public Object config() {
-            return Strings.format("@ @ @ @", up, down, left, right);
+            return Strings.format("1r@@@@", Mathf.num(up), Mathf.num(down), Mathf.num(left), Mathf.num(right));
         }
-        private void updateConfig(){
-            this.block.lastConfig=config();
+
+        private void updateConfig() {
+//            this.block.lastConfig=config();
         }
+
         @Override
         public void write(Writes write) {
             super.write(write);
@@ -195,22 +203,34 @@ public class SmartRouter extends Router {
 
         @Override
         public void playerPlaced(Object config) {
-            if (block.lastConfig==null){
-                block.lastConfig="false false false false";
+            if (block.lastConfig == null) {
+                block.lastConfig = "false false false false";
             }
-            if (config==null)config=block.lastConfig;
+//            if (config == null) config = block.lastConfig;
             handleString(config);
         }
 
         @Override
-        public void handleString(Object value) {
+        public void handleString(Object obj) {
             try {
-                String[] bools = (value+"").split(" ");
-                if (bools.length == 4) {
-                    up = Boolean.parseBoolean(bools[0]);
-                    down = Boolean.parseBoolean(bools[1]);
-                    left = Boolean.parseBoolean(bools[2]);
-                    right = Boolean.parseBoolean(bools[3]);
+                String value = obj + "";
+                if (value.contains(" ")) {
+                    String[] bools = value.split(" ");
+                    if (bools.length == 4) {
+                        up = Boolean.parseBoolean(bools[0]);
+                        down = Boolean.parseBoolean(bools[1]);
+                        left = Boolean.parseBoolean(bools[2]);
+                        right = Boolean.parseBoolean(bools[3]);
+                    }
+                } else if (value.startsWith("1r")) {
+                    String[] bools = value.substring(2).split("");
+//                    Log.info("@", Arrays.toString(bools));
+                    if (bools.length == 4) {
+                        up = bools[0].equals("1");
+                        down = bools[1].equals("1");
+                        left = bools[2].equals("1");
+                        right = bools[3].equals("1");
+                    }
                 }
             } catch (Exception exception) {
 
@@ -218,9 +238,22 @@ public class SmartRouter extends Router {
         }
 
         @Override
+        public byte version() {
+            return 1;
+        }
+
+        @Override
         public void read(Reads read, byte revision) {
             super.read(read, revision);
-            handleString(read.str());
+            switch (revision) {
+                case 0:
+                    handleString(read.str());
+                    break;
+                case 1:
+                    handleString(read.str());
+
+                    break;
+            }
         }
     }
 }

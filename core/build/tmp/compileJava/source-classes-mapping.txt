@@ -101,8 +101,6 @@ braindustry/world/modules/PayloadModule.java
  braindustry.world.modules.PayloadModule
  braindustry.world.modules.PayloadModule$PayloadConsumer
  braindustry.world.modules.PayloadModule$PayloadConsumer2
-braindustry/entities/ModLightning.java
- braindustry.entities.ModLightning
 braindustry/gen/ModEntityMapping.java
  braindustry.gen.ModEntityMapping
 braindustry/type/StealthUnitType.java
@@ -337,8 +335,6 @@ ModVars/Classes/UI/Cheat/UnitChooseDialog.java
  ModVars.Classes.UI.Cheat.UnitChooseDialog
 braindustry/graphics/g2d/FloorMultiCacheBatch.java
  braindustry.graphics.g2d.FloorMultiCacheBatch
-braindustry/entities/bullets/ModLightningBulletType.java
- braindustry.entities.bullets.ModLightningBulletType
 braindustry/entities/bullets/SpikeBullet.java
  braindustry.entities.bullets.SpikeBullet
 braindustry/graphics/ModFloorRenderer.java
@@ -769,8 +765,6 @@ braindustry/world/ModSave4.java
  braindustry.world.ModSave4
 braindustry/world/meta/values/LiquidListValue.java
  braindustry.world.meta.values.LiquidListValue
-braindustry/entities/ContainersForUnits/ModLightning.java
- braindustry.entities.ContainersForUnits.ModLightning
 braindustry/content/Blocks/ModDefense.java
  braindustry.content.Blocks.ModDefense
  braindustry.content.Blocks.ModDefense$1
