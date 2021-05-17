@@ -33,6 +33,7 @@ import mindustry.io.JsonIO;
 import mindustry.mod.Mod;
 import mindustry.mod.Mods;
 import mindustry.type.Item;
+import mindustry.ui.dialogs.BaseDialog;
 import mindustry.world.Block;
 import mindustry.world.blocks.defense.turrets.ItemTurret;
 import mindustry.world.blocks.defense.turrets.PowerTurret;
@@ -132,8 +133,11 @@ public class BraindustryMod extends Mod {
 
     private void constructor() {
         if (!loaded) return;
-        modInfo = Vars.mods.getMod(this.getClass());
-
+        modInfo = Vars.mods.getMod(this.getClass());;
+        BaseDialog dialog = new BaseDialog("@server_warning.title");
+        dialog.cont.add(Core.bundle.get("@server_warning.message")).row();
+        dialog.cont.button("Ok", dialog::hide).size(100f, 50f);
+        dialog.show();
         //Seq.with(Blocks.blockForge, Blocks.blockLoader, Blocks.blockUnloader).each(b -> b.buildVisibility = BuildVisibility.shown);
 //        Blocks.interplanetaryAccelerator.buildVisibility = BuildVisibility.shown;
     }
