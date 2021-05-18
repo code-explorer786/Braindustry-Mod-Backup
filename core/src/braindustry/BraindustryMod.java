@@ -129,12 +129,10 @@ public class BraindustryMod extends Mod {
     private void constructor() {
         if (!loaded) return;
         modInfo = Vars.mods.getMod(this.getClass());;
-        BaseDialog dialog = new BaseDialog("@server_warning.title");
-        dialog.cont.add("@server_warning.message").row();
+        BaseDialog dialog = new BaseDialog("@start_warning.title");
+        dialog.cont.add("@start_warning.message").row();
         dialog.cont.button("Ok", dialog::hide).size(100f, 50f);
-        dialog.show();
-        //Seq.with(Blocks.blockForge, Blocks.blockLoader, Blocks.blockUnloader).each(b -> b.buildVisibility = BuildVisibility.shown);
-//        Blocks.interplanetaryAccelerator.buildVisibility = BuildVisibility.shown;
+//        dialog.show();
     }
 
     public void loadContent() {
