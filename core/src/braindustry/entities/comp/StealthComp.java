@@ -8,7 +8,6 @@ import braindustry.gen.ModCall;
 import braindustry.gen.StealthUnitc;
 import braindustry.input.ModBinding;
 import braindustry.type.StealthUnitType;
-import braindustry.versions.ModEntityc;
 import mindustry.Vars;
 import mindustry.entities.abilities.Ability;
 import mindustry.entities.units.UnitController;
@@ -17,7 +16,7 @@ import mindustry.gen.Unit;
 import mindustry.type.UnitType;
 
 @ModAnnotations.Component
-public abstract class StealthComp implements StealthUnitc, ModEntityc {
+public abstract class StealthComp implements StealthUnitc {
     public boolean inStealth = false;
     public float cooldownStealth = 0;
     public float durationStealth = 0;

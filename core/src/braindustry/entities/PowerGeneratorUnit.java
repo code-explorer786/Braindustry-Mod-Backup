@@ -1,22 +1,12 @@
 package braindustry.entities;
 
-import ModVars.modVars;
-import arc.graphics.g2d.Draw;
-import arc.math.Mathf;
-import arc.struct.Seq;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
-import braindustry.versions.ModEntityc;
-import braindustry.world.blocks.Unit.power.UnitPowerGenerator;
-import braindustry.world.blocks.Unit.power.UnitPowerNode;
-import mindustry.Vars;
-import mindustry.gen.Building;
+import braindustry.gen.ModEntityMapping;
 import mindustry.gen.UnitWaterMove;
-import mindustry.world.Block;
 import mindustry.world.Tile;
 
-public class PowerGeneratorUnit extends UnitWaterMove implements ModEntityc {
-    public static int classId = 41;
+public class PowerGeneratorUnit extends UnitWaterMove {
     public PowerGeneratorUnit() {
         super();
     }
@@ -27,10 +17,6 @@ public class PowerGeneratorUnit extends UnitWaterMove implements ModEntityc {
     }
 
 
-    @Override
-    public int modClassId() {
-        return classId;
-    }
 
 
     @Override
@@ -98,4 +84,8 @@ public class PowerGeneratorUnit extends UnitWaterMove implements ModEntityc {
         super.remove();
     }
 
+    @Override
+    public int classId() {
+        return ModEntityMapping.getId(getClass());
+    }
 }

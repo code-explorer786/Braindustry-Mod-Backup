@@ -35,7 +35,7 @@ import java.lang.reflect.Constructor;
 import static mindustry.Vars.*;
 
 public class modVars {
-    public static final byte MOD_CONTENT_ID = 66;
+//    public static final byte MOD_CONTENT_ID = 66;
     private static final String braindustryPacketPrefix = "braindustry-java-packet";
     public static final String braindustryPacketPrefixClient =braindustryPacketPrefix+ "-client";
     public static final String braindustryPacketPrefixServer =braindustryPacketPrefix+"-server";
@@ -75,7 +75,6 @@ public class modVars {
     }
 
     public static void init() {
-        ModSave4 save4 = new ModSave4();
 //        net = new ModNet(platform.getNet(), net);
         if (false) {
             for (int i = 0; i < EntityMapping.idMap.length; i++) {
@@ -99,9 +98,10 @@ public class modVars {
             runners.each(Runnable::run);
             runners.clear();
         }
-        SaveIO.versionArray.add(save4);
-        SaveIO.versions.remove(save4.version);
-        SaveIO.versions.put(save4.version, save4);
+//        ModSave4 save4 = new ModSave4();
+//        SaveIO.versionArray.add(save4);
+//        SaveIO.versions.remove(save4.version);
+//        SaveIO.versions.put(save4.version, save4);
         if(!headless){
             modUI.init();
             modBloom=new ModBloom(null);

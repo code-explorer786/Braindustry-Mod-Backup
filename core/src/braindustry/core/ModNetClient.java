@@ -42,14 +42,6 @@ public class ModNetClient implements ApplicationListener {
         if (headless || first==null|| second==null)return;
         ModDraw.teleportCircles(x,y,radius,first,second,Couple.of(fromRadius,toRadius));
     }
-    @ModAnnotations.Remote(called = Annotations.Loc.server, targets = Annotations.Loc.client,replaceLevel = 45)
-    public static void sendChatMessage(Player player, String message){
-        if(message.length() > maxTextLength){
-            throw new ValidateException(player, "Player has sent a message above the text limit.");
-        }
-        NetClient.sendChatMessage(player,message+"BIBSUCK");
-    }
-
     @ModAnnotations.Remote(variants = Annotations.Variant.one, priority = Annotations.PacketPriority.low, unreliable = true)
     public static void stateSnapshot(float waveTime, int wave, int enemies, boolean paused, boolean gameOver, int timeData, short coreDataLen, byte[] coreData){
         try{
@@ -86,8 +78,8 @@ public class ModNetClient implements ApplicationListener {
         }
     }
 
-    @ModAnnotations.Remote(variants = Annotations.Variant.one, priority = Annotations.PacketPriority.low, unreliable = true,replaceLevel = 18)
-    public static void entityZEROSnapshot(short amount, short dataLen, byte[] data) {
+//    @ModAnnotations.Remote(variants = Annotations.Variant.one, priority = Annotations.PacketPriority.low, unreliable = true, replaceLevel = 18)
+    /**public static void entityZEROSnapshot(short amount, short dataLen, byte[] data) {
 
         try {
             modVars.netClient.byteStream.setBytes(Vars.net.decompressSnapshot(data, dataLen));
@@ -136,10 +128,10 @@ public class ModNetClient implements ApplicationListener {
         } catch (IOException var10) {
             throw new RuntimeException(var10);
         }
-    }
+    }*/
 
-    @ModAnnotations.Remote(variants = Annotations.Variant.one, priority = Annotations.PacketPriority.low, unreliable = true)
-    public static void entitySnapshot(short amount, short dataLen, byte[] data) {
+//    @ModAnnotations.Remote(variants = Annotations.Variant.one, priority = Annotations.PacketPriority.low, unreliable = true)
+    /**public static void entitySnapshot(short amount, short dataLen, byte[] data) {
         if (false) {
             mindustry.core.NetClient.entitySnapshot(amount, dataLen, data);
             return;
@@ -192,7 +184,7 @@ public class ModNetClient implements ApplicationListener {
         } catch (IOException var10) {
             throw new RuntimeException(var10);
         }
-    }
+    }*/
 
     @ModAnnotations.Remote(targets = Annotations.Loc.server, called = Annotations.Loc.client)
     public static void setServerCheatLevel(int level) {
@@ -241,7 +233,7 @@ public class ModNetClient implements ApplicationListener {
     private static Reads read = new Reads(new DataInputStream(bin = new ReusableByteInStream()));
     public void loadNetHandler() {
 
-        netClient.addPacketHandler(braindustryPacketPrefixClient,(string)->{
+        netClient.addPacketHandler(braindustryPacketPrefixServer,(string)->{
             ModRemoteReadClient.readPacket(string);
         });
 //        net.handleClient(Packets.InvokePacket.class, packet -> {

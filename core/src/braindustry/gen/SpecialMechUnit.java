@@ -25,7 +25,6 @@ import arc.util.io.Writes;
 import braindustry.entities.ModUnits;
 import braindustry.input.ModBinding;
 import braindustry.type.StealthUnitType;
-import braindustry.versions.ModEntityc;
 import mindustry.Vars;
 import mindustry.ai.formations.DistanceAssignmentStrategy;
 import mindustry.ai.formations.Formation;
@@ -43,8 +42,8 @@ import mindustry.world.blocks.storage.CoreBlock;
 
 import java.util.Arrays;
 
-public class SpecialMechUnit extends MechUnit implements StealthUnitc, ModEntityc {
-    public static int classId = 0;
+public class SpecialMechUnit extends MechUnit implements StealthUnitc {
+//    public static int classId = 0;
     public boolean inStealth = false;
     public float cooldownStealth = 0;
     public float durationStealth = 0;
@@ -223,12 +222,13 @@ public class SpecialMechUnit extends MechUnit implements StealthUnitc, ModEntity
     public void update() {
         if (!Groups.unit.contains(u -> u == this)) {
             updateLastPosition();
-            Groups.unit.tree().insert(this);
+//            Groups.unit.tree().insert(this);
         }
         super.update();
         cooldownStealth = Math.max(0, cooldownStealth - Time.delta);
         if (inStealth) {
             durationStealth = Math.min(stealthType.stealthDuration, durationStealth + Time.delta);
+            Groups.unit.remove(this);
         }
         updateStealthStatus();
 
@@ -389,6 +389,7 @@ public class SpecialMechUnit extends MechUnit implements StealthUnitc, ModEntity
     @Override
     public void writeSync(Writes write) {
 //        write.s(modClassId());
+        if (!Groups.unit.contains(u->u.equals(this)))Groups.unit.add(this);
         super.writeSync(write);
         write.bool(inStealth);
         write.f(cooldownStealth);
@@ -414,6 +415,7 @@ public class SpecialMechUnit extends MechUnit implements StealthUnitc, ModEntity
     public void readSync(Reads read) {
         super.readSync(read);
         inStealth = read.bool();
+        if (!Groups.unit.contains(u->u.equals(this)))Groups.unit.add(this);
         cooldownStealth = read.f();
         durationStealth = read.f();
     }
@@ -432,13 +434,8 @@ public class SpecialMechUnit extends MechUnit implements StealthUnitc, ModEntity
         return true;
     }
 
-    @Override
-    public int modClassId() {
-        return ModEntityMapping.getId(this.getClass());
-    }
-
     public int classId() {
-        return modVars.MOD_CONTENT_ID;
+        return ModEntityMapping.getId(getClass());
     }
 
 

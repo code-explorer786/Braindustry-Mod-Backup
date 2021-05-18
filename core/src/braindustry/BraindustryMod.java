@@ -13,10 +13,7 @@ import arc.struct.Seq;
 import arc.util.CommandHandler;
 import braindustry.audio.ModAudio;
 import braindustry.core.ModContentLoader;
-import braindustry.gen.ModContentRegions;
-import braindustry.gen.ModMusics;
-import braindustry.gen.ModPlayer;
-import braindustry.gen.ModSounds;
+import braindustry.gen.*;
 import braindustry.graphics.ModShaders;
 import braindustry.graphics.g2d.ModBloom;
 import mindustry.Vars;
@@ -50,13 +47,11 @@ public class BraindustryMod extends Mod {
     static Seq<String> names = new Seq<>();
 
     public BraindustryMod() {
+        ModEntityMapping.mapClasses();
         EventOn(DisposeEvent.class, (d) -> {
             modUI.dispose();
             Vars.ui.dispose();
         });
-        Object o=mods;
-//        if (o instanceof Mods mods){
-//        }
         modInfo = Vars.mods.getMod(this.getClass());
         modVars.load();
         Events.on(EventType.Trigger.class, e -> {

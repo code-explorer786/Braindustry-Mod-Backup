@@ -168,6 +168,7 @@ addEnd.get(readBlock);
         * */
         readMethod.addStatement("arc.util.io.Reads reads=new arc.util.io.Reads(new java.io.DataInputStream(new java.io.ByteArrayInputStream(convToBytes(str))))");
         readMethod.addStatement("int id=reads.b()");
+//        readMethod.addStatement("arc.util.Log.info(\"id: @\",id)");
         readMethod.addStatement("readPacket(reads,id"+(needsPlayer?",player)":")"));
         classBuilder.addMethod(readMethod.build());
     }

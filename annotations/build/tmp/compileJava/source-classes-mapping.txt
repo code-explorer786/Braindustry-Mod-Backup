@@ -66,9 +66,9 @@ braindustry/annotations/ModEntities/ModEntitiesProc.java
  braindustry.annotations.ModEntities.ModEntitiesProc$GroupDefinition
 braindustry/annotations/RemoteProc/ModTypeIOResolver.java
  braindustry.annotations.RemoteProc.ModTypeIOResolver
+braindustry/annotations/RemoteProc/ModRemoteWriteGenerator.java
+ braindustry.annotations.RemoteProc.ModRemoteWriteGenerator
 braindustry/annotations/RemoteProc/CustomRemoteProcessor.java
  braindustry.annotations.RemoteProc.CustomRemoteProcessor
 braindustry/annotations/RemoteProc/ModRemoteReadGenerator.java
  braindustry.annotations.RemoteProc.ModRemoteReadGenerator
-braindustry/annotations/RemoteProc/ModRemoteWriteGenerator.java
- braindustry.annotations.RemoteProc.ModRemoteWriteGenerator

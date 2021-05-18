@@ -2,68 +2,57 @@ package braindustry.gen;
 
 import Gas.gen.Cloud;
 import ModVars.modFunc;
-import arc.func.Prov;
 import arc.struct.ObjectMap;
-import arc.struct.Seq;
-import braindustry.entities.Advanced.AdvancedLegsUnit;
-import braindustry.entities.Advanced.AdvancedPayloadUnit;
-import braindustry.entities.Advanced.AdvancedUnitWaterMove;
-import braindustry.versions.ModEntityc;
+import arc.util.Log;
+import mindustry.gen.EntityMapping;
 
 import java.lang.reflect.Constructor;
 
 public class ModEntityMapping {
-    public static Prov[] idMap = new Prov[256];
-    public static ObjectMap<String, Prov> nameMap = new ObjectMap();
-    private static ObjectMap<Class<?>,Integer> classIdMap=new ObjectMap<>();
-    public static Prov map(int id) {
-        return idMap[id];
-    }
+    private static final int offset = 60;
+    private static ObjectMap<Class<?>, Integer> classIdMap = new ObjectMap<>();
+    private static int lastClass;
 
-    public static Prov map(String name) {
-        return (Prov)nameMap.get(name);
-    }
-    public static int getId(Class<?> name){
-        return classIdMap.get(name,-1);
-    }
     static {
-        lastClass=0;
+        lastClass = 0;
         mapClasses(
                 null,
-                null,
-                AdvancedLegsUnit.class,
-                AdvancedPayloadUnit.class,
-                AdvancedUnitWaterMove.class,
                 SpecialMechUnit.class,
                 Cloud.class,
                 null
         );
     }
-    public static  <T> void mapClasses(Class<? extends ModEntityc>... objClasses) {
-        Seq.with(objClasses).each(ModEntityMapping::mapClass);
+
+    public static int getId(Class<?> name) {
+        int id = classIdMap.get(name, offset);
+//        Log.info("getId(class: @,id: @)",name.getName(),id);
+        return id;
     }
-    private static int lastClass;
-    public static  <T> void mapClass(Class<? extends ModEntityc> objClass) {
+//
+    public static <T> void mapClasses(Class<?>... objClasses) {
+        for (Class<?> objClass : objClasses) {
+            mapClass(objClass);
+        }
+    }
+
+    public static <T> void mapClass(Class<?> objClass) {
         try {
-            if (objClass==null)return;
+         final    int id = lastClass + offset;
+            lastClass++;
+            if (objClass == null) return;
             Constructor<?> cons = objClass.getDeclaredConstructor();
-            objClass.getField("classId").setInt(objClass,lastClass);
+//            objClass.getField("classId").setInt(objClass, id);
 //            Log.info("@ @",lastClass,objClass.getName());
-            classIdMap.put(objClass,lastClass);
-            idMap[lastClass++] = () -> {
+            classIdMap.put(objClass, id);
+            EntityMapping.idMap[id ] = () -> {
                 try {
                     return cons.newInstance();
                 } catch (Exception var3) {
                     throw new RuntimeException(var3);
                 }
             };
-            nameMap.put(objClass.getName(),() -> {
-                try {
-                    return cons.newInstance();
-                } catch (Exception var3) {
-                    throw new RuntimeException(var3);
-                }
-            });
+            EntityMapping.nameMap.put(objClass.getName(), () -> EntityMapping.idMap[getId(objClass)]);
+//            Log.info("class: @, id: @, getId: @",objClass.getName(),id,getId(objClass));
         } catch (Exception e) {
             modFunc.showException(e);
         }

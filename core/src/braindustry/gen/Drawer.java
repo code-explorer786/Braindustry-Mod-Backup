@@ -6,21 +6,18 @@ import arc.math.geom.Position;
 import arc.math.geom.Vec2;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
-import braindustry.versions.ModEntityc;
 import mindustry.content.Blocks;
 import mindustry.core.World;
 import mindustry.entities.EntityGroup;
 import mindustry.gen.*;
 import mindustry.world.Block;
 import mindustry.world.Tile;
-import mindustry.world.blocks.defense.ForceProjector;
 import mindustry.world.blocks.environment.Floor;
 
 import static mindustry.Vars.player;
 import static mindustry.Vars.world;
 
-public class Drawer implements Drawc, Posc,Entityc, ModEntityc {
-    public static int classId= modVars.MOD_CONTENT_ID;
+public class Drawer implements Drawc, Posc,Entityc {
     public float x;
 
     public float y;
@@ -199,13 +196,9 @@ public class Drawer implements Drawc, Posc,Entityc, ModEntityc {
 
     @Override
     public int classId() {
-        return classId;
+        return ModEntityMapping.getId(getClass());
     }
 
-    @Override
-    public int modClassId() {
-        return -1;
-    }
 
     public Runnable getRunnable() {
         return runnable;

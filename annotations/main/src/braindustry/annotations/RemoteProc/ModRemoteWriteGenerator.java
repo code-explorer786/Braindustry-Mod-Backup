@@ -37,6 +37,8 @@ public class ModRemoteWriteGenerator {
                 .addModifiers(Modifier.STATIC)
                 .returns(String.class);
 //        method.addStatement("return new String(java.util.Base64.getEncoder().encode(bytes))");
+
+//        method.addStatement("arc.util.Log.info(\"line: [@] lenght: @ @\",new String(bytes),new String(bytes).length(),bytes.length);");
         method.addStatement("return new String(bytes)");
         return method;
     }
@@ -92,7 +94,8 @@ public class ModRemoteWriteGenerator {
         ExecutableElement elem = methodEntry.element;
 
         //create builder
-        MethodSpec.Builder method = MethodSpec.methodBuilder(elem.getSimpleName().toString() + (forwarded ? "__forward" : "")) //add except suffix when forwarding
+        String methodName = elem.getSimpleName().toString() + (forwarded ? "__forward" : "");
+        MethodSpec.Builder method = MethodSpec.methodBuilder(methodName) //add except suffix when forwarding
                 .addModifiers(Modifier.STATIC)
                 .returns(void.class);
 
@@ -259,7 +262,8 @@ public class ModRemoteWriteGenerator {
                 sendStringServer = "mindustry.gen.Call.client" + func + "(playerConnection,ModVars.modVars.braindustryPacketPrefixClient,str)";
                 sendStringClient = "mindustry.gen.Call.server" + func + "(ModVars.modVars.braindustryPacketPrefixServer,str)";
             }
-            method.addStatement("String str=convToStr(OUT.getBytes())");
+            method.addStatement("String str=convToStr(OUT.toByteArray())");
+//            method.addStatement("arc.util.Log.info(\"ModCall."+methodName+"\")");
             method.beginControlFlow("if (mindustry.Vars.net.client())");
             method.addStatement(sendStringClient);
             method.endControlFlow("else { "+sendStringServer+";}");

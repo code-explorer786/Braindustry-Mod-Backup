@@ -14,15 +14,12 @@ import arc.util.io.ReusableByteInStream;
 import arc.util.io.ReusableByteOutStream;
 import arc.util.io.Writes;
 import braindustry.annotations.ModAnnotations;
-import braindustry.versions.ModEntityc;
 import mindustry.annotations.Annotations;
 import mindustry.game.EventType;
 import mindustry.game.Team;
 import mindustry.game.Teams;
 import mindustry.gen.*;
 import mindustry.net.NetConnection;
-import mindustry.net.Packets;
-import mindustry.net.ValidateException;
 import mindustry.type.UnitType;
 import mindustry.world.blocks.storage.CoreBlock;
 
@@ -30,6 +27,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import static ModVars.modVars.braindustryPacketPrefixClient;
 import static ModVars.modVars.braindustryPacketPrefixServer;
 import static arc.util.Log.debug;
 import static mindustry.Vars.*;
@@ -172,10 +170,10 @@ public class ModNetServer implements ApplicationListener {
 
     @Override
     public void update() {
-        if (state.isGame() && net.server()){
-            sync();
-
-        }
+//        if (state.isGame() && net.server()){
+//            sync();
+//
+//        }
     }
     protected void sync(){
         Groups.player.each(p -> !p.isLocal(),player->{
@@ -187,14 +185,14 @@ public class ModNetServer implements ApplicationListener {
             NetConnection connection = player.con;
             if(!player.timer(1, serverSyncTime) || !connection.hasConnected) return;
 
-            try{
-                writeEntitySnapshot(player);
-            }catch(IOException e){
-                e.printStackTrace();
-            }
+//            try{
+//                writeEntitySnapshot(player);
+//            }catch(IOException e){
+//                e.printStackTrace();
+//            }
         });
     }
-    public void writeEntitySnapshot(Player player) throws IOException{
+    /**public void writeEntitySnapshot(Player player) throws IOException{
         syncStream.reset();
         int sum = state.teams.present.sum(t -> t.cores.size);
 
@@ -223,9 +221,9 @@ public class ModNetServer implements ApplicationListener {
             //write all entities now
             dataStream.writeInt(entity.id()); //write id
             dataStream.writeByte(entity.classId()); //write type ID
-            if(entity instanceof ModEntityc){
+            *//**if(entity instanceof ModEntityc){
                 dataStream.writeShort(ModEntityMapping.getId(entity.getClass()));
-            }
+            }*//*
             entity.writeSync(Writes.get(dataStream)); //write entity
 
             sent++;
@@ -246,12 +244,12 @@ public class ModNetServer implements ApplicationListener {
             ModCall.entitySnapshot(player.con, (short)sent, (short)syncBytes.length, net.compressSnapshot(syncBytes));
         }
 
-    }
+    }*/
 
     private static ReusableByteInStream bin;
     private static Reads read = new Reads(new DataInputStream(bin = new ReusableByteInStream()));
     public void loadNetHandler() {
-        netServer.addPacketHandler(braindustryPacketPrefixServer,(player,string)->{
+        netServer.addPacketHandler(braindustryPacketPrefixClient,(player,string)->{
             ModRemoteReadServer.readPacket(string,player);
         });
 //        net.handleServer(Packets.InvokePacket.class, (con, packet) -> {

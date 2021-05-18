@@ -6,7 +6,6 @@ import arc.struct.IntSet;
 import arc.struct.Seq;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
-import braindustry.versions.ModEntityc;
 import mindustry.Vars;
 import mindustry.game.Team;
 import mindustry.game.Teams;
@@ -55,7 +54,7 @@ public class ModSave4 extends SaveVersion {
             if (entity.serialize()) {
                 this.writeChunk(stream, true, (out) -> {
                     int id = entity.classId();
-                    if (id == modVars.MOD_CONTENT_ID && entity instanceof ModEntityc) {
+                    /**if (id == modVars.MOD_CONTENT_ID && entity instanceof ModEntityc) {
                         out.writeByte(id);
                         int classId = ModEntityMapping.getId(entity.getClass());
                         out.writeShort(classId);
@@ -64,7 +63,7 @@ public class ModSave4 extends SaveVersion {
                         out.writeByte(Byte.MAX_VALUE - 1);
                     } else {
                         out.writeByte(id);
-                    }
+                    }*/
                     entity.write(Writes.get(out));
                 });
             }
@@ -173,10 +172,10 @@ public class ModSave4 extends SaveVersion {
             try {
                 this.readChunk(stream, true, (in) -> {
                     byte typeid = in.readByte();
-                    if (typeid == modVars.MOD_CONTENT_ID) {
+                    if (typeid == /*modVars.MOD_CONTENT_ID*/-1) {
                         short modTypeid=in.readShort();
                         try{
-                            if (ModEntityMapping.map(modTypeid) == null) {
+                            /**if (ModEntityMapping.map(modTypeid) == null) {
 //                                Log.info("typeid: @",modTypeid);
                                 in.skipBytes(this.lastRegionLength - 1);
                             } else {
@@ -184,7 +183,7 @@ public class ModSave4 extends SaveVersion {
 //                                Log.info("typeid: @ @",modTypeid,entity.getClass().getName());
                                 entity.read(Reads.get(in));
                                 entity.add();
-                            }
+                            }*/
                         } catch (IndexOutOfBoundsException e){
                             in.skipBytes(this.lastRegionLength - 1);
                         }

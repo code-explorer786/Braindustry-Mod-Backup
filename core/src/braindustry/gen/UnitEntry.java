@@ -232,7 +232,7 @@ public class UnitEntry implements Drawc, WritableInterface {
 
     @Override
     public int classId() {
-        return modVars.MOD_CONTENT_ID;
+        return ModEntityMapping.getId(getClass());
     }
 
     @Override
