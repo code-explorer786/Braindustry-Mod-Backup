@@ -2195,7 +2195,7 @@ public class ModUnitTypes implements ContentList {
                                     this.width = 20;
                                     this.height = 21;
                                     this.shrinkY = 0.1f;
-                                    this.speed = 2.3f;
+                                    this.speed = 3.3f;
                                     this.drag = 0f;
                                     this.splashDamageRadius = 42f;
                                     this.splashDamage = 560f;
