@@ -6,7 +6,7 @@ import arc.util.io.Writes;
 import braindustry.io.ModTypeIO;
 import mindustry.gen.Player;
 import mindustry.io.TypeIO;
-
+//unused
 public class ModPlayer extends Player {
     public static ModPlayer create() {
         return new ModPlayer();
@@ -25,7 +25,8 @@ public class ModPlayer extends Player {
             this.shooting = read.bool();
             this.team = TypeIO.readTeam(read);
             this.typing = read.bool();
-            this.unit = ModTypeIO.readUnit(read);
+            this.unit = TypeIO.readUnit(read);
+//            this.unit = ModTypeIO.readUnit(read);
             this.x = read.f();
             this.y = read.f();
             this.afterRead();
@@ -76,7 +77,8 @@ public class ModPlayer extends Player {
             read.bool();
         }
 
-        this.unit = ModTypeIO.readUnit(read);
+//        this.unit = ModTypeIO.readUnit(read);
+        this.unit = TypeIO.readUnit(read);
         if (!islocal) {
             read.f();
 //            this.x_LAST_ = this.x;
@@ -129,7 +131,7 @@ public class ModPlayer extends Player {
         write.bool(this.shooting);
         TypeIO.writeTeam(write, this.team);
         write.bool(this.typing);
-        ModTypeIO.writeUnit(write, this.unit);
+        TypeIO.writeUnit(write, this.unit);
         write.f(this.x);
         write.f(this.y);
     }

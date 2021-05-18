@@ -8,21 +8,29 @@ import arc.graphics.g2d.Lines;
 import arc.math.Angles;
 import arc.math.Mathf;
 import arc.math.geom.Vec2;
+import arc.scene.ui.Image;
+import arc.scene.ui.layout.Table;
+import arc.util.Scaling;
 import arc.util.Time;
 import arc.util.Tmp;
 import braindustry.gen.StealthUnitc;
 import braindustry.gen.StealthUnitc;
+import braindustry.graphics.ModPal;
+import mindustry.ai.types.LogicAI;
 import mindustry.content.Blocks;
 import mindustry.entities.Leg;
-import mindustry.gen.Legsc;
-import mindustry.gen.Mechc;
-import mindustry.gen.Trailc;
-import mindustry.gen.Unit;
+import mindustry.entities.abilities.Ability;
+import mindustry.gen.*;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
 import mindustry.graphics.Trail;
 import mindustry.type.UnitType;
+import mindustry.ui.Bar;
+import mindustry.ui.Cicon;
 import mindustry.world.blocks.environment.Floor;
+
+import static mindustry.Vars.state;
+import static mindustry.Vars.ui;
 
 public class StealthUnitType extends ModUnitType {
     public float stealthCooldown=60.f;
@@ -63,6 +71,59 @@ public class StealthUnitType extends ModUnitType {
         if (Core.atlas.isFound(this.outlineRegion)) {
             Draw.rect(this.outlineRegion, unit.x, unit.y, unit.rotation - 90.0F);
         }
+    }
+
+    @Override
+    public void display(Unit unit, Table table) {
+        table.table(t -> {
+            t.left();
+            t.add(new Image(icon(Cicon.medium))).size(8 * 4).scaling(Scaling.fit);
+            t.labelWrap(localizedName).left().width(190f).padLeft(5);
+        }).growX().left();
+        table.row();
+
+        table.table(bars -> {
+            bars.defaults().growX().height(20f).pad(4);
+
+            bars.add(new Bar("stat.health", Pal.health, unit::healthf).blink(Color.white));
+            bars.row();
+            if (unit instanceof StealthUnitc){
+                bars.add(new Bar("stat.special_power", ModPal.stealthBarColor, ((StealthUnitc) unit)::stealthf));
+                bars.row();
+            }
+
+            if(state.rules.unitAmmo){
+                bars.add(new Bar(ammoType.icon + " " + Core.bundle.get("stat.ammo"), ammoType.barColor, () -> unit.ammo / ammoCapacity));
+                bars.row();
+            }
+
+            for(Ability ability : unit.abilities){
+                ability.displayBars(unit, bars);
+            }
+
+            if(unit instanceof Payloadc ){
+                Payloadc payload=unit.as();
+                bars.add(new Bar("stat.payloadcapacity", Pal.items, () -> payload.payloadUsed() / unit.type().payloadCapacity));
+                bars.row();
+
+                float[] count = new float[]{-1};
+                bars.table().update(t -> {
+                    if(count[0] != payload.payloadUsed()){
+                        payload.contentInfo(t, 8 * 2, 270);
+                        count[0] = payload.payloadUsed();
+                    }
+                }).growX().left().height(0f).pad(0f);
+            }
+        }).growX();
+
+        if(unit.controller() instanceof LogicAI){
+            table.row();
+            table.add(Blocks.microProcessor.emoji() + " " + Core.bundle.get("units.processorcontrol")).growX().wrap().left();
+            table.row();
+            table.label(() -> Iconc.settings + " " + (long)unit.flag + "").color(Color.lightGray).growX().wrap().left();
+        }
+
+        table.row();
     }
 
     public <T extends Unit & Legsc> void drawLegs(T unit) {

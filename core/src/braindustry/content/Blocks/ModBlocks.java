@@ -131,7 +131,7 @@ public class ModBlocks implements ContentList {
         smartRouter = new SmartRouter("smart-router") {
             {
                 localizedName = "Smart Router";
-                description = "Router ";
+                description = "Regular router with a choice of input / output paths";
                 size = 1;
                 requirements(Category.distribution, ItemStack.with(Items.copper, 3, Items.silicon, 10));
                 buildCostMultiplier = 4.0F;

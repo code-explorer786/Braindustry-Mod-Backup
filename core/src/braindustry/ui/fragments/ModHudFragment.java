@@ -26,6 +26,7 @@ import arc.util.Scaling;
 import arc.util.Time;
 import arc.util.Tmp;
 import braindustry.gen.StealthUnitc;
+import braindustry.graphics.ModPal;
 import braindustry.graphics.ModShaders;
 import mindustry.annotations.Annotations;
 import mindustry.core.GameState;
@@ -699,7 +700,7 @@ public class ModHudFragment extends HudFragment {
                         if (player!=null && player.unit() instanceof StealthUnitc){
                             StealthUnitc unit=player.unit().as();
                             float offset = unit.stealthf();
-                            Draw.color(Color.valueOf("6966A1"));
+                            Draw.color(ModPal.stealthBarColor);
                             ModShaders.iconBackgroundShader.set(y+(radius*2f )* offset);
                             Fill.poly(x + width / 2f, y + height / 2f, 6, radius);
                             Draw.shader();

@@ -105,6 +105,7 @@ public class BraindustryMod extends Mod {
     }
 
     void createPlayer() {
+        if (true)return;
         player = ModPlayer.create();
         player.name = Core.settings.getString("name");
         player.color.set(Core.settings.getInt("color-0"));
