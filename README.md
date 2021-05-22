@@ -2,7 +2,15 @@
 ## Mindustry Java Mod By Braindustry Team(public beta)
 
 ### Table of contents:
--
+- New star system
+- 11 new campaign maps
+- 18 new turrets
+- 25 new units
+- 7 new materials
+- 4 new liquids
+- Gas 
+- Black hole reactors
+- Multi Rotor drills
 
 ## WARNING! Mod still in dev and may have bugs!
 
