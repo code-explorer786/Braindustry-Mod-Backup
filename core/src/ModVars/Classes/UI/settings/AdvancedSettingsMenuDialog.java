@@ -535,15 +535,6 @@ public class AdvancedSettingsMenuDialog extends SettingsMenuDialog {
                 control.setInput(new ModDesktopInput());
             }
         }
-        //the issue with touchscreen support on desktop is that:
-        //1) I can't test it
-        //2) the SDL backend doesn't support multitouch
-        /*else{
-            game.checkPref("touchscreen", false, val -> control.setInput(!val ? new DesktopInput() : new MobileInput()));
-            if(Core.settings.getBool("touchscreen")){
-                control.setInput(new MobileInput());
-            }
-        }*/
         game.sliderPref("saveinterval", 60, 10, 5 * 120, 10, i -> Core.bundle.format("setting.seconds", i));
 
         if(!mobile){
@@ -643,11 +634,11 @@ public class AdvancedSettingsMenuDialog extends SettingsMenuDialog {
             graphics.checkPref("animatedshields", !mobile);
         }
 
-        if(!ios){
+       /* if(!ios){
             graphics.checkPref("bloom", true, val -> renderer.toggleBloom(val));
         }else{
             Core.settings.put("bloom", false);
-        }
+        }*/
 
         graphics.checkPref("pixelate", false, val -> {
             if(val){

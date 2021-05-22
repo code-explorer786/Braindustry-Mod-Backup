@@ -8,8 +8,8 @@ braindustry/annotations/ModAssetsFolders/AssetsFoldersProcessor.java
  braindustry.annotations.ModAssetsFolders.AssetsFoldersProcessor
 braindustry/annotations/ModBaseProcessor.java
  braindustry.annotations.ModBaseProcessor
-braindustry/annotations/ModTypeIO/ObjectReadProcessor.java
- braindustry.annotations.ModTypeIO.ObjectReadProcessor
+braindustry/annotations/RemoteProc/ModRemoteReadGenerator.java
+ braindustry.annotations.RemoteProc.ModRemoteReadGenerator
 braindustry/annotations/ModEntities/ModEntityIO.java
  braindustry.annotations.ModEntities.ModEntityIO
  braindustry.annotations.ModEntities.ModEntityIO$Revision
@@ -60,15 +60,15 @@ braindustry/annotations/ModAnnotations.java
  braindustry.annotations.ModAnnotations$Values
  braindustry.annotations.ModAnnotations$WritableObject
  braindustry.annotations.ModAnnotations$WritableObjectsConfig
+braindustry/annotations/RemoteProc/CustomRemoteProcessor.java
+ braindustry.annotations.RemoteProc.CustomRemoteProcessor
+braindustry/annotations/RemoteProc/ModTypeIOResolver.java
+ braindustry.annotations.RemoteProc.ModTypeIOResolver
+braindustry/annotations/ModTypeIO/ObjectReadProcessor.java
+ braindustry.annotations.ModTypeIO.ObjectReadProcessor
 braindustry/annotations/ModEntities/ModEntitiesProc.java
  braindustry.annotations.ModEntities.ModEntitiesProc
  braindustry.annotations.ModEntities.ModEntitiesProc$EntityDefinition
  braindustry.annotations.ModEntities.ModEntitiesProc$GroupDefinition
-braindustry/annotations/RemoteProc/ModTypeIOResolver.java
- braindustry.annotations.RemoteProc.ModTypeIOResolver
 braindustry/annotations/RemoteProc/ModRemoteWriteGenerator.java
  braindustry.annotations.RemoteProc.ModRemoteWriteGenerator
-braindustry/annotations/RemoteProc/CustomRemoteProcessor.java
- braindustry.annotations.RemoteProc.CustomRemoteProcessor
-braindustry/annotations/RemoteProc/ModRemoteReadGenerator.java
- braindustry.annotations.RemoteProc.ModRemoteReadGenerator
