@@ -5,7 +5,7 @@ import arc.Events;
 import arc.struct.Seq;
 import braindustry.content.ModBullets;
 import braindustry.type.ModUnitType;
-import braindustry.world.blocks.DebugBlocks;
+import braindustry.world.blocks.DebugBlock;
 import mindustry.Vars;
 import mindustry.game.EventType;
 import mindustry.game.Team;
@@ -25,7 +25,7 @@ public class ModLogic implements ApplicationListener {
         if (debug!=settings.debug()){
             debug=settings.debug();
             Vars.content.blocks().each(content -> {
-                if (content instanceof DebugBlocks) {
+                if (content instanceof DebugBlock) {
                     content.buildVisibility= debug? BuildVisibility.shown:BuildVisibility.debugOnly;
                 }
             });
@@ -35,7 +35,7 @@ public class ModLogic implements ApplicationListener {
     public ModLogic() {
         debug = settings.debug();
         Vars.content.blocks().each(content -> {
-            if (content instanceof DebugBlocks) {
+            if (content instanceof DebugBlock) {
                 content.buildVisibility= debug? BuildVisibility.shown:BuildVisibility.debugOnly;
             }
         });

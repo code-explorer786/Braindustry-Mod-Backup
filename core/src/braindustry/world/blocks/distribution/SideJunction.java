@@ -9,8 +9,7 @@ import arc.util.Eachable;
 import arc.util.Time;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
-import braindustry.annotations.ModAnnotations;
-import braindustry.world.blocks.DebugBlocks;
+import braindustry.world.blocks.DebugBlock;
 import mindustry.Vars;
 import mindustry.entities.units.BuildPlan;
 import mindustry.gen.BufferItem;
@@ -23,7 +22,7 @@ import mindustry.world.DirectionalItemBuffer;
 import mindustry.world.meta.BlockGroup;
 import mindustryAddition.graphics.ModLines;
 
-public class SideJunction extends Block implements DebugBlocks {
+public class SideJunction extends Block implements DebugBlock {
     public float speed = 26.0F;
     public int capacity = 6;
 //    public @ModAnnotations.Load("@-top") TextureRegion regionTop;

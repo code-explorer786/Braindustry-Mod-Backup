@@ -69,6 +69,8 @@ ModVars/Classes/TechTreeManager.java
  ModVars.Classes.TechTreeManager
 braindustry/gen/SpecialMechUnit.java
  braindustry.gen.SpecialMechUnit
+braindustry/world/blocks/DebugBlock.java
+ braindustry.world.blocks.DebugBlock
 braindustry/content/ModBullets.java
  braindustry.content.ModBullets
  braindustry.content.ModBullets$1
@@ -116,6 +118,9 @@ braindustry/world/meta/CustomStat.java
 braindustry/graphics/g3d/ModPlanetRenderer.java
  braindustry.graphics.g3d.ModPlanetRenderer
  braindustry.graphics.g3d.ModPlanetRenderer$1
+braindustry/world/blocks/distribution/SmartSorter.java
+ braindustry.world.blocks.distribution.SmartSorter
+ braindustry.world.blocks.distribution.SmartSorter$SmartSorterBuild
 braindustry/entities/abilities/BlackHoleReactorAbility.java
  braindustry.entities.abilities.BlackHoleReactorAbility
 ModVars/math/ModAngles.java
@@ -240,6 +245,7 @@ braindustry/content/Blocks/ModBlocks.java
  braindustry.content.Blocks.ModBlocks$10
  braindustry.content.Blocks.ModBlocks$11
  braindustry.content.Blocks.ModBlocks$12
+ braindustry.content.Blocks.ModBlocks$13
  braindustry.content.Blocks.ModBlocks$2
  braindustry.content.Blocks.ModBlocks$3
  braindustry.content.Blocks.ModBlocks$4
@@ -478,8 +484,6 @@ braindustry/world/PayloadBuffer.java
  braindustry.world.PayloadBuffer$PayloadBufferUpdater
 Gas/world/draw/GasDrawBlock.java
  Gas.world.draw.GasDrawBlock
-braindustry/world/blocks/DebugBlocks.java
- braindustry.world.blocks.DebugBlocks
 braindustry/entities/PowerGeneratorUnit.java
  braindustry.entities.PowerGeneratorUnit
 braindustry/type/Recipe.java

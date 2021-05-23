@@ -35,7 +35,7 @@ import mindustryAddition.world.blocks.BuildingLabel;
 
 import static ModVars.modFunc.fullName;
 
-public class TestBlock extends Block implements DebugBlocks {
+public class TestBlock extends Block implements DebugBlock {
     private final static int doubleLength = 4, triableLength = 1;
     public final int timerAny;
     public @ModAnnotations.Load(value = "@-2-#", length = doubleLength, fallback = "@")
