@@ -86,21 +86,24 @@ public class ModFill extends Fill {
     }
 
     public static void doubleSwirl(float x, float y, float radius1, float radius2, float finion, float angle) {
-        final float sides = 50;
-        int max = (int) (sides * (finion + 0.001F));
+        float sides = 50.0F;
+        float max = 50.0F;
         vector.set(0.0F, 0.0F);
         floats.clear();
-//        floats.add(x,y);
-        Cons<Float> cons = (i) -> {
-            vector.set(radius1, 0.0F).setAngle(360.0F / sides * i + angle);
+        Cons<Float> cons = (ix) -> {
+            float v = 7.2F * ix;
+            v = 360.0F * finion / 50.0F * ix;
+            vector.set(radius1, 0.0F).setAngle(v + angle);
             floats.add(vector.x + x, vector.y + y);
-            vector.set(radius2, 0.0F).setAngle(360.0F / sides * i + angle);
+            vector.set(radius2, 0.0F).setAngle(v + angle);
             floats.add(vector.x + x, vector.y + y);
         };
-        Cons<Float> undoCons = (i) -> {
-            vector.set(radius2, 0.0F).setAngle(360.0F / sides * i + angle);
+        Cons<Float> undoCons = (ix) -> {
+            float v = 7.2F * ix;
+            v = 360.0F * finion / 50.0F * ix;
+            vector.set(radius2, 0.0F).setAngle(v + angle);
             floats.add(vector.x + x, vector.y + y);
-            vector.set(radius1, 0.0F).setAngle(360.0F / sides * i + angle);
+            vector.set(radius1, 0.0F).setAngle(v + angle);
             floats.add(vector.x + x, vector.y + y);
         };
         Runnable flush = () -> {
@@ -108,27 +111,25 @@ public class ModFill extends Fill {
             floats.clear();
         };
         int startI = 0;
-        if (max % 2 != 0) {
+        if (max % 2.0F != 0.0F) {
             startI = 1;
-            cons.get(0f);
-            undoCons.get(1f);
+            cons.get(0.0F);
+            undoCons.get(1.0F);
             flush.run();
-            cons.get(1f);
-            undoCons.get(1f);
+            cons.get(1.0F);
+            undoCons.get(1.0F);
             flush.run();
-//            cons.get(1f);
-//            cons.get(2f);
         }
 
-        for (float i = startI; i < (max); i += 2f) {
+        for(float i = (float)startI; i < max; i += 2.0F) {
             cons.get(i);
-            undoCons.get(i + 1f);
+            undoCons.get(i + 1.0F);
             flush.run();
-            cons.get(i + 1f);
-            undoCons.get(i + 2f);
+            cons.get(i + 1.0F);
+            undoCons.get(i + 2.0F);
             flush.run();
         }
-//        poly(floats);
+
     }
 
     public static void tri(FloatSeq floats) {

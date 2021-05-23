@@ -27,6 +27,7 @@ import mindustry.gen.Icon;
 import mindustry.gen.Tex;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
+import mindustry.graphics.Pal;
 import mindustry.ui.Styles;
 import mindustry.ui.dialogs.BaseDialog;
 import mindustry.world.Block;
@@ -90,13 +91,25 @@ public class TestBlock extends Block {
         return editorIcon;
     }
 
-    @Override
+
     public void drawRequestRegion(BuildPlan req, Eachable<BuildPlan> list) {
         TextureRegion reg = this.getRequestRegion(req, list);
-        Draw.rect(reg, req.drawx(), req.drawy(), this.size * 8, this.size * 8, 0f);
+        float x = req.drawx();
+        float y = req.drawy();
+        float halfTile = 4.0F;
+        Draw.rect(reg, x, y, (float)(this.size * 8), (float)(this.size * 8), 0.0F);
         if (req.config != null) {
             this.drawRequestConfig(req, list);
         }
+
+        float rotation = (float)req.rotation * 90.0F;
+        float radius = halfTile * (float)req.block.size;
+        Vec2 trns = (new Vec2()).trns(rotation, -radius, radius);
+        Draw.color(Pal.accent);
+        Lines.stroke(2.0F);
+        ModLines.swirl(trns.x + x, trns.y + y, radius, 0.25F, 180.0F + rotation + 90.0F);
+        trns.rotate(180.0F);
+        ModLines.swirl(trns.x + x, trns.y + y, radius, 0.25F, rotation + 90.0F);
     }
 
     public class TestBlockBuild extends Building implements BuildingLabel {

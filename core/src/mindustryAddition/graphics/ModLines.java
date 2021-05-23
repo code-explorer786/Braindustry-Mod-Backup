@@ -15,6 +15,18 @@ public class ModLines extends Lines {
         if (count==0)return;
         final float stroke = getStroke();
         ModFill.crystalLine(x,y,radius1,radius2,angle,count,stroke);
+    } public static void swirl(float x, float y, float radius, float finion) {
+        swirl(x, y, radius, finion, 0.0F);
+    }
+
+    public static void swirl(float x, float y, float radius, float finion, float angle) {
+        float stroke = getStroke();
+        float halfStroke = stroke / 2.0F;
+        ModFill.doubleSwirl(x, y, radius - halfStroke, radius + halfStroke, finion, angle);
+    }
+
+    public static void square(float x, float y, float rad) {
+        rect(x - rad, y - rad, rad * 2.0F, rad * 2.0F);
     }
     public static void rect(float x, float y, float width, float height, float offsetx, float offsety, float rot) {
         float stroke = getStroke();
