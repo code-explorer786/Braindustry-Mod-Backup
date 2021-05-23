@@ -291,7 +291,7 @@ public class CrossItemBridge extends ItemBridge {
             runUpdateTaskQueue();
             Building linkBuilding = Vars.world.build(link);
             if (linkBuilding != null) {
-                configure(linkBuilding.pos());
+                configureAny(linkBuilding.pos());
             } else {
 //                configure(-1);
             }
@@ -305,7 +305,7 @@ public class CrossItemBridge extends ItemBridge {
             } else {
                 if (other.build instanceof ItemBridgeBuild)
                     if (other.build instanceof CrossItemBridgeBuild && !cast(other.build).acceptIncoming(this.tile.pos())) {
-                        configure(-1);
+                        configureAny(-1);
                         return;
                     }
                 if (this.consValid() && Mathf.zero(1.0F - this.efficiency())) {
