@@ -4,8 +4,9 @@ import arc.ApplicationListener;
 import arc.Events;
 import arc.struct.Seq;
 import braindustry.content.ModBullets;
-import braindustry.content.ModUnitTypes;
 import braindustry.type.ModUnitType;
+import braindustry.world.blocks.DebugBlocks;
+import mindustry.Vars;
 import mindustry.game.EventType;
 import mindustry.game.Team;
 import mindustry.gen.Building;
@@ -13,10 +14,31 @@ import mindustry.gen.Call;
 import mindustry.gen.Groups;
 import mindustry.gen.Unit;
 import mindustry.type.ItemStack;
-import mindustry.type.UnitType;
+import mindustry.world.meta.BuildVisibility;
+
+import static ModVars.modVars.settings;
 
 public class ModLogic implements ApplicationListener {
+    boolean debug;
+    @Override
+    public void update() {
+        if (debug!=settings.debug()){
+            debug=settings.debug();
+            Vars.content.blocks().each(content -> {
+                if (content instanceof DebugBlocks) {
+                    content.buildVisibility= debug? BuildVisibility.shown:BuildVisibility.debugOnly;
+                }
+            });
+        }
+    }
+
     public ModLogic() {
+        debug = settings.debug();
+        Vars.content.blocks().each(content -> {
+            if (content instanceof DebugBlocks) {
+                content.buildVisibility= debug? BuildVisibility.shown:BuildVisibility.debugOnly;
+            }
+        });
         Events.on(EventType.WorldLoadEvent.class, e -> {
             Groups.build.each(this::removeUnitPowerGenerators);
         });

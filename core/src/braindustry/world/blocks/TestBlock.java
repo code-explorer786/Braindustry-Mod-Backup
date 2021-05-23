@@ -19,16 +19,13 @@ import braindustry.graphics.ModShaders;
 import braindustry.io.ModTypeIO;
 import braindustry.ui.ModStyles;
 import mindustry.Vars;
-import mindustry.content.Blocks;
 import mindustry.entities.units.BuildPlan;
 import mindustry.game.Team;
 import mindustry.gen.Building;
 import mindustry.gen.Icon;
 import mindustry.gen.Tex;
-import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
-import mindustry.ui.Styles;
 import mindustry.ui.dialogs.BaseDialog;
 import mindustry.world.Block;
 import mindustry.world.Tile;
@@ -37,9 +34,8 @@ import mindustryAddition.graphics.ModLines;
 import mindustryAddition.world.blocks.BuildingLabel;
 
 import static ModVars.modFunc.fullName;
-import static ModVars.modVars.floorRenderer;
 
-public class TestBlock extends Block {
+public class TestBlock extends Block implements DebugBlocks {
     private final static int doubleLength = 4, triableLength = 1;
     public final int timerAny;
     public @ModAnnotations.Load(value = "@-2-#", length = doubleLength, fallback = "@")
