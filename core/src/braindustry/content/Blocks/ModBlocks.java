@@ -8,6 +8,7 @@ import braindustry.world.blocks.TestBlock;
 import braindustry.world.blocks.Unit.power.UnitPowerGenerator;
 import braindustry.world.blocks.Unit.power.UnitPowerNode;
 import braindustry.world.blocks.distribution.BufferedPayloadBridge;
+import braindustry.world.blocks.distribution.SideJunction;
 import braindustry.world.blocks.distribution.SmartRouter;
 import braindustry.world.blocks.power.ReceivingPowerNode;
 import braindustry.world.blocks.sandbox.BlockSwitcher;
@@ -66,7 +67,7 @@ public class ModBlocks implements ContentList {
 
     //experimental
     turretSwitcher, blockHealer, dpsMeter, unitGenerator, unitNode,unitSpawner,
-            examplePayloadBridge, testBlock, node1, node2;
+            examplePayloadBridge, testBlock, node1, node2,sideJunction;
 
     public static Block methaneBurner, hyperMethaneBurner;
     private ContentList[] blocksContent = {
@@ -90,6 +91,10 @@ public class ModBlocks implements ContentList {
             requirements(Category.distribution, with(Items.graphite, 10, Items.copper, 20));
             size = 3;
             canOverdrive = false;
+            buildVisibility = BuildVisibility.debugOnly;
+        }};
+        sideJunction=new SideJunction("side-junction"){{
+            this.requirements(Category.logic, ItemStack.with(), true);
             buildVisibility = BuildVisibility.debugOnly;
         }};
         testBlock = new TestBlock("test-block") {{

@@ -3,6 +3,7 @@ package braindustry.world.blocks.distribution;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Lines;
 import arc.graphics.g2d.TextureRegion;
+import arc.math.Mathf;
 import arc.math.geom.Vec2;
 import arc.util.Eachable;
 import arc.util.Time;
@@ -25,8 +26,8 @@ import mindustryAddition.graphics.ModLines;
 public class SideJunction extends Block implements DebugBlocks {
     public float speed = 26.0F;
     public int capacity = 6;
-    public @ModAnnotations.Load("@-top") TextureRegion regionTop;
-    public @ModAnnotations.Load("@-bottom") TextureRegion regionBottom;
+//    public @ModAnnotations.Load("@-top") TextureRegion regionTop;
+//    public @ModAnnotations.Load("@-bottom") TextureRegion regionBottom;
     public SideJunction(String name) {
         super(name);
         this.update = true;
@@ -34,6 +35,7 @@ public class SideJunction extends Block implements DebugBlocks {
         this.group = BlockGroup.transportation;
         this.unloadable = false;
         this.noUpdateDisabled = true;
+        rotate=true;
     }
 
     public boolean outputsItems() {
@@ -74,6 +76,20 @@ public class SideJunction extends Block implements DebugBlocks {
             return 0;
         }
 
+        @Override
+        public void draw() {
+            super.draw();
+            float halfTile = 4.0F;
+            float rotation = rotdeg();
+            float radius = halfTile * (float)block.size;
+            Vec2 trns = (new Vec2()).trns(rotation, -radius, radius);
+            Draw.color(Pal.accent);
+            Lines.stroke(2.0F);
+            ModLines.swirl(trns.x + x, trns.y + y, radius, 0.25F, 180.0F + rotation + 90.0F);
+            trns.rotate(180.0F);
+            ModLines.swirl(trns.x + x, trns.y + y, radius, 0.25F, rotation + 90.0F);
+        }
+
         public void updateTile() {
             for(int i = 0; i < 4; ++i) {
                 if (this.buffer.indexes[i] > 0) {
@@ -98,18 +114,28 @@ public class SideJunction extends Block implements DebugBlocks {
         }
 
         public void handleItem(Building source, Item item) {
-            int relative = source.relativeTo(this.tile);
-            this.buffer.accept(relative, item);
+            int relative = source.relativeTo(tile);
+           int i=next(relative);
+            buffer.accept(i, item);
         }
 
         public boolean acceptItem(Building source, Item item) {
-            int relative = source.relativeTo(this.tile);
-            if (relative != -1 && this.buffer.accepts(relative)) {
-                Building to = this.nearby(relative);
-                return to != null && to.team == this.team;
-            } else {
-                return false;
-            }
+            int relative = source.relativeTo(tile);
+//            int relative = source.relativeTo(this.tile);
+            int i= next(relative);
+            if (relative==-1 || !buffer.accepts(i))return false;
+            Building to = nearby(i);
+            return to != null && to.team == team;
+
+//            if (relative != -1 && this.buffer.accepts(relative)) {
+//                Building to = this.nearby(relative);
+//            } else {
+//                return false;
+//            }
+        }
+
+        private int next(int relative) {
+            return Mathf.mod(relative + (((rotation % 2 != 0) == (relative % 2 != 0)) ? 1 : -1), 4);
         }
 
         public void write(Writes write) {

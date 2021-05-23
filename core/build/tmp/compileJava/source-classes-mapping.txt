@@ -168,6 +168,9 @@ mindustryAddition/world/blocks/BuildingTaskQueue.java
  mindustryAddition.world.blocks.BuildingTaskQueue
 ModVars/modVars.java
  ModVars.modVars
+braindustry/world/blocks/distribution/SideJunction.java
+ braindustry.world.blocks.distribution.SideJunction
+ braindustry.world.blocks.distribution.SideJunction$SideJunctionBuild
 ModVars/Classes/UI/Cheat/CheatUnitDialog.java
  ModVars.Classes.UI.Cheat.CheatUnitDialog
 braindustry/graphics/ModMenuShaderRender.java
@@ -236,6 +239,7 @@ braindustry/content/Blocks/ModBlocks.java
  braindustry.content.Blocks.ModBlocks$1
  braindustry.content.Blocks.ModBlocks$10
  braindustry.content.Blocks.ModBlocks$11
+ braindustry.content.Blocks.ModBlocks$12
  braindustry.content.Blocks.ModBlocks$2
  braindustry.content.Blocks.ModBlocks$3
  braindustry.content.Blocks.ModBlocks$4
@@ -474,6 +478,8 @@ braindustry/world/PayloadBuffer.java
  braindustry.world.PayloadBuffer$PayloadBufferUpdater
 Gas/world/draw/GasDrawBlock.java
  Gas.world.draw.GasDrawBlock
+braindustry/world/blocks/DebugBlocks.java
+ braindustry.world.blocks.DebugBlocks
 braindustry/entities/PowerGeneratorUnit.java
  braindustry.entities.PowerGeneratorUnit
 braindustry/type/Recipe.java
