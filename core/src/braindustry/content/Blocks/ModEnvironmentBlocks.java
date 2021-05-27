@@ -14,25 +14,25 @@ import static braindustry.content.Blocks.ModBlocks.*;
 class ModEnvironmentBlocks implements ContentList {
     public void load(){
         magmaFloor = new Floor("magma-floor") {{
-                this.localizedName = "Magma";
-                this.isLiquid = true;
-                this.variants = 1;
-                this.blendGroup = Blocks.water;
+               localizedName = "Magma";
+               isLiquid = true;
+               variants = 1;
+               blendGroup = Blocks.water;
                 cacheLayer = CacheLayer.tar;
-                this.speedMultiplier = 0.17f;
+               speedMultiplier = 0.17f;
                 status = StatusEffects.blasted;
-                this.liquidDrop = ModLiquids.magma;
-                this.statusDuration = 240;
-                this.drownTime = 90;
-                this.walkEffect = Fx.melting;
-                this.drownUpdateEffect = Fx.burning;
+               liquidDrop = ModLiquids.magma;
+               statusDuration = 240;
+               drownTime = 90;
+               walkEffect = Fx.melting;
+               drownUpdateEffect = Fx.burning;
             }};
         obsidianBlock = new StaticWall("obsidian-wall") {{
-                this.localizedName = "Obsidian Block";
-                this.breakable = false;
-                this.alwaysReplace = false;
-                this.solid = true;
-                this.variants = 2;
+               localizedName = "Obsidian Block";
+               breakable = false;
+               alwaysReplace = false;
+               solid = true;
+               variants = 2;
             }
 
             @Override
@@ -50,123 +50,123 @@ class ModEnvironmentBlocks implements ContentList {
                 super.drawBase(tile);
             }};
         obsidianFloor = new Floor("obsidian-floor") {{
-                this.localizedName = "Obsidian Floor";
-                this.variants = 3;
+               localizedName = "Obsidian Floor";
+               variants = 3;
             }};
         oreChromium = new OreBlock("ore-chromium") {{
-                this.itemDrop = ModItems.chromium;
+               itemDrop = ModItems.chromium;
             }};
         oreOdinum = new OreBlock("ore-odinum") {{
-                this.itemDrop = ModItems.odinum;
+               itemDrop = ModItems.odinum;
             }};
 
 
         crimzesWall = new StaticWall("crimzes-wall") {{
-                this.localizedName = "Crimson Wall";
-                this.breakable = false;
-                this.alwaysReplace = false;
-                this.solid = true;
-                this.variants = 2;
+               localizedName = "Crimson Wall";
+               breakable = false;
+               alwaysReplace = false;
+               solid = true;
+               variants = 2;
             }};
         jungleWall = new StaticWall("jungle-shrubs") {{
-                this.localizedName = "Jungle Shrubs";
-                this.breakable = false;
-                this.alwaysReplace = false;
-                this.solid = true;
-                this.variants = 2;
+               localizedName = "Jungle Shrubs";
+               breakable = false;
+               alwaysReplace = false;
+               solid = true;
+               variants = 2;
             }};
         dirtRocksWall = new StaticWall("dirt-rocks") {{
-                this.localizedName = "Hard Dirt Wall";
-                this.breakable = false;
-                this.alwaysReplace = false;
-                this.solid = true;
-                this.variants = 2;
+               localizedName = "Hard Dirt Wall";
+               breakable = false;
+               alwaysReplace = false;
+               solid = true;
+               variants = 2;
             }};
         jungleFloor = new Floor("jungle-grass") {{
-                this.localizedName = "Jungle Grass";
-                this.variants = 3;
+               localizedName = "Jungle Grass";
+               variants = 3;
             }};
         crimzesFloor = new Floor("crimzes-floor") {{
-                this.localizedName = "Crimzes Floor";
-                this.variants = 3;
+               localizedName = "Crimzes Floor";
+               variants = 3;
             }};
         graysand = new Floor("graysand"){{
-            this.localizedName = "Gray Sand";
+           localizedName = "Gray Sand";
             itemDrop = Items.sand;
             playerUnmineable = true;
         }};
         liquidMethaneFloor = new Floor("liquid-methane-floor") {{
-                this.localizedName = "Liquid Methane";
-                this.isLiquid = true;
-                this.variants = 1;
-                this.blendGroup = Blocks.water;
-                this.cacheLayer = CacheLayer.tar;
-                this.speedMultiplier = -0.15f;
+               localizedName = "Liquid Methane";
+               isLiquid = true;
+               variants = 1;
+               blendGroup = Blocks.water;
+               cacheLayer = CacheLayer.tar;
+               speedMultiplier = -0.15f;
                 status = StatusEffects.freezing;
-                this.liquidDrop = ModLiquids.liquidMethane;
-                this.statusDuration = 200;
-                this.drownTime = 90;
-                this.walkEffect = Fx.freezing;
-                this.drownUpdateEffect = Fx.freezing;
+               liquidDrop = ModLiquids.liquidMethane;
+               statusDuration = 200;
+               drownTime = 90;
+               walkEffect = Fx.freezing;
+               drownUpdateEffect = Fx.freezing;
             }};
         blackIceWall = new StaticWall("black-ice-wall") {{
-                this.localizedName = "Black Ice Wall";
-                this.breakable = false;
-                this.alwaysReplace = false;
-                this.solid = true;
-                this.variants = 2;
+               localizedName = "Black Ice Wall";
+               breakable = false;
+               alwaysReplace = false;
+               solid = true;
+               variants = 2;
             }};
         blackSnowWall = new StaticWall("black-snow-wall") {{
-                this.localizedName = "Black Snow Wall";
-                this.breakable = false;
-                this.alwaysReplace = false;
-                this.solid = true;
-                this.variants = 2;
+               localizedName = "Black Snow Wall";
+               breakable = false;
+               alwaysReplace = false;
+               solid = true;
+               variants = 2;
             }};
         darkShrubs = new StaticWall("dark-shrubs") {{
-                this.localizedName = "Dark Shrubs";
-                this.breakable = false;
-                this.alwaysReplace = false;
-                this.solid = true;
-                this.variants = 2;
+               localizedName = "Dark Shrubs";
+               breakable = false;
+               alwaysReplace = false;
+               solid = true;
+               variants = 2;
             }};
         blackIce = new Floor("black-ice") {{
-                this.localizedName = "Black Ice";
-                this.variants = 3;
+               localizedName = "Black Ice";
+               variants = 3;
                 //attributes.set(Attribute.water, 0.6f);
             }};
         blackSnow = new Floor("black-snow") {{
-                this.localizedName = "Black Snow";
-                this.variants = 3;
+               localizedName = "Black Snow";
+               variants = 3;
                 //attributes.set(Attribute.water, 0.2f);
             }};
         swampSandWater = new ShallowLiquid("swamp-sand-water-floor"){{
-            this.localizedName = "Swamp Sand Water";
+           localizedName = "Swamp Sand Water";
             speedMultiplier = 0.7f;
             statusDuration = 60f;
             variants = 1;
             albedo = 0.3f;
         }};
         swampWater = new Floor("swamp-water-floor") {{
-                this.localizedName = "Swamp Water";
-                this.isLiquid = true;
-                this.variants = 1;
-                this.blendGroup = Blocks.water;
-                this.cacheLayer = CacheLayer.water;
-                this.speedMultiplier = -0.5f;
+               localizedName = "Swamp Water";
+               isLiquid = true;
+               variants = 1;
+               blendGroup = Blocks.water;
+               cacheLayer = CacheLayer.water;
+               speedMultiplier = -0.5f;
                 status = StatusEffects.corroded;
-                this.liquidDrop = Liquids.water;
-                this.statusDuration = 120;
-                this.drownTime = 60;
-                this.walkEffect = Fx.muddy;
-                this.drownUpdateEffect = Fx.muddy;
+               liquidDrop = Liquids.water;
+               statusDuration = 120;
+               drownTime = 60;
+               walkEffect = Fx.muddy;
+               drownUpdateEffect = Fx.muddy;
             }};
         greenTree = new TreeBlock("green-tree"){{
-            this.localizedName = "Green Tree";
+           localizedName = "Green Tree";
         }};
 
         blackTree = new TreeBlock("black-tree"){{
-            this.localizedName = "Black Tree";
+           localizedName = "Black Tree";
         }};
 
         darkPine = new StaticTree("dark-pine"){{
@@ -178,8 +178,8 @@ class ModEnvironmentBlocks implements ContentList {
             variants = 0;
         }};
         darkShrubsFloor = new Floor("black-grass") {{
-                this.localizedName = "Dark Grass";
-                this.variants = 3;
+               localizedName = "Dark Grass";
+               variants = 3;
             }};
     }
 }
