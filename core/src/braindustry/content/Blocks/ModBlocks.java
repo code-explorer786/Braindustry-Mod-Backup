@@ -1,6 +1,5 @@
 package braindustry.content.Blocks;
 
-import Gas.world.blocks.distribution.GasRouter;
 import arc.graphics.Color;
 import arc.math.Mathf;
 import arc.util.Time;
@@ -32,7 +31,7 @@ public class ModBlocks implements ContentList {
     public static Block
 
 //transportation
-            armoredPlastaniumConveyor, chromiumConduit, phaseAlloyConveyor, plasticConveyor, surgeConveyor,smartRouter,
+            armoredPlastaniumConveyor, chromiumConduit, phaseAlloyConveyor, plasticConveyor, surgeConveyor, smartRouter,
 
     //environment
     magmaFloor, obsidianBlock, obsidianFloor, oreChromium, oreOdinum,
@@ -44,7 +43,7 @@ public class ModBlocks implements ContentList {
             phaseTower, materialReactor, refrigerantReactor,
 
     //production
-             chromiumForge, exoticAlloySmelter, grapheniteFluidizer, grapheniteForge,
+    chromiumForge, exoticAlloySmelter, grapheniteFluidizer, grapheniteForge,
             hydraulicDrill, hyperAlloySmelter, hyperPhaseWeaver, magmaMixer, odinumExtractor,
             phaseAlloySmelter, plasticForge, quarryDrill, geothermicDrill, grapheniteKiln, refrigerantmixer, methaneGasifier, methaneLiquifier,
             hyperDenseCompositeSmelter, hyperExoAlloySmelter, multiCrafter, largeMultiCrafter,
@@ -55,7 +54,7 @@ public class ModBlocks implements ContentList {
 
     //turrets
     blaze, brain, fragment, katana, mind, neuron,
-    perlin, soul, stinger, impulse, synaps, axon, electron, gem, rapier, shinigami, voidwave, spark,
+            perlin, soul, stinger, impulse, synaps, axon, electron, gem, rapier, shinigami, voidwave, spark,
 
     //walls
     exoticAlloyWallLarge, exoticAlloyWall, grapheniteWallLarge, grapheniteWall, odinumWallLarge, odinumWall, plasticWallLarge,
@@ -64,11 +63,11 @@ public class ModBlocks implements ContentList {
     gasTank, gasRouter,
 
     //logic
-    advancedSwitcher,
+
 
     //experimental
-    turretSwitcher, blockHealer, dpsMeter, unitGenerator, unitNode,unitSpawner,
-            examplePayloadBridge, testBlock, node1, node2,sideJunction,smartSorter;
+    turretSwitcher, blockHealer, dpsMeter, unitGenerator, unitNode, unitSpawner,
+            examplePayloadBridge, testBlock, node1, node2, sideJunction, smartSorter;
 
     public static Block methaneBurner, hyperMethaneBurner;
     private ContentList[] blocksContent = {
@@ -94,30 +93,30 @@ public class ModBlocks implements ContentList {
             canOverdrive = false;
             buildVisibility = BuildVisibility.debugOnly;
         }};
-        smartSorter=new SmartSorter("smart-sorter"){{
-            this.requirements(Category.logic, ItemStack.with(), true);
+        smartSorter = new SmartSorter("smart-sorter") {{
+            requirements(Category.logic, ItemStack.with(), true);
             buildVisibility = BuildVisibility.debugOnly;
         }};
-        sideJunction=new SideJunction("side-junction"){{
-            this.requirements(Category.logic, ItemStack.with(), true);
+        sideJunction = new SideJunction("side-junction") {{
+            requirements(Category.logic, ItemStack.with(), true);
             buildVisibility = BuildVisibility.debugOnly;
         }};
         testBlock = new TestBlock("test-block") {{
-            this.size = 2;
-            this.requirements(Category.logic, ItemStack.with(), true);
+            size = 2;
+            requirements(Category.logic, ItemStack.with(), true);
             buildVisibility = BuildVisibility.debugOnly;
         }};
         node1 = new ReceivingPowerNode("unit-power-node") {{
             size = 3;
-            this.requirements(Category.logic, ItemStack.with(), true);
+            requirements(Category.logic, ItemStack.with(), true);
             buildVisibility = BuildVisibility.debugOnly;
         }};
         node2 = new ReceivingPowerNode("unit-power-node2") {{
             size = 3;
-            this.requirements(Category.logic, ItemStack.with(), true);
+            requirements(Category.logic, ItemStack.with(), true);
             buildVisibility = BuildVisibility.debugOnly;
         }};
-        
+
         unitSpawner = new UnitSpawner("unit-spawner") {{
             localizedName = "Unit Spawner";
             description = "Powerful sandbox block, can spawn and control any unit from game and mods.";
@@ -125,81 +124,69 @@ public class ModBlocks implements ContentList {
 
             requirements(Category.effect, BuildVisibility.sandboxOnly, ItemStack.empty);
         }};
-        unitGenerator = new UnitPowerGenerator("unit-generator") {
-            {
-                powerProduction = 10f;
-                buildVisibility = BuildVisibility.debugOnly;
-            }
-        };
-        unitNode = new UnitPowerNode("unit-node") {
-            {
-                maxNodes = Integer.MAX_VALUE;
-                buildVisibility = BuildVisibility.debugOnly;
-            }
-        };
+        unitGenerator = new UnitPowerGenerator("unit-generator") {{
+            powerProduction = 10f;
+            buildVisibility = BuildVisibility.debugOnly;
+        }};
+        unitNode = new UnitPowerNode("unit-node") {{
+            maxNodes = Integer.MAX_VALUE;
+            buildVisibility = BuildVisibility.debugOnly;
+        }};
 
-        smartRouter = new SmartRouter("smart-router") {
-            {
-                localizedName = "Smart Router";
-                description = "Regular router with a choice of input / output paths";
-                size = 1;
-                requirements(Category.distribution, ItemStack.with(Items.copper, 3, Items.silicon, 10));
-                buildCostMultiplier = 4.0F;
-            }
-        };
-        turretSwitcher = new BlockSwitcher("turret-switcher") {
-            {
-                /** custom block filter*/
-                blockFilter = (build) -> {
-                    return build.block instanceof Turret;
-                };
-                colorFunc = (b) -> Color.orange.cpy().lerp(Pal.accent, 0.1f);
-                /** default action*/
-                action = (b) -> {
-                    Turret.TurretBuild build = (Turret.TurretBuild) b;
-                    boolean enable = (build instanceof ControlBlock && ((ControlBlock) build).isControlled());
-                    build.control(LAccess.enabled, enable ? 1 : 0, 0, 0, 0);
-                    build.enabledControlTime = 30.0F;
-                    if (enable) {
-                        build.enabledControlTime = 0f;
-                        build.charging = false;
-                    }
-                };
-                size = 2;
-                laserRange = 6.0F;
-                health = 10000;
-                requirements(Category.distribution, ItemStack.with(Items.copper, 3, Items.silicon, 10));
-                buildCostMultiplier = 4.0F;
-                buildVisibility = BuildVisibility.debugOnly;
-            }
-        };
-        blockHealer = new BlockSwitcher("block-healer") {
-            {
-                blockFilter = (build) -> {
-                    return true;
-                };
-                action = (build) -> {
-                    build.heal(build.delta() * build.maxHealth);
-                };
-                colorFunc = (b) -> {
-                    float t = Mathf.absin(Time.time + Mathf.randomSeed(b.id, 0, 1000000), 1f, 1F) * 0.9f + 0.1f;
-                    return Pal.heal.cpy().lerp(Color.black, t * (1f - b.healthf()));
-                };
-                size = 2;
-                health = 10000;
-                laserRange = 6.0F;
-                requirements(Category.distribution,  ItemStack.with(Items.copper, 3, Items.silicon, 10));
-                buildCostMultiplier = 4.0F;
-                buildVisibility = BuildVisibility.debugOnly;
-            }
-        };
-        dpsMeter = new DpsMeter("dps-meter") {
-            {
-                category = Category.effect;
-                buildVisibility = BuildVisibility.debugOnly;
-                health = Integer.MAX_VALUE;
-                size = 3;
-            }
-        };
+        smartRouter = new SmartRouter("smart-router") {{
+            localizedName = "Smart Router";
+            description = "Regular router with a choice of input / output paths";
+            size = 1;
+            requirements(Category.distribution, ItemStack.with(Items.copper, 3, Items.silicon, 10));
+            buildCostMultiplier = 4.0F;
+        }};
+        turretSwitcher = new BlockSwitcher("turret-switcher") {{
+            /** custom block filter*/
+            blockFilter = (build) -> {
+                return build.block instanceof Turret;
+            };
+            colorFunc = (b) -> Color.orange.cpy().lerp(Pal.accent, 0.1f);
+            /** default action*/
+            action = (b) -> {
+                Turret.TurretBuild build = (Turret.TurretBuild) b;
+                boolean enable = (build instanceof ControlBlock && ((ControlBlock) build).isControlled());
+                build.control(LAccess.enabled, enable ? 1 : 0, 0, 0, 0);
+                build.enabledControlTime = 30.0F;
+                if (enable) {
+                    build.enabledControlTime = 0f;
+                    build.charging = false;
+                }
+            };
+            size = 2;
+            laserRange = 6.0F;
+            health = 10000;
+            requirements(Category.distribution, ItemStack.with(Items.copper, 3, Items.silicon, 10));
+            buildCostMultiplier = 4.0F;
+            buildVisibility = BuildVisibility.debugOnly;
+        }};
+        blockHealer = new BlockSwitcher("block-healer") {{
+            blockFilter = (build) -> {
+                return true;
+            };
+            action = (build) -> {
+                build.heal(build.delta() * build.maxHealth);
+            };
+            colorFunc = (b) -> {
+                float t = Mathf.absin(Time.time + Mathf.randomSeed(b.id, 0, 1000000), 1f, 1F) * 0.9f + 0.1f;
+                return Pal.heal.cpy().lerp(Color.black, t * (1f - b.healthf()));
+            };
+            size = 2;
+            health = 10000;
+            laserRange = 6.0F;
+            requirements(Category.distribution, ItemStack.with(Items.copper, 3, Items.silicon, 10));
+            buildCostMultiplier = 4.0F;
+            buildVisibility = BuildVisibility.debugOnly;
+        }};
+        dpsMeter = new DpsMeter("dps-meter") {{
+            category = Category.effect;
+            buildVisibility = BuildVisibility.debugOnly;
+            health = Integer.MAX_VALUE;
+            size = 3;
+        }};
     }
 }
