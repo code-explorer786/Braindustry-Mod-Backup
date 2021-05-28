@@ -87,10 +87,14 @@ public class SpecialMechUnit extends MechUnit implements StealthUnitc {
         if (isLocal()) {
             bool = modVars.keyBinds.keyTap(ModBinding.special_key);
             if (Vars.mobile) {
-                if (!check2 && longPress) {
+
+                if (!check &&longPress) {
                     check2 = true;
                     longPress = false;
                     return true;
+                } else if(check &&!longPress){
+                    check2 = false;
+                    longPress = true;
                 }
                 return false;
             }

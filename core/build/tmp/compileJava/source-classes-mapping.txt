@@ -41,9 +41,6 @@ braindustry/content/ModGasses.java
  braindustry.content.ModGasses
 ModVars/Classes/ModAssets.java
  ModVars.Classes.ModAssets
-braindustry/world/blocks/logic/AdvancedSwitcher.java
- braindustry.world.blocks.logic.AdvancedSwitcher
- braindustry.world.blocks.logic.AdvancedSwitcher$AdvancedSwitcherBuild
 braindustry/content/Blocks/ModUnitsBlocks.java
  braindustry.content.Blocks.ModUnitsBlocks
  braindustry.content.Blocks.ModUnitsBlocks$1
@@ -131,6 +128,16 @@ braindustry/entities/bullets/LilithBulletType.java
  braindustry.entities.bullets.LilithBulletType
 braindustry/gen/ModNetServer.java
  braindustry.gen.ModNetServer
+braindustry/content/Blocks/ModDistributionBlocks.java
+ braindustry.content.Blocks.ModDistributionBlocks
+ braindustry.content.Blocks.ModDistributionBlocks$1
+ braindustry.content.Blocks.ModDistributionBlocks$2
+ braindustry.content.Blocks.ModDistributionBlocks$3
+ braindustry.content.Blocks.ModDistributionBlocks$4
+ braindustry.content.Blocks.ModDistributionBlocks$5
+ braindustry.content.Blocks.ModDistributionBlocks$6
+ braindustry.content.Blocks.ModDistributionBlocks$7
+ braindustry.content.Blocks.ModDistributionBlocks$8
 braindustry/input/ModMobileInput.java
  braindustry.input.ModMobileInput
 braindustry/world/blocks/production/MultiRotorDrill.java
@@ -244,8 +251,6 @@ braindustry/content/Blocks/ModBlocks.java
  braindustry.content.Blocks.ModBlocks$1
  braindustry.content.Blocks.ModBlocks$10
  braindustry.content.Blocks.ModBlocks$11
- braindustry.content.Blocks.ModBlocks$12
- braindustry.content.Blocks.ModBlocks$13
  braindustry.content.Blocks.ModBlocks$2
  braindustry.content.Blocks.ModBlocks$3
  braindustry.content.Blocks.ModBlocks$4
@@ -318,7 +323,10 @@ braindustry/content/Blocks/ModProduction.java
  braindustry.content.Blocks.ModProduction$16
  braindustry.content.Blocks.ModProduction$17
  braindustry.content.Blocks.ModProduction$18
+ braindustry.content.Blocks.ModProduction$19
  braindustry.content.Blocks.ModProduction$2
+ braindustry.content.Blocks.ModProduction$20
+ braindustry.content.Blocks.ModProduction$21
  braindustry.content.Blocks.ModProduction$3
  braindustry.content.Blocks.ModProduction$4
  braindustry.content.Blocks.ModProduction$5
@@ -504,18 +512,6 @@ Gas/world/consumers/GasConsumers.java
 braindustry/core/ModUI.java
  braindustry.core.ModUI
  braindustry.core.ModUI$1
-braindustry/content/Blocks/ModOtherBlocks.java
- braindustry.content.Blocks.ModOtherBlocks
- braindustry.content.Blocks.ModOtherBlocks$1
- braindustry.content.Blocks.ModOtherBlocks$10
- braindustry.content.Blocks.ModOtherBlocks$2
- braindustry.content.Blocks.ModOtherBlocks$3
- braindustry.content.Blocks.ModOtherBlocks$4
- braindustry.content.Blocks.ModOtherBlocks$5
- braindustry.content.Blocks.ModOtherBlocks$6
- braindustry.content.Blocks.ModOtherBlocks$7
- braindustry.content.Blocks.ModOtherBlocks$8
- braindustry.content.Blocks.ModOtherBlocks$9
 ModVars/ModEnums.java
  ModVars.ModEnums
  ModVars.ModEnums$CheatLevel
@@ -695,7 +691,6 @@ Gas/world/blocks/production/GasGenericSmelter.java
  Gas.world.blocks.production.GasGenericSmelter$GasSmelterBuild
 braindustry/content/Blocks/ModLogicBlocks.java
  braindustry.content.Blocks.ModLogicBlocks
- braindustry.content.Blocks.ModLogicBlocks$1
 Gas/content/GasBasicBlocks.java
  Gas.content.GasBasicBlocks
  Gas.content.GasBasicBlocks$1
@@ -825,6 +820,7 @@ braindustry/world/blocks/Wall/ReflectionWall.java
  braindustry.world.blocks.Wall.ReflectionWall$ReflectionWallBuild
 braindustry/content/Blocks/ModSandBox.java
  braindustry.content.Blocks.ModSandBox
+ braindustry.content.Blocks.ModSandBox$1
 mindustryAddition/world/blocks/BuildingLabel.java
  mindustryAddition.world.blocks.BuildingLabel
  mindustryAddition.world.blocks.BuildingLabel$1

@@ -7,10 +7,12 @@ import ModVars.Classes.UI.settings.AdvancedSettingsMenuDialog;
 import ModVars.Classes.UI.settings.ModOtherSettingsDialog;
 import ModVars.Classes.UI.settings.ModSettingsDialog;
 import arc.Core;
+import arc.scene.Element;
 import arc.scene.Group;
 import arc.scene.event.Touchable;
 import arc.scene.ui.layout.WidgetGroup;
 import arc.util.Disposable;
+import arc.util.Log;
 import braindustry.ModListener;
 import braindustry.gen.StealthUnitc;
 import braindustry.graphics.g3d.ModPlanetRenderer;
@@ -26,6 +28,7 @@ import braindustry.ui.AdvancedContentInfoDialog;
 import static ModVars.Classes.UI.CheatUI.*;
 import static ModVars.modVars.*;
 import static braindustry.input.ModBinding.*;
+import static mindustry.Vars.ui;
 
 public class ModUI implements Disposable {
     public ModColorPicker colorPicker;
@@ -51,7 +54,7 @@ public class ModUI implements Disposable {
             boolean noDialog = !Core.scene.hasDialog();
             boolean inGame = Vars.state.isGame();
 
-            boolean inMenu = Vars.state.isMenu() || !Vars.ui.planet.isShown();
+            boolean inMenu = Vars.state.isMenu() || !ui.planet.isShown();
             if (!controls.isShown()){
                 if (keyBinds.keyTap(show_unit_dialog) && noDialog && inGame) {
                     openUnitChooseDialog();
@@ -72,23 +75,23 @@ public class ModUI implements Disposable {
 
         });
 
-        Vars.ui.menuGroup.remove();
-        Vars.ui.menuGroup = new WidgetGroup();
-        Vars.ui.menuGroup.setFillParent(true);
-        Vars.ui.menuGroup.touchable = Touchable.childrenOnly;
-        Vars.ui.menuGroup.visible(() -> {
+        ui.menuGroup.remove();
+        ui.menuGroup = new WidgetGroup();
+        ui.menuGroup.setFillParent(true);
+        ui.menuGroup.touchable = Touchable.childrenOnly;
+        ui.menuGroup.visible(() -> {
             return Vars.state.isMenu();
         });
-        Core.scene.add(Vars.ui.menuGroup);
-        Vars.ui.menufrag = new ModMenuFragment(nullGroup);
+        Core.scene.add(ui.menuGroup);
+        ui.menufrag = new ModMenuFragment(nullGroup);
 
 //        Vars.ui.menufrag.
-        Vars.ui.menufrag.build(Vars.ui.menuGroup);
+        ui.menufrag.build(ui.menuGroup);
         AdvancedContentInfoDialog.init();
-        Vars.ui.planet.remove();
+        ui.planet.remove();
         Vars.renderer.planets.dispose();
         Vars.renderer.planets=new ModPlanetRenderer();
-        Vars.ui.planet=new ModPlanetDialog();
+        ui.planet=new ModPlanetDialog();
         new ModCheatMenu((table) -> {
             table.button("@cheat-menu.title", () -> {
                 BaseDialog dialog = new BaseDialog("@cheat-menu.title");
@@ -117,6 +120,6 @@ public class ModUI implements Disposable {
 
     @Override
     public void dispose() {
-        if (Vars.ui.menufrag instanceof ModMenuFragment) ((ModMenuFragment) Vars.ui.menufrag).dispose();
+        if (ui.menufrag instanceof ModMenuFragment) ((ModMenuFragment) ui.menufrag).dispose();
     }
 }

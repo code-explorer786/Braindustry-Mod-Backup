@@ -180,7 +180,7 @@ public class ModMobileInput extends MobileInput {
                     Vec2 pos = Core.input.mouseWorld(x, y);
                     Unit target = Vars.player.unit();
                     Payloadc pay;
-                    if (target instanceof StealthUnitc) {
+                    if (target instanceof StealthUnitc && pos.epsilonEquals(target.x,target.y,3f)) {
                         ((StealthUnitc)target).longPress(true);
                     } else if (target instanceof Payloadc) {
                         pay = (Payloadc) target;
