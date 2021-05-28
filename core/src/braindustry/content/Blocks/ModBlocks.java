@@ -75,7 +75,7 @@ public class ModBlocks implements ContentList {
             new ModUnitsBlocks(),
             new ModProduction(),
             new ModPowerBlocks(),
-            new ModOtherBlocks(),
+            new ModDistributionBlocks(),
             new ModDefense(),
             new ModLogicBlocks(),
             new ModSandBox(),
@@ -87,7 +87,6 @@ public class ModBlocks implements ContentList {
         }
         examplePayloadBridge = new BufferedPayloadBridge("payload-bridge-conveyor") {{
             range = 10;
-
             requirements(Category.distribution, with(Items.graphite, 10, Items.copper, 20));
             size = 3;
             canOverdrive = false;
@@ -121,13 +120,6 @@ public class ModBlocks implements ContentList {
             buildVisibility = BuildVisibility.debugOnly;
         }};
 
-        unitSpawner = new UnitSpawner("unit-spawner") {{
-            localizedName = "Unit Spawner";
-            description = "Powerful sandbox block, can spawn and control any unit from game and mods.";
-            size = 2;
-
-            requirements(Category.effect, BuildVisibility.sandboxOnly, ItemStack.empty);
-        }};
         unitGenerator = new UnitPowerGenerator("unit-generator") {{
             powerProduction = 10f;
             buildVisibility = BuildVisibility.debugOnly;
@@ -137,13 +129,6 @@ public class ModBlocks implements ContentList {
             buildVisibility = BuildVisibility.debugOnly;
         }};
 
-        smartRouter = new SmartRouter("smart-router") {{
-            localizedName = "Smart Router";
-            description = "Regular router with a choice of input / output paths";
-            size = 1;
-            requirements(Category.distribution, ItemStack.with(Items.copper, 3, Items.silicon, 10));
-            buildCostMultiplier = 4.0F;
-        }};
         turretSwitcher = new BlockSwitcher("turret-switcher") {{
             /** custom block filter*/
             blockFilter = (build) -> {
