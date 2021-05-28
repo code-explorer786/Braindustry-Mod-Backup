@@ -94,12 +94,16 @@ public class ModBlocks implements ContentList {
             buildVisibility = BuildVisibility.debugOnly;
         }};
         smartSorter = new SmartSorter("smart-sorter") {{
-            requirements(Category.logic, ItemStack.with(), true);
-            buildVisibility = BuildVisibility.debugOnly;
+            localizedName = "Smart Sorter";
+            requirements(Category.distribution, ItemStack.with(Items.titanium, 2, Items.copper, 3));
+            //buildVisibility = BuildVisibility.shown;
         }};
         sideJunction = new SideJunction("side-junction") {{
-            requirements(Category.logic, ItemStack.with(), true);
-            buildVisibility = BuildVisibility.debugOnly;
+            localizedName = "Side Junction";
+            health = 40;
+            buildCostMultiplier = 6;
+            requirements(Category.distribution, ItemStack.with(Items.titanium, 2));
+            //buildVisibility = BuildVisibility.debugOnly;
         }};
         testBlock = new TestBlock("test-block") {{
             size = 2;

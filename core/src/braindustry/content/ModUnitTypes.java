@@ -1671,8 +1671,8 @@ public class ModUnitTypes implements ContentList {
             {
                 this.range = 620;
                 this.constructor = Types.naval;
-                this.localizedName = "[red]Moray";
-                this.description = "[red]Naval terror with Black Hole Reactor, built-in unit factories, lasers and rocket launchers.";
+                this.localizedName = "Moray";
+                this.description = "Naval terror with Black Hole Reactor, built-in unit factories, lasers and rocket launchers.";
                 this.health = 60000;
                 this.speed = 0.6f;
                 this.accel = 0.12f;
@@ -1877,8 +1877,8 @@ public class ModUnitTypes implements ContentList {
                 this.canDrown = false;
                 this.immunities = ObjectSet.with(StatusEffects.burning, StatusEffects.melting);
                 int brange = 1;
-                this.localizedName = "[red]Litix";
-                this.description = "[red]Heavy attack unit with orbital magma guns,railguns and sap guns.";
+                this.localizedName = "Litix";
+                this.description = "Heavy attack unit with orbital magma guns,railguns and sap guns.";
                 this.mineSpeed = 13F;
                 this.mineTier = 5;
                 stealthDuration = 15f * 60f;
@@ -2068,8 +2068,8 @@ public class ModUnitTypes implements ContentList {
             }
         };
         penumbra = new ModUnitType("penumbra"){{
-            localizedName = "[red]Penumbra";
-            description = "[red]Flying unit with long range shotguns, used for reactors destruction";
+            localizedName = "Penumbra";
+            description = "Flying unit with long range shotguns, used for reactors destruction";
             speed = 0.52f;
             accel = 0.04f;
             drag = 0.04f;
@@ -2147,8 +2147,8 @@ public class ModUnitTypes implements ContentList {
             {
                 this.range = 620;
                 this.constructor = Types.naval;
-                this.localizedName = "[#65267A]Kraken";
-                this.description = "[#65267A]Naval terror with Black Hole Reactor, built-in unit factories, lasers and rocket launchers.";
+                this.localizedName = "Kraken";
+                this.description = "Naval terror with Black Hole Reactor, built-in unit factories, lasers and rocket launchers.";
                 this.health = 1065000;
                 this.speed = 0.6f;
                 this.accel = 0.12f;
@@ -2340,8 +2340,8 @@ public class ModUnitTypes implements ContentList {
             {
                 this.constructor = Types.legs;
                 this.groundLayer = 60.0F;
-                this.localizedName = "[#65267A]Orochi";
-                this.description = "[#65267A]Huge spider unit with laser orbitals and incredible destruction abilities";
+                this.localizedName = "Orochi";
+                this.description = "Huge spider unit with laser orbitals and incredible destruction abilities";
                 this.health = 910000;
                 this.speed = 0.5f;
                 this.mechSideSway = 0.25f;
@@ -2373,8 +2373,8 @@ public class ModUnitTypes implements ContentList {
                 this.immunities = ObjectSet.with(StatusEffects.freezing, StatusEffects.disarmed);
                 weapons.add(
                         new ModWeapon("orochi-coil"){{
-                            this.x = -22f;
-                            this.y = 32f;
+                            this.x = -24f;
+                            this.y = 38f;
                             this.shootY = 4f;
                             this.reload = 16f;
                             this.ejectEffect = ModFx.rapierSmoke;
@@ -2401,8 +2401,8 @@ public class ModUnitTypes implements ContentList {
                             }};
                         }},
                         new ModWeapon("orochi-coil"){{
-                            this.x = -19f;
-                            this.y = 18f;
+                            this.x = -12f;
+                            this.y = 17f;
                             this.shootY = 4f;
                             this.reload = 15f;
                             this.ejectEffect = ModFx.rapierSmoke;

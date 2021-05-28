@@ -26,27 +26,40 @@ public class ModTechTree extends TechTreeManager implements ContentList {
         node(SectorPresets.planetaryTerminal, () -> {
             node(ModSectorPresets.spacePort, Seq.with(
                     new Research(Blocks.interplanetaryAccelerator),
-                    new Research(ModBlocks.spark)), () -> {
-                nodeMap(ModSectorPresets._451F, () -> {
-                    nodeMap(ModSectorPresets.meltingPoint,Seq.with(new Research(ModBlocks.hyperMultiplicativeReconstructor)), () -> {
-                        nodeMap(ModSectorPresets.magmaticElectrostation,Seq.with(new Research(ModBlocks.magmaGenerator)), () -> {
-                            nodeMap(ModSectorPresets.polarRift, () -> {
-                                nodeMap(ModSectorPresets.methaneLaboratories,Seq.with(
+                    new Research(Blocks.meltdown)), () -> {
+                node(ModSectorPresets._451F, Seq.with(
+                        new SectorComplete(ModSectorPresets.spacePort),
+                        new Research(ModBlocks.spark)), () -> {
+                    node(ModSectorPresets.meltingPoint,Seq.with(
+                            new SectorComplete(ModSectorPresets._451F),
+                            new Research(ModBlocks.hyperMultiplicativeReconstructor)
+                    ), () -> {
+                        node(ModSectorPresets.magmaticElectrostation,Seq.with(
+                                new SectorComplete(ModSectorPresets.meltingPoint),
+                                new Research(ModBlocks.magmaGenerator)), () -> {
+                            node(ModSectorPresets.polarRift, () -> {
+                                node(ModSectorPresets.methaneLaboratories,Seq.with(
+                                        new SectorComplete(ModSectorPresets.magmaticElectrostation),
                                         new Research(ModBlocks.magmaMixer),
                                         new Research(ModBlocks.methaneLiquifier),
                                         new Research(ModBlocks.brain)), () -> {
-                                    nodeMap(ModSectorPresets.icyBeach, () -> {
-                                        nodeMap(ModSectorPresets.ritual,Seq.with(
+                                    node(ModSectorPresets.icyBeach,Seq.with(
+                                            new SectorComplete(ModSectorPresets.methaneLaboratories),
+                                            new Research(ModBlocks.plasticConveyor)
+                                    ), () -> {
+                                        node(ModSectorPresets.ritual,Seq.with(
+                                                new SectorComplete(ModSectorPresets.icyBeach),
                                                 new Research(ModBlocks.mind),
                                                 new Research(ModBlocks.odinumReactor)), () -> {
                                             //shinrin sectors
-                                            nodeMap(ModSectorPresets.jungleExplorationComplex,Seq.with(
+                                            node(ModSectorPresets.jungleExplorationComplex,Seq.with(
+                                                    new SectorComplete(ModSectorPresets.ritual),
                                                     new Research(ModBlocks.shinigami),
                                                     new Research(ModBlocks.voidwave)),  () -> {
-                                                nodeMap(ModSectorPresets.emeraldSwamp,  () -> {
-                                                    nodeMap(ModSectorPresets.deentForest,  () -> {
-                                                        nodeMap(ModSectorPresets.icyDarkness,  () -> {
-                                                            nodeMap(ModSectorPresets.azureLandscape,()->{});
+                                                node(ModSectorPresets.emeraldSwamp,  () -> {
+                                                    node(ModSectorPresets.deentForest,  () -> {
+                                                        node(ModSectorPresets.icyDarkness,  () -> {
+                                                            node(ModSectorPresets.azureLandscape,()->{});
                                                         });
                                                     });
                                                 });
@@ -269,6 +282,8 @@ public class ModTechTree extends TechTreeManager implements ContentList {
         parentNode(Blocks.liquidRouter, ModBlocks.gasRouter);
         parentNode(Blocks.laserDrill, ModBlocks.hydraulicDrill);
         parentNode(Blocks.cryofluidMixer, ModBlocks.refrigerantmixer);
+        parentNode(Blocks.junction, ModBlocks.sideJunction);
+        parentNode(Blocks.sorter, ModBlocks.smartSorter);
     }
 
 }
