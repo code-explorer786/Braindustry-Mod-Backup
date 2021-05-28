@@ -26,6 +26,7 @@ public class ModTechTree extends TechTreeManager implements ContentList {
         node(SectorPresets.planetaryTerminal, () -> {
             node(ModSectorPresets.spacePort, Seq.with(
                     new Research(Blocks.interplanetaryAccelerator),
+                    new SectorComplete(SectorPresets.planetaryTerminal),
                     new Research(Blocks.meltdown)), () -> {
                 node(ModSectorPresets._451F, Seq.with(
                         new SectorComplete(ModSectorPresets.spacePort),
