@@ -22,7 +22,7 @@ import mindustry.world.DirectionalItemBuffer;
 import mindustry.world.meta.BlockGroup;
 import mindustryAddition.graphics.ModLines;
 
-public class SideJunction extends Block implements DebugBlock {
+public class SideJunction extends Block {
     public float speed = 26.0F;
     public int capacity = 6;
 //    public @ModAnnotations.Load("@-top") TextureRegion regionTop;

@@ -37,7 +37,7 @@ import java.util.Arrays;
 import static mindustry.Vars.content;
 import static mindustry.Vars.player;
 
-public class SmartSorter extends Block implements DebugBlock {
+public class SmartSorter extends Block {
     public boolean invert;
     public @ModAnnotations.Load("@-cross")
     TextureRegion crossRegion;
