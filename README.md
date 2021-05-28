@@ -1,5 +1,5 @@
 ![alt tag]( https://github.com/pixaxeofpixie/pictures/blob/main/btposter.png?raw=true)
-## Mindustry Java Mod By Braindustry Team(public beta)
+## Mindustry Mod By Braindustry Team(public beta)
 
 ### Table of contents:
 - New star system
