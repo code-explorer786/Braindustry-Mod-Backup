@@ -33,6 +33,7 @@ import mindustry.gen.*;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.type.AmmoTypes;
+import mindustry.type.ItemStack;
 import mindustry.type.Weapon;
 
 
@@ -1519,11 +1520,11 @@ public class ModUnitTypes implements ContentList {
         //TX
         griffon = new ModUnitType("griffon") {
             {
-
+                dropItems=ItemStack.with(ModItems.chloroAlloy, 320);
                 this.constructor = Types.legs;
                 this.groundLayer = 60.0F;
-                this.localizedName = "[red]Griffon";
-                this.description = "[red]Ground unit with high characteristics of armor and damage, shoot an electric laser and frag bullets.";
+                this.localizedName = "Griffon";
+                this.description = "Ground unit with high characteristics of armor and damage, shoot an electric laser and frag bullets.";
                 this.health = 52000;
                 this.speed = 0.4f;
                 this.mechSideSway = 0.25f;
@@ -1669,6 +1670,7 @@ public class ModUnitTypes implements ContentList {
         };
         moray = new ModUnitType("moray") {
             {
+                dropItems=ItemStack.with(ModItems.chloroAlloy, 320);
                 this.range = 620;
                 this.constructor = Types.naval;
                 this.localizedName = "Moray";
@@ -1866,6 +1868,7 @@ public class ModUnitTypes implements ContentList {
         };
         litix = new StealthUnitType("litix") {
             {
+                dropItems= ItemStack.with(ModItems.chloroAlloy, 320);
                 this.constructor = Types.stealthMech;
                 this.defaultController = StealthGroundAI::new;
                 this.speed = 0.62f;
@@ -2068,6 +2071,7 @@ public class ModUnitTypes implements ContentList {
             }
         };
         penumbra = new ModUnitType("penumbra"){{
+            dropItems=ItemStack.with(ModItems.chloroAlloy, 320);
             localizedName = "Penumbra";
             description = "Flying unit with long range shotguns, used for reactors destruction";
             speed = 0.52f;
@@ -2145,6 +2149,7 @@ public class ModUnitTypes implements ContentList {
 
         kraken= new ModUnitType("kraken") {
             {
+                dropItems=ItemStack.with(ModItems.chloroAlloy, 320);
                 this.range = 620;
                 this.constructor = Types.naval;
                 this.localizedName = "Kraken";
@@ -2338,6 +2343,7 @@ public class ModUnitTypes implements ContentList {
             }};
         orochi = new ModUnitType("orochi") {
             {
+                dropItems=ItemStack.with(ModItems.chloroAlloy, 320);
                 this.constructor = Types.legs;
                 this.groundLayer = 60.0F;
                 this.localizedName = "Orochi";

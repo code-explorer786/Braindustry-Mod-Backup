@@ -36,7 +36,8 @@ public class ModBlocks implements ContentList {
     //environment
     magmaFloor, obsidianBlock, obsidianFloor, oreChromium, oreOdinum,
             crimzesWall, crimzesFloor, jungleWall, jungleFloor, graysand, dirtRocksWall, liquidMethaneFloor, blackIce,
-            blackIceWall, blackSnow, blackSnowWall, blackTree, darkPine, darkShrubs, greenTree, metallicPine, swampWater, swampSandWater, darkShrubsFloor,
+            blackIceWall, blackSnow, blackSnowWall, blackTree, darkPine, darkShrubs, greenTree, metallicPine, swampWater,
+            swampSandWater, darkShrubsFloor, fluorescentTree, fluorescentGrass, fluorescentSandWater, fluorescentPine,
 
     //power
     differentialMagmaGenerator, grapheniteSolarCollectorLarge, magmaGenerator, odinumReactor, blackHoleReactor, phaseAlloySolarPanel,
@@ -94,11 +95,13 @@ public class ModBlocks implements ContentList {
         }};
         smartSorter = new SmartSorter("smart-sorter") {{
             localizedName = "Smart Sorter";
+            description = "Sorts items not only by quantity, but also by the item itself.";
             requirements(Category.distribution, ItemStack.with(Items.titanium, 2, Items.copper, 3));
             //buildVisibility = BuildVisibility.shown;
         }};
         sideJunction = new SideJunction("side-junction") {{
             localizedName = "Side Junction";
+            description = "Transports objects sideways.";
             health = 40;
             buildCostMultiplier = 6;
             requirements(Category.distribution, ItemStack.with(Items.titanium, 2));
