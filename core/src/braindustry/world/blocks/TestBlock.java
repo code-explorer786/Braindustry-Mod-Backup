@@ -34,6 +34,7 @@ import mindustryAddition.graphics.ModLines;
 import mindustryAddition.world.blocks.BuildingLabel;
 
 import static ModVars.modFunc.fullName;
+import static mindustry.Vars.renderer;
 
 public class TestBlock extends Block implements DebugBlock {
     private final static int doubleLength = 4, triableLength = 1;
@@ -120,14 +121,10 @@ public class TestBlock extends Block implements DebugBlock {
             super.buildConfiguration(table);
             TestBlockBuild me = this;
             table.table(Tex.buttonTrans,(t) -> {
-                t.button(Icon.up,ModStyles.alphai, () -> {
-//                    ModFx.fireworkTrail.at(x,y,rotdeg(),Color.purple);
-//                    Tile tile = nearbyTile(rotation);
-//                    tile.setFloor(Blocks.water.asFloor());
-//                    floorRenderer.recacheTile(tile);
-//                    ModDraw.teleportCircles(x,y,Mathf.random(8,16),Color.valueOf("2c5777"), Color.valueOf("11222d"), Couple.of(2f,4f));
-//                    ModDraw.teleportCircles(x,y,Mathf.random(8,16),Color.valueOf("6757d1"), Color.valueOf("9288cc"), Couple.of(2f,4f));
-                });
+                t.label(()->"displayScale: "+renderer.getDisplayScale());
+                t.label(()->"scale: "+renderer.getScale());
+//                t.button(Icon.up,ModStyles.alphai, () -> {
+//                });
                 t.button(Icon.pick,ModStyles.alphai, () -> {
                     modVars.modUI.colorPicker.show(selectedColor, this::configure);
 //                    ModFx.Spirals.at(x, y, size, Pal.lancerLaser);
@@ -247,6 +244,9 @@ public class TestBlock extends Block implements DebugBlock {
             float settingsStroke=modVars.settings.getFloat("stroke",1f);
             TextureRegion region = getRegion();
             Draw.rect(region, x, y, size * 8, size * 8, 0.0F);
+            float epsilon = 2f - (renderer.getDisplayScale() - renderer.minScale()) / (renderer.maxScale() - renderer.minScale());
+            Draw.color(Color.red);
+            Draw.rect(region, x, y, size * 8*epsilon, size * 8*epsilon, 0.0F);
 //            Draw.rect(editorIcon(), x, y + size * 8, size * 8, size * 8, 0f);
 //            Draw.alpha(0.5f);
 

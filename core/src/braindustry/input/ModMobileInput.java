@@ -24,26 +24,25 @@ import mindustry.world.Tile;
 import mindustry.world.blocks.ControlBlock;
 
 import static mindustry.Vars.*;
-import static mindustry.Vars.player;
 
 public class ModMobileInput extends MobileInput {
 
-    protected void updateMovement(Unit unit){
+    protected void updateMovement(Unit unit) {
         Rect rect = Tmp.r3;
 
         UnitType type = unit.type;
-        if(type == null) return;
+        if (type == null) return;
 
         boolean omni = unit.type.omniMovement;
         boolean allowHealing = type.canHeal;
-        boolean validHealTarget = allowHealing && target instanceof Building && ((Building)target).isValid() && target.team() == unit.team &&
-                ((Building)target).damaged() && target.within(unit, type.range);
+        boolean validHealTarget = allowHealing && target instanceof Building && ((Building) target).isValid() && target.team() == unit.team &&
+                                  ((Building) target).damaged() && target.within(unit, type.range);
         boolean boosted = (unit instanceof Mechc && unit.isFlying());
 
         //reset target if:
         // - in the editor, or...
         // - it's both an invalid standard target and an invalid heal target
-        if((Units.invalidateTarget(target, unit, type.range) && !validHealTarget) || state.isEditor()){
+        if ((Units.invalidateTarget(target, unit, type.range) && !validHealTarget) || state.isEditor()) {
             target = null;
         }
 
@@ -56,39 +55,39 @@ public class ModMobileInput extends MobileInput {
         float mouseAngle = unit.angleTo(unit.aimX(), unit.aimY());
         boolean aimCursor = omni && player.shooting && type.hasWeapons() && type.faceTarget && !boosted && type.rotateShooting;
 
-        if(aimCursor){
+        if (aimCursor) {
             unit.lookAt(mouseAngle);
-        }else{
+        } else {
             unit.lookAt(unit.prefRotation());
         }
         Payloadc pay;
-        if(payloadTarget != null && unit instanceof Payloadc){
-            pay=unit.as();
+        if (payloadTarget != null && unit instanceof Payloadc) {
+            pay = unit.as();
             targetPos.set(payloadTarget);
             attractDst = 0f;
 
-            if(unit.within(payloadTarget, 3f * Time.delta)){
-                if(payloadTarget instanceof Vec2 && pay.hasPayload()){
+            if (unit.within(payloadTarget, 3f * Time.delta)) {
+                if (payloadTarget instanceof Vec2 && pay.hasPayload()) {
                     //vec -> dropping something
                     tryDropPayload();
-                }else if(payloadTarget instanceof Building && pay.canPickup((Building) payloadTarget)){
+                } else if (payloadTarget instanceof Building && pay.canPickup((Building) payloadTarget)) {
                     //building -> picking building up
                     Call.requestBuildPayload(player, (Building) payloadTarget);
-                }else if(payloadTarget instanceof Unit && !(payloadTarget instanceof StealthUnitc) && pay.canPickup((Unit) payloadTarget)){
+                } else if (payloadTarget instanceof Unit && !(payloadTarget instanceof StealthUnitc) && pay.canPickup((Unit) payloadTarget)) {
                     //unit -> picking unit up
                     ModCall.requestUnitPayload(player, (Unit) payloadTarget);
                 }
 
                 payloadTarget = null;
             }
-        }else{
+        } else {
             payloadTarget = null;
         }
 
         movement.set(targetPos).sub(player).limit(speed);
         movement.setAngle(Mathf.slerp(movement.angle(), unit.vel.angle(), 0.05f));
 
-        if(player.within(targetPos, attractDst)){
+        if (player.within(targetPos, attractDst)) {
             movement.setZero();
             unit.vel.approachDelta(Vec2.ZERO, unit.speed() * type.accel / 2f);
         }
@@ -103,31 +102,31 @@ public class ModMobileInput extends MobileInput {
 
         player.boosting = collisions.overlapsTile(rect) || !unit.within(targetPos, 85f);
 
-        if(omni){
+        if (omni) {
             unit.moveAt(movement);
-        }else{
+        } else {
             unit.moveAt(Tmp.v2.trns(unit.rotation, movement.len()));
-            if(!movement.isZero()){
+            if (!movement.isZero()) {
                 unit.vel.rotateTo(movement.angle(), unit.type.rotateSpeed * Math.max(Time.delta, 1));
             }
         }
 
         //update shooting if not building + not mining
-        if(!player.unit().activelyBuilding() && player.unit().mineTile == null){
+        if (!player.unit().activelyBuilding() && player.unit().mineTile == null) {
 
             //autofire targeting
-            if(manualShooting){
+            if (manualShooting) {
                 player.shooting = !boosted;
                 unit.aim(player.mouseX = Core.input.mouseWorldX(), player.mouseY = Core.input.mouseWorldY());
-            }else if(target == null){
+            } else if (target == null) {
                 player.shooting = false;
                 BlockUnitUnit u;
-                if(Core.settings.getBool("autotarget") && !(player.unit() instanceof BlockUnitUnit &&((u=player.unit().as())!=null) && u.tile() instanceof ControlBlock  && !((ControlBlock) u.tile()).shouldAutoTarget())){
+                if (Core.settings.getBool("autotarget") && !(player.unit() instanceof BlockUnitUnit && ((u = player.unit().as()) != null) && u.tile() instanceof ControlBlock && !((ControlBlock) u.tile()).shouldAutoTarget())) {
                     target = Units.closestTarget(unit.team, unit.x, unit.y, range, u1 -> u1.team != Team.derelict, u1 -> u1.team != Team.derelict);
 
-                    if(allowHealing && target == null){
+                    if (allowHealing && target == null) {
                         target = Geometry.findClosest(unit.x, unit.y, indexer.getDamaged(Team.sharded));
-                        if(target != null && !unit.within(target, range)){
+                        if (target != null && !unit.within(target, range)) {
                             target = null;
                         }
                     }
@@ -136,7 +135,7 @@ public class ModMobileInput extends MobileInput {
                 //when not shooting, aim at mouse cursor
                 //this may be a bad idea, aiming for a point far in front could work better, test it out
                 unit.aim(Core.input.mouseWorldX(), Core.input.mouseWorldY());
-            }else{
+            } else {
                 Vec2 intercept = Predict.intercept(unit, target, bulletSpeed);
 
                 player.mouseX = intercept.x;
@@ -149,6 +148,7 @@ public class ModMobileInput extends MobileInput {
 
         unit.controlWeapons(player.shooting && !boosted);
     }
+
     protected int tileX(float cursorX) {
         Vec2 vec = Core.input.mouseWorld(cursorX, 0.0F);
         if (this.selectedBlock()) {
@@ -180,8 +180,9 @@ public class ModMobileInput extends MobileInput {
                     Vec2 pos = Core.input.mouseWorld(x, y);
                     Unit target = Vars.player.unit();
                     Payloadc pay;
-                    if (target instanceof StealthUnitc && pos.epsilonEquals(target.x,target.y,3f)) {
-                        ((StealthUnitc)target).longPress(true);
+                    float epsilon = 2f - (renderer.getDisplayScale() - renderer.minScale()) / (renderer.maxScale() - renderer.minScale());
+                    if (target instanceof StealthUnitc && pos.epsilonEquals(target.x, target.y, Math.min(3*epsilon,target.hitSize()))) {
+                        ((StealthUnitc) target).longPress(true);
                     } else if (target instanceof Payloadc) {
                         pay = (Payloadc) target;
                         target = Units.closest(Vars.player.team(), pos.x, pos.y, 8.0F, (u) -> {
@@ -253,6 +254,6 @@ public class ModMobileInput extends MobileInput {
 
         Building build = Vars.world.buildWorld(Core.input.mouseWorld().x, Core.input.mouseWorld().y);
         ControlBlock cont;
-        return build instanceof ControlBlock && (cont = (ControlBlock)build) == build && cont.canControl() && build.team == Vars.player.team() ? cont.unit() : null;
+        return build instanceof ControlBlock && (cont = (ControlBlock) build) == build && cont.canControl() && build.team == Vars.player.team() ? cont.unit() : null;
     }
 }
