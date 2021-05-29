@@ -14,7 +14,7 @@ import mindustry.type.UnitType;
 import java.util.Objects;
 
 public class ModUnitType extends UnitType {
-    public ItemStack[] dropItems=ItemStack.with(ModItems.chloroAlloy, 320);
+    public ItemStack[] dropItems=ItemStack.empty;
     public boolean hasAfterDeathLaser = false;
     public int afterDeathLaserCount=5;
     public ModUnitType(String name) {
@@ -56,7 +56,7 @@ public class ModUnitType extends UnitType {
     public void init() {
         super.init();
         getModAbilities().each(ModAbility::init);
-    }
+    };
 
     public Seq<ModAbility> getModAbilities() {
         return abilities.map(this::toModAbility).select(Objects::nonNull);
@@ -66,5 +66,9 @@ public class ModUnitType extends UnitType {
     public void load() {
         super.load();
         getModAbilities().each(ModAbility::load);
+
+        /*if(hasDroppingItems = true){
+            ItemStack[] dropItems=ItemStack.with(ModItems.chloroAlloy, 320);
+        }*/
     }
 }
