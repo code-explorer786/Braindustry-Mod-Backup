@@ -181,7 +181,7 @@ public class ModMobileInput extends MobileInput {
                     Unit target = Vars.player.unit();
                     Payloadc pay;
                     float epsilon = 2f - (renderer.getDisplayScale() - renderer.minScale()) / (renderer.maxScale() - renderer.minScale());
-                    if (target instanceof StealthUnitc && pos.epsilonEquals(target.x, target.y, Math.min(3*epsilon,target.hitSize()))) {
+                    if (target instanceof StealthUnitc && pos.epsilonEquals(target.x, target.y, Math.min(4f*epsilon,target.hitSize()))) {
                         ((StealthUnitc) target).longPress(true);
                     } else if (target instanceof Payloadc) {
                         pay = (Payloadc) target;

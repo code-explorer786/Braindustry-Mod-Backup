@@ -56,7 +56,7 @@ public class ModLogic implements ApplicationListener {
             }
             if (type.dropItems.length>0){
                 for (Team team : Team.all) {
-                    if (!team.active() || team.cores().isEmpty())continue;
+                    if (!team.active() || team.cores().isEmpty() || team== unit.team)continue;
                     for (ItemStack stack : type.dropItems) {
                         team.core().items.add(stack.item,stack.amount);
                     }
