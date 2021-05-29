@@ -17,7 +17,7 @@ class ModEnvironmentBlocks implements ContentList {
                localizedName = "Magma";
                isLiquid = true;
                variants = 1;
-               blendGroup = Blocks.water;
+               blendGroup = ModBlocks.magmaFloor;
                 cacheLayer = CacheLayer.tar;
                speedMultiplier = 0.17f;
                 status = StatusEffects.blasted;
@@ -165,6 +165,10 @@ class ModEnvironmentBlocks implements ContentList {
            localizedName = "Green Tree";
         }};
 
+        fluorescentTree = new TreeBlock("fluorescent-tree"){{
+            localizedName = "Fluorescent Tree";
+        }};
+
         blackTree = new TreeBlock("black-tree"){{
            localizedName = "Black Tree";
         }};
@@ -173,10 +177,17 @@ class ModEnvironmentBlocks implements ContentList {
             localizedName = "Dark Pine";
             variants = 0;
         }};
+
         metallicPine = new StaticTree("metallic-pine"){{
             localizedName = "Metallic Pine";
             variants = 0;
         }};
+
+        fluorescentPine = new StaticTree("fluorescent-pine"){{
+            localizedName = "Fluorescent Pine";
+            variants = 0;
+        }};
+
         darkShrubsFloor = new Floor("black-grass") {{
                localizedName = "Dark Grass";
                variants = 3;
