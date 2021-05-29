@@ -1523,8 +1523,8 @@ public class ModUnitTypes implements ContentList {
                 dropItems=ItemStack.with(ModItems.chloroAlloy, 320);
                 this.constructor = Types.legs;
                 this.groundLayer = 60.0F;
-                this.localizedName = "[red]Griffon";
-                this.description = "[red]Ground unit with high characteristics of armor and damage, shoot an electric laser and frag bullets.";
+                this.localizedName = "Griffon";
+                this.description = "Ground unit with high characteristics of armor and damage, shoot an electric laser and frag bullets.";
                 this.health = 52000;
                 this.speed = 0.4f;
                 this.mechSideSway = 0.25f;
