@@ -1,5 +1,7 @@
-![alt tag]( https://github.com/pixaxeofpixie/pictures/blob/main/btposter.png?raw=true)
+![alt tag](https://github.com/pixaxeofpixie/pictures/blob/main/postetr.jpg?raw=true)
 ## Mindustry Mod By Braindustry Team(public beta)
+
+## WARNING! Mod still in dev and may have bugs!
 
 ### Table of contents:
 - New star system
@@ -11,8 +13,6 @@
 - Gas 
 - Black hole reactors
 - Multi Rotor drills
-
-## WARNING! Mod still in dev and may have bugs!
 
 ## Resources
 - [Trello](https://trello.com/b/raByco4v/braindustry-trello)
