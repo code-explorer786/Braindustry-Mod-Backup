@@ -33,7 +33,7 @@ public class ModTechTree extends TechTreeManager implements ContentList {
                         new Research(ModBlocks.spark)), () -> {
                     node(ModSectorPresets.meltingPoint,Seq.with(
                             new SectorComplete(ModSectorPresets._451F),
-                            new Research(ModBlocks.hyperMultiplicativeReconstructor)
+                            new Research(ModBlocks.hyperAdditiveReconstructor)
                     ), () -> {
                         node(ModSectorPresets.magmaticElectrostation,Seq.with(
                                 new SectorComplete(ModSectorPresets.meltingPoint),
