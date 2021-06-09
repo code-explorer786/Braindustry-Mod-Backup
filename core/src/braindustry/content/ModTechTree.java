@@ -38,7 +38,10 @@ public class ModTechTree extends TechTreeManager implements ContentList {
                         node(ModSectorPresets.magmaticElectrostation,Seq.with(
                                 new SectorComplete(ModSectorPresets.meltingPoint),
                                 new Research(ModBlocks.magmaGenerator)), () -> {
-                            node(ModSectorPresets.polarRift, () -> {
+                            node(ModSectorPresets.polarRift, Seq.with(
+                                            new SectorComplete(ModSectorPresets.magmaticElectrostation),
+                                            new Research(ModBlocks.refrigerantmixer)
+                                    ), () -> {
                                 node(ModSectorPresets.methaneLaboratories,Seq.with(
                                         new SectorComplete(ModSectorPresets.magmaticElectrostation),
                                         new Research(ModBlocks.magmaMixer),
