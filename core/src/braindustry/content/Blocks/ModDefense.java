@@ -680,7 +680,7 @@ class ModDefense implements ContentList {
                 ammo(
                         ModItems.graphenite, new BasicBulletType() {
                             {
-                                damage = 60;
+                                damage = 30;
                                 width = 10;
                                 height = 11;
                                 shrinkY = 0.1f;
@@ -703,7 +703,7 @@ class ModDefense implements ContentList {
                         },
                         Items.copper, new BasicBulletType() {
                             {
-                                damage = 32;
+                                damage = 12;
                                 width = 8;
                                 height = 9;
                                 shrinkY = 0.1f;
@@ -726,7 +726,7 @@ class ModDefense implements ContentList {
                         },
                         Items.titanium, new BasicBulletType() {
                             {
-                                damage =48;
+                                damage = 24;
                                 width = 9;
                                 height = 10;
                                 shrinkY = 0.1f;
