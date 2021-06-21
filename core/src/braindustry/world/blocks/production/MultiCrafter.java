@@ -445,14 +445,13 @@ public class MultiCrafter extends ModBlock {
 
 
         public boolean acceptItem(Building source, Item item) {
-            AtomicInteger itemCount = new AtomicInteger();
+            int[] count={-1};
             Seq.with(getCurrentRecipe().consumeItems).select((itemStack) -> {
                 return itemStack.item == item;
             }).each((itemStack -> {
-                itemCount.addAndGet(itemStack.amount);
+                count[0]+=itemStack.amount;
             }));
-            int count = itemCount.get();
-            return count > 0 && this.items.get(item) < itemCount.get();
+            return count[0] > 0 && this.items.get(item) < count[0];
         }
 
         public boolean shouldConsume() {
