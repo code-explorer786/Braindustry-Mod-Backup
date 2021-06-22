@@ -1,6 +1,17 @@
 sourceSets.main.java.srcDirs = ["src"]
 sourceSets.main.resources.srcDirs = ["resources"]
 
+//repositories{
+//    mavenCentral()
+//    maven{ url 'https://www.jitpack.io' }
+//}
+////tasks.withType(JavaCompile).all {
+////    options.compilerArgs += ['--enable-preview']
+////}
+//dependencies{
+//    implementation fileTree(dir: 'libs', include: ['*.jar'])
+//    compile 'commons-io:commons-io:2.5'
+//}
 
 import arc.graphics.Color
 import arc.struct.IntIntMap

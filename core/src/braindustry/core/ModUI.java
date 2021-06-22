@@ -48,6 +48,7 @@ public class ModUI implements Disposable {
         colorPicker=new ModColorPicker();
         AdvancedSettingsMenuDialog.init();
         ModHudFragment.init();
+//        SpecialUnitStatusFragment.init();
         Group nullGroup=new Group() {};
         Core.settings.put("uiscalechanged", false);
         ModListener.updaters.add(() -> {

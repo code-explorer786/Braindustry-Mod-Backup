@@ -12,11 +12,8 @@ import braindustry.annotations.ModAnnotations;
 import braindustry.annotations.ModBaseProcessor;
 import braindustry.annotations.RemoteProc.ModTypeIOResolver;
 import com.squareup.javapoet.*;
-import com.sun.source.tree.CompilationUnitTree;
-import com.sun.source.tree.Tree;
 import com.sun.source.tree.VariableTree;
 import com.sun.source.util.TreePath;
-import mindustry.annotations.BaseProcessor;
 import mindustry.annotations.util.*;
 
 import javax.annotation.processing.RoundEnvironment;
@@ -52,7 +49,8 @@ public class ModEntitiesProc extends ModBaseProcessor {
     ObjectSet<String> imports = new ObjectSet<>();
     Seq<TypeSpec.Builder> baseClasses = new Seq<>();
     TypeIOResolver.ClassSerializer serializer;
-    Seq<String> anukeComponents;
+    Seq<String> anukeComponents = new Seq<>();
+
     {
         rounds = 3;
     }
@@ -78,32 +76,32 @@ public class ModEntitiesProc extends ModBaseProcessor {
 
     private void zeroRound() {
         try {
-            if (true)return;
-            long nanos=System.nanoTime();
+            if (true) return;
+            long nanos = System.nanoTime();
 //            Fi dir=new Fi("files"),fi;
 //            if(dir.exists())dir.deleteDirectory();
             URLConnection connection = new URL("https://github.com/Anuken/Mindustry/tree/master/core/src/mindustry/entities/comp").openConnection();
             Scanner scanner = new Scanner(connection.getInputStream());
-            boolean prepare=false;
-            anukeComponents=new Seq<>();
+            boolean prepare = false;
+            anukeComponents = new Seq<>();
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                if (prepare){
-                    prepare=false;
+                if (prepare) {
+                    prepare = false;
                     try {
-                        int c=0;
+                        int c = 0;
                         String fileName = line.split("<span class=\"css-truncate css-truncate-target d-block width-fit\"><a class=\"js-navigation-open Link--primary\" title=\"")[1]
                                 .split("\"")[0];
-                       anukeComponents.add(fileName.split(".")[0]);
+                        anukeComponents.add(fileName.split(".")[0]);
                     } catch (Exception ignored) {
                     }
                 } else if (line.contains("role=\"rowheader\"")) {
-                    prepare=true;
+                    prepare = true;
                 }
             }
 //            System.out.println(Strings.format("Time taken: @s", Time.nanosToMillis(Time.timeSinceNanos(nanos))/1000f));
-        } catch (Exception e){
-                e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         createMindustrySuperInterface();
     }
@@ -113,20 +111,22 @@ public class ModEntitiesProc extends ModBaseProcessor {
         allGroups.addAll(elements(ModAnnotations.GroupDef.class));
 //        allInterfaces.clear();
         allInterfaces.addAll(types(ModAnnotations.EntityInterface.class));
-anukeSuperInterfaces.addAll(getMindsutryComponents()) ;
-allDefs.addAll(elements(ModAnnotations.EntityDef.class).select(el->!anukeComponents.contains(el.name())));
+//        anukeSuperInterfaces.addAll(getMindsutryComponents());
+        allDefs.addAll(elements(ModAnnotations.EntityDef.class).select(el -> !anukeComponents.contains(el.name())));
 //        print("allDefs: @", allDefs.map(Selement::fullName).toString(", "));
 //        print("allGroups: @", allGroups.map(Selement::fullName).toString(", "));
 //        print("EntityConfig: @", elements(ModAnnotations.EntityInterface.class).map(Selement::fullName).toString(", "));
     }
+
     private void firstRound() throws Exception {
         baseComponents = types(ModAnnotations.BaseComponent.class);
         Seq<Stype> allComponents = types(ModAnnotations.Component.class);
 //        allComponents.addAll(getMindsutryComponents());
 
 // mindustry.entities.comp.
-        //store code
+        //store codea
         for (Stype component : allComponents) {
+
             for (Svar f : component.fields()) {
                 VariableTree tree = f.tree();
 
@@ -174,6 +174,7 @@ allDefs.addAll(elements(ModAnnotations.EntityDef.class).select(el->!anukeCompone
 //        System.out.println("types:");
 //        System.out.println(Strings.join(", ",allComponents.map(type->type.fullName())));
         for (Stype component : allComponents) {
+            if (component.fullName().contains("compByAnuke"))continue;
             TypeSpec.Builder inter = TypeSpec.interfaceBuilder(interfaceName(component))
                     .addModifiers(Modifier.PUBLIC).addAnnotation(ModAnnotations.EntityInterface.class);
 
@@ -231,7 +232,7 @@ allDefs.addAll(elements(ModAnnotations.EntityDef.class).select(el->!anukeCompone
                                             .select(a -> a.toString().contains("Null")).map(AnnotationSpec::get)).build()).build());
                 }
             }
-            write(inter);
+            write(inter,Seq.with("import mindustry.gen.*;"));
             //generate base class if necessary
             //SPECIAL CASE: components with EntityDefs don't get a base class! the generated class becomes the base class itself
             if (component.annotation(ModAnnotations.Component.class).base()) {
@@ -290,6 +291,7 @@ allDefs.addAll(elements(ModAnnotations.EntityDef.class).select(el->!anukeCompone
         }
 
     }
+
     private void secondRound() throws Exception {
         //round 2: get component classes and generate interfaces for
         //parse groups
@@ -833,73 +835,75 @@ allDefs.addAll(elements(ModAnnotations.EntityDef.class).select(el->!anukeCompone
             write(def.builder, imports.asArray());
         }
 
-        //store nulls
-        TypeSpec.Builder nullsBuilder = TypeSpec.classBuilder("Nulls").addModifiers(Modifier.PUBLIC).addModifiers(Modifier.FINAL);
-        //create mock types of all components
-        for (Stype interf : allInterfaces) {
-            //indirect interfaces to implement methods for
-            Seq<Stype> dependencies = interf.allInterfaces().and(interf);
-            Seq<Smethod> methods = dependencies.flatMap(Stype::methods);
-            methods.sortComparing(Object::toString);
+        if (false) {
+            //store nulls
+            TypeSpec.Builder nullsBuilder = TypeSpec.classBuilder("Nulls").addModifiers(Modifier.PUBLIC).addModifiers(Modifier.FINAL);
+            //create mock types of all components
+            for (Stype interf : allInterfaces) {
+                //indirect interfaces to implement methods for
+                Seq<Stype> dependencies = interf.allInterfaces().and(interf);
+                Seq<Smethod> methods = dependencies.flatMap(Stype::methods);
+                methods.sortComparing(Object::toString);
 
-            //optionally add superclass
-            Stype superclass = dependencies.map(this::interfaceToComp).find(s -> s != null && s.annotation(ModAnnotations.Component.class).base());
-            //use the base type when the interface being emulated has a base
-            TypeName type = superclass != null && interfaceToComp(interf).annotation(ModAnnotations.Component.class).base() ? tname(baseName(superclass)) : interf.tname();
+                //optionally add superclass
+                Stype superclass = dependencies.map(this::interfaceToComp).find(s -> s != null && s.annotation(ModAnnotations.Component.class).base());
+                //use the base type when the interface being emulated has a base
+                TypeName type = superclass != null && interfaceToComp(interf).annotation(ModAnnotations.Component.class).base() ? tname(baseName(superclass)) : interf.tname();
 
-            //used method signatures
-            ObjectSet<String> signatures = new ObjectSet<>();
+                //used method signatures
+                ObjectSet<String> signatures = new ObjectSet<>();
 
-            //create null builder
-            String baseName = interf.name().substring(0, interf.name().length() - 1);
-            String className = "Null" + baseName;
-            TypeSpec.Builder nullBuilder = TypeSpec.classBuilder(className)
-                    .addModifiers(Modifier.FINAL);
+                //create null builder
+                String baseName = interf.name().substring(0, interf.name().length() - 1);
+                String className = "Null" + baseName;
+                TypeSpec.Builder nullBuilder = TypeSpec.classBuilder(className)
+                        .addModifiers(Modifier.FINAL);
 
-            nullBuilder.addSuperinterface(interf.tname());
-            if (superclass != null) nullBuilder.superclass(tname(baseName(superclass)));
+                nullBuilder.addSuperinterface(interf.tname());
+                if (superclass != null) nullBuilder.superclass(tname(baseName(superclass)));
 
-            for (Smethod method : methods) {
-                String signature = method.toString();
-                if (signatures.contains(signature)) continue;
+                for (Smethod method : methods) {
+                    String signature = method.toString();
+                    if (signatures.contains(signature)) continue;
 
-                Stype compType = interfaceToComp(method.type());
-                MethodSpec.Builder builder = MethodSpec.overriding(method.e).addModifiers(Modifier.PUBLIC, Modifier.FINAL);
-                builder.addAnnotation(ModAnnotations.OverrideCallSuper.class); //just in case
+                    Stype compType = interfaceToComp(method.type());
+                    MethodSpec.Builder builder = MethodSpec.overriding(method.e).addModifiers(Modifier.PUBLIC, Modifier.FINAL);
+                    builder.addAnnotation(ModAnnotations.OverrideCallSuper.class); //just in case
 
-                if (!method.isVoid()) {
-                    if (method.name().equals("isNull")) {
-                        builder.addStatement("return true");
-                    } else if (method.name().equals("id")) {
-                        builder.addStatement("return -1");
-                    } else {
-                        Svar variable = compType == null || method.params().size > 0 ? null : compType.fields().find(v -> v.name().equals(method.name()));
-                        String desc = variable == null ? null : variable.descString();
-                        if (variable == null || !varInitializers.containsKey(desc)) {
-                            builder.addStatement("return " + getDefault(method.ret().toString()));
+                    if (!method.isVoid()) {
+                        if (method.name().equals("isNull")) {
+                            builder.addStatement("return true");
+                        } else if (method.name().equals("id")) {
+                            builder.addStatement("return -1");
                         } else {
-                            String init = varInitializers.get(desc);
-                            builder.addStatement("return " + (init.equals("{}") ? "new " + variable.mirror().toString() : "") + init);
+                            Svar variable = compType == null || method.params().size > 0 ? null : compType.fields().find(v -> v.name().equals(method.name()));
+                            String desc = variable == null ? null : variable.descString();
+                            if (variable == null || !varInitializers.containsKey(desc)) {
+                                builder.addStatement("return " + getDefault(method.ret().toString()));
+                            } else {
+                                String init = varInitializers.get(desc);
+                                builder.addStatement("return " + (init.equals("{}") ? "new " + variable.mirror().toString() : "") + init);
+                            }
                         }
                     }
+
+                    nullBuilder.addMethod(builder.build());
+
+                    signatures.add(signature);
                 }
 
-                nullBuilder.addMethod(builder.build());
+                nullsBuilder.addField(FieldSpec.builder(type, Strings.camelize(baseName)).initializer("new " + className + "()").addModifiers(Modifier.FINAL, Modifier.STATIC, Modifier.PUBLIC).build());
 
-                signatures.add(signature);
+                write(nullBuilder);
             }
 
-            nullsBuilder.addField(FieldSpec.builder(type, Strings.camelize(baseName)).initializer("new " + className + "()").addModifiers(Modifier.FINAL, Modifier.STATIC, Modifier.PUBLIC).build());
-
-            write(nullBuilder);
+            write(nullsBuilder);
         }
-
-        write(nullsBuilder);
         deleteMindustryComps();
     }
 
     private void deleteMindustryComps() {
-        if (true)return;
+        if (true) return;
         Seq<String> mindustryComponentsName = anukeComponents;
         mindustryComponentsName.each(name -> {
             try {
@@ -931,7 +935,7 @@ allDefs.addAll(elements(ModAnnotations.EntityDef.class).select(el->!anukeCompone
     private Seq<Stype> getMindsutryComponents() {
         Seq<Stype> stypes = Seq.with();
         if (true)
-        return stypes;
+            return stypes;
         for (Stype type : types(ModAnnotations.EntitySuperInterface.class)) {
             Stype object = type.superclasses().select(b -> !b.name().contains("Object")).first();
             print("object: @", object);
@@ -973,12 +977,13 @@ allDefs.addAll(elements(ModAnnotations.EntityDef.class).select(el->!anukeCompone
         //example: BlockComp -> IBlock
         return comp.name().substring(0, comp.name().length() - suffix.length()) + "c";
     }
+
     /**
      * @return interface for a component type
      */
     String interfaceName(String name) {
         String suffix = "Comp";
-        if (!name.endsWith(suffix)) err("All components must have names that end with 'Comp': "+name);
+        if (!name.endsWith(suffix)) err("All components must have names that end with 'Comp': " + name);
 
         //example: BlockComp -> IBlock
         return name.substring(0, name.length() - suffix.length()) + "c";
@@ -1125,10 +1130,10 @@ allDefs.addAll(elements(ModAnnotations.EntityDef.class).select(el->!anukeCompone
         @Override
         public String toString() {
             return "Definition{" +
-                    "groups=" + groups +
-                    "components=" + components +
-                    ", base=" + naming +
-                    '}';
+                   "groups=" + groups +
+                   "components=" + components +
+                   ", base=" + naming +
+                   '}';
         }
     }
 }

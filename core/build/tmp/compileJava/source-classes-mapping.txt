@@ -695,6 +695,8 @@ Gas/content/GasBasicBlocks.java
  Gas.content.GasBasicBlocks
  Gas.content.GasBasicBlocks$1
  Gas.content.GasBasicBlocks$2
+braindustry/ui/fragments/SpecialUnitStatusFragment.java
+ braindustry.ui.fragments.SpecialUnitStatusFragment
 braindustry/entities/bullets/RainbowLaserBulletType.java
  braindustry.entities.bullets.RainbowLaserBulletType
 braindustry/world/meta/AStats.java
@@ -864,6 +866,8 @@ braindustry/content/Blocks/ModEnvironmentBlocks.java
  braindustry.content.Blocks.ModEnvironmentBlocks$22
  braindustry.content.Blocks.ModEnvironmentBlocks$23
  braindustry.content.Blocks.ModEnvironmentBlocks$24
+ braindustry.content.Blocks.ModEnvironmentBlocks$25
+ braindustry.content.Blocks.ModEnvironmentBlocks$26
  braindustry.content.Blocks.ModEnvironmentBlocks$3
  braindustry.content.Blocks.ModEnvironmentBlocks$4
  braindustry.content.Blocks.ModEnvironmentBlocks$5
