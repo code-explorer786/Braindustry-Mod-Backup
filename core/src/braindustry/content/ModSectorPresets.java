@@ -60,7 +60,7 @@ public class ModSectorPresets implements ContentList {
                 description = "A place that the enemies could not reach for a long time, it was the only refuge for the survivors." +
                         "But when the enemies got there they sprayed a crimson terror that infected and eradicated most of the life...";
                 difficulty = 9;
-                captureWave = 15;
+                captureWave = 12;
                 alwaysUnlocked = false;
             }
         };
@@ -91,7 +91,7 @@ public class ModSectorPresets implements ContentList {
                 description = "The first weapon testing port that civilization was able to build on another celestial body was captured first. "
                             + "[red]WARNING!Impossible sector!Use this sector only for Chlorophylum farm from TX units";
                 difficulty = 9;
-                captureWave = 85;
+                captureWave = 180;
                 alwaysUnlocked = false;
             }
         };
@@ -101,7 +101,7 @@ public class ModSectorPresets implements ContentList {
                 description = "Another testing ground, was built by Civilization in the unfavorable jungle and for the extraction of the newly discovered Chlorophyllum, crimson terror was developed in these labs "
                         +   "[red]WARNING!Impossible sector!Use this sector only for Chlorophylum farm from TX units";
                 difficulty = 9;
-                captureWave = 85;
+                captureWave = 180;
                 alwaysUnlocked = false;
             }
         };
@@ -111,7 +111,7 @@ public class ModSectorPresets implements ContentList {
                 description = "The ice cave to which the enemies reached the last, but it was from here that they wanted to start an attack on Civilization" +
                             "[red]WARNING!Impossible sector!Use this sector only for Chlorophylum farm from TX units";
                 difficulty = 9;
-                captureWave = 85;
+                captureWave = 180;
                 alwaysUnlocked = false;
             }
         };
@@ -120,7 +120,7 @@ public class ModSectorPresets implements ContentList {
                 localizedName = "Deent Forest";
                 description = "Strange forest with interesting flora"+"[red]WARNING!Impossible sector!Use this sector only for Chlorophylum farm from TX units";
                 difficulty = 9;
-                captureWave = 85;
+                captureWave = 180;
                 alwaysUnlocked = false;
             }
         };
@@ -129,7 +129,7 @@ public class ModSectorPresets implements ContentList {
                 localizedName = "Emerald Swamp";
                 description = "The sector from which the war with Ozore was controlled"+"[red]WARNING!Impossible sector!Use this sector only for Chlorophylum farm from TX units";
                 difficulty = 9;
-                captureWave = 85;
+                captureWave = 180;
                 alwaysUnlocked = false;
             }
         };

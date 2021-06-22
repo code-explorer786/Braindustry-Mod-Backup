@@ -17,7 +17,7 @@ class ModEnvironmentBlocks implements ContentList {
                localizedName = "Magma";
                isLiquid = true;
                variants = 1;
-               blendGroup = ModBlocks.magmaFloor;
+               //blendGroup = ModBlocks.;
                 cacheLayer = CacheLayer.tar;
                speedMultiplier = 0.17f;
                 status = StatusEffects.blasted;

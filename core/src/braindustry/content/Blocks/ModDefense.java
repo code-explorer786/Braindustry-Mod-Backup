@@ -33,9 +33,9 @@ class ModDefense implements ContentList {
             localizedName = "Rapier";
             description = "Shots hedgehod-like frag bullets.";
             range = 200;
-            reloadTime = 60;
+            reloadTime = 80;
             size = 4;
-            shots = 4;
+            shots = 1;
             health = 2800;
             inaccuracy = 0;
             shootSound = Sounds.missile;
@@ -49,7 +49,7 @@ class ModDefense implements ContentList {
                             ammoMultiplier = 4.0f;
                             despawnEffect = ModFx.circleSpikeHit;
                             smokeEffect = ModFx.spikeSmoke;
-                            damage = 1300;
+                            damage = 800;
                             despawnShake = 2.3f;
                             hitShake = 4.8f;
                             speed = 2.8f;
@@ -603,7 +603,7 @@ class ModDefense implements ContentList {
                         trailEffect = ModFx.shinigamiTrail;
                         despawnEffect = ModFx.instBomb;
                         trailSpacing = 25f;
-                        damage = 18480;
+                        damage = 17480;
                         buildingDamageMultiplier = 0.4f;
                         speed = brange;
                         hitShake = 9f;
@@ -647,7 +647,7 @@ class ModDefense implements ContentList {
             ammo(
                     ModItems.phaseAlloy, new BasicBulletType() {
                         {
-                            damage = 1260;
+                            damage = 960;
                             width = 15;
                             height = 18;
                             shrinkY = 0.1f;
@@ -680,7 +680,7 @@ class ModDefense implements ContentList {
                 ammo(
                         ModItems.graphenite, new BasicBulletType() {
                             {
-                                damage = 60;
+                                damage = 30;
                                 width = 10;
                                 height = 11;
                                 shrinkY = 0.1f;
@@ -703,7 +703,7 @@ class ModDefense implements ContentList {
                         },
                         Items.copper, new BasicBulletType() {
                             {
-                                damage = 32;
+                                damage = 12;
                                 width = 8;
                                 height = 9;
                                 shrinkY = 0.1f;
@@ -726,7 +726,7 @@ class ModDefense implements ContentList {
                         },
                         Items.titanium, new BasicBulletType() {
                             {
-                                damage =48;
+                                damage = 24;
                                 width = 9;
                                 height = 10;
                                 shrinkY = 0.1f;
