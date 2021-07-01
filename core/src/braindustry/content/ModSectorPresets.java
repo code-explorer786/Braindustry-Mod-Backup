@@ -81,7 +81,6 @@ public class ModSectorPresets implements ContentList {
                 alwaysUnlocked = false;
                 difficulty = 4;
                 captureWave = 30;
-                alwaysUnlocked = false;
             }
         };
         //shinrin sectors

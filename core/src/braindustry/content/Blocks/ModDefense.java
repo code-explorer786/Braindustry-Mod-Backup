@@ -766,7 +766,7 @@ class ModDefense implements ContentList {
         exoticAlloyWallLarge = new Wall("dense-composite-wall-large") {{
             localizedName = "Dense Composite Wall Large";
             description = "A bigger Dense Composite Wall, creates lightings when shot.";
-            health = 4060;
+            health = 4160;
             size = 2;
             requirements(Category.defense, ItemStack.with(ModItems.phaseAlloy, 22));
             lightningChance = 0.24f;
@@ -774,7 +774,7 @@ class ModDefense implements ContentList {
         exoticAlloyWall = new Wall("dense-composite-wall") {{
             localizedName = "Dense Composite Wall";
             description = "An Dense Composite Wall, creates lightnings when shot.";
-            health = 1160;
+            health = 1270;
             size = 1;
             requirements(Category.defense, ItemStack.with(ModItems.phaseAlloy, 6));
             lightningChance = 0.2f;
@@ -782,7 +782,7 @@ class ModDefense implements ContentList {
         grapheniteWallLarge = new Wall("graphenite-wall-large") {{
             localizedName = "Large Graphenite Wall";
             description = "A bigger version of standard graphenite wall.";
-            health = 2160;
+            health = 2280;
             size = 2;
             requirements(Category.defense, ItemStack.with(ModItems.graphenite, 20, Items.silicon, 6));
         }};
@@ -790,14 +790,14 @@ class ModDefense implements ContentList {
             localizedName = "Graphenite Wall";
             description = "A purple, medium strength wall.";
             size = 1;
-            health = 620;
+            health = 670;
             requirements(Category.defense, ItemStack.with(ModItems.graphenite, 6, Items.silicon, 2));
 
         }};
         odinumWallLarge = new Wall("odinum-wall-large") {{
             localizedName = "Odinum Wall Large";
             description = "Bigger Odinum Wall, can deflect bullets.";
-            health = 2860;
+            health = 2980;
             size = 2;
             requirements(Category.defense, ItemStack.with(ModItems.odinum, 28));
             chanceDeflect = 14;
@@ -807,7 +807,7 @@ class ModDefense implements ContentList {
             localizedName = "Odinum Wall";
             description = "Medium strength wall, a little radioactive.";
             size = 1;
-            health = 620;
+            health = 720;
             requirements(Category.defense, ItemStack.with(ModItems.odinum, 8));
             chanceDeflect = 12;
             flashHit = true;
@@ -815,7 +815,7 @@ class ModDefense implements ContentList {
         plasticWallLarge = new Wall("plastic-wall-large") {{
             localizedName = "Plastic Wall Large";
             description = "A bigger Plastic wall, can deflect some bullets.";
-            health = 3820;
+            health = 3940;
             size = 2;
             requirements(Category.defense, ItemStack.with(ModItems.plastic, 24, Items.metaglass, 10));
             insulated = true;
@@ -824,7 +824,7 @@ class ModDefense implements ContentList {
         plasticWall = new Wall("plastic-wall") {{
             localizedName = "Plastic Wall";
             description = "A Plastic wall, can deflect some bullets.";
-            health = 980;
+            health = 1080;
             size = 1;
             requirements(Category.defense, ItemStack.with(ModItems.plastic, 6, Items.metaglass, 4));
             insulated = true;
@@ -836,7 +836,7 @@ class ModDefense implements ContentList {
             localizedName = "Large Chloro Wall";
             description = "Big organic wall with ability to reflect enemy lasers.";
             size = 2;
-            health = 5450;
+            health = 5750;
             requirements(Category.defense, ItemStack.with(ModItems.chloroAlloy, 60));
         }};
 
@@ -846,7 +846,7 @@ class ModDefense implements ContentList {
             size = 1;
             laserReflect = true;
             lightningReflect = true;
-            health = 2010;
+            health = 2220;
             requirements(Category.defense, ItemStack.with(ModItems.chloroAlloy, 20));
         }};
     }

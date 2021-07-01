@@ -157,7 +157,7 @@ class ModPowerBlocks implements ContentList {
             itemDuration = 240;
             powerProduction = 380;
             consumes.addGas(new ConsumeGasses(Gasses.methane, 0.2f));
-            consumes.power(46f);
+            consumes.power(42f);
             consumes.liquid(ModLiquids.thoriumRefrigerant, 0.2f);
             consumes.item(ModItems.odinum, 7);
             requirements(Category.power, ItemStack.with(ModItems.chloroAlloy, 300, Items.surgeAlloy, 200, Items.graphite, 500, ModItems.odinum, 100));

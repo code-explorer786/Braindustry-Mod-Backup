@@ -9,8 +9,12 @@ public class ModPal {
         Pal.class.getClass();
     }
     public static final Color stealthBarColor =Color.valueOf("6966A1");
+
+    public static final Color fluorescentColor =Color.valueOf("39efb9");
+
     public static final Color ElectricColor = Color.valueOf("C6DBFF09");
     public static final Color ElectricColorMulled = Color.valueOf("C6DBFF18");
+
     public static final Color adamTrailColor = Color.valueOf("b3bee0");
     public static final Color adamBackColor = Color.valueOf("7bafc4");
     public static final Color adamFrontColor = Color.valueOf("b5eff4");

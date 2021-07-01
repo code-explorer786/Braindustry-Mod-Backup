@@ -88,7 +88,7 @@ class ModProduction implements ContentList {
             consumes.power(2.5f);
             consumes.items(ItemStack.with(Items.metaglass, 2, Items.titanium, 1));
             requirements(Category.crafting, ItemStack.with(Items.plastanium, 80, Items.titanium, 100, Items.metaglass, 120, Items.silicon, 200, ModItems.graphenite, 200));
-            outputItem = new ItemStack(ModItems.chromium, 1);
+            outputItem = new ItemStack(ModItems.chromium, 2);
         }};
         exoticAlloySmelter = new GenericSmelter("exotic-alloy-smelter") {{
             localizedName = "Exotic Alloy Smelter";
@@ -99,7 +99,7 @@ class ModProduction implements ContentList {
             hasPower = true;
             hasLiquids = true;
             hasItems = true;
-            craftTime = 90;
+            craftTime = 80;
             updateEffect = Fx.plasticburn;
             consumes.power(1.2f);
             consumes.items(ItemStack.with(ModItems.graphenite, 1, Items.thorium, 3, Items.titanium, 1));
@@ -113,10 +113,10 @@ class ModProduction implements ContentList {
             hasPower = true;
             hasLiquids = true;
             hasItems = true;
-            craftTime = 50;
+            craftTime = 60;
             updateEffect = Fx.steam;
-            consumes.power(4f);
-            consumes.liquid(Liquids.water, 0.2f);
+            consumes.power(3f);
+            consumes.liquid(Liquids.water, 0.1f);
             consumes.items(ItemStack.with(ModItems.graphenite, 1));
             requirements(Category.crafting, ItemStack.with(Items.lead, 50, Items.thorium, 80, Items.silicon, 70, Items.titanium, 50, ModItems.graphenite, 85));
             outputLiquid = new LiquidStack(ModLiquids.liquidGraphenite, 12f);
@@ -152,7 +152,7 @@ class ModProduction implements ContentList {
             consumes.liquid(Liquids.oil, 0.2f).optional(false, false);
             consumes.items(ItemStack.with(Items.copper, 4, Items.titanium, 4, Items.lead, 5, Items.silicon, 5));
             requirements(Category.crafting, ItemStack.with(Items.plastanium, 120, Items.titanium, 150, Items.metaglass, 100, Items.silicon, 300, ModItems.graphenite, 170, Items.surgeAlloy, 100));
-            outputItem = new ItemStack(Items.surgeAlloy, 4);
+            outputItem = new ItemStack(Items.surgeAlloy, 5);
         }};
         hyperPhaseWeaver = new GenericSmelter("hyper-phase-weaver") {{
             localizedName = "Hyper Phase Weaver";
@@ -167,9 +167,9 @@ class ModProduction implements ContentList {
             craftTime = 120;
             updateEffect = Fx.plasticburn;
             consumes.power(6f);
-            consumes.items(ItemStack.with(Items.thorium, 6, Items.silicon, 3, Items.sand, 14));
+            consumes.items(ItemStack.with(Items.thorium, 6, Items.silicon, 3, Items.sand, 6));
             requirements(Category.crafting, ItemStack.with(Items.metaglass, 200, Items.titanium, 90, Items.phaseFabric, 80, Items.silicon, 200, ModItems.graphenite, 180));
-            outputItem = new ItemStack(Items.phaseFabric, 5);
+            outputItem = new ItemStack(Items.phaseFabric, 4);
         }};
         magmaMixer = new GenericCrafter("magma-mixer") {{
             localizedName = "Magma Mixer";
@@ -204,7 +204,7 @@ class ModProduction implements ContentList {
             hasItems = true;
             craftTime = 90;
             updateEffect = Fx.plasticburn;
-            consumes.power(2.2f);
+            consumes.power(2f);
             consumes.items(ItemStack.with(
                     Items.graphite, 3,
                     Items.silicon, 2,
@@ -252,7 +252,7 @@ class ModProduction implements ContentList {
             craftTime = 90;
             updateEffect = Fx.plasticburn;
             consumes.power(3f);
-            consumes.items(ItemStack.with(Items.plastanium, 1, Items.surgeAlloy, 1, Items.phaseFabric, 2));
+            consumes.items(ItemStack.with(Items.plastanium, 1, Items.surgeAlloy, 1, Items.phaseFabric, 1));
             requirements(Category.crafting, ItemStack.with(Items.phaseFabric, 100, Items.plastanium, 100, Items.thorium, 400, ModItems.exoticAlloy, 270, ModItems.graphenite, 380));
             outputItem = new ItemStack(ModItems.phaseAlloy, 2);
         }};
@@ -267,9 +267,9 @@ class ModProduction implements ContentList {
             hasItems = true;
             craftTime = 100;
             updateEffect = Fx.plasticburn;
-            consumes.power(2f);
+            consumes.power(2.4f);
             consumes.liquid(Liquids.oil, 0.1f);
-            consumes.items(ItemStack.with(Items.plastanium, 1, Items.thorium, 4));
+            consumes.items(ItemStack.with(Items.plastanium, 1, Items.thorium, 3));
             requirements(Category.crafting, ItemStack.with(Items.phaseFabric, 100, Items.plastanium, 200, Items.thorium, 300, Items.silicon, 470, ModItems.exoticAlloy, 130, ModItems.graphenite, 380));
             outputItem = new ItemStack(ModItems.plastic, 2);
         }};
@@ -281,7 +281,7 @@ class ModProduction implements ContentList {
             consumes.power(3f);
             consumes.liquid(Liquids.cryofluid, 0.1f);
             consumes.items(ItemStack.with(Items.thorium, 2));
-            outputLiquid = new LiquidStack(ModLiquids.thoriumRefrigerant, 16f);
+            outputLiquid = new LiquidStack(ModLiquids.thoriumRefrigerant, 18f);
             requirements(Category.crafting, ItemStack.with(Items.plastanium, 200, Items.thorium, 200, Items.titanium, 100, Items.metaglass, 130, ModItems.graphenite, 190));
             updateEffect = Fx.purify;
             updateEffectChance = 0.02f;
@@ -297,8 +297,8 @@ class ModProduction implements ContentList {
                 hasGas = true;
                 hasItems = true;
                 consumes.power(2.5f);
-                consumes.liquid(Liquids.oil, 0.12f);
-                outputGas = new GasStack(Gasses.methane, 6);
+                consumes.liquid(Liquids.oil, 0.16f);
+                outputGas = new GasStack(Gasses.methane, 8);
                 requirements(Category.crafting, ItemStack.with(ModItems.odinum, 100, Items.titanium, 100, Items.metaglass, 130, ModItems.chromium, 190));
                 updateEffect = Fx.purify;
                 updateEffectChance = 0.02f;
@@ -319,7 +319,7 @@ class ModProduction implements ContentList {
             consumes.power(5f);
             consumes.items(ItemStack.with(Items.plastanium, 3, Items.surgeAlloy, 2, Items.phaseFabric, 2));
             consumes.addGas(new ConsumeGasses(Gasses.methane, 1));
-            requirements(Category.crafting, ItemStack.with(Items.phaseFabric, 100, Items.plastanium, 100, Items.thorium, 400, ModItems.exoticAlloy, 270, ModItems.graphenite, 380));
+            requirements(Category.crafting, ItemStack.with(Items.phaseFabric, 100, Items.plastanium, 110, Items.thorium, 400, ModItems.exoticAlloy, 270, ModItems.graphenite, 360));
             outputItem = new ItemStack(ModItems.phaseAlloy, 5);
         }};
         methaneLiquifier = new GasGenericCrafter("methane-liquifier") {{
@@ -339,7 +339,7 @@ class ModProduction implements ContentList {
             consumes.power(3f);
             consumes.liquid(Liquids.water, 0.1f);
             consumes.addGas(new ConsumeGasses(Gasses.methane, 0.5f));
-            requirements(Category.crafting, ItemStack.with(ModItems.chromium, 150, Items.plastanium, 100, Items.metaglass, 150, ModItems.graphenite, 200));
+            requirements(Category.crafting, ItemStack.with(ModItems.chromium, 130, Items.plastanium, 90, Items.metaglass, 160, ModItems.graphenite, 200));
             outputLiquid = new LiquidStack(ModLiquids.liquidMethane, 1f);
         }};
         hyperExoAlloySmelter = new GasGenericSmelter("hyper-exotic-alloy-smelter") {{
@@ -357,7 +357,7 @@ class ModProduction implements ContentList {
             consumes.power(5f);
             consumes.items(ItemStack.with(Items.titanium, 5, Items.thorium, 4, ModItems.graphenite, 4));
             consumes.addGas(new ConsumeGasses(Gasses.methane, 0.5f));
-            requirements(Category.crafting, ItemStack.with(Items.plastanium, 100, Items.thorium, 400, ModItems.exoticAlloy, 120, ModItems.graphenite, 290, Items.titanium, 300));
+            requirements(Category.crafting, ItemStack.with(Items.plastanium, 120, Items.thorium, 420, ModItems.exoticAlloy, 120, ModItems.graphenite, 210, Items.titanium, 300));
             outputItem = new ItemStack(ModItems.exoticAlloy, 5);
         }};
 
@@ -371,7 +371,7 @@ class ModProduction implements ContentList {
             hasLiquids = true;
             rotateSpeed = 2;
             drillTime = 245;
-            requirements(Category.production, ItemStack.with(Items.plastanium, 15, Items.silicon, 40, Items.graphite, 45, ModItems.odinum, 75));
+            requirements(Category.production, ItemStack.with(Items.plastanium, 15, Items.silicon, 45, Items.graphite, 45, ModItems.odinum, 65));
             ambientSound = Sounds.drill;
             ambientSoundVolume = 0.01f;
         }};

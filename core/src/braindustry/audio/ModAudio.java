@@ -11,9 +11,9 @@ public class ModAudio {
     }
 
     public static void reload() {
-        Vars.control.sound.ambientMusic.add(ModMusics.darknessHarmony);
-        Vars.control.sound.bossMusic.add(ModMusics.stellarSonata);
-        Vars.control.sound.darkMusic.add(ModMusics.frozenIslands);
+        Vars.control.sound.ambientMusic.add(ModMusics.darknessHarmony, ModMusics.stellarSonata);
+        Vars.control.sound.bossMusic.add(ModMusics.frozenIslands);
+        //Vars.control.sound.darkMusic.add(ModMusics.frozenIslands);
     }
 
 }

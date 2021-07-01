@@ -10,7 +10,7 @@ public class ModItems implements ContentList {
         Items.class.isArray();
     }
 
-    public static Item chromium, exoticAlloy, graphenite, odinum, phaseAlloy, plastic, chloroAlloy;
+    public static Item chromium, exoticAlloy, graphenite, odinum, phaseAlloy, plastic, chloroAlloy, astroBar;
 
     public void load() {
         chromium = new Item("chromium") {
@@ -20,6 +20,19 @@ public class ModItems implements ContentList {
                 this.hardness = 4;
                 this.cost = 1;
                 this.color = Color.valueOf("dededf");
+            }
+        };
+//for next update
+        astroBar = new Item("astronomical-alloy") {
+            {
+                this.localizedName="Astro Bar";
+                this.description="This little piece of material contains power of 1 star...";
+                this.cost = 1.2f;
+                this.alwaysUnlocked = false;
+                this.explosiveness = 0.1f;
+              //  this.color = Color.valueOf("e2f723");
+                this.radioactivity = 0;
+                this.flammability = 0.00f;
             }
         };
 

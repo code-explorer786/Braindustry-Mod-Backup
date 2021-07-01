@@ -1,8 +1,10 @@
 package braindustry.content.Blocks;
 
+import arc.graphics.Color;
 import arc.graphics.g2d.TextureRegion;
 import braindustry.content.ModItems;
 import braindustry.content.ModLiquids;
+import braindustry.graphics.ModPal;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.graphics.CacheLayer;
@@ -167,6 +169,9 @@ class ModEnvironmentBlocks implements ContentList {
 
         fluorescentTree = new TreeBlock("fluorescent-tree"){{
             localizedName = "Fluorescent Tree";
+            emitLight = true;
+            lightRadius = 85f;
+            lightColor = ModPal.fluorescentColor.cpy().a(0.63f);
         }};
 
         blackTree = new TreeBlock("black-tree"){{
@@ -186,6 +191,9 @@ class ModEnvironmentBlocks implements ContentList {
         fluorescentPine = new StaticTree("fluorescent-pine"){{
             localizedName = "Fluorescent Pine";
             variants = 0;
+            emitLight = true;
+            lightRadius = 55f;
+            lightColor = ModPal.fluorescentColor.cpy().a(0.63f);
         }};
 
         darkShrubsFloor = new Floor("black-grass") {{
