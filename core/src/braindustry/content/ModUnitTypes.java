@@ -103,7 +103,7 @@ public class ModUnitTypes implements ContentList {
                                         this.length = 30;
                                         this.damage = 27;
                                         this.shootEffect = Fx.shootSmall;
-                                        this.hitColor = Color.valueOf("8efff0");
+                                        this.hitColor = Color.valueOf("cf77ff");
                                         this.color = Color.valueOf("8efff0");
                                         this.despawnEffect = Fx.none;
                                         this.width = 0.54f;
@@ -121,7 +121,7 @@ public class ModUnitTypes implements ContentList {
             {
                 this.constructor = Types.legs;
                 this.groundLayer = 60.0F;
-                this.localizedName = "Firecracker";
+                this.localizedName = "Flash";
                 this.description = "A small 4-leg unit with strong firework sap guns.";
                 this.speed = 0.6f;
                 this.drag = 0.3f;
@@ -160,8 +160,8 @@ public class ModUnitTypes implements ContentList {
                                         this.length = 50;
                                         this.damage = 35;
                                         this.shootEffect = Fx.shootSmall;
-                                        this.hitColor = Color.valueOf("8efff0");
-                                        this.color = Color.valueOf("8efff0");
+                                        this.hitColor = Color.valueOf("cf77ff");
+                                        this.color = Color.valueOf("a62bff");
                                         this.despawnEffect = Fx.none;
                                         this.width = 0.7f;
                                         this.lifetime = 35;
@@ -178,7 +178,7 @@ public class ModUnitTypes implements ContentList {
             {
                 this.constructor = Types.legs;
                 this.groundLayer = 68.0F;
-                this.localizedName = "Irascibility";
+                this.localizedName = "Burst";
                 this.itemCapacity = 200;
                 this.speed = 0.4f;
                 this.drag = 0.4f;
@@ -216,8 +216,8 @@ public class ModUnitTypes implements ContentList {
                                         this.length = 110;
                                         this.damage = 68;
                                         this.shootEffect = Fx.shootSmall;
-                                        this.hitColor = Color.valueOf("8efff0");
-                                        this.color = Color.valueOf("8efff0");
+                                        this.hitColor = Color.valueOf("cf77ff");
+                                        this.color = Color.valueOf("a62bff");
                                         this.despawnEffect = Fx.none;
                                         this.width = 0.7f;
                                         this.lifetime = 20;
@@ -316,8 +316,8 @@ public class ModUnitTypes implements ContentList {
                                         this.length = 135;
                                         this.damage = 40;
                                         this.shootEffect = Fx.shootSmall;
-                                        this.hitColor = Color.valueOf("8efff0");
-                                        this.color = Color.valueOf("8efff0");
+                                        this.hitColor = Color.valueOf("cf77ff");
+                                        this.color = Color.valueOf("a62bff");
                                         this.despawnEffect = Fx.none;
                                         this.width = 1.0f;
                                         this.lifetime = 25;
@@ -382,8 +382,8 @@ public class ModUnitTypes implements ContentList {
                                         this.length = 180;
                                         this.damage = 270;
                                         this.shootEffect = Fx.shootSmall;
-                                        this.hitColor = Color.valueOf("e88ec9");
-                                        this.color = Color.valueOf("e88ec9");
+                                        this.hitColor = Color.valueOf("cf77ff");
+                                        this.color = Color.valueOf("a62bff");
                                         this.despawnEffect = Fx.none;
                                         this.width = 1.25f;
                                         this.lifetime = 20;
@@ -410,8 +410,8 @@ public class ModUnitTypes implements ContentList {
                                         this.length = 180;
                                         this.damage = 90;
                                         this.shootEffect = Fx.shootSmall;
-                                        this.hitColor = Color.valueOf("8efff0");
-                                        this.color = Color.valueOf("8efff0");
+                                        this.hitColor = Color.valueOf("cf77ff");
+                                        this.color = Color.valueOf("a62bff");
                                         this.despawnEffect = Fx.none;
                                         this.width = 1.15f;
                                         this.lifetime = 20;
