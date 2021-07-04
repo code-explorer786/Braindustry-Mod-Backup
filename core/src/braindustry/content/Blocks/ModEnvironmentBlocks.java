@@ -61,6 +61,20 @@ class ModEnvironmentBlocks implements ContentList {
         oreOdinum = new OreBlock("ore-odinum") {{
                itemDrop = ModItems.odinum;
             }};
+        
+        invisibleWall = new StaticWall("invisible-wall") {{
+
+               localizedName = "Invisible Wall";
+
+               breakable = false;
+
+               alwaysReplace = false;
+
+               solid = true;
+
+               variants = 1;
+
+            }};
 
 
         crimzesWall = new StaticWall("crimzes-wall") {{
