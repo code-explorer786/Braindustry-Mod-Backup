@@ -74,7 +74,7 @@ public class ModUnits extends Units {
     }
 
     public static int getCap(Team team) {
-        return (team != Vars.state.rules.waveTeam || Vars.state.rules.pvp) && (!Vars.state.isCampaign() || team != Vars.state.rules.waveTeam) ? Vars.state.rules.unitCap + Vars.indexer.getExtraUnits(team) : 2147483647;
+        return (team != Vars.state.rules.waveTeam || Vars.state.rules.pvp) && (!Vars.state.isCampaign() || team != Vars.state.rules.waveTeam) ? Vars.state.rules.unitCap + team.data().unitCap : 2147483647;
     }
 
     public static boolean canInteract(Player player, Building tile) {

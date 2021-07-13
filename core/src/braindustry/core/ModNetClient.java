@@ -226,20 +226,4 @@ public class ModNetClient implements ApplicationListener {
     public void update() {
 
     }
-
-    private static ReusableByteInStream bin;
-    private static Reads read = new Reads(new DataInputStream(bin = new ReusableByteInStream()));
-    public void loadNetHandler() {
-
-        netClient.addPacketHandler(braindustryPacketPrefixServer,(string)->{
-            ModRemoteReadClient.readPacket(string);
-        });
-//        net.handleClient(Packets.InvokePacket.class, packet -> {
-//            byte[] clone = packet.bytes.clone();
-//            bin.setBytes(clone);
-//            ModRemoteReadClient.readPacket(read, packet.type);
-////            Events.fire(new Object[]{"net.handleClient", packet.reader(), packet.type});
-//
-//        });
-    }
 }

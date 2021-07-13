@@ -153,7 +153,7 @@ public class ModPlanetDialog extends PlanetDialog {
             }
         }
 
-        if(planets.planet.isLandable()){
+        if(planets.planet.hasGrid()){
             hovered = planets.planet.getSector(planets.cam.getMouseRay(), ModPlanetRenderer.radiusProvider(planets.planet));
         }else{
             hovered = selected = null;

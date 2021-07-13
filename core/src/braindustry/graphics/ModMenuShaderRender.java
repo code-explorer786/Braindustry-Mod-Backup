@@ -14,7 +14,7 @@ import arc.math.Mathf;
 import arc.scene.ui.layout.Scl;
 import arc.struct.Seq;
 import arc.util.*;
-import arc.util.noise.RidgedPerlin;
+import arc.util.noise.Ridged;
 import arc.util.noise.Simplex;
 import braindustry.content.Blocks.ModBlocks;
 import braindustry.content.ModUnitTypes;
@@ -87,7 +87,7 @@ public class ModMenuShaderRender extends MenuRenderer {
         Pixmap fullPixmap = new Pixmap(w, h, Pixmap.Format.rgba8888);
         Buffers.copy(lines, 0, fullPixmap.getPixels(), lines.length);
         Fi file = screenshotDirectory.child("screenshot-background-" + Time.millis() + ".png");
-        PixmapIO.writePNG(file, fullPixmap);
+        PixmapIO.writePng(file, fullPixmap);
         fullPixmap.dispose();
         ui.showInfoFade(Core.bundle.format("screenshot", file.toString()));
 
@@ -138,10 +138,7 @@ public class ModMenuShaderRender extends MenuRenderer {
         });
         this.shadows = new FrameBuffer(this.width, this.height);
         int offset = Mathf.random(100000);
-        Simplex s1 = new Simplex(offset);
-        Simplex s2 = new Simplex((offset + 1));
-        Simplex s3 = new Simplex((offset + 2));
-        RidgedPerlin rid = new RidgedPerlin(1 + offset, 1);
+        int s1 = offset, s2 = offset + 1, s3 = offset + 2;
 //        Rand last = Mathf.rand;
 //        Mathf.rand=new Rand(System.nanoTime());
         Block[] selected = Structs.select(new Block[][]{
@@ -182,72 +179,78 @@ public class ModMenuShaderRender extends MenuRenderer {
         Block floord2 = selected2[0];
         Block walld2 = selected2[1];
 
-        for(int x = 0; x < this.width; ++x) {
-            for(int y = 0; y < this.height; ++y) {
+        for(int x = 0; x < width; x++){
+            for(int y = 0; y < height; y++){
                 Block floor = floord;
                 Block ore = Blocks.air;
                 Block wall = Blocks.air;
-                if (s1.octaveNoise2D(3.0D, 0.5D, 0.05D, (double)x, (double)y) > 0.5D) {
+
+                if(Simplex.noise2d(s1, 3, 0.5, 1/20.0, x, y) > 0.5){
                     wall = walld;
                 }
 
-                if (s3.octaveNoise2D(3.0D, 0.5D, 0.05D, (double)x, (double)y) > 0.5D) {
+                if(Simplex.noise2d(s3, 3, 0.5, 1/20.0, x, y) > 0.5){
                     floor = floord2;
-                    if (wall != Blocks.air) {
+                    if(wall != Blocks.air){
                         wall = walld2;
                     }
                 }
 
-                if (s2.octaveNoise2D(3.0D, 0.3D, 0.03333333333333333D, (double)x, (double)y) > tr1) {
+                if(Simplex.noise2d(s2, 3, 0.3, 1/30.0, x, y) > tr1){
                     ore = ore1;
                 }
 
-                if (s2.octaveNoise2D(2.0D, 0.2D, 0.06666666666666667D, (double)x, (double)(y + 99999)) > tr2) {
+                if(Simplex.noise2d(s2, 2, 0.2, 1/15.0, x, y+99999) > tr2){
                     ore = ore2;
                 }
 
-                if (doheat) {
-                    double heat = s3.octaveNoise2D(4.0D, 0.6D, 0.02D, (double)x, (double)(y + 9999));
-                    double base = 0.65D;
-                    if (heat > base) {
+                if(doheat){
+                    double heat = Simplex.noise2d(s3, 4, 0.6, 1 / 50.0, x, y + 9999);
+                    double base = 0.65;
+
+                    if(heat > base){
                         ore = Blocks.air;
                         wall = Blocks.air;
                         floor = Blocks.basalt;
-                        if (heat > base + 0.1D) {
+
+                        if(heat > base + 0.1){
                             floor = Blocks.hotrock;
-                            if (heat > base + 0.15D) {
+
+                            if(heat > base + 0.15){
                                 floor = Blocks.magmarock;
                             }
                         }
                     }
                 }
 
-                if (tech) {
-                    int mx = x % secSize;
-                    int my = y % secSize;
-                    int sclx = x / secSize;
-                    int scly = y / secSize;
-                    if (s1.octaveNoise2D(2.0D, 0.10000000149011612D, 0.5D, (double)sclx, (double)scly) > 0.4000000059604645D && (mx == 0 || my == 0 || mx == secSize - 1 || my == secSize - 1)) {
+                if(tech){
+                    int mx = x % secSize, my = y % secSize;
+                    int sclx = x / secSize, scly = y / secSize;
+                    if(Simplex.noise2d(s1, 2, 1f / 10f, 0.5f, sclx, scly) > 0.4f && (mx == 0 || my == 0 || mx == secSize - 1 || my == secSize - 1)){
                         floor = Blocks.darkPanel3;
-                        if (Mathf.dst((float)mx, (float)my, (float)(secSize / 2), (float)(secSize / 2)) > (float)secSize / 2.0F + 1.0F) {
+                        if(Mathf.dst(mx, my, secSize/2, secSize/2) > secSize/2f + 1){
                             floor = Blocks.darkPanel4;
                         }
 
-                        if (wall != Blocks.air && Mathf.chance(0.7D)) {
+
+                        if(wall != Blocks.air && Mathf.chance(0.7)){
                             wall = Blocks.darkMetal;
                         }
                     }
                 }
 
-                if (tendrils && rid.getValue((double)x, (double)y, 0.05882353F) > 0.0F) {
-                    floor = Mathf.chance(0.2D) ? Blocks.sporeMoss : Blocks.moss;
-                    if (wall != Blocks.air) {
-                        wall = Blocks.sporeWall;
+                if(tendrils){
+                    if(Ridged.noise2d(1 + offset, x, y, 1f / 17f) > 0f){
+                        floor = Mathf.chance(0.2) ? Blocks.sporeMoss : Blocks.moss;
+
+                        if(wall != Blocks.air){
+                            wall = Blocks.sporeWall;
+                        }
                     }
                 }
 
-                CachedTile tile;
-                tiles.set(x, y, tile = new CachedTile());
+                Tile tile;
+                tiles.set(x, y, (tile = new CachedTile()));
                 tile.x = (short)x;
                 tile.y = (short)y;
                 tile.setFloor(floor.asFloor());

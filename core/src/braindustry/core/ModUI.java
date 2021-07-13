@@ -3,7 +3,6 @@ package braindustry.core;
 import ModVars.Classes.UI.Cheat.ModCheatMenu;
 import ModVars.Classes.UI.CheatUI;
 import ModVars.Classes.UI.ModControlsDialog;
-import ModVars.Classes.UI.settings.AdvancedSettingsMenuDialog;
 import ModVars.Classes.UI.settings.ModOtherSettingsDialog;
 import ModVars.Classes.UI.settings.ModSettingsDialog;
 import arc.Core;
@@ -17,7 +16,9 @@ import braindustry.ModListener;
 import braindustry.gen.StealthUnitc;
 import braindustry.graphics.g3d.ModPlanetRenderer;
 import braindustry.input.ModBinding;
+import braindustry.input.ModDesktopInput;
 import braindustry.input.ModKeyBinds;
+import braindustry.input.ModMobileInput;
 import braindustry.ui.ModStyles;
 import braindustry.ui.dialogs.*;
 import braindustry.ui.fragments.*;
@@ -28,7 +29,8 @@ import braindustry.ui.AdvancedContentInfoDialog;
 import static ModVars.Classes.UI.CheatUI.*;
 import static ModVars.modVars.*;
 import static braindustry.input.ModBinding.*;
-import static mindustry.Vars.ui;
+import static mindustry.Vars.*;
+import static mindustry.Vars.control;
 
 public class ModUI implements Disposable {
     public ModColorPicker colorPicker;
@@ -46,7 +48,11 @@ public class ModUI implements Disposable {
     public void init() {
         ModStyles.load();
         colorPicker=new ModColorPicker();
-        AdvancedSettingsMenuDialog.init();
+        if (mobile){
+            control.setInput(new ModMobileInput());
+        } else {
+            control.setInput(new ModDesktopInput());
+        }
         ModHudFragment.init();
 //        SpecialUnitStatusFragment.init();
         Group nullGroup=new Group() {};

@@ -245,29 +245,4 @@ public class ModNetServer implements ApplicationListener {
         }
 
     }*/
-
-    private static ReusableByteInStream bin;
-    private static Reads read = new Reads(new DataInputStream(bin = new ReusableByteInStream()));
-    public void loadNetHandler() {
-        netServer.addPacketHandler(braindustryPacketPrefixClient,(player,string)->{
-            ModRemoteReadServer.readPacket(string,player);
-        });
-//        net.handleServer(Packets.InvokePacket.class, (con, packet) -> {
-//            if (con.player == null) return;
-//            byte[] clone = packet.bytes.clone();
-//            bin.setBytes(clone);
-//            try {
-//                ModRemoteReadServer.readPacket(read, packet.type, con.player);
-////                Events.fire(new Object[]{"net.handleServer", packet.reader(), packet.type,con.player});
-//            } catch (ValidateException e) {
-//                debug("Validation failed for '@': @", e.player, e.getMessage());
-//            } catch (RuntimeException e) {
-//                if (e.getCause() instanceof ValidateException) {
-//                    debug("Validation failed for '@': @", ((ValidateException) e.getCause()).player, e.getCause().getMessage());
-//                } else {
-//                    throw e;
-//                }
-//            }
-//        });
-    }
 }

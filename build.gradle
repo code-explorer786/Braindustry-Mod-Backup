@@ -18,12 +18,14 @@ buildscript {
 //        gameModFolder = prop["gameModFolder"]
         serverModFolder=null;
         gameModFolder=null;
+        arcHash='b8db131172548e1f10ba86392e09819c34296711'
+//        arcHash='128'
         mindustryVersion = 'v128'
         mindustryVersionAnnotations = 'v126.2'
         arcModule = { String name ->
             //skip to last submodule
             if (name.contains(':')) name = name.split(':').last()
-            return "com.github.Anuken.Arc:$name:b8db131172548e1f10ba86392e09819c34296711"
+            return "com.github.Anuken.Arc:$name:$arcHash"
         }
     }
     repositories {
@@ -61,7 +63,7 @@ ext {
     arcModule = { String name ->
         //skip to last submodule
         if (name.contains(':')) name = name.split(':').last()
-        return "com.github.Anuken.Arc:$name:0e99b0291f81d74d335dca8b0cf3bf26931f1197"
+        return "com.github.Anuken.Arc:$name:$arcHash"
     }
 }
 dependencies {
@@ -69,7 +71,7 @@ dependencies {
     implementation 'commons-io:commons-io:2.5'
 //    compile project(":core")
 //    implementation project(":core")
-    implementation "com.github.Anuken.Arc:arc-core:$mindustryVersion"
+    implementation arcModule('arc-core')
     implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
     implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersionAnnotations"
     implementation "com.github.Anuken.Mindustry:tools:$mindustryVersion"
@@ -149,7 +151,7 @@ project(":annotations") {
     apply plugin: "java-library"
     dependencies {
 //        implementation "com.sun"
-        implementation "com.github.Anuken.Arc:arc-core:$mindustryVersion"
+        implementation arcModule('arc-core')
 //        compileOnly project(":core")
         implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersionAnnotations"
         implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"

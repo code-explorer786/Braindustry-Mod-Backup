@@ -102,11 +102,11 @@ public class OsorePlanetGenerator extends ModPlanetGenerator{
         tile.floor = getBlock(position);
         tile.block = tile.floor.asFloor().wall;
 
-        //if(noise.octaveNoise3D(5, 0.6, 8.0, position.x, position.y, position.z) > 0.65){
+        //if(Simplex.noise3d(seed, 5, 0.6, 8.0, position.x, position.y, position.z) > 0.65){
         //    tile.block = Blocks.air;
         //}
 
-        if(rid.getValue(position.x, position.y, position.z, 22) > 0.32){
+        if(Ridged.noise3d(seed,position.x, position.y, position.z, 22) > 0.32){
             tile.block = Blocks.air;
         }
     }
@@ -116,12 +116,12 @@ public class OsorePlanetGenerator extends ModPlanetGenerator{
         position = Tmp.v33.set(position).scl(scl);
         float rad = scl;
         float temp = Mathf.clamp(Math.abs(position.y * 2f) / (rad));
-        float tnoise = (float)noise.octaveNoise3D(7, 0.56, 1f/3f, position.x, position.y + 999f, position.z);
+        float tnoise = (float)Simplex.noise3d(seed, 7, 0.56, 1f/3f, position.x, position.y + 999f, position.z);
         temp = Mathf.lerp(temp, tnoise, 0.5f);
         height *= 1.2f;
         height = Mathf.clamp(height);
 
-        float tar = (float)noise.octaveNoise3D(4, 0.55f, 1f/2f, position.x, position.y + 999f, position.z) * 0.3f + Tmp.v31.dst(0, 0, 1f) * 0.2f;
+        float tar = (float)Simplex.noise3d(seed, 4, 0.55f, 1f/2f, position.x, position.y + 999f, position.z) * 0.3f + Tmp.v31.dst(0, 0, 1f) * 0.2f;
 
         Block res = arr[Mathf.clamp((int)(temp * arr.length), 0, arr[0].length - 1)][Mathf.clamp((int)(height * arr[0].length), 0, arr[0].length - 1)];
         if(tar > 0.5f){
@@ -133,7 +133,7 @@ public class OsorePlanetGenerator extends ModPlanetGenerator{
     @Override
     protected float noise(float x, float y, double octaves, double falloff, double scl, double mag){
         Vec3 v = sector.rect.project(x, y).scl(5f);
-        return (float)noise.octaveNoise3D(octaves, falloff, 1f / scl, v.x, v.y, v.z) * (float)mag;
+        return (float)Simplex.noise3d(seed, octaves, falloff, 1f / scl, v.x, v.y, v.z) * (float)mag;
     }
 
     @Override
@@ -241,15 +241,15 @@ public class OsorePlanetGenerator extends ModPlanetGenerator{
         float scl = 1f;
         float addscl = 1.3f;
 
-        if(noise.octaveNoise3D(2, 0.5, scl, sector.tile.v.x, sector.tile.v.y, sector.tile.v.z)*nmag + poles > 0.25f*addscl){
+        if(Simplex.noise3d(seed,2, 0.5, scl, sector.tile.v.x, sector.tile.v.y, sector.tile.v.z)*nmag + poles > 0.25f*addscl){
             ores.add(Blocks.oreCoal);
         }
 
-        if(noise.octaveNoise3D(2, 0.5, scl, sector.tile.v.x + 1, sector.tile.v.y, sector.tile.v.z)*nmag + poles > 0.5f*addscl){
+        if(Simplex.noise3d(seed, 2, 0.5, scl, sector.tile.v.x + 1, sector.tile.v.y, sector.tile.v.z)*nmag + poles > 0.5f*addscl){
             ores.add(Blocks.oreTitanium);
         }
 
-        if(noise.octaveNoise3D(2, 0.5, scl, sector.tile.v.x + 2, sector.tile.v.y, sector.tile.v.z)*nmag + poles > 0.7f*addscl){
+        if(Simplex.noise3d(seed, 2, 0.5, scl, sector.tile.v.x + 2, sector.tile.v.y, sector.tile.v.z)*nmag + poles > 0.7f*addscl){
             ores.add(Blocks.oreThorium);
         }
 

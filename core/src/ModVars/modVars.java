@@ -17,15 +17,11 @@ import braindustry.core.ModNetClient;
 import braindustry.core.ModUI;
 import braindustry.gen.ModBuilding;
 import braindustry.gen.ModNetServer;
-import braindustry.graphics.ModFloorRenderer;
-import braindustry.graphics.g2d.ModBloom;
 import braindustry.input.ModKeyBinds;
-import braindustry.world.ModSave4;
 import mindustry.ClientLauncher;
 import mindustry.ctype.Content;
 import mindustry.gen.Building;
 import mindustry.gen.EntityMapping;
-import mindustry.io.SaveIO;
 import mindustry.mod.Mods;
 
 import java.io.DataInputStream;
@@ -50,10 +46,10 @@ public class modVars {
     public static ModNetClient netClient;
     public static ModNetServer netServer;
     public static ModUI modUI;
-    public static ModFloorRenderer floorRenderer;
+//    public static ModFloorRenderer floorRenderer;
     public static ModLogic logic;
     public static ModListener listener;
-    public static ModBloom modBloom;
+//    public static ModBloom modBloom;
     public static ClientLauncher launcher;
     public static boolean renderUpdate;
     public static boolean loaded = false;
@@ -97,25 +93,15 @@ public class modVars {
             runners.each(Runnable::run);
             runners.clear();
         }
-//        ModSave4 save4 = new ModSave4();
-//        SaveIO.versionArray.add(save4);
-//        SaveIO.versions.remove(save4.version);
-//        SaveIO.versions.put(save4.version, save4);
         if(!headless){
             modUI.init();
-            modBloom=new ModBloom(null);
         }
-        netClient.loadNetHandler();
-        netServer.loadNetHandler();
     }
 
     public static void load() {
         modUI = new ModUI();
         settings = new ModSettings();
         modAssets = new ModAssets();
-        if (!headless) {
-            floorRenderer = new ModFloorRenderer();
-        }
         ModListener.load();
         listener.add(netClient = new ModNetClient());
         listener.add(netServer = new ModNetServer());

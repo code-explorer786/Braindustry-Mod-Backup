@@ -1,6 +1,8 @@
 package braindustry.ui;
 
 import arc.graphics.Color;
+import arc.scene.style.ScaledNinePatchDrawable;
+import arc.scene.style.TextureRegionDrawable;
 import arc.scene.ui.ImageButton;
 import mindustry.ui.Styles;
 
@@ -28,10 +30,10 @@ public class ModStyles extends Styles{
             {
                 imageDisabledColor = Color.gray;
                 imageUpColor = Color.white;
-                over = buttonDisabled.tint(black3);
-                disabled = buttonDisabled.tint(none);
-                down = buttonSquareDown.tint(none);
-                up = buttonSquare.tint(none);
+                over = ((ScaledNinePatchDrawable)buttonDisabled).tint(black3);
+                disabled = ((ScaledNinePatchDrawable)buttonDisabled).tint(none);
+                down = ((ScaledNinePatchDrawable)buttonSquareDown).tint(none);
+                up = ((ScaledNinePatchDrawable)buttonSquare).tint(none);
             }
         };
     }

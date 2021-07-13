@@ -161,7 +161,7 @@ public class CallGenerator{
             .addModifiers(Modifier.PUBLIC).addAnnotation(Override.class);
 
         //read only into temporary data buffer
-        readbuilder.addStatement("DATA = READ.b(LENGTH)");
+        readbuilder.addStatement("DATA = READ.b(new byte[LENGTH])");
 
         typespec.addMethod(readbuilder.build());
 

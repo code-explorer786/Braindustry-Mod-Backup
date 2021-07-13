@@ -18,6 +18,7 @@ import arc.struct.OrderedMap;
 import arc.struct.Seq;
 import arc.util.Strings;
 import arc.util.Time;
+import mindustry.ui.dialogs.KeybindDialog;
 
 public class ModKeybindDialog extends Dialog {
     protected KeybindDialog.KeybindDialogStyle style;

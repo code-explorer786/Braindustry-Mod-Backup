@@ -19,7 +19,7 @@ import arc.struct.Seq;
 import arc.util.Log;
 import arc.util.Scaling;
 import arc.util.noise.Noise;
-import arc.util.noise.RidgedPerlin;
+import arc.util.noise.Ridged;
 import arc.util.noise.VoronoiNoise;
 import braindustry.gen.ModContentRegions;
 import braindustry.type.ModUnitType;
@@ -30,7 +30,6 @@ import mindustry.gen.Mechc;
 import mindustry.gen.Unit;
 import mindustry.graphics.BlockRenderer;
 import mindustry.graphics.Pal;
-import mindustry.graphics.ScorchGenerator;
 import mindustry.type.Item;
 import mindustry.type.Weapon;
 import mindustry.ui.Cicon;
@@ -56,51 +55,50 @@ public class Generators {
     static final Cicon logicIcon = Cicon.medium;
 
     public static void generate() {
+
         ObjectMap<Block, Image> gens = new ObjectMap<>();
         Fi.get("../editor").mkdirs();
-        if (false) {
+        if (false){
             ModImagePacker.generate("cracks", () -> {
-                RidgedPerlin r = new RidgedPerlin(1, 3);
-                for (int size = 1; size <= BlockRenderer.maxCrackSize; size++) {
+                for(int size = 1; size <= BlockRenderer.maxCrackSize; size++){
                     int dim = size * 32;
                     int steps = BlockRenderer.crackRegions;
-                    for (int i = 0; i < steps; i++) {
-                        float fract = i / (float) steps;
+                    for(int i = 0; i < steps; i++){
+                        float fract = i / (float)steps;
 
-                        Image image = new Image(dim, dim);
-                        for (int x = 0; x < dim; x++) {
-                            for (int y = 0; y < dim; y++) {
-                                float dst = Mathf.dst((float) x / dim, (float) y / dim, 0.5f, 0.5f) * 2f;
-                                if (dst < 1.2f && r.getValue(x, y, 1f / 40f) - dst * (1f - fract) > 0.16f) {
-                                    image.draw(x, y, Color.white);
+                        Pixmap image = new Pixmap(dim, dim);
+                        for(int x = 0; x < dim; x++){
+                            for(int y = 0; y < dim; y++){
+                                float dst = Mathf.dst((float)x/dim, (float)y/dim, 0.5f, 0.5f) * 2f;
+                                if(dst < 1.2f && Ridged.noise2d(1, x, y, 3, 1f / 40f) - dst*(1f-fract) > 0.16f){
+                                    image.setRaw(x, y, Color.whiteRgba);
                                 }
                             }
                         }
 
-                        Image output = new Image(image.width, image.height);
+                        Pixmap output = new Pixmap(image.width, image.height);
                         int rad = 3;
 
                         //median filter
-                        for (int x = 0; x < output.width; x++) {
-                            for (int y = 0; y < output.height; y++) {
+                        for(int x = 0; x < output.width; x++){
+                            for(int y = 0; y < output.height; y++){
                                 int whites = 0, clears = 0;
-                                for (int cx = -rad; cx < rad; cx++) {
-                                    for (int cy = -rad; cy < rad; cy++) {
+                                for(int cx = -rad; cx < rad; cx++){
+                                    for(int cy = -rad; cy < rad; cy++){
                                         int wx = Mathf.clamp(cx + x, 0, output.width - 1), wy = Mathf.clamp(cy + y, 0, output.height - 1);
-                                        Color color = image.getColor(wx, wy);
-                                        if (color.a > 0.5f) {
-                                            whites++;
-                                        } else {
-                                            clears++;
+                                        int color = image.getRaw(wx, wy);
+                                        if((color & 0xff) > 127){
+                                            whites ++;
+                                        }else{
+                                            clears ++;
                                         }
                                     }
                                 }
-                                output.draw(x, y, whites >= clears ? Color.white : Color.clear);
+                                output.setRaw(x, y, whites >= clears ? Color.whiteRgba : Color.clearRgba);
                             }
                         }
 
-                        output.save("cracks-" + size + "-" + i);
-
+                        Fi.get("cracks-" + size + "-" + i + ".png").writePng(output);
                     }
                 }
             });
@@ -400,12 +398,11 @@ public class Generators {
                     wrecks[i] = new Image(image.width, image.height);
                 }
 
-                RidgedPerlin r = new RidgedPerlin(1, 3);
                 VoronoiNoise vn = new VoronoiNoise(type.id, true);
 
                 image.each((x, y) -> {
                     //add darker cracks on top
-                    boolean rValue = Math.max(r.getValue(x, y, 1f / (20f + image.width / 8f)), 0) > 0.16f;
+                    boolean rValue = Math.max(Ridged.noise2d(1, x, y, 3, 1f / (20f + image.width/8f)), 0) > 0.16f;
                     //cut out random chunks with voronoi
                     boolean vval = vn.noise(x, y, 1f / (14f + image.width / 40f)) > 0.47;
 
@@ -501,26 +498,26 @@ public class Generators {
 
         if (false) {
             ModImagePacker.generate("scorches", () -> {
-                for (int size = 0; size < 10; size++) {
-                    for (int i = 0; i < 3; i++) {
-                        ScorchGenerator gen = new ScorchGenerator();
+                for(int size = 0; size < 10; size++){
+                    for(int i = 0; i < 3; i++){
+                        mindustry.tools.Generators.ScorchGenerator gen = new mindustry.tools.Generators.ScorchGenerator();
                         double multiplier = 30;
                         double ss = size * multiplier / 20.0;
 
                         gen.seed = Mathf.random(100000);
-                        gen.size += size * multiplier;
+                        gen.size += size*multiplier;
                         gen.scale = gen.size / 80f * 18f;
                         //gen.nscl -= size * 0.2f;
-                        gen.octaves += ss / 3.0;
-                        gen.pers += ss / 10.0 / 5.0;
+                        gen.octaves += ss/3.0;
+                        gen.pers += ss/10.0/5.0;
 
                         gen.scale += Mathf.range(3f);
-                        gen.scale -= ss * 2f;
+                        gen.scale -= ss*2f;
                         gen.nscl -= Mathf.random(1f);
 
                         Pixmap out = gen.generate();
                         Pixmap median = Pixmaps.median(out, 2, 0.75);
-                        Fi.get("../rubble/scorch-" + size + "-" + i + ".png").writePNG(median);
+                        Fi.get("../rubble/scorch-" + size + "-" + i + ".png").writePng(median);
                         out.dispose();
                         median.dispose();
                     }

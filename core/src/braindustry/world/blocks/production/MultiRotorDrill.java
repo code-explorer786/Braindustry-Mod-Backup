@@ -106,7 +106,6 @@ public class MultiRotorDrill extends Drill {
             if (dominantItems > 0 && progress >= delay && items.total() < itemCapacity) {
                 offload(dominantItem);
 
-                index++;
                 progress %= delay;
                 effectAboveRotor((x,y,size)->drillEffect.at(x + Mathf.range(size), y + Mathf.range(size), dominantItem.color));
             }

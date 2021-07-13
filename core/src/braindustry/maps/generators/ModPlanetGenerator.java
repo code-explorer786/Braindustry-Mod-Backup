@@ -7,7 +7,7 @@ import arc.struct.IntSeq;
 import arc.struct.ObjectMap;
 import arc.util.Tmp;
 import arc.util.noise.Noise;
-import arc.util.noise.RidgedPerlin;
+import arc.util.noise.Ridged;
 import arc.util.noise.Simplex;
 import mindustry.content.Blocks;
 import mindustry.graphics.g3d.HexMesher;
@@ -22,8 +22,9 @@ import mindustry.world.TileGen;
 import mindustry.world.Tiles;
 
 public class ModPlanetGenerator extends PlanetGenerator {
-    public final Simplex simplex = new Simplex();
-    public final RidgedPerlin rid = new RidgedPerlin(1, 2);
+
+    private static int lastSeed = 0;
+    final int seed=lastSeed++;
     public  Block[][] arr;
     public  float scl = 0.f;
     public  float waterOffset = 0.f;
@@ -53,12 +54,12 @@ public class ModPlanetGenerator extends PlanetGenerator {
         pos = Tmp.v33.set(pos).scl(scl);
         float rad = scl;
         float temp = Mathf.clamp(Math.abs(pos.y * 2) / rad);
-        float tnoise =(float) simplex.octaveNoise3D(7d, 0.56d, 1d / 3d, pos.x, pos.y + 999d, pos.z);
+        float tnoise =(float) Simplex.noise3d(seed, 7d, 0.56d, 1d / 3d, pos.x, pos.y + 999d, pos.z);
         temp = Mathf.lerp(temp, tnoise, 0.5f);
         height *= 0.9f;
         height = Mathf.clamp(height);
 
-        float tar =(float) simplex.octaveNoise3D(4, 0.55, 0.5, pos.x, pos.y + 999, pos.z) * 0.3f + Tmp.v31.dst(0, 0, 1) * 0.2f;
+        float tar =(float) Simplex.noise3d(seed, 4, 0.55, 0.5, pos.x, pos.y + 999, pos.z) * 0.3f + Tmp.v31.dst(0, 0, 1) * 0.2f;
         Block res = arr[
                 Mathf.clamp(Mathf.floor(temp * arr.length), 0, arr[0].length - 1)][Mathf.clamp(Mathf.floor(height * arr[0].length), 0, arr[0].length - 1)
                 ];
@@ -75,7 +76,7 @@ public class ModPlanetGenerator extends PlanetGenerator {
         pos = Tmp.v33.set(pos);
         pos.scl(scl);
 
-        return (Mathf.pow((float) simplex.octaveNoise3D(7, 0.5, 1d / 3d, pos.x, pos.y, pos.z), 2.3f) + waterOffset) / (1 + waterOffset);
+        return (Mathf.pow((float) Simplex.noise3d(seed, 7, 0.5, 1d / 3d, pos.x, pos.y, pos.z), 2.3f) + waterOffset) / (1 + waterOffset);
     }
 
     public float getHeight(Vec3 position) {
@@ -87,7 +88,7 @@ public class ModPlanetGenerator extends PlanetGenerator {
         tile.floor = this.getBlock(position);
         tile.block = tile.floor.asFloor().wall;
 
-        if (rid.getValue(position.x, position.y, position.z, 22) > 0.32) {
+        if (Ridged.noise3d(seed,position.x, position.y, position.z, 22) > 0.32) {
             tile.block = Blocks.air;
         }
     }
@@ -95,7 +96,6 @@ public class ModPlanetGenerator extends PlanetGenerator {
     public abstract class PlanetGenerator extends BasicGenerator implements HexMesher {
     protected IntSeq ints = new IntSeq();
     protected Sector sector;
-    protected Simplex noise = new Simplex();
 
     /** Should generate sector bases for a planet. */
     public void generateSector(Sector sector){
@@ -134,7 +134,7 @@ public class ModPlanetGenerator extends PlanetGenerator {
     @Override
     protected float noise(float x, float y, double octaves, double falloff, double scl, double mag){
         Vec3 v = sector.rect.project(x, y);
-        return (float)noise.octaveNoise3D(octaves, falloff, 1f / scl, v.x, v.y, v.z) * (float)mag;
+        return (float)Simplex.noise3d(seed, octaves, falloff, 1f / scl, v.x, v.y, v.z) * (float)mag;
     }
 
     public void generate(Tiles tiles, Sector sec){

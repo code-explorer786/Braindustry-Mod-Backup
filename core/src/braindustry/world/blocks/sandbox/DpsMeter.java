@@ -58,22 +58,18 @@ public class DpsMeter extends ModBlock {
         config(MeterContainer.class, (t, conteiner) -> {
             DpsMeterBuild tile = (DpsMeterBuild) t;
             tile.container = conteiner == null ? new MeterContainer() : conteiner;
-            Vars.indexer.updateIndices(tile.tile);
         });
         config(Team.class, (t, team) -> {
             DpsMeterBuild tile = (DpsMeterBuild) t;
             tile.container.selectedTeam=team==null?Team.derelict:team;
-            Vars.indexer.updateIndices(tile.tile);
         });
         config(Float.class, (t, time) -> {
             DpsMeterBuild tile = (DpsMeterBuild) t;
             tile.container.time=time==null?0f:time;
-            Vars.indexer.updateIndices(tile.tile);
         });
         config(Boolean.class, (t, unit) -> {
             DpsMeterBuild tile = (DpsMeterBuild) t;
             tile.container.unit= unit != null && unit;
-            Vars.indexer.updateIndices(tile.tile);
         });
     }
 
@@ -125,7 +121,7 @@ protected void configure(){
         public void updateTile() {
             super.updateTile();
             if (container != null) {
-                team = container.selectedTeam;
+                if (team!=container.selectedTeam)changeTeam(container.selectedTeam);
             } else {
                 container = new MeterContainer();
             }

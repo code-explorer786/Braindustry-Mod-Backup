@@ -224,7 +224,6 @@ public class UnitEntry implements Drawc, WritableInterface {
         return (T) this;
     }
 
-    @Override
     public <T> T with(Cons<T> cons) {
         cons.get((T) this);
         return (T) this;

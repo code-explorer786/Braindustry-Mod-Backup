@@ -5,37 +5,26 @@ import ModVars.Classes.ModEventType;
 import ModVars.modVars;
 import arc.Core;
 import arc.Events;
-import arc.func.Boolf;
-import arc.func.Func;
 import arc.graphics.g2d.TextureRegion;
-import arc.struct.ObjectMap;
 import arc.struct.Seq;
 import arc.util.CommandHandler;
 import braindustry.audio.ModAudio;
 import braindustry.core.ModContentLoader;
 import braindustry.gen.*;
 import braindustry.graphics.ModShaders;
-import braindustry.graphics.g2d.ModBloom;
+import braindustry.input.ModDesktopInput;
+import braindustry.input.ModMobileInput;
 import mindustry.Vars;
-import mindustry.content.Blocks;
 import mindustry.ctype.MappableContent;
 import mindustry.ctype.UnlockableContent;
-import mindustry.entities.bullet.BulletType;
-import mindustry.entities.bullet.LightningBulletType;
 import mindustry.game.EventType;
 import mindustry.game.EventType.ClientLoadEvent;
 import mindustry.game.EventType.DisposeEvent;
 import mindustry.gen.EntityMapping;
-import mindustry.io.JsonIO;
+import mindustry.input.DesktopInput;
+import mindustry.input.MobileInput;
 import mindustry.mod.Mod;
-import mindustry.mod.Mods;
-import mindustry.type.Item;
 import mindustry.ui.dialogs.BaseDialog;
-import mindustry.world.Block;
-import mindustry.world.blocks.defense.turrets.ItemTurret;
-import mindustry.world.blocks.defense.turrets.PowerTurret;
-import mindustry.world.blocks.defense.turrets.Turret;
-import mindustry.world.meta.BuildVisibility;
 
 import static ModVars.modFunc.*;
 import static ModVars.modVars.*;
@@ -62,11 +51,19 @@ public class BraindustryMod extends Mod {
             if (e == EventType.Trigger.postDraw) {
                 renderUpdate = false;
             }
+            if (e == EventType.Trigger.update){
+                boolean modMobile = (control.input instanceof ModMobileInput);
+                boolean modDesktop= (control.input instanceof ModDesktopInput);
+                boolean mobile= (control.input instanceof MobileInput);
+                boolean desktop = (control.input instanceof DesktopInput);
+                if (mobile && !modMobile)control.setInput(new ModMobileInput());
+                if (desktop && !modDesktop)control.setInput(new ModDesktopInput());
+            }
             if (e == EventType.Trigger.draw) {
                 if (!headless) {
-                    if (!(renderer.bloom instanceof ModBloom)) {
-                        renderer.bloom = modBloom.parent(renderer.bloom);
-                    }
+//                    if (!(renderer.bloom instanceof ModBloom)) {
+//                        renderer.bloom = modBloom.parent(renderer.bloom);
+//                    }
                 }
             }
         });
