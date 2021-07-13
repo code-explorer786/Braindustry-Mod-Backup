@@ -79,6 +79,7 @@ public class GasBlock extends Block {
 
     @Override
     public void init() {
+        super.init();
         for (ConsumeType value : ConsumeType.values()) {
             if (consumes.has(value)) {
                 super.consumes.add(consumes.get(value));
@@ -87,7 +88,11 @@ public class GasBlock extends Block {
         if(health == -1){
             health = size * size * 40;
         }
+        clipSize = Math.max(clipSize, size * tilesize);
 
+        if(emitLight){
+            clipSize = Math.max(clipSize, lightRadius * 2f);
+        }
         if(group == BlockGroup.transportation || consumes.has(ConsumeType.item) || category == Category.distribution){
             acceptsItems = true;
         }

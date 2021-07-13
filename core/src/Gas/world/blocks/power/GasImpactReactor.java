@@ -56,6 +56,7 @@ public class GasImpactReactor extends GasPowerGenerator{
         hasGas=true;
         gasCapacity = 30f;
         outputsPower = consumesPower = true;
+        emitLight=true;
         flags = EnumSet.of(BlockFlag.reactor, BlockFlag.generator);
     }
 
