@@ -21,8 +21,8 @@ import javax.tools.Diagnostic;
  * The annotation processor for generating remote method call code.
  */
 @SupportedAnnotationTypes({
-//        "braindustry.annotations.ModAnnotations.Remote",
-        "mindustry.annotations.Annotations.Remote",
+        "braindustry.annotations.ModAnnotations.Remote",
+//        "mindustry.annotations.Annotations.Remote",
         "braindustry.annotations.ModAnnotations.TypeIOHandler",
         "mindustry.annotations.Annotations.TypeIOHandler"
 })

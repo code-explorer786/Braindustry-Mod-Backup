@@ -9,6 +9,7 @@ import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.math.Interp;
 import arc.math.Mathf;
+import arc.scene.Action;
 import arc.scene.Element;
 import arc.scene.Group;
 import arc.scene.actions.Actions;
@@ -17,7 +18,9 @@ import arc.scene.style.Drawable;
 import arc.scene.style.TextureRegionDrawable;
 import arc.scene.ui.Image;
 import arc.scene.ui.ImageButton;
+import arc.scene.ui.Label;
 import arc.scene.ui.TextField;
+import arc.scene.ui.layout.Cell;
 import arc.scene.ui.layout.Table;
 import arc.scene.ui.layout.WidgetGroup;
 import arc.struct.Bits;
@@ -39,96 +42,24 @@ import mindustry.gen.*;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
 import mindustry.input.Binding;
+import mindustry.net.Net;
 import mindustry.net.Packets;
 import mindustry.type.Item;
 import mindustry.ui.*;
+import mindustry.ui.dialogs.PausedDialog;
+import mindustry.ui.dialogs.SchematicsDialog;
 import mindustry.ui.fragments.HudFragment;
+
+import java.util.Objects;
 
 import static mindustry.Vars.*;
 
-public class ModHudFragment  {
+public class ModHudFragment {
     public static void init() {
         Drawable zero = ((TextureRegionDrawable) Tex.whiteui).tint(0, 0, 0, 0);
 //            Table table = new Table(Tex.wavepane);
         Table unitBar = new Table(zero);
         unitBar.marginTop(0).marginBottom(4).marginLeft(4);
-        class SideBar extends Element{
-            public final Floatp amount;
-            public final boolean flip;
-            public final Boolp flash;
-
-            float last, blink, value;
-
-            public SideBar(Floatp amount, Boolp flash, boolean flip){
-                this.amount = amount;
-                this.flip = flip;
-                this.flash = flash;
-
-                setColor(Pal.health);
-            }
-
-            @Override
-            public void draw(){
-                float next = amount.get();
-
-                if(Float.isNaN(next) || Float.isInfinite(next)) next = 1f;
-
-                if(next < last && flash.get()){
-                    blink = 1f;
-                }
-
-                blink = Mathf.lerpDelta(blink, 0f, 0.2f);
-                value = Mathf.lerpDelta(value, next, 0.15f);
-                last = next;
-
-                if(Float.isNaN(value) || Float.isInfinite(value)) value = 1f;
-
-                drawInner(Pal.darkishGray, 1f);
-                drawInner(Tmp.c1.set(color).lerp(Color.white, blink), value);
-            }
-
-            void drawInner(Color color, float fract){
-                if(fract < 0) return;
-
-                fract = Mathf.clamp(fract);
-                if(flip){
-                    x += width;
-                    width = -width;
-                }
-
-                float stroke = width * 0.35f;
-                float bh = height/2f;
-                Draw.color(color);
-
-                float f1 = Math.min(fract * 2f, 1f), f2 = (fract - 0.5f) * 2f;
-
-                float bo = -(1f - f1) * (width - stroke);
-
-                Fill.quad(
-                        x, y,
-                        x + stroke, y,
-                        x + width + bo, y + bh * f1,
-                        x + width - stroke + bo, y + bh * f1
-                );
-
-                if(f2 > 0){
-                    float bx = x + (width - stroke) * (1f - f2);
-                    Fill.quad(
-                            x + width, y + bh,
-                            x + width - stroke, y + bh,
-                            bx, y + height * fract,
-                            bx + stroke, y + height * fract
-                    );
-                }
-
-                Draw.reset();
-
-                if(flip){
-                    width = -width;
-                    x -= width;
-                }
-            }
-        }
         Element unitBackground = new Element() {
             @Override
             public void draw() {
@@ -157,7 +88,7 @@ public class ModHudFragment  {
                     float pad = -20;
                     t.margin(0);
                     t.clicked(() -> {
-                        if(!player.dead() && mobile){
+                        if (!player.dead() && mobile) {
                             Call.unitClear(player);
                             control.input.controlledType = null;
                         }
@@ -177,8 +108,86 @@ public class ModHudFragment  {
         actor.row();
         actor.add().growY();
         actor.left().bottom();
-        actor.update(()->actor.setSize(actor.getPrefWidth(),Core.graphics.getHeight()));
+        actor.update(() -> actor.setSize(actor.getPrefWidth(), Core.graphics.getHeight()));
         actor.setBackground(zero);
         ui.hudGroup.addChild(actor);
+    }
+
+    static class SideBar extends Element {
+        public final Floatp amount;
+        public final boolean flip;
+        public final Boolp flash;
+
+        float last, blink, value;
+
+        public SideBar(Floatp amount, Boolp flash, boolean flip) {
+            this.amount = amount;
+            this.flip = flip;
+            this.flash = flash;
+
+            setColor(Pal.health);
+        }
+
+        @Override
+        public void draw() {
+            float next = amount.get();
+
+            if (Float.isNaN(next) || Float.isInfinite(next)) next = 1f;
+
+            if (next < last && flash.get()) {
+                blink = 1f;
+            }
+
+            blink = Mathf.lerpDelta(blink, 0f, 0.2f);
+            value = Mathf.lerpDelta(value, next, 0.15f);
+            last = next;
+
+            if (Float.isNaN(value) || Float.isInfinite(value)) value = 1f;
+
+            drawInner(Pal.darkishGray, 1f);
+            drawInner(Tmp.c1.set(color).lerp(Color.white, blink), value);
+        }
+
+        void drawInner(Color color, float fract) {
+            if (fract < 0) return;
+
+            fract = Mathf.clamp(fract);
+            if (flip) {
+                x += width;
+                width = -width;
+            }
+
+            float stroke = width * 0.35f;
+            float bh = height / 2f;
+            Draw.color(color);
+
+            float f1 = Math.min(fract * 2f, 1f), f2 = (fract - 0.5f) * 2f;
+
+            float bo = -(1f - f1) * (width - stroke);
+
+            Fill.quad(
+                    x, y,
+                    x + stroke, y,
+                    x + width + bo, y + bh * f1,
+                    x + width - stroke + bo, y + bh * f1
+            );
+
+            if (f2 > 0) {
+                float bx = x + (width - stroke) * (1f - f2);
+                Fill.quad(
+                        x + width, y + bh,
+                        x + width - stroke, y + bh,
+                        bx, y + height * fract,
+                        bx + stroke, y + height * fract
+                );
+            }
+
+            Draw.reset();
+
+            if (flip) {
+                width = -width;
+                x -= width;
+            }
+        }
     }
 }

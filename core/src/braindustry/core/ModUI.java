@@ -54,7 +54,6 @@ public class ModUI implements Disposable {
             control.setInput(new ModDesktopInput());
         }
         ModHudFragment.init();
-//        SpecialUnitStatusFragment.init();
         Group nullGroup=new Group() {};
         Core.settings.put("uiscalechanged", false);
         ModListener.updaters.add(() -> {
