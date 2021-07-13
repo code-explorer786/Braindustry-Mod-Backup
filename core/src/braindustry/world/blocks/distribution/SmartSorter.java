@@ -1,31 +1,22 @@
 package braindustry.world.blocks.distribution;
 
 import arc.Core;
-import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.TextureAtlas;
 import arc.graphics.g2d.TextureRegion;
-import arc.math.Interp;
 import arc.math.Mathf;
 import arc.math.geom.Vec2;
-import arc.scene.actions.Actions;
 import arc.scene.style.TextureRegionDrawable;
 import arc.scene.ui.ImageButton;
 import arc.scene.ui.layout.Table;
 import arc.struct.Seq;
-import arc.util.Align;
 import arc.util.Eachable;
-import arc.util.Log;
 import arc.util.Strings;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
 import braindustry.annotations.ModAnnotations;
-import braindustry.content.ModFx;
-import braindustry.world.blocks.DebugBlock;
-import mindustry.content.Blocks;
 import mindustry.entities.units.BuildPlan;
 import mindustry.gen.Building;
-import mindustry.gen.Icon;
 import mindustry.type.Item;
 import mindustry.ui.Cicon;
 import mindustry.world.Block;
@@ -35,7 +26,6 @@ import mindustry.world.meta.BlockGroup;
 import java.util.Arrays;
 
 import static mindustry.Vars.content;
-import static mindustry.Vars.player;
 
 public class SmartSorter extends Block {
     public boolean invert;
@@ -60,7 +50,7 @@ public class SmartSorter extends Block {
                 tile.configSide(i, Strings.parseInt(split[i]));
             }
         });
-        configClear((SmartSorterBuild tile) -> Arrays.fill(tile.sides, -1));
+//        configClear((SmartSorterBuild tile) -> Arrays.fill(tile.sides, -1));
     }
 
     @Override
@@ -170,8 +160,16 @@ public class SmartSorter extends Block {
             } else if (!ac && !bc && !cc) {
                 return null;
             } else {
-                if (rotation == 0) {
-                    to = a;
+                if (ac && bc) {
+                    to = rotation % 2 == 0 ? a : b;
+                } else if(bc && cc){
+                    to = rotation % 2 == 0 ? b : c;
+                } else {
+                    to = rotation % 2 == 0 ? c : a;
+                }
+                if (flip)rotation=Mathf.mod(rotation+1,4);
+                /*if (rotation == 0) {
+                    to = ac ? a : (bc ? b : c);
                     if (flip) this.rotation = (byte) 1;
                 } else if (rotation == 1) {
                     to = b;
@@ -179,10 +177,11 @@ public class SmartSorter extends Block {
                 } else {
                     to = c;
                     if (flip) this.rotation = (byte) 0;
-                }
+                }*/
             }
             return to;
         }
+
         @Override
         public void updateTableAlign(Table t) {
             float addPos = Mathf.ceil(this.block.size / 2f) - 1;
@@ -190,17 +189,18 @@ public class SmartSorter extends Block {
 //            t.setSize(this.block.size * 12f);
             t.setPosition(pos.x, pos.y, 0);
         }
+
         private void addButton(Table t, int dir) {
             TextureAtlas.AtlasRegion cross = Core.atlas.find("cross");
             ImageButton button = new ImageButton(new TextureRegionDrawable(cross));
             button.update(() -> {
-                button.getStyle().imageUp= new TextureRegionDrawable(content.item(sides[dir]) == null ? cross : content.item(sides[dir]).icon(Cicon.full));
+                button.getStyle().imageUp = new TextureRegionDrawable(content.item(sides[dir]) == null ? cross : content.item(sides[dir]).icon(Cicon.full));
             });
             button.clicked(() -> {
                 t.clearChildren();
                 ItemSelection.buildTable(t, content.items(), () -> content.item(sides[dir]), newItem -> {
-                    sides[dir] = newItem==null?-1:newItem.id;
-                    configure(sides[0]+" "+sides[1]+" "+sides[2]+" "+sides[3]);
+                    sides[dir] = newItem == null ? -1 : newItem.id;
+                    configure(sides[0] + " " + sides[1] + " " + sides[2] + " " + sides[3]);
                     t.clearChildren();
                     buildConfiguration(t);
                 });
@@ -228,12 +228,9 @@ public class SmartSorter extends Block {
 
         @Override
         public boolean onConfigureTileTapped(Building other) {
-            if (this == other) {
-                deselect();
-                configure(null);
-                return false;
-            }
-            return true;
+            deselect();
+            //                configure(null);
+            return this != other;
         }
 
         @Override
