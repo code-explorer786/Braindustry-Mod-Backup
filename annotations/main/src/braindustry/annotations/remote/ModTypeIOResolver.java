@@ -1,4 +1,4 @@
-package braindustry.annotations.RemoteProc;
+package braindustry.annotations.remote;
 
 import arc.struct.ObjectMap;
 import arc.struct.Seq;
@@ -9,10 +9,8 @@ import mindustry.annotations.util.Smethod;
 import mindustry.annotations.util.Stype;
 import mindustry.annotations.util.Svar;
 import mindustry.annotations.util.TypeIOResolver;
-import mindustry.io.TypeIO;
 
 import javax.lang.model.element.Modifier;
-import javax.lang.model.element.TypeElement;
 
 public class ModTypeIOResolver extends TypeIOResolver {
     public static ClassSerializer resolve(BaseProcessor processor)  {

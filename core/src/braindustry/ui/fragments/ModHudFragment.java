@@ -28,6 +28,7 @@ import arc.util.Tmp;
 import braindustry.gen.StealthUnitc;
 import braindustry.graphics.ModPal;
 import braindustry.graphics.ModShaders;
+import mindustry.Vars;
 import mindustry.annotations.Annotations;
 import mindustry.core.GameState;
 import mindustry.ctype.UnlockableContent;
@@ -62,24 +63,158 @@ public class ModHudFragment extends HudFragment {
     }
 
     public static void init() {
-        WidgetGroup hudGroup = ui.hudGroup;
-        hudGroup.getChildren().each(Core.scene.root::removeChild);
-        Seq.<Element>with(hudGroup,ui.chatfrag,ui.scriptfrag).each(Core.scene.root::removeChild);
-        hudGroup.clearChildren();
-        hudGroup.clear();
-        hudGroup.remove();
-        clear(ui.minimapfrag.elem);
-        newHudGroup();
-        WidgetGroup  newGroup=ui.hudGroup;
 
-        Group nullGroup=new Group() {};
-        ui.hudfrag.blockfrag.build(nullGroup);
-        ui.hudfrag=new ModHudFragment();
-        ui.hudfrag.build(newGroup);
-        ui.chatfrag.container().build(newGroup);
-        ui.minimapfrag.build(newGroup);
-        ui.listfrag.build(newGroup);
-        ui. scriptfrag.container().build(newGroup);
+        if (false) {
+            WidgetGroup hudGroup = ui.hudGroup;
+            hudGroup.getChildren().each(Core.scene.root::removeChild);
+            Seq.<Element>with(hudGroup,ui.chatfrag,ui.scriptfrag).each(Core.scene.root::removeChild);
+            hudGroup.clearChildren();
+            hudGroup.clear();
+            hudGroup.remove();
+            clear(ui.minimapfrag.elem);
+            newHudGroup();
+            WidgetGroup  newGroup=ui.hudGroup;
+
+            Group nullGroup=new Group() {};
+            ui.hudfrag.blockfrag.build(nullGroup);
+            ui.hudfrag=new ModHudFragment();
+            ui.hudfrag.build(newGroup);
+            ui.chatfrag.container().build(newGroup);
+            ui.minimapfrag.build(newGroup);
+            ui.listfrag.build(newGroup);
+            ui. scriptfrag.container().build(newGroup);
+        }else{
+            Table table = new Table(Tex.wavepane);
+            class SideBar extends Element{
+                public final Floatp amount;
+                public final boolean flip;
+                public final Boolp flash;
+
+                float last, blink, value;
+
+                public SideBar(Floatp amount, Boolp flash, boolean flip){
+                    this.amount = amount;
+                    this.flip = flip;
+                    this.flash = flash;
+
+                    setColor(Pal.health);
+                }
+
+                @Override
+                public void draw(){
+                    float next = amount.get();
+
+                    if(Float.isNaN(next) || Float.isInfinite(next)) next = 1f;
+
+                    if(next < last && flash.get()){
+                        blink = 1f;
+                    }
+
+                    blink = Mathf.lerpDelta(blink, 0f, 0.2f);
+                    value = Mathf.lerpDelta(value, next, 0.15f);
+                    last = next;
+
+                    if(Float.isNaN(value) || Float.isInfinite(value)) value = 1f;
+
+                    drawInner(Pal.darkishGray, 1f);
+                    drawInner(Tmp.c1.set(color).lerp(Color.white, blink), value);
+                }
+
+                void drawInner(Color color, float fract){
+                    if(fract < 0) return;
+
+                    fract = Mathf.clamp(fract);
+                    if(flip){
+                        x += width;
+                        width = -width;
+                    }
+
+                    float stroke = width * 0.35f;
+                    float bh = height/2f;
+                    Draw.color(color);
+
+                    float f1 = Math.min(fract * 2f, 1f), f2 = (fract - 0.5f) * 2f;
+
+                    float bo = -(1f - f1) * (width - stroke);
+
+                    Fill.quad(
+                            x, y,
+                            x + stroke, y,
+                            x + width + bo, y + bh * f1,
+                            x + width - stroke + bo, y + bh * f1
+                    );
+
+                    if(f2 > 0){
+                        float bx = x + (width - stroke) * (1f - f2);
+                        Fill.quad(
+                                x + width, y + bh,
+                                x + width - stroke, y + bh,
+                                bx, y + height * fract,
+                                bx + stroke, y + height * fract
+                        );
+                    }
+
+                    Draw.reset();
+
+                    if(flip){
+                        width = -width;
+                        x -= width;
+                    }
+                }
+            }
+            Element unitBackground = new Element() {
+                @Override
+                public void draw() {
+                    Draw.color(Pal.darkerGray);
+                    float radius = height / Mathf.sqrt3;
+                    Fill.poly(x + width / 2f, y + height / 2f, 6, radius);
+                    Draw.reset();
+//                        Draw.flush();
+                    if (player != null && player.unit() instanceof StealthUnitc) {
+                        StealthUnitc unit = player.unit().as();
+                        float offset = unit.stealthf();
+                        Draw.color(ModPal.stealthBarColor);
+                        ModShaders.iconBackgroundShader.set(y + (radius * 2f) * offset);
+                        Fill.poly(x + width / 2f, y + height / 2f, 6, radius);
+                        Draw.shader();
+                        Draw.reset();
+//                            Draw.flush();
+                    }
+                    Drawf.shadow(x + width / 2f, y + height / 2f, height * 1.13f);
+                }
+            };
+            table.stack(
+                    unitBackground,
+                    new Table(t -> {
+                        float bw = 40f;
+                        float pad = -20;
+                        t.margin(0);
+                        t.clicked(() -> {
+                            if(!player.dead() && mobile){
+                                Call.unitClear(player);
+                                control.input.controlledType = null;
+                            }
+                        });
+
+                        t.add(new SideBar(() -> player.unit().healthf(), () -> true, true)).width(bw).growY().padRight(pad);
+                        t.image(() -> player.icon()).scaling(Scaling.bounded).grow().maxWidth(54f);
+                        t.add(new SideBar(() -> player.dead() ? 0f : player.displayAmmo() ? player.unit().ammof() : player.unit().healthf(), () -> !player.displayAmmo(), false)).width(bw).growY().padLeft(pad).update(b -> {
+                            b.color.set(player.displayAmmo() ? player.dead() || player.unit() instanceof BlockUnitc ? Pal.ammo : player.unit().type.ammoType.color : Pal.health);
+                        });
+
+                        t.getChildren().get(1).toFront();
+                    })
+            ).size(120f, 80).padRight(4);
+            if (true) {
+                Table actor = new Table();
+                actor.add(table);
+                actor.setFillParent(true);
+                actor.setBackground(Tex.alphaBg);
+                Core.scene.add(actor);
+            }else{
+                ui.hudGroup.addChild(table);
+            }
+        }
     }
     protected static void newHudGroup(){
         ui.hudGroup = new WidgetGroup();

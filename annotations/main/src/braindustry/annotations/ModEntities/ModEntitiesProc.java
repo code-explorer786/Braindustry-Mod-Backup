@@ -10,7 +10,7 @@ import arc.util.pooling.Pool;
 import arc.util.pooling.Pools;
 import braindustry.annotations.ModAnnotations;
 import braindustry.annotations.ModBaseProcessor;
-import braindustry.annotations.RemoteProc.ModTypeIOResolver;
+import braindustry.annotations.remote.ModTypeIOResolver;
 import com.squareup.javapoet.*;
 import com.sun.source.tree.VariableTree;
 import com.sun.source.util.TreePath;

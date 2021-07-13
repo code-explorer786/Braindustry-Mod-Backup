@@ -8,6 +8,7 @@ import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import mindustry.annotations.BaseProcessor;
+import mindustry.annotations.util.Selement;
 
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
@@ -31,6 +32,9 @@ public static void print(String obj,Object... args){
 //    public TypeElement typeElement(String name){
 //        return elementu.getTypeElement(name);
 //    }
+public static void err(String message, Selement elem,int zero){
+    err(message, elem.e);
+}
     public static TypeName tname(String pack, String simple){
         return ClassName.get(pack, simple );
     }
