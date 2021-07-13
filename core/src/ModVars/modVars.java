@@ -20,7 +20,6 @@ import braindustry.gen.ModNetServer;
 import braindustry.graphics.ModFloorRenderer;
 import braindustry.graphics.g2d.ModBloom;
 import braindustry.input.ModKeyBinds;
-import braindustry.net.ModNet;
 import braindustry.world.ModSave4;
 import mindustry.ClientLauncher;
 import mindustry.ctype.Content;

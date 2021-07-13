@@ -30,7 +30,7 @@ import mindustry.world.consumers.ConsumeType;
 import mindustry.world.meta.BlockGroup;
 import mindustry.world.meta.Stat;
 import mindustry.world.meta.StatUnit;
-import mindustry.world.meta.values.ItemListValue;
+import mindustry.world.meta.StatValues;
 
 import static mindustry.Vars.tilesize;
 
@@ -131,7 +131,7 @@ public class GasBlock extends Block {
         aStats.add(Stat.health, (float) health, StatUnit.none);
         if (canBeBuilt()) {
             aStats.add(Stat.buildTime, buildCost / 60.0F, StatUnit.seconds);
-            aStats.add(Stat.buildCost, new ItemListValue(false, requirements));
+            aStats.add(Stat.buildCost, StatValues.items(false, requirements));
         }
 
         if (instantTransfer) {

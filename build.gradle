@@ -18,11 +18,12 @@ buildscript {
 //        gameModFolder = prop["gameModFolder"]
         serverModFolder=null;
         gameModFolder=null;
-        mindustryVersion = 'v126.2'
+        mindustryVersion = 'v128'
+        mindustryVersionAnnotations = 'v126.2'
         arcModule = { String name ->
             //skip to last submodule
             if (name.contains(':')) name = name.split(':').last()
-            return "com.github.Anuken.Arc:$name:0e99b0291f81d74d335dca8b0cf3bf26931f1197"
+            return "com.github.Anuken.Arc:$name:b8db131172548e1f10ba86392e09819c34296711"
         }
     }
     repositories {
@@ -42,7 +43,7 @@ buildscript {
         classpath arcModule("packer")
         classpath arcModule("g3d")
         classpath "com.github.Anuken.Arc:arc-core:$mindustryVersion"
-        classpath "com.github.Anuken.Mindustry:annotations:$mindustryVersion"
+        classpath "com.github.Anuken.Mindustry:annotations:$mindustryVersionAnnotations"
         classpath "com.github.Anuken.Mindustry:core:$mindustryVersion"
         classpath "com.github.Anuken.Mindustry:tools:$mindustryVersion"
     }
@@ -70,7 +71,7 @@ dependencies {
 //    implementation project(":core")
     implementation "com.github.Anuken.Arc:arc-core:$mindustryVersion"
     implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
-    implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersion"
+    implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersionAnnotations"
     implementation "com.github.Anuken.Mindustry:tools:$mindustryVersion"
     implementation 'com.squareup:javapoet:1.12.1'
 
@@ -150,7 +151,7 @@ project(":annotations") {
 //        implementation "com.sun"
         implementation "com.github.Anuken.Arc:arc-core:$mindustryVersion"
 //        compileOnly project(":core")
-        implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersion"
+        implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersionAnnotations"
         implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
         implementation "com.github.Anuken.Mindustry:tools:$mindustryVersion"
 //                if(name!="tools")compile  project(":tools")
@@ -206,7 +207,7 @@ project(":core") {
         implementation arcModule("extensions:fx")
         implementation arcModule("extensions:arcnet")
 //        compileOnly "com.github.Anuken.Mindustry:entities:$mindustryVersion"
-        implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersion"
+        implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersionAnnotations"
         implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
         implementation "com.github.Anuken.Mindustry:tools:$mindustryVersion"
 //        api "com.github.Anuken:rhino:$rhinoVersion"
@@ -271,7 +272,7 @@ project(":tools") {
 
         implementation project(":core")
 
-        implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersion"
+        implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersionAnnotations"
         implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
         implementation "com.github.Anuken.Mindustry:tools:$mindustryVersion"
         compile arcModule("natives:natives-desktop")

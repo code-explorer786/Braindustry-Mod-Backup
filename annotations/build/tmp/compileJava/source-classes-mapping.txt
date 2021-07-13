@@ -1,5 +1,7 @@
 braindustry/annotations/AdvancedStats/AStatCatProcessor.java
  braindustry.annotations.AdvancedStats.AStatCatProcessor
+braindustry/annotations/remote/ModTypeIOResolver.java
+ braindustry.annotations.remote.ModTypeIOResolver
 braindustry/annotations/RulesEditDialog/RulesProcessor.java
  braindustry.annotations.RulesEditDialog.RulesProcessor
 braindustry/annotations/impl/ModAssetsProcess.java
@@ -8,8 +10,10 @@ braindustry/annotations/ModAssetsFolders/AssetsFoldersProcessor.java
  braindustry.annotations.ModAssetsFolders.AssetsFoldersProcessor
 braindustry/annotations/ModBaseProcessor.java
  braindustry.annotations.ModBaseProcessor
-braindustry/annotations/RemoteProc/ModRemoteReadGenerator.java
- braindustry.annotations.RemoteProc.ModRemoteReadGenerator
+braindustry/annotations/remote/ModRemoteProcess.java
+ braindustry.annotations.remote.ModRemoteProcess
+braindustry/annotations/remote/SerializerResolver.java
+ braindustry.annotations.remote.SerializerResolver
 braindustry/annotations/ModEntities/ModEntityIO.java
  braindustry.annotations.ModEntities.ModEntityIO
  braindustry.annotations.ModEntities.ModEntityIO$Revision
@@ -18,11 +22,15 @@ Gas/annotations/misc/GasLoadRegionProcessor.java
  Gas.annotations.misc.GasLoadRegionProcessor
 braindustry/annotations/AdvancedStats/AStatProcessor.java
  braindustry.annotations.AdvancedStats.AStatProcessor
+braindustry/annotations/remote/CallGenerator.java
+ braindustry.annotations.remote.CallGenerator
 Gas/annotations/GasBaseProcessor.java
  Gas.annotations.GasBaseProcessor
 Gas/annotations/GasAnnotations.java
  Gas.annotations.GasAnnotations
  Gas.annotations.GasAnnotations$Load
+braindustry/annotations/remote/MethodEntry.java
+ braindustry.annotations.remote.MethodEntry
 braindustry/annotations/misc/ModLoadRegionProcessor.java
  braindustry.annotations.misc.ModLoadRegionProcessor
 braindustry/annotations/ModAnnotations.java
@@ -60,14 +68,8 @@ braindustry/annotations/ModAnnotations.java
  braindustry.annotations.ModAnnotations$Values
  braindustry.annotations.ModAnnotations$WritableObject
  braindustry.annotations.ModAnnotations$WritableObjectsConfig
-braindustry/annotations/RemoteProc/CustomRemoteProcessor.java
- braindustry.annotations.RemoteProc.CustomRemoteProcessor
-braindustry/annotations/RemoteProc/ModTypeIOResolver.java
- braindustry.annotations.RemoteProc.ModTypeIOResolver
 braindustry/annotations/ModTypeIO/ObjectReadProcessor.java
  braindustry.annotations.ModTypeIO.ObjectReadProcessor
-braindustry/annotations/RemoteProc/ModRemoteWriteGenerator.java
- braindustry.annotations.RemoteProc.ModRemoteWriteGenerator
 braindustry/annotations/ModEntities/ModEntitiesProc.java
  braindustry.annotations.ModEntities.ModEntitiesProc
  braindustry.annotations.ModEntities.ModEntitiesProc$EntityDefinition

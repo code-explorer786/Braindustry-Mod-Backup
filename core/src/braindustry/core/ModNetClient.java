@@ -11,8 +11,6 @@ import arc.util.io.Reads;
 import arc.util.io.ReusableByteInStream;
 import braindustry.annotations.ModAnnotations;
 import braindustry.cfunc.Couple;
-import braindustry.gen.ModRemoteReadClient;
-import braindustry.gen.ModRemoteReadServer;
 import mindustry.Vars;
 import mindustry.annotations.Annotations;
 import mindustry.core.NetClient;
@@ -42,7 +40,7 @@ public class ModNetClient implements ApplicationListener {
         if (headless || first==null|| second==null)return;
         ModDraw.teleportCircles(x,y,radius,first,second,Couple.of(fromRadius,toRadius));
     }
-    @ModAnnotations.Remote(variants = Annotations.Variant.one, priority = Annotations.PacketPriority.low, unreliable = true)
+   /* @ModAnnotations.Remote(variants = Annotations.Variant.one, priority = Annotations.PacketPriority.low, unreliable = true)
     public static void stateSnapshot(float waveTime, int wave, int enemies, boolean paused, boolean gameOver, int timeData, short coreDataLen, byte[] coreData){
         try{
             if(wave > state.wave){
@@ -77,7 +75,7 @@ public class ModNetClient implements ApplicationListener {
             throw new RuntimeException(e);
         }
     }
-
+*/
 //    @ModAnnotations.Remote(variants = Annotations.Variant.one, priority = Annotations.PacketPriority.low, unreliable = true, replaceLevel = 18)
     /**public static void entityZEROSnapshot(short amount, short dataLen, byte[] data) {
 

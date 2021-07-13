@@ -13,7 +13,6 @@ import mindustry.type.Liquid;
 import mindustry.world.Block;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.meta.*;
-import mindustry.world.meta.values.*;
 
 import java.util.Iterator;
 
@@ -26,7 +25,7 @@ public class AStats extends Stats{
     }
     @Override
     public void add(Stat stat, float value, StatUnit unit) {
-        this.add(stat, (new NumberValue(value, unit)));
+        this.add(stat, (StatValues.number (value, unit)));
     }
 
     @Override
@@ -36,27 +35,27 @@ public class AStats extends Stats{
 
     @Override
     public void addPercent(Stat stat, float value) {
-        this.add(stat, (new NumberValue((float)((int)(value * 100.0F)), StatUnit.percent)));
+        this.add(stat, (StatValues.number((float)((int)(value * 100.0F)), StatUnit.percent)));
     }
 
     @Override
     public void add(Stat stat, boolean value) {
-        this.add(stat, (new BooleanValue(value)));
+        this.add(stat, (StatValues.bool(value)));
     }
 
     @Override
     public void add(Stat stat, Item item) {
-        this.add(stat, (new ItemListValue(new ItemStack[]{new ItemStack(item, 1)})));
+        this.add(stat, (StatValues.items(new ItemStack(item, 1))));
     }
 
     @Override
     public void add(Stat stat, ItemStack item) {
-        this.add(stat, (new ItemListValue(new ItemStack[]{item})));
+        this.add(stat, (StatValues.items(item)));
     }
 
     @Override
     public void add(Stat stat, Liquid liquid, float amount, boolean perSecond) {
-        this.add(stat, (new LiquidValue(liquid, amount, perSecond)));
+        this.add(stat, (StatValues.liquid(liquid, amount, perSecond)));
     }
 
     @Override
@@ -76,7 +75,7 @@ public class AStats extends Stats{
         this.add(stat, attr, floating, 1.0F, false);
     }
     public void add(AStat stat, float value, StatUnit unit) {
-        this.add(stat, (new NumberValue(value, unit)));
+        this.add(stat, (StatValues.number(value, unit)));
     }
 
     public void add(AStat stat, float value) {
@@ -84,23 +83,23 @@ public class AStats extends Stats{
     }
 
     public void addPercent(AStat stat, float value) {
-        this.add(stat, (new NumberValue((float)((int)(value * 100.0F)), StatUnit.percent)));
+        this.add(stat, (StatValues.number((float)((int)(value * 100.0F)), StatUnit.percent)));
     }
 
     public void add(AStat stat, boolean value) {
-        this.add(stat, (new BooleanValue(value)));
+        this.add(stat, (StatValues.bool(value)));
     }
 
     public void add(AStat stat, Item item) {
-        this.add(stat, (new ItemListValue(new ItemStack[]{new ItemStack(item, 1)})));
+        this.add(stat, (StatValues.items(new ItemStack(item, 1))));
     }
 
     public void add(AStat stat, ItemStack item) {
-        this.add(stat, (new ItemListValue(new ItemStack[]{item})));
+        this.add(stat, (StatValues.items(item)));
     }
 
     public void add(AStat stat, Liquid liquid, float amount, boolean perSecond) {
-        this.add(stat, (new LiquidValue(liquid, amount, perSecond)));
+        this.add(stat, (StatValues.liquid(liquid, amount, perSecond)));
     }
 
     public void add(AStat stat, Attribute attr) {
@@ -128,7 +127,8 @@ public class AStats extends Stats{
 
         while(var6.hasNext()) {
             Floor block = (Floor)var6.next();
-            this.add(stat, (new FloorEfficiencyValue(block, block.attributes.get(attr) * scale, startZero)));
+
+            this.add(stat, ( StatValues.floorEfficiency(block, block.attributes.get(attr) * scale, startZero)));
         }
 
     }
@@ -141,10 +141,10 @@ public class AStats extends Stats{
 
     @Override
     public void add(Stat stat, String format, Object... args) {
-        this.add(stat, (new StringValue(format, args)));
+        this.add(stat, (StatValues.string(format, args)));
     }
     public void add(AStat stat, String format, Object... args) {
-        this.add(stat, (new StringValue(format, args)));
+        this.add(stat, (StatValues.string(format, args)));
     }
 
     public void add(Stat stat, StatValue value) {

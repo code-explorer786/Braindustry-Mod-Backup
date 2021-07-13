@@ -32,11 +32,7 @@ import mindustry.world.Block;
 import mindustry.world.Tile;
 import mindustry.world.blocks.ItemSelection;
 import mindustry.world.consumers.*;
-import mindustry.world.meta.BlockFlag;
-import mindustry.world.meta.BlockGroup;
-import mindustry.world.meta.Stat;
-import mindustry.world.meta.StatUnit;
-import mindustry.world.meta.values.ItemListValue;
+import mindustry.world.meta.*;
 import mindustryAddition.iu.MultiBar;
 import mindustryAddition.world.consumers.ConsumeLiquidDynamic;
 import braindustry.world.meta.AStat;
@@ -135,24 +131,24 @@ public class MultiCrafter extends ModBlock {
 
     @Override
     public void setStats() {
-        aStats.add(Stat.size, "@x@", new Object[]{this.size, this.size});
-        aStats.add(Stat.health, (float)this.health, StatUnit.none);
-        if (this.canBeBuilt()) {
-            aStats.add(Stat.buildTime, this.buildCost / 60.0F, StatUnit.seconds);
-            aStats.add(Stat.buildCost, new ItemListValue(false, this.requirements));
+        aStats.add(Stat.size, "@x@", size, size);
+        aStats.add(Stat.health, (float)health, StatUnit.none);
+        if (canBeBuilt()) {
+            aStats.add(Stat.buildTime, buildCost / 60.0F, StatUnit.seconds);
+            aStats.add(Stat.buildCost, StatValues.items(false, requirements));
         }
 
-        if (this.instantTransfer) {
+        if (instantTransfer) {
             aStats.add(Stat.maxConsecutive, 2.0F, StatUnit.none);
         }
 
-        this.consumes.display(this.stats);
-        if (this.hasLiquids) {
-            aStats.add(Stat.liquidCapacity, this.liquidCapacity, StatUnit.liquidUnits);
+        consumes.display(stats);
+        if (hasLiquids) {
+            aStats.add(Stat.liquidCapacity, liquidCapacity, StatUnit.liquidUnits);
         }
 
-        if (this.hasItems && this.itemCapacity > 0) {
-            aStats.add(Stat.itemCapacity, (float)this.itemCapacity, StatUnit.items);
+        if (hasItems && itemCapacity > 0) {
+            aStats.add(Stat.itemCapacity, (float)itemCapacity, StatUnit.items);
         }
         aStats.add(AStat.recipes, new RecipeListValue(recipes));
 

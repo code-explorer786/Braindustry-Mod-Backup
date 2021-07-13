@@ -7,7 +7,7 @@ import arc.scene.ui.layout.Table;
 import arc.struct.Bits;
 import braindustry.world.meta.AStats;
 import mindustry.gen.Building;
-import mindustry.ui.Cicon;
+//import mindustry.ui.Cicon;
 import mindustry.ui.ReqImage;
 import mindustry.world.consumers.ConsumeType;
 import mindustry.world.meta.Stat;
@@ -39,7 +39,7 @@ public class ConsumeGasses extends GasConsume {
     }
 
     public void build(Building tile, Table table) {
-        table.add(new ReqImage(this.gas.icon(Cicon.medium), () -> {
+        table.add(new ReqImage(this.gas.uiIcon, () -> {
             return this.valid(tile);
         })).size(32.0F);
     }

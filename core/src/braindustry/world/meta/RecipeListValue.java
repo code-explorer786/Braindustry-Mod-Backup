@@ -9,12 +9,10 @@ import braindustry.type.Recipe;
 import mindustry.ctype.UnlockableContent;
 import mindustry.gen.Tex;
 import mindustry.type.ItemStack;
-import mindustry.ui.Cicon;
 import mindustry.ui.ItemImage;
 import mindustry.world.meta.StatUnit;
 import mindustry.world.meta.StatValue;
-import mindustry.world.meta.values.ItemListValue;
-import mindustry.world.meta.values.NumberValue;
+import mindustry.world.meta.StatValues;
 import braindustry.world.meta.values.LiquidListValue;
 
 public class RecipeListValue implements StatValue {
@@ -41,7 +39,7 @@ public class RecipeListValue implements StatValue {
             (table.table((bt) -> {
                 bt.left().defaults().padRight(3.0F).left();
                 if (recipe.consumeItems.length > 0) {
-                    new ItemListValue(false, recipe.consumeItems).display(bt.table().get());
+                    StatValues.items(false, recipe.consumeItems).display(bt.table().get());
                     if (recipe.consumeLiquids.length > 0) bt.row();
                 }
 
@@ -50,7 +48,7 @@ public class RecipeListValue implements StatValue {
                     bt.row();
                 }
                 bt.add(Strings.format("[lightgray]@: [white]", Core.bundle.get("stat.productiontime"), recipe.produceTime));
-                new NumberValue(recipe.produceTime/ 60.0F, StatUnit.seconds).display(bt);
+                StatValues.number(recipe.produceTime/ 60.0F, StatUnit.seconds).display(bt);
 
             }).padTop(-9.0F).left().get()).background(Tex.underline);
             table.row();
@@ -64,6 +62,6 @@ public class RecipeListValue implements StatValue {
     }
 
     <T extends UnlockableContent> TextureRegion icon(T t) {
-        return t.icon(Cicon.medium);
+        return t.uiIcon;
     }
 }
