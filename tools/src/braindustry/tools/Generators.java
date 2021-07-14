@@ -35,7 +35,6 @@ import mindustry.tools.ImagePacker;
 import mindustry.type.Item;
 import mindustry.type.StatusEffect;
 import mindustry.type.Weapon;
-import mindustry.ui.Cicon;
 import mindustry.world.Block;
 import mindustry.world.blocks.ConstructBlock;
 import mindustry.world.blocks.environment.*;
@@ -61,7 +60,6 @@ public class Generators {
             0x454545ff, 0x00000000,//0x32394bff,
             0x00000099, 0x00000000//0x000000ff
     );
-    static final Cicon logicIcon = Cicon.medium;
 
     public static void run() {
 

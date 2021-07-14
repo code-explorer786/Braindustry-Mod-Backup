@@ -10,8 +10,8 @@ braindustry/annotations/ModAssetsFolders/AssetsFoldersProcessor.java
  braindustry.annotations.ModAssetsFolders.AssetsFoldersProcessor
 braindustry/annotations/ModBaseProcessor.java
  braindustry.annotations.ModBaseProcessor
-braindustry/annotations/ModTypeIO/ObjectReadProcessor.java
- braindustry.annotations.ModTypeIO.ObjectReadProcessor
+braindustry/annotations/remote/ModRemoteProcess.java
+ braindustry.annotations.remote.ModRemoteProcess
 braindustry/annotations/remote/SerializerResolver.java
  braindustry.annotations.remote.SerializerResolver
 braindustry/annotations/ModEntities/ModEntityIO.java
@@ -22,10 +22,8 @@ Gas/annotations/misc/GasLoadRegionProcessor.java
  Gas.annotations.misc.GasLoadRegionProcessor
 braindustry/annotations/AdvancedStats/AStatProcessor.java
  braindustry.annotations.AdvancedStats.AStatProcessor
-braindustry/annotations/ModEntities/ModEntitiesProc.java
- braindustry.annotations.ModEntities.ModEntitiesProc
- braindustry.annotations.ModEntities.ModEntitiesProc$EntityDefinition
- braindustry.annotations.ModEntities.ModEntitiesProc$GroupDefinition
+braindustry/annotations/remote/CallGenerator.java
+ braindustry.annotations.remote.CallGenerator
 Gas/annotations/GasBaseProcessor.java
  Gas.annotations.GasBaseProcessor
 Gas/annotations/GasAnnotations.java
@@ -70,7 +68,9 @@ braindustry/annotations/ModAnnotations.java
  braindustry.annotations.ModAnnotations$Values
  braindustry.annotations.ModAnnotations$WritableObject
  braindustry.annotations.ModAnnotations$WritableObjectsConfig
-braindustry/annotations/remote/CallGenerator.java
- braindustry.annotations.remote.CallGenerator
-braindustry/annotations/remote/ModRemoteProcess.java
- braindustry.annotations.remote.ModRemoteProcess
+braindustry/annotations/ModTypeIO/ObjectReadProcessor.java
+ braindustry.annotations.ModTypeIO.ObjectReadProcessor
+braindustry/annotations/ModEntities/ModEntitiesProc.java
+ braindustry.annotations.ModEntities.ModEntitiesProc
+ braindustry.annotations.ModEntities.ModEntitiesProc$EntityDefinition
+ braindustry.annotations.ModEntities.ModEntitiesProc$GroupDefinition

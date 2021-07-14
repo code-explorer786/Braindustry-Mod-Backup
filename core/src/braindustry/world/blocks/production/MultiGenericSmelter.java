@@ -9,7 +9,6 @@ import arc.struct.Seq;
 import arc.util.Time;
 import mindustry.gen.Sounds;
 import mindustry.world.blocks.production.GenericCrafter;
-import mindustry.world.blocks.production.GenericSmelter;
 import mindustry.world.draw.DrawSmelter;
 
 public class MultiGenericSmelter extends GenericCrafter {
