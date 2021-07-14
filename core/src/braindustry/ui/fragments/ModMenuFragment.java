@@ -44,6 +44,7 @@ public class ModMenuFragment extends MenuFragment {
     private Table submenu;
     private Button currentMenu;
     private ModMenuShaderRender renderer;
+    private static ModMenuShaderRender lastRenderer;
 
     public ModMenuFragment(Group nullGroup) {
 
@@ -52,7 +53,9 @@ public class ModMenuFragment extends MenuFragment {
         });
         super.build(nullGroup);
     }
-
+public static void rebuildMenu(){
+    lastRenderer.rebuild();
+}
     public static void timeScl(float timeScl) {
         ModMenuFragment.timeScl = timeScl;
     }
@@ -75,6 +78,7 @@ public class ModMenuFragment extends MenuFragment {
 
     public void build(Group parent) {
         this.renderer = new ModMenuShaderRender();
+        lastRenderer=renderer;
         Group group = new WidgetGroup();
         group.setFillParent(true);
         group.visible(() -> !ui.editor.isShown());
@@ -227,7 +231,7 @@ public class ModMenuFragment extends MenuFragment {
                     new Buttoni("@settings", Icon.settings, ui.settings::show),
                     new Buttoni("@menu.title",Icon.menu,
                             new ButtoniUnClose("@rebuild_menu",Icon.refresh,renderer::rebuild),
-                            new ButtoniUnClose("@background.styles",Icon.effect,()->modUI.showBackgroundStyles()),
+                            new ButtoniUnClose("@background.styles",Icon.effect,()->modUI.backgroundStyle.show()),
                             new ButtoniUnClose("@background.screenshot",Icon.copy,renderer::takeBackgroundScreenshot)
                             ),
                     new Buttoni("@about.button", Icon.info, ui.about::show),

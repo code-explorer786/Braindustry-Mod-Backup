@@ -171,7 +171,7 @@ public class ModContentLoader extends ContentLoader {
         Pixmap pixmap = new Pixmap(files.internal("sprites/block_colors.png"));
         for(int i = 0; i < pixmap.getWidth(); i++){
             if(blocks().size > i){
-                int color = pixmap.getPixel(i, 0);
+                int color = pixmap.get(i, 0);
 
                 if(color == 0 || color == 255) continue;
 

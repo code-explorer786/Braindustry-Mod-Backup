@@ -6,7 +6,7 @@ import arc.struct.Bits;
 import mindustry.gen.Building;
 import mindustry.type.Liquid;
 import mindustry.type.LiquidStack;
-import mindustry.ui.Cicon;
+//import mindustry.ui.Cicon;
 import mindustry.ui.ReqImage;
 import mindustry.world.consumers.Consume;
 import mindustry.world.consumers.ConsumeType;
@@ -49,7 +49,7 @@ public class ConsumeLiquidDynamic extends Consume {
 
         for(int var5 = 0; var5 < var4; ++var5) {
             LiquidStack stack = var3[var5];
-            table.add(new ReqImage(stack.liquid.icon(Cicon.medium), () -> {
+            table.add(new ReqImage(stack.liquid.uiIcon, () -> {
                 return tile.items != null && hasLiquid(tile,stack.liquid, stack.amount);
             })).padRight(8.0F);
         }

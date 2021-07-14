@@ -6,15 +6,9 @@ import ModVars.Classes.UI.ModControlsDialog;
 import ModVars.Classes.UI.settings.ModOtherSettingsDialog;
 import ModVars.Classes.UI.settings.ModSettingsDialog;
 import arc.Core;
-import arc.func.Boolf;
-import arc.func.Cons;
-import arc.func.Prov;
 import arc.scene.Group;
 import arc.scene.event.Touchable;
-import arc.scene.style.TextureRegionDrawable;
-import arc.scene.ui.Dialog;
 import arc.scene.ui.layout.WidgetGroup;
-import arc.struct.Seq;
 import arc.util.Disposable;
 import braindustry.ModListener;
 import braindustry.gen.StealthUnitc;
@@ -25,20 +19,13 @@ import braindustry.input.ModKeyBinds;
 import braindustry.input.ModMobileInput;
 import braindustry.ui.AdvancedContentInfoDialog;
 import braindustry.ui.ModStyles;
+import braindustry.ui.dialogs.BackgroundStyle;
 import braindustry.ui.dialogs.ModColorPicker;
 import braindustry.ui.dialogs.ModPlanetDialog;
 import braindustry.ui.fragments.ModHudFragment;
 import braindustry.ui.fragments.ModMenuFragment;
 import mindustry.Vars;
-import mindustry.content.Blocks;
-import mindustry.ctype.UnlockableContent;
-import mindustry.gen.Icon;
 import mindustry.ui.dialogs.BaseDialog;
-import mindustry.world.Block;
-import mindustry.world.blocks.ItemSelection;
-import mindustry.world.blocks.environment.Floor;
-import mindustry.world.blocks.environment.OreBlock;
-import mindustry.world.blocks.environment.StaticWall;
 
 import static ModVars.Classes.UI.CheatUI.*;
 import static ModVars.modVars.*;
@@ -60,10 +47,12 @@ public class ModUI implements Disposable {
     }
 
     public ModColorPicker colorPicker;
+    public BackgroundStyle backgroundStyle;
 
     public void init() {
         ModStyles.load();
         colorPicker = new ModColorPicker();
+        backgroundStyle=new BackgroundStyle();
         if (mobile) {
             control.setInput(new ModMobileInput());
         } else {
@@ -145,123 +134,5 @@ public class ModUI implements Disposable {
     @Override
     public void dispose() {
         if (ui.menufrag instanceof ModMenuFragment) ((ModMenuFragment) ui.menufrag).dispose();
-    }
-
-    private <T extends UnlockableContent> void openSelector(Seq<T> list, Prov<T> prov, Cons<T> listener) {
-        new Dialog("@background.styles.selector.title") {{
-            ItemSelection.buildTable(cont, list, prov, (o) -> {
-                hide();
-                listener.get(o);
-            });
-            closeOnBack();
-        }}.show();
-    }
-
-    public void showBackgroundStyles() {
-        new Dialog("@background.styles.title") {{
-//            cont.margin(30).add(dtext).padRight(6f);
-            cont.table(t -> {
-                t.label(() -> "unit: ").colspan(2);
-                t.button(new TextureRegionDrawable(Core.atlas.find("cross")), () -> {
-                    openSelector(content.units(), () -> {
-                        int id = settings.getInt("background.style.unit", -1);
-                        return id == -1 ? null : content.unit(id);
-                    }, unit -> {
-                        settings.put("background.style.unit", unit == null ? -1 : (int) unit.id);
-                    });
-                }).colspan(2).update(button -> {
-                    int id = settings.getInt("background.style.unit", -1);
-                    if (id >= content.units().size) {
-                        id = -1;
-                        settings.put("background.style.unit", -1);
-                    }
-                    button.getStyle().imageUp = (new TextureRegionDrawable(id == -1 ? Core.atlas.find("cross") : content.unit(id).uiIcon));
-                }).size(60f).row();
-
-                Boolf<Block> floorFilter = b -> b instanceof Floor && !(b instanceof OreBlock) && b != Blocks.spawn;
-                Boolf<Block> wallFilter = b -> b instanceof StaticWall;
-                t.label(() -> "wall1");
-                t.button(new TextureRegionDrawable(Core.atlas.find("cross")), () -> {
-                    openSelector(content.blocks().select(wallFilter), () -> {
-                        int id = settings.getInt("background.style.wall1", -1);
-                        Block block = content.block(id);
-                        return wallFilter.get(block) ? block : null;
-                    }, unit -> {
-                        settings.put("background.style.wall1", unit == null ? -1 : (int) unit.id);
-                    });
-                }).update(button -> {
-                    int id = settings.getInt("background.style.wall1", -1);
-                    if (!wallFilter.get(content.block(id))) {
-                        id = -1;
-                        settings.put("background.style.wall1", -1);
-                    }
-                    button.getStyle().imageUp = (new TextureRegionDrawable(id == -1 ? Core.atlas.find("cross") : content.block(id).uiIcon));
-
-                }).size(60f);
-                t.label(() -> "floor1");
-                t.button(new TextureRegionDrawable(Core.atlas.find("cross")), () -> {
-                    openSelector(content.blocks().select(floorFilter), () -> {
-                        int id = settings.getInt("background.style.floor1", -1);
-                        Block block = content.block(id);
-                        return floorFilter.get(block) ? block : null;
-                    }, unit -> {
-                        settings.put("background.style.floor1", unit == null ? -1 : (int) unit.id);
-                    });
-                }).update(button -> {
-                    int id = settings.getInt("background.style.floor1", -1);
-                    if (!floorFilter.get(content.block(id))) {
-                        id = -1;
-                        settings.put("background.style.floor1", -1);
-                    }
-                    button.getStyle().imageUp = (new TextureRegionDrawable(id == -1 ? Core.atlas.find("cross") : content.block(id).uiIcon));
-                }).size(60f).row();
-
-                /**============================================*/
-                t.label(() -> "wall2");
-                t.button(new TextureRegionDrawable(Core.atlas.find("cross")), () -> {
-                    openSelector(content.blocks().select(wallFilter), () -> {
-                        int id = settings.getInt("background.style.wall2", -1);
-                        Block block = content.block(id);
-                        return wallFilter.get(block) ? block : null;
-                    }, unit -> {
-                        settings.put("background.style.wall2", unit == null ? -1 : (int) unit.id);
-                    });
-                }).update(button -> {
-                    int id = settings.getInt("background.style.wall2", -1);
-                    if (!wallFilter.get(content.block(id))) {
-                        id = -1;
-                        settings.put("background.style.wall2", -1);
-                    }
-                    button.getStyle().imageUp = (new TextureRegionDrawable(id == -1 ? Core.atlas.find("cross") : content.block(id).uiIcon));
-
-                }).size(60f);
-                t.label(() -> "floor2");
-                t.button(new TextureRegionDrawable(Core.atlas.find("cross")), () -> {
-                    openSelector(content.blocks().select(floorFilter), () -> {
-                        int id = settings.getInt("background.style.floor2", -1);
-                        Block block = content.block(id);
-                        return floorFilter.get(block) ? block : null;
-                    }, unit -> {
-                        settings.put("background.style.floor2", unit == null ? -1 : (int) unit.id);
-                    });
-                }).update(button -> {
-                    int id = settings.getInt("background.style.floor2", -1);
-                    if (!floorFilter.get(content.block(id))) {
-                        id = -1;
-                        settings.put("background.style.floor2", -1);
-                    }
-                    button.getStyle().imageUp = (new TextureRegionDrawable(id == -1 ? Core.atlas.find("cross") : content.block(id).uiIcon));
-                }).size(60f).row();
-
-                t.check("use custom style",settings.getBool("background.style.use",failedToLaunch),(b)-> settings.put("background.style.use",b));
-            });
-
-
-            buttons.defaults().size(210f, 64f);
-            buttons.button("@back", Icon.left, this::hide).size(210f, 64f);
-
-            closeOnBack();
-
-        }}.show();
     }
 }

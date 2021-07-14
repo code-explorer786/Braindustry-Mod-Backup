@@ -5,7 +5,7 @@ import arc.scene.ui.layout.Table;
 import arc.struct.Bits;
 import mindustry.gen.Building;
 import mindustry.type.ItemStack;
-import mindustry.ui.Cicon;
+//import mindustry.ui.Cicon;
 import mindustry.ui.ItemImage;
 import mindustry.ui.ReqImage;
 import mindustry.world.consumers.Consume;
@@ -48,7 +48,7 @@ public class ModConsumeItemDynamic extends Consume {
 
         for(int var6 = 0; var6 < var5; ++var6) {
             ItemStack stack = var4[var6];
-            table.add(new ReqImage(new ItemImage(stack.item.icon(Cicon.medium), stack.amount), () -> {
+            table.add(new ReqImage(new ItemImage(stack.item.uiIcon, stack.amount), () -> {
                 return tile.items != null && tile.items.has(stack.item, stack.amount);
             })).padRight(8.0F).left();
             ++i;
