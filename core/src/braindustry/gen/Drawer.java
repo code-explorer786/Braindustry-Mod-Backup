@@ -19,7 +19,6 @@ import static mindustry.Vars.world;
 
 public class Drawer implements Drawc, Posc,Entityc {
     public float x;
-
     public float y;
 
     public interface BuilderDrawer extends Buildingc{

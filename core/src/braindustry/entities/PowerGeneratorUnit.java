@@ -12,8 +12,7 @@ public class PowerGeneratorUnit extends UnitWaterMove {
     }
 
     public static PowerGeneratorUnit create() {
-        PowerGeneratorUnit powerGeneratorUnit = new PowerGeneratorUnit();
-        return powerGeneratorUnit;
+        return new PowerGeneratorUnit();
     }
 
 
@@ -29,29 +28,12 @@ public class PowerGeneratorUnit extends UnitWaterMove {
         super.move(cx, cy);
     }
 
-    @Override
-    public void draw() {
-        super.draw();
-        Tile tile = this.tileOn();
-//        Draw.z(z + 0.1f);
-        /*this.links.each(link -> {
-            ((PowerUnitType) this.type).drawLaser(this.team, this.x, this.y, link.x, link.y, 1, link.block.size);
-        });*/
-    }
-
     public String toString() {
         return "PowerGeneratorUnit#" + this.id;
     }
 
 
 
-    @Override
-    public void update() {
-        super.update();
-//        if (this.type instanceof PowerUnitType) {
-//            ((PowerUnitType) type).update(this);
-//        }
-    }
 
     @Override
     public void write(Writes write) {

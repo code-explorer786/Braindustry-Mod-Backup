@@ -1,6 +1,6 @@
 package braindustry.content.Blocks;
 
-import Gas.content.Gasses;
+import braindustry.content.Gasses;
 import Gas.world.blocks.power.AllBurnerGenerator;
 import Gas.world.consumers.ConsumeGasses;
 import braindustry.content.ModItems;

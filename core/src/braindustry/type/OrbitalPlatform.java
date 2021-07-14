@@ -29,8 +29,6 @@ public float x,y;
    public OrbitalPlatform(OrbitalPlatformAbility ability, Unit unit, Weapon weapon) {
       this.ability = ability;
       this.unit = unit;
-//      id=EntityGroup.nextId();
-//      setupWeapon(ability);
 
       if (weapon!=null) {
          mount = new WeaponMount(weapon);
@@ -85,7 +83,6 @@ public float x,y;
       unit.apply(weapon.shootStatus, weapon.shootStatusDuration);
    }
    private Bullet bullet(Weapon weapon, float x, float y, float angle, float lifescl) {
-
       float xr = Mathf.range(weapon.xRand);
       return weapon.bullet.create(unit, unit.team(), x + Angles.trnsx(angle, 0, xr), y + Angles.trnsy(angle, 0, xr), angle, (1.0F - weapon.velocityRnd) + Mathf.random(weapon.velocityRnd), lifescl);
    }

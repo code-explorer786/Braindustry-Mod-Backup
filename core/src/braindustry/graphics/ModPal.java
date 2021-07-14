@@ -12,8 +12,8 @@ public class ModPal {
 
     public static final Color fluorescentColor =Color.valueOf("39efb9");
 
-    public static final Color ElectricColor = Color.valueOf("C6DBFF09");
-    public static final Color ElectricColorMulled = Color.valueOf("C6DBFF18");
+    public static final Color electricColor = Color.valueOf("C6DBFF09");
+    public static final Color electricColorMulled = Color.valueOf("C6DBFF18");
 
     public static final Color adamTrailColor = Color.valueOf("b3bee0");
     public static final Color adamBackColor = Color.valueOf("7bafc4");

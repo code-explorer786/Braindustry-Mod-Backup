@@ -18,12 +18,10 @@ import braindustry.type.UnitContainer;
 import mindustry.audio.SoundLoop;
 import mindustry.entities.units.WeaponMount;
 import mindustry.gen.Sounds;
-import mindustry.gen.Trailc;
 import mindustry.gen.Unit;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
-import mindustry.graphics.Trail;
 import mindustry.type.Weapon;
 
 import static mindustry.Vars.*;
@@ -33,7 +31,6 @@ public class OrbitalPlatformsContainer extends UnitContainer {
     protected final float z = 85f;
     final OrbitalPlatformAbility ability;
     final Seq<OrbitalPlatform> orbitalPlatforms = new Seq<>();
-//    private float rotation;
 
     public OrbitalPlatformsContainer(Unit unit, OrbitalPlatformAbility ability) {
         super(unit);
@@ -43,6 +40,10 @@ public class OrbitalPlatformsContainer extends UnitContainer {
         }
     }
 
+    public static boolean notNullPlatform(OrbitalPlatform platform) {
+        return platform != null && platform.mount != null;
+    }
+
     protected void drawShadow(OrbitalPlatform platform) {
 
         Draw.color(Pal.shadow);
@@ -50,43 +51,38 @@ public class OrbitalPlatformsContainer extends UnitContainer {
         Draw.rect(ability.region(), platform.x + shadowTX * e, platform.y + shadowTY * e, platform.rotation - 90);
         Draw.color();
     }
-    public static class NullAbilityException extends RuntimeException{
 
-        public NullAbilityException(String message) {
-            super(message);
-        }
-    }
-
-    public void drawEngines(OrbitalPlatform platform){
+    public void drawEngines(OrbitalPlatform platform) {
 
         float scale = 0.5f;
 //        float offset = ability.engineOffset/2f + ability.engineOffset/2f*scale;
 
         float engineSize = ability.engineSize;
         Seq<Vec2> enginePosses = ability.enginePosses;
-        enginePosses.each(enginePos->{
+        enginePosses.each(enginePos -> {
 
             int index = enginePosses.indexOf(enginePos);
             float rotation = platform.rotation/*+ 360f/ enginePosses.size*index*/;
 
             Draw.color(unit.team.color);
-            Vec2 engineOffset=enginePos.cpy().rotate(rotation);
+            Vec2 engineOffset = enginePos.cpy().rotate(rotation);
             Fill.circle(
                     platform.x + engineOffset.x,
                     platform.y + engineOffset.y,
                     (engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) * scale
             );
             Draw.color(Color.white);
-            Vec2 one=new Vec2(Angles.trnsx(enginePos.angle(),  1f),Angles.trnsy(enginePos.angle(), 1f));
+            Vec2 one = new Vec2(Angles.trnsx(enginePos.angle(), 1f), Angles.trnsy(enginePos.angle(), 1f));
             engineOffset.sub(one);
             Fill.circle(
-                    platform.x  + engineOffset.x,
-                    platform.y  + engineOffset.y,
-                    (engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) / 2f  * scale
+                    platform.x + engineOffset.x,
+                    platform.y + engineOffset.y,
+                    (engineSize + Mathf.absin(Time.time, 2f, engineSize / 4f)) / 2f * scale
             );
             Draw.color();
         });
     }
+
     @Override
     public void draw() {
         float unitZ = unit.elevation > 0.5f ? (unit.type.lowAltitude ? Layer.flyingUnitLow : Layer.flyingUnit) : unit.type.groundLayer + Mathf.clamp(unit.type.hitSize / 4000f, 0, 0.01f);
@@ -116,14 +112,14 @@ public class OrbitalPlatformsContainer extends UnitContainer {
         WeaponMount mount = platform.mount;
         if (mount == null) return;
 //        mount.rotate;
-        mount.rotate=false;
-        Seq.with(unit.mounts).each(m->{
-            mount.rotate|=m.rotate;
+        mount.rotate = false;
+        Seq.with(unit.mounts).each(m -> {
+            mount.rotate |= m.rotate;
         });
-        mount.aimX=unit.aimX();
-        mount.aimY=unit.aimY();
-        mount.rotate=unit.isRotate();
-        mount.shoot= unit.isShooting;
+        mount.aimX = unit.aimX();
+        mount.aimY = unit.aimY();
+        mount.rotate = unit.isRotate();
+        mount.shoot = unit.isShooting;
         boolean can = unit.canShoot();
         Weapon weapon = mount.weapon;
         mount.reload = Math.max(mount.reload - Time.delta * unit.reloadMultiplier(), 0);
@@ -221,29 +217,31 @@ public class OrbitalPlatformsContainer extends UnitContainer {
 
         Draw.reset();
     }
-protected void rotateTo(OrbitalPlatform platform,float angel){
-    float v =  ((ability.rotateSpeed() % 360f) / 180f);
-    
-    float speed =Math.abs(platform.orbitRotation %360f - angel %360f) * 0.01f;
-    speed=Math.min(ability.rotateSpeed(),speed);
+
+    protected void rotateTo(OrbitalPlatform platform, float angel) {
+        float v = ((ability.rotateSpeed() % 360f) / 180f);
+
+        float speed = Math.abs(platform.orbitRotation % 360f - angel % 360f) * 0.01f;
+        speed = Math.min(ability.rotateSpeed(), speed);
 //            float perfectAngle=
 
-    platform.orbitRotation = Mathf.mod(ModAngles.moveLerpToward(platform.orbitRotation, angel, speed * Time.delta),360f);
-}
+        platform.orbitRotation = Mathf.mod(ModAngles.moveLerpToward(platform.orbitRotation, angel, speed * Time.delta), 360f);
+    }
+
     public void update() {
         float unitRotation = unit.rotation;
         final float platformCount = orbitalPlatforms.size;
         float oneAngle = 360f / platformCount;
-        float platformHitsize=16f;
-        Vec2 target=new Vec2(unit.aimX(),unit.aimY());
-        float onePlatformAngle= ModMath.atan(platformHitsize/unit.hitSize());
+        float platformHitsize = 16f;
+        Vec2 target = new Vec2(unit.aimX(), unit.aimY());
+        float onePlatformAngle = ModMath.atan(platformHitsize / unit.hitSize());
         for (OrbitalPlatform platform : orbitalPlatforms) {
             updateWeapon(platform);
-            if (!unit.isShooting()){
-                rotateTo(platform,unitRotation+oneAngle * (platform.id));
+            if (!unit.isShooting()) {
+                rotateTo(platform, unitRotation + oneAngle * (platform.id));
             } else {
-                float v = unit.angleTo(target)-90f;
-                rotateTo(platform, v+((platform.id+platformCount/2f)%platformCount)*onePlatformAngle);
+                float v = unit.angleTo(target) - 90f;
+                rotateTo(platform, v + ((platform.id + platformCount / 2f) % platformCount) * onePlatformAngle);
 
             }
         }
@@ -253,19 +251,17 @@ protected void rotateTo(OrbitalPlatform platform,float angel){
 //        rotation = Mathf.lerpDelta(rotation, unit.rotation, v);
 //        rotation = Mathf.lerpDelta(rotation, unit.rotation, (ability.rotateSpeed()%360f)/360f);
     }
-    public static boolean notNullPlatform(OrbitalPlatform platform){
-        return platform!=null && platform.mount!=null;
-    }
+
     @Override
     public void remove() {
         orbitalPlatforms.select(OrbitalPlatformsContainer::notNullPlatform).each(platform -> {
             WeaponMount mount = platform.mount;
-            if(mount.bullet != null){
+            if (mount.bullet != null) {
                 mount.bullet.time = mount.bullet.lifetime - 10f;
                 mount.bullet = null;
             }
 
-            if(mount.sound != null){
+            if (mount.sound != null) {
                 mount.sound.stop();
             }
         });

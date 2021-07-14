@@ -57,7 +57,6 @@ import static mindustry.Vars.*;
 public class ModHudFragment {
     public static void init() {
         Drawable zero = ((TextureRegionDrawable) Tex.whiteui).tint(0, 0, 0, 0);
-//            Table table = new Table(Tex.wavepane);
         Table unitBar = new Table(zero);
         unitBar.marginTop(0).marginBottom(4).marginLeft(4);
         Element unitBackground = new Element() {
@@ -67,7 +66,6 @@ public class ModHudFragment {
                 float radius = height / Mathf.sqrt3;
                 Fill.poly(x + width / 2f, y + height / 2f, 6, radius);
                 Draw.reset();
-//                        Draw.flush();
                 if (player != null && player.unit() instanceof StealthUnitc) {
                     StealthUnitc unit = player.unit().as();
                     float offset = unit.stealthf();
@@ -76,7 +74,6 @@ public class ModHudFragment {
                     Fill.poly(x + width / 2f, y + height / 2f, 6, radius);
                     Draw.shader();
                     Draw.reset();
-//                            Draw.flush();
                 }
                 Drawf.shadow(x + width / 2f, y + height / 2f, height * 1.13f);
             }

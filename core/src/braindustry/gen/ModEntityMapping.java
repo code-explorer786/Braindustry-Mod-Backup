@@ -19,7 +19,7 @@ public class ModEntityMapping {
                 null,
                 SpecialMechUnit.class,
                 Cloud.class,
-                ZeroBullet.class
+                null
         );
     }
 

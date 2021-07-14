@@ -11,7 +11,6 @@ public class Recipe {
     public ItemStack[] consumeItems;
     public LiquidStack[] consumeLiquids;
 
-    //        public TextureRegion textureRegion;
     public float produceTime;
 
     public Recipe() {
@@ -40,35 +39,6 @@ public class Recipe {
 
     public static Recipe with(ItemStack outputItem, ItemStack[] consumeItems, float produceTime) {
         return with(outputItem, consumeItems, ModLiquidStack.empty, produceTime);
-    }
-
-    private void checkItems() {
-        if (true) return;
-        Seq<ItemStack> itemStacks = new Seq<>(consumeItems);
-        Seq<ItemStack> newItemsStacks = new Seq<>();
-        itemStacks.each((itemStack -> {
-            ItemStack found = newItemsStacks.find(s -> s.item == itemStack.item);
-            if (found != null) {
-                found.amount += itemStack.amount;
-            } else {
-                newItemsStacks.add(itemStack);
-            }
-        }));
-        this.consumeItems = newItemsStacks.toArray(ItemStack.class);
-    }
-
-    private void checkLiquids() {
-        Seq<LiquidStack> liquidsStacks = new Seq<>(consumeLiquids);
-        Seq<LiquidStack> newLiquidStacks = new Seq<>();
-        liquidsStacks.each((liquidStack -> {
-            LiquidStack found = newLiquidStacks.find(s -> s.liquid == liquidStack.liquid);
-            if (found != null) {
-                found.amount += liquidStack.amount;
-            } else {
-                newLiquidStacks.add(liquidStack);
-            }
-        }));
-        this.consumeLiquids = newLiquidStacks.toArray(LiquidStack.class);
     }
 
     private void check() {

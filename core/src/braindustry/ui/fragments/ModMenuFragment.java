@@ -5,70 +5,34 @@ import arc.Events;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.TextureRegion;
-import arc.math.Interp;
-import arc.math.Mathf;
 import arc.scene.Element;
-import arc.scene.Group;
-import arc.scene.actions.Actions;
 import arc.scene.event.Touchable;
-import arc.scene.style.Drawable;
-import arc.scene.ui.Button;
-import arc.scene.ui.TextField;
 import arc.scene.ui.layout.Scl;
-import arc.scene.ui.layout.Table;
 import arc.scene.ui.layout.WidgetGroup;
 import arc.util.Align;
-import arc.util.Tmp;
-import braindustry.graphics.ModMenuShaderRender;
+import braindustry.graphics.ModMenuShaderRenderer;
 import braindustry.graphics.ModShaders;
-import braindustry.input.ModBinding;
 import braindustry.tools.MenuButtons;
 import braindustry.tools.MenuButtons.MenuButton;
 import braindustry.tools.MenuButtons.MenuButtonUnClose;
 import mindustry.core.Version;
 import mindustry.game.EventType;
 import mindustry.gen.Icon;
-import mindustry.graphics.Pal;
 import mindustry.ui.Fonts;
-import mindustry.ui.MobileButton;
-import mindustry.ui.Styles;
-import mindustry.ui.fragments.MenuFragment;
 
 import static ModVars.modFunc.fullName;
 import static ModVars.modVars.modUI;
-import static arc.Core.scene;
 import static mindustry.Vars.*;
 
-public class ModMenuFragment extends MenuFragment {
+public class ModMenuFragment{
     protected static boolean xAxis = false;
     protected static float pixels = 1f;
     protected static int otherAxisMul = 50;
     protected static float timeScl = 1f;
-    private static ModMenuShaderRender lastRenderer;
-    private Table container;
-    private Table submenu;
-    private Button currentMenu;
-    private ModMenuShaderRender renderer;
-
-    public ModMenuFragment(Group nullGroup) {
-
-        Events.on(EventType.DisposeEvent.class, (event) -> {
-            this.renderer.dispose();
-        });
-        super.build(nullGroup);
-    }
+    private static ModMenuShaderRenderer lastRenderer;
 
     public static void init() {
-//    ui.menuGroup.remove();
-//    ui.menuGroup = new WidgetGroup();
-//    ui.menuGroup.setFillParent(true);
-//    ui.menuGroup.touchable = Touchable.childrenOnly;
-//    ui.menuGroup.visible(() -> {
-//        return Vars.state.isMenu();
-//    });
-//    Core.scene.add(ui.menuGroup);
-//    ui.menufrag = new ModMenuFragment(nullGroup);
-        lastRenderer = new ModMenuShaderRender();
+        lastRenderer = new ModMenuShaderRenderer();
         Events.on(EventType.DisposeEvent.class, (event) -> {
             lastRenderer.dispose();
         });

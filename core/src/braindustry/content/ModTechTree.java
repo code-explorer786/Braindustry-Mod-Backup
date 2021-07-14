@@ -1,7 +1,7 @@
 package braindustry.content;
 
 import Gas.content.GasBasicBlocks;
-import Gas.content.Gasses;
+import braindustry.content.Gasses;
 import arc.struct.Seq;
 import ModVars.Classes.TechTreeManager;
 import braindustry.content.Blocks.ModBlocks;

@@ -21,8 +21,6 @@ import arc.util.io.Writes;
 import braindustry.annotations.ModAnnotations;
 import braindustry.gen.ModBuilding;
 import braindustry.gen.WritableInterface;
-import braindustry.tools.ModReads;
-import braindustry.tools.ModWrites;
 import braindustry.world.ModBlock;
 import braindustry.world.blocks.BuildingLabel;
 import braindustry.world.blocks.DebugBlock;

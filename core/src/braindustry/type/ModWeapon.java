@@ -9,6 +9,5 @@ public class ModWeapon extends Weapon {
         super(fullName(name));
     }
     private ModWeapon(){
-
     }
 }

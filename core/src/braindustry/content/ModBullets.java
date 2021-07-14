@@ -1,6 +1,6 @@
 package braindustry.content;
 
-import Gas.content.Gasses;
+import braindustry.content.Gasses;
 import braindustry.entities.bullets.AngelContinuousBulletType;
 import braindustry.entities.bullets.GasBulletType;
 import mindustry.ctype.ContentList;

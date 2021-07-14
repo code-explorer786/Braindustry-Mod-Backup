@@ -1,7 +1,7 @@
 package braindustry.core;
 
 import Gas.content.GasBasicBlocks;
-import Gas.content.Gasses;
+import braindustry.content.Gasses;
 import arc.Events;
 import arc.files.Fi;
 import arc.func.Cons;

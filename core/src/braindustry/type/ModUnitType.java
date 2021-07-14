@@ -23,7 +23,6 @@ public class ModUnitType extends UnitType {
     }
 
     protected void triggerUpdate() {
-
     }
 
     @Override

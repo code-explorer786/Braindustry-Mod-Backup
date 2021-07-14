@@ -1,5 +1,6 @@
 package braindustry.type;
 
+import arc.func.Floatf;
 import arc.graphics.g2d.Draw;
 import arc.math.Mathf;
 import arc.struct.Seq;
@@ -42,7 +43,7 @@ public class PowerUnitContainer <T extends PowerGeneratorAbility> extends UnitCo
         if (nodeBuild != null) nodeBuild.kill();
     }
     private void sortLinks() {
-        links = links.sort((b) -> unit.dst(b)).select((link) -> {
+        links = links.sort((Floatf<Building>) unit::dst).select((link) -> {
             if (!oldLinks.contains(link)) {
                 nodeBuild.setConnect(link,true);
             }
@@ -90,7 +91,6 @@ public class PowerUnitContainer <T extends PowerGeneratorAbility> extends UnitCo
     }
 
     public void reloadLinks() {
-//        unit.links=unit.links.select(unit::goodLink);
         oldLinks=links.copy();
         links.clear();
         Tile tile = unit.tileOn();

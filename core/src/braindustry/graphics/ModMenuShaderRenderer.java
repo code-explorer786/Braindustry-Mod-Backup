@@ -38,7 +38,7 @@ import mindustry.world.blocks.environment.ShallowLiquid;
 
 import static mindustry.Vars.*;
 
-public class ModMenuShaderRender extends MenuRenderer {
+public class ModMenuShaderRenderer extends MenuRenderer {
     private static final float darkness = 0.3F;
     private final int width;
     private final int height;
@@ -54,7 +54,7 @@ public class ModMenuShaderRender extends MenuRenderer {
     private int flyers;
     private UnitType flyerType;
 
-    public ModMenuShaderRender() {
+    public ModMenuShaderRenderer() {
         this.width = !Vars.mobile ? 100 : 60;
         this.height = !Vars.mobile ? 50 : 40;
         buildMain(true);

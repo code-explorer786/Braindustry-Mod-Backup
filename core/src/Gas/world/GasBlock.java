@@ -1,7 +1,7 @@
 package Gas.world;
 
 import Gas.GasStats;
-import Gas.content.Gasses;
+import braindustry.content.Gasses;
 import Gas.gen.GasBuilding;
 import Gas.gen.GasContentRegions;
 import Gas.type.Gas;

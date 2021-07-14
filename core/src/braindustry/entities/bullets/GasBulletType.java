@@ -58,14 +58,14 @@ public class GasBulletType extends BulletType {
     public void update(Bullet b){
         super.update(b);
 
-        if(false){
+      /*  if(false){
             Tile tile = world.tileWorld(b.x, b.y);
             if(tile != null && Fires.has(tile.x, tile.y)){
                 Fires.extinguish(tile, 100f);
                 b.remove();
                 hit(b);
             }
-        }
+        }*/
     }
 
     @Override
@@ -79,7 +79,6 @@ public class GasBulletType extends BulletType {
     public void despawned(Bullet b){
         super.despawned(b);
 
-        //don't create liquids when the projectile despawns
         hitEffect.at(b.x, b.y, b.rotation(), gas.color);
     }
 
@@ -88,12 +87,12 @@ public class GasBulletType extends BulletType {
         hitEffect.at(hitx, hity, gas.color);
         Clouds.deposit(world.tileWorld(hitx, hity), gas, puddleSize*10f);
 
-        if(gas.temperature <= 0.5f && gas.flammability < 0.3f && false){
+       /* if(gas.temperature <= 0.5f && gas.flammability < 0.3f && false){
             float intensity = 400f * puddleSize/6f;
             Fires.extinguish(world.tileWorld(hitx, hity), intensity);
             for(Point2 p : Geometry.d4){
                 Fires.extinguish(world.tileWorld(hitx + p.x * tilesize, hity + p.y * tilesize), intensity);
             }
-        }
+        }*/
     }
 }

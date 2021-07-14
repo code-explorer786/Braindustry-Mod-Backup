@@ -1,7 +1,7 @@
 package braindustry.content.Blocks;
 
 import Gas.GasStack;
-import Gas.content.Gasses;
+import braindustry.content.Gasses;
 import Gas.world.blocks.production.GasGenericCrafter;
 import Gas.world.blocks.production.GasGenericSmelter;
 import Gas.world.consumers.ConsumeGasses;

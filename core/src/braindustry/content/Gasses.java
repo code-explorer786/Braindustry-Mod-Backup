@@ -1,9 +1,7 @@
-package Gas.content;
-
+package braindustry.content;
 import Gas.type.Gas;
 import arc.graphics.Color;
 import mindustry.ctype.ContentList;
-import mindustry.ctype.ContentType;
 
 public class Gasses implements ContentList {
     public static Gas oxygen;

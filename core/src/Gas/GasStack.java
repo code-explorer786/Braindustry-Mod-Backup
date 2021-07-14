@@ -1,6 +1,6 @@
 package Gas;
 
-import Gas.content.Gasses;
+import braindustry.content.Gasses;
 import Gas.type.Gas;
 import mindustry.content.Liquids;
 import mindustry.type.Liquid;

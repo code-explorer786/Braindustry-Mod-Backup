@@ -119,28 +119,27 @@ public class ModUnitTypes implements ContentList {
 
         aries = new ModUnitType("aries") {
             {
-                this.constructor = Types.legs;
-                this.groundLayer = 60.0F;
-                this.localizedName = "Flash";
-                this.description = "A small 4-leg unit with strong firework sap guns.";
-                this.speed = 0.6f;
-                this.drag = 0.3f;
-                this.hitSize = 8;
-                this.targetAir = false;
-                this.hovering = true;
-                this.health = 800;
+                constructor = Types.legs;
+                groundLayer = 60.0F;
+                localizedName = "Flash";
+                description = "A small 4-leg unit with strong firework sap guns.";
+                speed = 0.6f;
+                drag = 0.3f;
+                hitSize = 8;
+                targetAir = false;
+                hovering = true;
+                health = 800;
                 legCount = 4;
                 legLength = 9f;
                 legTrns = 0.7f;
                 legMoveSpace = 1.5f;
-                hovering = true;
                 armor = 3f;
 
                 allowLegStep = true;
                 visualElevation = 0.25f;
                 groundLayer = Layer.legUnit;
-                this.immunities.addAll(StatusEffects.burning);
-                this.weapons.add(
+                immunities.addAll(StatusEffects.burning);
+                weapons.add(
                         new ModWeapon("ibis-weapon") {
                             {
                                 this.x = 4;
@@ -176,17 +175,17 @@ public class ModUnitTypes implements ContentList {
 
         capra = new ModUnitType("capra") {
             {
-                this.constructor = Types.legs;
-                this.groundLayer = 68.0F;
-                this.localizedName = "Burst";
-                this.itemCapacity = 200;
-                this.speed = 0.4f;
-                this.drag = 0.4f;
-                this.hitSize = 12;
-                this.rotateSpeed = 3;
-                this.health = 3600;
-                this.hovering = true;
-                this.immunities.addAll(StatusEffects.burning, StatusEffects.melting);
+                constructor = Types.legs;
+                groundLayer = 68.0F;
+                localizedName = "Burst";
+                itemCapacity = 200;
+                speed = 0.4f;
+                drag = 0.4f;
+                hitSize = 12;
+                rotateSpeed = 3;
+                health = 3600;
+                hovering = true;
+                immunities.addAll(StatusEffects.burning, StatusEffects.melting);
                 legCount = 4;
                 legLength = 14f;
                 legBaseOffset = 11f;
@@ -197,7 +196,7 @@ public class ModUnitTypes implements ContentList {
                 allowLegStep = true;
                 ammoType = AmmoTypes.powerHigh;
                 groundLayer = Layer.legUnit;
-                this.weapons.add(
+                weapons.add(
                         new ModWeapon("capra-weapon") {
                             {
                                 this.reload = 90;
@@ -233,7 +232,7 @@ public class ModUnitTypes implements ContentList {
         lacerta = new ModUnitType("lacerta") {
             {
                 this.constructor = Types.legs;
-                this.groundLayer = 75.0F;
+                this.groundLayer = Layer.legUnit;
                 this.localizedName = "Salute";
                 this.description = "A giant unit with 6 legs and super-powerful laser with lightnings!";
                 this.boostMultiplier = 2.1f;
@@ -252,9 +251,7 @@ public class ModUnitTypes implements ContentList {
                 visualElevation = 0.2f;
                 allowLegStep = true;
                 ammoType = AmmoTypes.powerHigh;
-                groundLayer = Layer.legUnit;
 
-                speed = 0.35f;
                 this.immunities = ObjectSet.with(StatusEffects.burning, StatusEffects.melting);
                 this.weapons.add(
                         new ModWeapon("lacerta-weapon") {
@@ -741,9 +738,7 @@ public class ModUnitTypes implements ContentList {
                                         this.width = 45;
                                         this.height = 45;
                                         this.maxRange = 40;
-                                        //this.ignoreRotation = true;
                                         this.hitSound = Sounds.plasmaboom;
-                                        //this.shootCone = 160;
                                         this.despawnShake = 2.1f;
                                         this.collidesAir = false;
                                         this.lifetime = 0;
@@ -788,10 +783,7 @@ public class ModUnitTypes implements ContentList {
                                         this.lightningLength = 4;
                                         this.lightningColor = Pal.surge;
                                         this.lightningDamage = 11;
-                                        this.width = 14f;
-                                        this.height = 33f;
                                         this.lifetime = 40f;
-                                        this.shootEffect = Fx.shootBig;
                                     }
                                 };
                             }
@@ -1698,7 +1690,6 @@ public class ModUnitTypes implements ContentList {
                         new UnitSpawnAbility(ModUnitTypes.venti, spawnTime, 36.25f, -48.75f),
                         new UnitSpawnAbility(ModUnitTypes.venti, spawnTime, -36.25f, -48.75f)
                 );
-                int brange = 1;
 
 
                 this.weapons.add(
@@ -1879,7 +1870,6 @@ public class ModUnitTypes implements ContentList {
                 this.health = 48200;
                 this.canDrown = false;
                 this.immunities = ObjectSet.with(StatusEffects.burning, StatusEffects.melting);
-                int brange = 1;
                 this.localizedName = "Litix";
                 this.description = "Heavy attack unit with orbital magma guns,railguns and sap guns.";
                 this.mineSpeed = 13F;
@@ -2136,10 +2126,7 @@ public class ModUnitTypes implements ContentList {
                             lightningLength = 16;
                             lightningColor = Pal.surge;
                             lightningDamage = 31;
-                            width = 14f;
-                            height = 33f;
                             lifetime = 40f;
-                            shootEffect = Fx.shootBig;
                         }};
                     }}
             );
@@ -2372,7 +2359,6 @@ public class ModUnitTypes implements ContentList {
                 buildSpeed = 1f;
                 legSplashDamage = 1700;
                 legSplashRange = 130;
-                hovering = true;
                 allowLegStep = true;
                 visualElevation = 2.15f;
                 groundLayer = Layer.legUnit;

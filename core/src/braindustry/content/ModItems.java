@@ -6,9 +6,6 @@ import mindustry.ctype.ContentList;
 import mindustry.type.Item;
 
 public class ModItems implements ContentList {
-    static {
-        Items.class.isArray();
-    }
 
     public static Item chromium, exoticAlloy, graphenite, odinum, phaseAlloy, plastic, chloroAlloy, astroBar;
 

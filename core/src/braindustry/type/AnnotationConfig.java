@@ -13,7 +13,4 @@ public class AnnotationConfig {
     @ModAnnotations.EntitySuperClass
     public static interface Flyingc extends mindustry.gen.Flyingc{
     }
-//    @ModAnnotations.EntitySuperComp
-//    public static interface UnitComp extends mindustry.entities.comp.UnitComp{
-//    }
 }

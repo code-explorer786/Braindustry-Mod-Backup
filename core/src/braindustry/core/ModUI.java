@@ -60,8 +60,6 @@ public class ModUI implements Disposable {
             control.setInput(new ModDesktopInput());
         }
         ModHudFragment.init();
-        Group nullGroup = new Group() {
-        };
         settings.put("uiscalechanged", false);
         ModListener.updaters.add(() -> {
             boolean noDialog = !Core.scene.hasDialog();

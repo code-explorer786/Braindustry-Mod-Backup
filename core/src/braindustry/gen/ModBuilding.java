@@ -17,7 +17,6 @@ public class ModBuilding extends Building {
 
     @Override
     public void configured(Unit builder, Object value) {
-//        Log.info("builder: @, value: @",builder,value);
         super.configured(builder, value);
     }
 
