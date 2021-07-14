@@ -18,7 +18,7 @@ import braindustry.annotations.ModAnnotations;
 import mindustry.entities.units.BuildPlan;
 import mindustry.gen.Building;
 import mindustry.type.Item;
-import mindustry.ui.Cicon;
+//import mindustry.ui.Cicon;
 import mindustry.world.Block;
 import mindustry.world.blocks.ItemSelection;
 import mindustry.world.meta.BlockGroup;
@@ -194,7 +194,7 @@ public class SmartSorter extends Block {
             TextureAtlas.AtlasRegion cross = Core.atlas.find("cross");
             ImageButton button = new ImageButton(new TextureRegionDrawable(cross));
             button.update(() -> {
-                button.getStyle().imageUp = new TextureRegionDrawable(content.item(sides[dir]) == null ? cross : content.item(sides[dir]).icon(Cicon.full));
+                button.getStyle().imageUp = new TextureRegionDrawable(content.item(sides[dir]) == null ? cross : content.item(sides[dir]).fullIcon);
             });
             button.clicked(() -> {
                 t.clearChildren();

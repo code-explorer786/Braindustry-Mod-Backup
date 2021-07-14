@@ -6,7 +6,7 @@ import arc.math.geom.Point2;
 import mindustry.gen.Building;
 import mindustry.type.Category;
 import mindustry.type.Item;
-import mindustry.ui.Cicon;
+//import mindustry.ui.Cicon;
 import mindustry.world.Block;
 import mindustry.world.blocks.distribution.PayloadConveyor;
 import mindustry.world.blocks.payloads.Payload;

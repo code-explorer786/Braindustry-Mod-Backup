@@ -24,17 +24,19 @@ import mindustry.content.UnitTypes;
 import mindustry.graphics.MenuRenderer;
 import mindustry.graphics.Pal;
 import mindustry.type.UnitType;
-import mindustry.ui.Cicon;
+//import mindustry.ui.Cicon;
 import mindustry.world.Block;
 import mindustry.world.CachedTile;
 import mindustry.world.Tile;
 import mindustry.world.Tiles;
 import mindustry.world.blocks.environment.OreBlock;
+import mindustry.world.blocks.environment.StaticWall;
 
 import java.util.Iterator;
 
 import static ModVars.modFunc.fullName;
 import static arc.Core.camera;
+import static arc.Core.settings;
 import static mindustry.Vars.*;
 import static mindustry.Vars.ui;
 
@@ -120,6 +122,11 @@ public class ModMenuShaderRender extends MenuRenderer {
                 UnitTypes.zenith,
                 ModUnitTypes.armor, ModUnitTypes.armor,
                 ModUnitTypes.chainmail,ModUnitTypes.chestplate);
+
+        if (settings.getBool("background.style.use",false)) {
+            UnitType unit = content.unit(settings.getInt("background.style.unit"));
+            if (unit!=null)flyerType=unit;
+        }
       if(timeMark)  Time.mark();
         this.generate();
         this.cache();
@@ -165,6 +172,42 @@ public class ModMenuShaderRender extends MenuRenderer {
                 {Blocks.water, Blocks.sandWall},
 
         });
+        if (settings.getBool("background.style.use",false)) {
+            try {
+                selected=new Block[]{content.block(settings.getInt("background.style.floor1",-1)).asFloor(),
+                        (StaticWall)content.block(settings.getInt("background.style.wall1",-1))};
+                selected2=new Block[]{content.block(settings.getInt("background.style.floor2",-1)).asFloor(),
+                        (StaticWall)content.block(settings.getInt("background.style.wall2",-1))};
+                if (selected[0]==null || selected[1]==null && selected2[0]==null || selected2[1]==null){
+                    throw new Exception("");
+                };
+            } catch (Exception e){
+               selected = Structs.select(new Block[][]{
+                        {Blocks.sand, Blocks.sandWall},
+                        {Blocks.shale, Blocks.shaleWall},
+                        {Blocks.ice, Blocks.iceWall},
+                        {ModBlocks.obsidianFloor,ModBlocks.obsidianBlock},
+                        {Blocks.sand, Blocks.sandWall},
+                        {Blocks.shale, Blocks.shaleWall},
+                        {Blocks.ice, Blocks.iceWall},
+                        {ModBlocks.obsidianFloor,ModBlocks.obsidianBlock},
+                        {Blocks.moss, Blocks.sporePine},
+                });
+                 selected2 = Structs.select(new Block[][]{
+                        {Blocks.basalt, Blocks.duneWall},
+                        {Blocks.basalt, Blocks.duneWall},
+                        {Blocks.stone, Blocks.stoneWall},
+                        {Blocks.stone, Blocks.stoneWall},
+                        {Blocks.moss, Blocks.sporeWall},
+                        {Blocks.salt, Blocks.saltWall},
+                        {ModBlocks.jungleFloor,ModBlocks.jungleWall},
+                        {ModBlocks.jungleFloor,ModBlocks.jungleWall},
+                        {ModBlocks.crimzesFloor,ModBlocks.crimzesWall},
+                        {Blocks.water, Blocks.sandWall},
+
+                });
+            }
+        }
         Block ore1 = ores.random();
         ores.remove(ore1);
         Block ore2 = ores.random();
@@ -349,7 +392,7 @@ public class ModMenuShaderRender extends MenuRenderer {
 
     private void drawFlyers() {
         Draw.color(0.0F, 0.0F, 0.0F, 0.4F);
-        TextureRegion icon = this.flyerType.icon(Cicon.full);
+        TextureRegion icon = this.flyerType.fullIcon;
         float size = (float)Math.max(icon.width, icon.height) * Draw.scl * 1.6F;
         this.flyers((x, y) -> {
             Draw.rect(icon, x - 12.0F, y - 13.0F, this.flyerRot - 90.0F);

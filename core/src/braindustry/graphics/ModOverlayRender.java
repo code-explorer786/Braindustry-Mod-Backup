@@ -19,7 +19,7 @@ import mindustry.graphics.OverlayRenderer;
 import mindustry.graphics.Pal;
 import mindustry.input.Binding;
 import mindustry.input.InputHandler;
-import mindustry.ui.Cicon;
+//import mindustry.ui.Cicon;
 import mindustry.ui.fragments.PlacementFragment;
 import mindustry.world.Tile;
 
@@ -95,7 +95,7 @@ public class ModOverlayRender extends OverlayRenderer {
                 //special selection for block "units"
                 Fill.square(select.x, select.y, ((BlockUnitc)select).tile().block.size * tilesize/2f);
             }else{
-                Draw.rect(select.type.icon(Cicon.full), select.x(), select.y(), select.rotation() - 90);
+                Draw.rect(select.type.fullIcon, select.x(), select.y(), select.rotation() - 90);
             }
 
             for(int i = 0; i < 4; i++){
@@ -188,7 +188,7 @@ public class ModOverlayRender extends OverlayRenderer {
         if(input.isDroppingItem()){
             Vec2 v = Core.input.mouseWorld(input.getMouseX(), input.getMouseY());
             float size = 8;
-            Draw.rect(player.unit().item().icon(Cicon.medium), v.x, v.y, size, size);
+            Draw.rect(player.unit().item().uiIcon, v.x, v.y, size, size);
             Draw.color(Pal.accent);
             Lines.circle(v.x, v.y, 6 + Mathf.absin(Time.time, 5f, 1f));
             Draw.reset();

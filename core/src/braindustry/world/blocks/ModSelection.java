@@ -11,7 +11,7 @@ import arc.scene.ui.layout.Table;
 import arc.struct.Seq;
 import mindustry.Vars;
 import mindustry.gen.Tex;
-import mindustry.ui.Cicon;
+//import mindustry.ui.Cicon;
 import mindustry.ui.Styles;
 
 public class ModSelection {

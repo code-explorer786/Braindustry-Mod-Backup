@@ -101,7 +101,7 @@ public class SpecialMechUnit extends MechUnit implements StealthUnitc {
             }
             return bool;
         }
-        bool = mustHeal();
+        bool = mustHeal() && !isPlayer();
         if (bool && healing) {
             return inStealth;
         }
@@ -230,10 +230,12 @@ public class SpecialMechUnit extends MechUnit implements StealthUnitc {
 //            Groups.unit.tree().insert(this);
         }
         super.update();
-        cooldownStealth = Math.max(0, cooldownStealth - Time.delta);
-        if (inStealth) {
-            durationStealth = Math.min(stealthType.stealthDuration, durationStealth + Time.delta);
-            Groups.unit.remove(this);
+        if (Vars.net.server() || isLocal()) {
+            cooldownStealth = Math.max(0, cooldownStealth - Time.delta);
+            if (inStealth) {
+                durationStealth = Math.min(stealthType.stealthDuration, durationStealth + Time.delta);
+    //            Groups.unit.remove(this);
+            }
         }
 //        team.data().tree().remove(this);
 //        Units.closest()

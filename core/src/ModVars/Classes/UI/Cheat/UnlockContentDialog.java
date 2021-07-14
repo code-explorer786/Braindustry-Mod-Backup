@@ -9,7 +9,7 @@ import arc.scene.ui.layout.Table;
 import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
 import mindustry.gen.Tex;
-import mindustry.ui.Cicon;
+//import mindustry.ui.Cicon;
 import mindustry.ui.dialogs.BaseDialog;
 import mindustry.world.Block;
 import mindustry.world.meta.BuildVisibility;
@@ -55,7 +55,7 @@ public class UnlockContentDialog extends BaseDialog {
                 if (content instanceof Block && (((Block)content).buildVisibility!= BuildVisibility.shown &&((Block)content).buildVisibility!= BuildVisibility.campaignOnly))return;
                 this.items.table(Tex.pane, (t) -> {
                     t.margin(4.0F).marginRight(8.0F).left();
-                    t.image(content.icon(Cicon.small)).size(24.0F).padRight(4.0F).padLeft(4.0F);
+                    t.image(content.uiIcon).size(24.0F).padRight(4.0F).padLeft(4.0F);
                     t.label(() -> {
                         return content.localizedName;
                     }).left().width(90.0F*2f);

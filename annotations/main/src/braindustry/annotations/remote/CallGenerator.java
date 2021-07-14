@@ -340,7 +340,7 @@ public class CallGenerator{
         }
 
         //send the actual packet
-        method.addStatement(sendString + "packet, " + (!ent.unreliable) + ")");
+        method.addStatement(sendString + "packet, " + (!ent.unreliable && false) + ")");
 
 
         //end check for server/client

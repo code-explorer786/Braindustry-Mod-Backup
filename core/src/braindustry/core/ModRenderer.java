@@ -26,7 +26,7 @@ import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.graphics.Shaders;
 import mindustry.graphics.g3d.PlanetRenderer;
-import mindustry.ui.Cicon;
+//import mindustry.ui.Cicon;
 import mindustry.world.blocks.storage.CoreBlock;
 
 import static arc.Core.*;
@@ -231,7 +231,7 @@ public class ModRenderer extends Renderer {
         if (landTime > 0 && entity != null) {
             float fract = landTime / Fx.coreLand.lifetime;
 
-            TextureRegion reg = entity.block.icon(Cicon.full);
+            TextureRegion reg = entity.block.fullIcon;
             float scl = Scl.scl(4f) / camerascale;
             float s = reg.width * Draw.scl * scl * 4f * fract;
 

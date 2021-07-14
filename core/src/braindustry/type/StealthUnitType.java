@@ -26,7 +26,7 @@ import mindustry.graphics.Pal;
 import mindustry.graphics.Trail;
 import mindustry.type.UnitType;
 import mindustry.ui.Bar;
-import mindustry.ui.Cicon;
+//import mindustry.ui.Cicon;
 import mindustry.world.blocks.environment.Floor;
 
 import static mindustry.Vars.state;
@@ -77,7 +77,7 @@ public class StealthUnitType extends ModUnitType {
     public void display(Unit unit, Table table) {
         table.table(t -> {
             t.left();
-            t.add(new Image(icon(Cicon.medium))).size(8 * 4).scaling(Scaling.fit);
+            t.add(new Image(uiIcon)).size(8 * 4).scaling(Scaling.fit);
             t.labelWrap(localizedName).left().width(190f).padLeft(5);
         }).growX().left();
         table.row();

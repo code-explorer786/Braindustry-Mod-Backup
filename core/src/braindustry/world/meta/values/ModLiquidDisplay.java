@@ -6,7 +6,7 @@ import arc.scene.ui.layout.Stack;
 import arc.scene.ui.layout.Table;
 import arc.util.Strings;
 import mindustry.type.Liquid;
-import mindustry.ui.Cicon;
+//import mindustry.ui.Cicon;
 import mindustry.ui.Styles;
 import mindustry.world.meta.StatUnit;
 
@@ -24,7 +24,7 @@ public class ModLiquidDisplay extends Table{
         this.perSecond = perSecond;
         this.add(new Stack() {
             {
-                this.add(new Image(liquid.icon(Cicon.medium)));
+                this.add(new Image(liquid.uiIcon));
                 if (amount != 0.0F) {
                     Table t = (new Table()).left().bottom();
                     t.add(Strings.autoFixed(amount, 1)).style(Styles.outlineLabel);

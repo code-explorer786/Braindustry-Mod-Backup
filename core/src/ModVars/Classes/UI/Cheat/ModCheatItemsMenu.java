@@ -15,7 +15,7 @@ import mindustry.gen.Icon;
 import mindustry.gen.Tex;
 import mindustry.type.Item;
 import mindustry.type.ItemStack;
-import mindustry.ui.Cicon;
+//import mindustry.ui.Cicon;
 import mindustry.ui.Styles;
 import mindustry.ui.dialogs.BaseDialog;
 import mindustry.world.blocks.storage.CoreBlock;
@@ -124,7 +124,7 @@ public class ModCheatItemsMenu extends BaseDialog {
                             Vars.ui.showInfo(Core.bundle.format("configure.invalid", this.capacity));
                         });
                     }).size(bsize);
-                    t.image(stack.item.icon(Cicon.small)).size(24.0F).padRight(4.0F).padLeft(4.0F);
+                    t.image(stack.item.uiIcon).size(24.0F).padRight(4.0F).padLeft(4.0F);
                     t.label(() -> {
                         return stack.amount + "";
                     }).left().width(90.0F);

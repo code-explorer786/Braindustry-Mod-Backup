@@ -39,7 +39,7 @@ import mindustry.io.TypeIO;
 import mindustry.type.Category;
 import mindustry.type.Item;
 import mindustry.type.UnitType;
-import mindustry.ui.Cicon;
+//import mindustry.ui.Cicon;
 import mindustry.ui.Styles;
 import mindustry.ui.dialogs.BaseDialog;
 import mindustry.world.Block;
@@ -135,7 +135,7 @@ public class UnitSpawner extends ModBlock {
                             if (u.constructor.get() instanceof BlockUnitc) return;
                             t.button(b -> {
                                         b.left();
-                                        b.image(u.icon(Cicon.medium)).size(40).padRight(2);
+                                        b.image(u.uiIcon).size(40).padRight(2);
                                         b.add(u.localizedName);
                                     },
                                     () -> {
@@ -228,7 +228,7 @@ public class UnitSpawner extends ModBlock {
                     for (UnitEntry unitEntry : unitEntries) {
                         p.table(Tex.pane, (t) -> {
                             t.margin(4.0F).marginRight(0.0F).left();
-                            t.image(unitEntry.unitType().icon(Cicon.small)).size(24.0F).padRight(4.0F).padLeft(4.0F);
+                            t.image(unitEntry.unitType().uiIcon).size(24.0F).padRight(4.0F).padLeft(4.0F);
                             t.label(() -> {
                                 return unitEntry.amount + "";
                             }).left().width(90.0F);
@@ -516,7 +516,7 @@ public class UnitSpawner extends ModBlock {
 
                             for (Item item : Vars.content.items()) {
                                 if (this.items.hasFlowItem(item)) {
-                                    l.image(item.icon(Cicon.small)).padRight(3.0F);
+                                    l.image(item.uiIcon).padRight(3.0F);
                                     l.label(() -> {
                                         return this.items.getFlowRate(item) < 0.0F ? "..." : Strings.fixed(this.items.getFlowRate(item), 1) + ps;
                                     }).color(Color.lightGray);
@@ -547,7 +547,7 @@ public class UnitSpawner extends ModBlock {
                             l.clearChildren();
                             l.left();
                             l.image(() -> {
-                                return this.liquids.current().icon(Cicon.small);
+                                return this.liquids.current().uiIcon;
                             }).padRight(3.0F);
                             l.label(() -> {
                                 return this.liquids.getFlowRate() < 0.0F ? "..." : Strings.fixed(this.liquids.getFlowRate(), 2) + ps;

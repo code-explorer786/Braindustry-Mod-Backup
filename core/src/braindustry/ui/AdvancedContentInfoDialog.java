@@ -10,7 +10,7 @@ import braindustry.world.meta.AStatCat;
 import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
 import mindustry.graphics.Pal;
-import mindustry.ui.Cicon;
+//import mindustry.ui.Cicon;
 import mindustry.ui.dialogs.ContentInfoDialog;
 import mindustry.world.meta.StatCat;
 import mindustry.world.meta.StatValue;
@@ -39,7 +39,7 @@ public class AdvancedContentInfoDialog extends ContentInfoDialog {
         content.checkStats();
         table.table((title1) -> {
             int size = 48;
-            title1.image(content.icon(Cicon.xlarge)).size((float)size).scaling(Scaling.fit);
+            title1.image(content.fullIcon).size((float)size).scaling(Scaling.fit);
             title1.add("[accent]" + content.localizedName).padLeft(5.0F);
         });
         table.row();

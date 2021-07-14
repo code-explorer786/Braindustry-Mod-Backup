@@ -10,7 +10,7 @@ import arc.struct.Seq;
 import mindustry.Vars;
 import mindustry.ctype.ContentType;
 import mindustry.gen.Building;
-import mindustry.ui.Cicon;
+//import mindustry.ui.Cicon;
 import mindustry.ui.MultiReqImage;
 import mindustry.ui.ReqImage;
 import mindustry.world.meta.Stat;
@@ -39,7 +39,7 @@ public class ConsumeGasFilter extends ConsumeGasBase {
         });
         MultiReqImage image = new MultiReqImage();
         list.each((gas) -> {
-            image.add(new ReqImage(gas.icon(Cicon.medium), () -> {
+            image.add(new ReqImage(gas.uiIcon, () -> {
                 return tile.gasses != null && tile.gasses.get(gas) >= this.use(tile);
             }));
         });
