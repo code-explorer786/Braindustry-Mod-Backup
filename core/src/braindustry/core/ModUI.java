@@ -17,6 +17,7 @@ import braindustry.input.ModBinding;
 import braindustry.input.ModDesktopInput;
 import braindustry.input.ModKeyBinds;
 import braindustry.input.ModMobileInput;
+import braindustry.tools.MenuButtons;
 import braindustry.ui.AdvancedContentInfoDialog;
 import braindustry.ui.ModStyles;
 import braindustry.ui.dialogs.BackgroundStyle;
@@ -87,18 +88,7 @@ public class ModUI implements Disposable {
 
         });
 
-        ui.menuGroup.remove();
-        ui.menuGroup = new WidgetGroup();
-        ui.menuGroup.setFillParent(true);
-        ui.menuGroup.touchable = Touchable.childrenOnly;
-        ui.menuGroup.visible(() -> {
-            return Vars.state.isMenu();
-        });
-        Core.scene.add(ui.menuGroup);
-        ui.menufrag = new ModMenuFragment(nullGroup);
-
-//        Vars.ui.menufrag.
-        ui.menufrag.build(ui.menuGroup);
+        ModMenuFragment.init();
         AdvancedContentInfoDialog.init();
         ui.planet.remove();
         Vars.renderer.planets.dispose();
@@ -133,6 +123,5 @@ public class ModUI implements Disposable {
 
     @Override
     public void dispose() {
-        if (ui.menufrag instanceof ModMenuFragment) ((ModMenuFragment) ui.menufrag).dispose();
     }
 }
