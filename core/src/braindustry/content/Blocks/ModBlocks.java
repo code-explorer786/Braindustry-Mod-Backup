@@ -10,8 +10,6 @@ import braindustry.world.blocks.distribution.BufferedPayloadBridge;
 import braindustry.world.blocks.distribution.SideJunction;
 import braindustry.world.blocks.distribution.SmartRouter;
 import braindustry.world.blocks.distribution.SmartSorter;
-import braindustry.world.blocks.power.ReceivingPowerNode;
-import braindustry.world.blocks.sandbox.BlockSwitcher;
 import braindustry.world.blocks.sandbox.DpsMeter;
 import braindustry.world.blocks.sandbox.UnitSpawner;
 import mindustry.content.Items;
@@ -112,16 +110,6 @@ public class ModBlocks implements ContentList {
             requirements(Category.logic, ItemStack.with(), true);
             buildVisibility = BuildVisibility.debugOnly;
         }};
-        node1 = new ReceivingPowerNode("unit-power-node") {{
-            size = 3;
-            requirements(Category.logic, ItemStack.with(), true);
-            buildVisibility = BuildVisibility.debugOnly;
-        }};
-        node2 = new ReceivingPowerNode("unit-power-node2") {{
-            size = 3;
-            requirements(Category.logic, ItemStack.with(), true);
-            buildVisibility = BuildVisibility.debugOnly;
-        }};
 
         unitGenerator = new UnitPowerGenerator("unit-generator") {{
             powerProduction = 10f;
@@ -129,49 +117,6 @@ public class ModBlocks implements ContentList {
         }};
         unitNode = new UnitPowerNode("unit-node") {{
             maxNodes = Integer.MAX_VALUE;
-            buildVisibility = BuildVisibility.debugOnly;
-        }};
-
-        turretSwitcher = new BlockSwitcher("turret-switcher") {{
-            /** custom block filter*/
-            blockFilter = (build) -> {
-                return build.block instanceof Turret;
-            };
-            colorFunc = (b) -> Color.orange.cpy().lerp(Pal.accent, 0.1f);
-            /** default action*/
-            action = (b) -> {
-                Turret.TurretBuild build = (Turret.TurretBuild) b;
-                boolean enable = (build instanceof ControlBlock && ((ControlBlock) build).isControlled());
-                build.control(LAccess.enabled, enable ? 1 : 0, 0, 0, 0);
-                build.enabledControlTime = 30.0F;
-                if (enable) {
-                    build.enabledControlTime = 0f;
-                    build.charging = false;
-                }
-            };
-            size = 2;
-            laserRange = 6.0F;
-            health = 10000;
-            requirements(Category.distribution, ItemStack.with(Items.copper, 3, Items.silicon, 10));
-            buildCostMultiplier = 4.0F;
-            buildVisibility = BuildVisibility.debugOnly;
-        }};
-        blockHealer = new BlockSwitcher("block-healer") {{
-            blockFilter = (build) -> {
-                return true;
-            };
-            action = (build) -> {
-                build.heal(build.delta() * build.maxHealth);
-            };
-            colorFunc = (b) -> {
-                float t = Mathf.absin(Time.time + Mathf.randomSeed(b.id, 0, 1000000), 1f, 1F) * 0.9f + 0.1f;
-                return Pal.heal.cpy().lerp(Color.black, t * (1f - b.healthf()));
-            };
-            size = 2;
-            health = 10000;
-            laserRange = 6.0F;
-            requirements(Category.distribution, ItemStack.with(Items.copper, 3, Items.silicon, 10));
-            buildCostMultiplier = 4.0F;
             buildVisibility = BuildVisibility.debugOnly;
         }};
         dpsMeter = new DpsMeter("dps-meter") {{

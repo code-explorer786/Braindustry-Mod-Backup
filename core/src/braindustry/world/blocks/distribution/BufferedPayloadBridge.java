@@ -22,7 +22,6 @@ import static mindustry.Vars.*;
 
 public class BufferedPayloadBridge extends PayloadBridge {
     static Payload toTransport = null;
-    public final int timerAccept = timers++;
     public float moveTime = 40f, moveForce = 201f;
     public int bufferCapacity = 50;
 
@@ -143,9 +142,6 @@ public class BufferedPayloadBridge extends PayloadBridge {
                 other.handlePayload(this, toTransport);
                 buffer.remove(toTransport);
             } else {
-                if (other == null && toTransport != null) {
-
-                }
                 cycleSpeed = Mathf.lerpDelta(cycleSpeed, 0f, 0.008f);
             }
         }

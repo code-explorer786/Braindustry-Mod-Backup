@@ -29,7 +29,6 @@ public class ReflectionWall extends Wall {
 
             if (bullet.team == team) return false;
             if (bullet.type instanceof LaserBulletType && laserReflect) {
-                float delta = Time.delta;
 
                 LaserBulletType type = (LaserBulletType) bullet.type;
                 float length = Damage.findLaserLength(bullet, type.length) * 0.75f;
@@ -52,19 +51,10 @@ public class ReflectionWall extends Wall {
                     LightningBulletType type = (LightningBulletType) dataBullet.type;
                     float angle = dataBullet.rotation();
                     float rotate = (180f - angle) * 2f;
-
-                    float length = Damage.findLaserLength(bullet, 4f)*0.75f;
-                    Tmp.v2.trns(bullet.rotation() +135.0f, length, length);
-                    Tmp.v1.set(x + Tmp.v2.x, y + Tmp.v2.y);
-                    int i = this.relativeTo(World.toTile(dataBullet.x), World.toTile(dataBullet.y));
-                    Tile tile= this.tile.nearby(i);
-                    if (tile.build!=this)tile=this.tile;
-                    Bullet b = dataBullet.type.create(
+                    dataBullet.type.create(
                             this,team,bullet.x,bullet.y,(angle+rotate)%360, type.damage,
                             1,1,null
                     );
-//                    b.vel.set(dataBullet.vel.cpy()).rotate(rotate);
-//                Lightning.create(b, lightningColor, b.damage, b.x, b.y, b.rotation(), lightningLength + Mathf.random(type.lightningLengthRand));
                     return super.collision(bullet);
                 }
             }

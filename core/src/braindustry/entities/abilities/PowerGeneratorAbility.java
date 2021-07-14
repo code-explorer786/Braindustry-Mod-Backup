@@ -16,8 +16,6 @@ import braindustry.type.ModUnitType;
 import braindustry.type.PowerUnitContainer;
 import braindustry.world.blocks.Unit.power.UnitPowerGenerator;
 import braindustry.world.blocks.Unit.power.UnitPowerNode;
-import braindustry.world.blocks.power.ReceivingPowerNode;
-import braindustry.world.blocks.sandbox.BlockSwitcher;
 import mindustry.game.Team;
 import mindustry.gen.Building;
 import mindustry.gen.Unit;
@@ -99,10 +97,6 @@ public abstract class PowerGeneratorAbility extends ModAbility {
         super.draw(unit);
         powerUnitContainer(unit).draw();
 //        drawReactor(unit);
-    }
-
-    public boolean goodBuilding(BlockSwitcher.BlockSwitcherBuild forB, Building other) {
-        return other.dst(forB) <= (laserRange + other.block.size + Mathf.ceil(forB.block.size / 2f)) * 8f && forB != other && forB.isValid() && other.isValid();
     }
 
     public void update(Unit unit) {

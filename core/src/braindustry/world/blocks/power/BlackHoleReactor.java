@@ -33,7 +33,7 @@ public class BlackHoleReactor extends GasImpactReactor {
 
         @Override
         public void draw() {
-            Draw.rect(bottomRegion, this.x, this.y);
+            Draw.rect(bottomRegion, x, y);
 
 
             if(warmup>0.05f)drawer.drawBlackHole(this,blackHoleHitSize*warmup,warmup);

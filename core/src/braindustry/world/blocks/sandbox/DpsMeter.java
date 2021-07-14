@@ -25,6 +25,7 @@ import braindustry.tools.ModReads;
 import braindustry.tools.ModWrites;
 import braindustry.world.ModBlock;
 import braindustry.world.blocks.BuildingLabel;
+import braindustry.world.blocks.DebugBlock;
 import mindustry.Vars;
 import mindustry.entities.TargetPriority;
 import mindustry.game.Team;
@@ -41,7 +42,7 @@ import mindustryAddition.graphics.ModDraw;
 import java.io.DataOutputStream;
 import java.util.Arrays;
 
-public class DpsMeter extends ModBlock {
+public class DpsMeter extends ModBlock implements DebugBlock {
     public @ModAnnotations.Load("@-team-region") TextureRegion teamRegionButton;
 
     public DpsMeter(String name) {

@@ -27,7 +27,6 @@ public class CrossBufferedItemBridge extends CrossItemBridge {
         this.speed = 40.0F;
         this.bufferCapacity = 50;
         this.hasPower = false;
-        this.hasItems = true;
         this.canOverdrive = true;
     }
     public class CrossBufferedItemBridgeBuild extends CrossItemBridgeBuild{
@@ -38,7 +37,6 @@ public class CrossBufferedItemBridge extends CrossItemBridge {
         }
         public void draw() {
             drawBase();
-//            super.draw();
             Draw.z(70.0F);
             Tile other = Vars.world.tile(this.link);
             Building build = Vars.world.build(link);
@@ -58,7 +56,6 @@ public class CrossBufferedItemBridge extends CrossItemBridge {
                     Tmp.v1.set(x, y).sub(x2, y2).setLength(4.0F).scl(-1.0F);
                     Tmp.v2.set(x, y).sub(x2, y2).setLength(1.0F).scl(1.0F);
                     Tmp.v2.setZero().trns((angle + 135f), 0.5f, 0.5f);
-//                    Tmp.v2.set(Tmp.v1.setZero());
                     float
                             d360x = (vx * 8f) / 2.0F,
                             d360y = (vy * 8f) / 2.0F,
@@ -88,10 +85,7 @@ public class CrossBufferedItemBridge extends CrossItemBridge {
                         final float progress = uptime * ((1f / arrows) * (a) + 1f / arrows / 2f);
                         float arrowX = x + Mathf.lerp(arrowOffset.x * 4f, ex - x - arrowOffset.x * 4f, progress);
                         float arrowY = y + Mathf.lerp(arrowOffset.y * 4f, ey - y - arrowOffset.y * 4f, progress);
-                        Draw.rect(arrowRegion, arrowX, arrowY,
-//                                x + arrowOffset.x * (4.0F + a * 6.0F + 2.0F) * uptime,
-//                                y + arrowOffset.y * (4.0F + a * 6.0F + 2.0F) * uptime,
-                                angle);
+                        Draw.rect(arrowRegion, arrowX, arrowY,angle);
                     }
 
                     Draw.reset();
@@ -99,29 +93,29 @@ public class CrossBufferedItemBridge extends CrossItemBridge {
             }
         }
         public void updateTransport(Building other) {
-            if (this.buffer.accepts() && this.items.total() > 0) {
-                this.buffer.accept(this.items.take());
+            if (buffer.accepts() && items.total() > 0) {
+                buffer.accept(items.take());
             }
 
-            Item item = this.buffer.poll(speed / this.timeScale);
-            if (this.timer(timerAccept, 4.0F / this.timeScale) && item != null && other.acceptItem(this, item)) {
-                this.cycleSpeed = Mathf.lerpDelta(this.cycleSpeed, 4.0F, 0.05F);
+            Item item = buffer.poll(speed / timeScale);
+            if (timer(timerAccept, 4.0F / timeScale) && item != null && other.acceptItem(this, item)) {
+                cycleSpeed = Mathf.lerpDelta(cycleSpeed, 4.0F, 0.05F);
                 other.handleItem(this, item);
-                this.buffer.remove();
+                buffer.remove();
             } else {
-                this.cycleSpeed = Mathf.lerpDelta(this.cycleSpeed, 0.0F, 0.008F);
+                cycleSpeed = Mathf.lerpDelta(cycleSpeed, 0.0F, 0.008F);
             }
 
         }
 
         public void write(Writes write) {
             super.write(write);
-            this.buffer.write(write);
+            buffer.write(write);
         }
 
         public void read(Reads read, byte revision) {
             super.read(read, revision);
-            this.buffer.read(read);
+            buffer.read(read);
         }
     }
 }

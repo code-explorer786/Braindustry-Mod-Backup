@@ -50,7 +50,6 @@ public class SmartSorter extends Block {
                 tile.configSide(i, Strings.parseInt(split[i]));
             }
         });
-//        configClear((SmartSorterBuild tile) -> Arrays.fill(tile.sides, -1));
     }
 
     @Override
@@ -86,7 +85,6 @@ public class SmartSorter extends Block {
 
     public class SmartSorterBuild extends Building {
         final int[] sides = new int[4];
-        Table tu, tl, td, tr = td = tu = tl = null;
 
         public SmartSorterBuild() {
             Arrays.fill(sides, -1);

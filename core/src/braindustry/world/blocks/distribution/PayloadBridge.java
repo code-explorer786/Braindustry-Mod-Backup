@@ -54,7 +54,6 @@ public class PayloadBridge extends PayloadBlock {
         update = true;
         solid = true;
         hasPower = true;
-        expanded = true;
         payloadCapacity = 10;
         outputsPayload = true;
         hasPayload=true;

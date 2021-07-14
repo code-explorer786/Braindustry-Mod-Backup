@@ -66,7 +66,6 @@ public class MaterialReactor extends ItemLiquidGenerator {
     }
 
     public class MaterialReactorBuild extends ItemLiquidGenerator.ItemLiquidGeneratorBuild {
-        //        public boolean work;
         public Item item;
         public Liquid liquid;
         public int efficiency;
@@ -160,38 +159,37 @@ public class MaterialReactor extends ItemLiquidGenerator {
                 return;
             }
 
-            effect1.at(this.x, this.y);
-            effect2.at(this.x, this.y);
-            effect3.at(this.x, this.y);
+            effect1.at(x, y);
+            effect2.at(x, y);
+            effect3.at(x, y);
 
             for (int x = 0; x < 30; x++) {
                 Lightning.create(Team.get(99),
                         destroyLightingColor,
-                        Mathf.pow(4, Mathf.round(this.efficiency)), this.x + Mathf.range(lightningRange) * Vars.tilesize,
-                        this.y + Mathf.range(lightningRange) * Vars.tilesize, Mathf.random(0.0f, 360.0f),
+                        Mathf.pow(4, Mathf.round(efficiency)), x + Mathf.range(lightningRange) * Vars.tilesize,
+                        y + Mathf.range(lightningRange) * Vars.tilesize, Mathf.random(0.0f, 360.0f),
                         (35 + Mathf.range(15)));
             }
             ;
 
-            for (int x = 0; x < 40; x++) {
+            for (int i = 0; i < 40; i++) {
                 Vec2 v = new Vec2();
                 v.trns(Mathf.random(360.0f), Mathf.random(100.0f));
 
-                Tile tile = Vars.world.tileWorld(this.x + v.x, this.y + v.y);
-                Puddles.deposit(tile, Vars.world.tileWorld(this.x, this.y), this.liquid, this.efficiency * 10);
+                Tile tile = Vars.world.tileWorld(x + v.x, y + v.y);
+                Puddles.deposit(tile, Vars.world.tileWorld(x, y), liquid, efficiency * 10);
             }
         }
 
         public float getPowerProduction() {
-            return (item != null && liquid != null) ? item.hardness * item.cost * 10.0f * liquid.temperature * this.efficiency : 0;
+            return (item != null && liquid != null) ? item.hardness * item.cost * 10.0f * liquid.temperature * efficiency : 0;
         }
 
         @Override
         public boolean acceptItem(Building source, Item item) {
-            if (
-                    this.items == null ||
-                            this.items.get(item) >= this.block.itemCapacity ||
-                            this.items.total() >= this.block.itemCapacity) return false;
+            if (items == null ||
+                            items.get(item) >= itemCapacity ||
+                            items.total() >= itemCapacity) return false;
 
             if (item.hardness >= 0.5 && item.cost >= 0.5) {
                 if (this.item != null && this.item != item) {

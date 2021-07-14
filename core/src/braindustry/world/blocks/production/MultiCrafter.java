@@ -1,6 +1,7 @@
 package braindustry.world.blocks.production;
 
 import ModVars.modFunc;
+import ModVars.modVars;
 import arc.Core;
 import arc.func.Func;
 import arc.graphics.Color;
@@ -51,13 +52,11 @@ public class MultiCrafter extends ModBlock {
     public Seq<Recipe> recipes = new Seq<>();
     public Effect craftEffect;
     public Effect updateEffect;
-    public int queueSize = 1;
     public float updateEffectChance;
     public TextureRegion[] itemsTexture;
     public boolean changeTexture = false;
     public boolean dynamicItem = true;
     public boolean dynamicLiquid = true;
-    public boolean dynamicPower = true;
     public float extraStorageLiquid = 1;
     public float extraStorageItem = 1;
     AStats aStats = new AStats();
@@ -156,14 +155,10 @@ public class MultiCrafter extends ModBlock {
     }
 
     public void init() {
-//        hasLiquids|=dynamicLiquid;
-//        hasItems|=dynamicItem;
-//        hasPower|= dynamicPower;
         this.itemCapacity = 0;
         recipes.each((recipe -> {
             Seq.with(recipe.consumeItems).each((itemStack -> {
                 this.itemCapacity = Math.max(this.itemCapacity, itemStack.amount);
-//                this.itemCapacity+=itemStack.amount;
             }));
             Seq.with(recipe.consumeLiquids).each((liquidStack -> {
                 this.liquidCapacity = Math.max(this.liquidCapacity, liquidStack.amount);
@@ -292,21 +287,15 @@ public class MultiCrafter extends ModBlock {
         @Override
         public void update() {
             super.update();
-            boolean selected=modFunc.selected(this);
-            if (!selected && this.selected){
-//                rebuildBars=rebuildCons=()->{};
-            }
-            this.selected=selected;
+            this.selected= modFunc.selected(this);
         }
         public void displayConsumption(Table table) {
             rebuildCons=()-> {
                 table.clearChildren();
                 table.clear();
                 table.left();
-                Consume[] var2 = this.block.consumes.all();
-                int var3 = var2.length;
 
-                for (Consume cons : var2) {
+                for (Consume cons : consumes.all()) {
                     if (!cons.isOptional() || !cons.isBoost()) {
                         cons.build(this, table);
                     }
@@ -381,35 +370,34 @@ public class MultiCrafter extends ModBlock {
                     t.add("@none").color(Color.lightGray);
                 });
             }
-//            table.button(this.consValid()+"",()->{});
-            if (true) return;
-            table.button("debug", () -> {
-                String[] lines = {
-                        Strings.format("if1: @", this.consValid()),
-                        Strings.format("if2: @", (getCurrentRecipe().outputItem != null
-                                && this.items.get(getCurrentRecipe().outputItem.item) >= this.block.itemCapacity)),
-                        Strings.format("liquid consume: @", getNeedLiquids().toString())
-                };
-                getInfoDialog("", "Debug window", Strings.join("\n", lines), Color.green.add(Color.black)).show();
-            });
+         /*   if (!modVars.settings.debug()){
+                table.button("debug", () -> {
+                    String[] lines = {
+                            Strings.format("if1: @", this.consValid()),
+                            Strings.format("if2: @", (getCurrentRecipe().outputItem != null
+                                                      && this.items.get(getCurrentRecipe().outputItem.item) >= this.block.itemCapacity)),
+                            Strings.format("liquid consume: @", getNeedLiquids().toString())
+                    };
+                    getInfoDialog("", "Debug window", Strings.join("\n", lines), Color.green.add(Color.black)).show();
+                });
+            }*/
         }
 
         public float countNowLiquid() {
 
-            AtomicReference<Float> amounts = new AtomicReference<>(0f);
+            float[] amounts={0};
             this.getNeedLiquids().each(stack -> {
-                amounts.set(Math.min(this.liquids.get(stack.liquid), stack.amount) + amounts.get());
+                amounts[0]+=Math.min(this.liquids.get(stack.liquid), stack.amount);
             });
-            return amounts.get();
+            return amounts[0];
         }
 
         public float countNeedLiquid() {
-
-            AtomicReference<Float> need = new AtomicReference<>(0f);
+            float[] need={0};
             this.getNeedLiquids().each(stack -> {
-                need.set(stack.amount + need.get());
+                need[0]+=stack.amount;
             });
-            return need.get();
+            return need[0];
         }
 
         public Seq<LiquidStack> getNeedLiquids() {
@@ -422,8 +410,7 @@ public class MultiCrafter extends ModBlock {
             if (found == null) {
                 return;
             }
-            ;
-            float need = Math.max(0, found.amount - this.liquids.get(liquid));
+            float need = Math.max(0, found.amount - liquids.get(liquid));
             this.liquids.add(liquid, Math.min(amount, need));
         }
 
@@ -460,20 +447,17 @@ public class MultiCrafter extends ModBlock {
         }
 
         public boolean canCraft() {
-            int req = 0;
-            int has = 0;
-            Seq<ItemStack> requirements = Seq.with(this.getCurrentRecipe().consumeItems);
-            AtomicInteger count = new AtomicInteger(0);
+            Seq<ItemStack> requirements = Seq.with(getCurrentRecipe().consumeItems);
+            int[] count ={0};
             requirements.each((i) -> {
-                count.addAndGet(i.amount + i.item.id);
+                count[0]+=(i.amount + i.item.id);
             });
-            req = count.get();
-            count.set(0);
-            this.items.each((item, c) -> {
-                count.addAndGet(item.id + c);
+            int req  = count[0];
+            count[0]=0;
+            items.each((item, c) -> {
+                count[0]+=(item.id + c);
             });
-            has = count.get();
-//            this.cons
+            int has = count[0];
 
             return this.consValid() && req <= has;
         }
@@ -482,78 +466,65 @@ public class MultiCrafter extends ModBlock {
             if (timer.get(timerReBuildBars, 5)) {
                 setBars();
             }
-            if (this.currentRecipe < 0 || this.currentRecipe >= this.block.recipes.size) {
-                this.currentRecipe = -1;
-                this.progress = 0;
+            if (currentRecipe < 0 || currentRecipe >= recipes.size) {
+                currentRecipe = -1;
+                progress = 0;
             }
 
-            if (this.canCraft() && this.currentRecipe != -1) {
-                this.progress += this.getProgressIncrease(this.block.recipes.get(currentRecipe).produceTime);
-                this.totalProgress += this.delta();
-                /*if (Mathf.chanceDelta((double)this.block.updateEffectChance)) {
-                    GenericCrafter.this.updateEffect.at(this.getX() + Mathf.range((float)GenericCrafter.this.size * 4.0F), this.getY() + (float)Mathf.range(GenericCrafter.this.size * 4));
-                }*/
+            if (canCraft() && currentRecipe != -1) {
+                progress += getProgressIncrease(recipes.get(currentRecipe).produceTime);
+                totalProgress += delta();
             }
 
-            if (this.progress >= 1.0F && this.currentRecipe != -1) {
-                this.consume();
+            if (progress >= 1.0F && currentRecipe != -1) {
+                consume();
                 if (getCurrentRecipe().outputItem != null) {
                     for (int i = 0; i < getCurrentRecipe().outputItem.amount; ++i) {
-                        this.offload(getCurrentRecipe().outputItem.item);
+                        offload(getCurrentRecipe().outputItem.item);
                     }
                 }
-/*
-                if (GenericCrafter.this.outputLiquid != null) {
-                    this.handleLiquid(this, GenericCrafter.this.outputLiquid.liquid, GenericCrafter.this.outputLiquid.amount);
-                }*/
 
-                this.block.craftEffect.at(this.x, this.y);
-                this.progress = 0.0F;
+                craftEffect.at(x, y);
+                progress = 0.0F;
             }
-            if (getCurrentRecipe().outputItem != null && this.timer(MultiCrafterBuild.this.block.timerDump, 5.0F)) {
-                this.dump(getCurrentRecipe().outputItem.item);
+            if (getCurrentRecipe().outputItem != null && timer(timerDump, 5.0F)) {
+                dump(getCurrentRecipe().outputItem.item);
             }
 
-
-            if (this.currentRecipe == -1) this.sleep();
-
-
-            /*if (GenericCrafter.this.outputLiquid != null) {
-                this.dumpLiquid(GenericCrafter.this.outputLiquid.liquid);
-            }*/
+            if (currentRecipe == -1) sleep();
 
         }
 
         public Object config() {
-            return this.currentRecipe;
+            return currentRecipe;
         }
 
         public void write(Writes write) {
             super.write(write);
-            write.i(this.currentRecipe);
+            write.i(currentRecipe);
         }
 
         public void playerPlaced(Object config) {
-            if (MultiCrafter.this.lastConfig == null) MultiCrafter.this.lastConfig = -1;
+            if (lastConfig == null) lastConfig = -1;
             if (config == null) {
-                if (!MultiCrafter.this.lastConfig.equals(-1)) this.configure(MultiCrafter.this.lastConfig);
+                if (!lastConfig.equals(-1)) configure(lastConfig);
             } else {
-                this.configure(config);
+                configure(config);
             }
         }
 
         public void read(Reads read, byte revision) {
             super.read(read, revision);
-            this.currentRecipe = read.i();
-            if (this.currentRecipe < 0 || this.currentRecipe >= this.block.recipes.size) {
-                this.currentRecipe = -1;
-                this.progress = 0;
+            currentRecipe = read.i();
+            if (currentRecipe < 0 || currentRecipe >= recipes.size) {
+                currentRecipe = -1;
+                progress = 0;
             }
         }
 
         public void resetProgress() {
-            this.progress = 0f;
-            this.totalProgress = 0f;
+            progress = 0f;
+            totalProgress = 0f;
         }
 
         public void rebuildInfo() {

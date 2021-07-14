@@ -40,7 +40,6 @@ public class SmartRouter extends Router {
         this.group = BlockGroup.transportation;
         this.unloadable = false;
         this.noUpdateDisabled = true;
-//        Core.assets.get
     }
 
     public class CustomRouterBuild extends Building {
@@ -51,15 +50,14 @@ public class SmartRouter extends Router {
 
         @Override
         public void updateTableAlign(Table table) {
-            float addPos = Mathf.ceil(this.block.size / 2f) - 1;
-            Vec2 pos = Core.input.mouseScreen((this.x) + addPos - 0.5f, this.y + addPos);
-            table.setSize(this.block.size * 12f);
+            float addPos = Mathf.ceil(size / 2f) - 1;
+            Vec2 pos = Core.input.mouseScreen((x) + addPos - 0.5f, y + addPos);
+            table.setSize(size * 12f);
             table.setPosition(pos.x, pos.y, 0);
         }
 
         @Override
-        public void buildConfiguration(Table table) {
-            Table t = table;
+        public void buildConfiguration(Table t) {
             t.add();
             t.button(Icon.up, () -> {
                 up = !up;
@@ -100,12 +98,12 @@ public class SmartRouter extends Router {
         }
 
         public void updateTile() {
-            if (this.lastItem == null && this.items.any()) {
-                this.lastItem = this.items.first();
+            if (lastItem == null && items.any()) {
+                lastItem = items.first();
             }
 
-            if (this.lastItem != null) {
-                this.time += 1.0F / SmartRouter.this.speed * this.delta();
+            if (lastItem != null) {
+                time += 1.0F / speed * this.delta();
                 Building target = this.getTileTarget(this.lastItem, this.lastInput, false);
                 if (target != null && (this.time >= 1.0F || !(target.block instanceof Router) && !target.block.instantTransfer)) {
                     this.getTileTarget(this.lastItem, this.lastInput, true);
@@ -119,9 +117,9 @@ public class SmartRouter extends Router {
 
         private void drawSide(boolean bool, int side) {
             if (bool) {
-                Draw.rect(SmartRouter.this.arrow, this.x, this.y, side * 90);
+                Draw.rect(arrow, this.x, this.y, side * 90);
             } else {
-                Draw.rect(SmartRouter.this.cross, this.x, this.y, side * 90);
+                Draw.rect(cross, this.x, this.y, side * 90);
             }
         }
 
@@ -179,10 +177,10 @@ public class SmartRouter extends Router {
 
         private boolean acceptSide(Building other) {
 
-            if (left && other.x < this.x) return true;
-            if (right && other.x > this.x) return true;
-            if (down && other.y < this.y) return true;
-            if (up && other.y > this.y) return true;
+            if (left && other.x < x) return true;
+            if (right && other.x > x) return true;
+            if (down && other.y < y) return true;
+            if (up && other.y > y) return true;
             return false;
         }
 
@@ -192,7 +190,6 @@ public class SmartRouter extends Router {
         }
 
         private void updateConfig() {
-//            this.block.lastConfig=config();
         }
 
         @Override
@@ -203,10 +200,9 @@ public class SmartRouter extends Router {
 
         @Override
         public void playerPlaced(Object config) {
-            if (block.lastConfig == null) {
-                block.lastConfig = "false false false false";
+            if (lastConfig == null) {
+                lastConfig = "false false false false";
             }
-//            if (config == null) config = block.lastConfig;
             handleString(config);
         }
 
@@ -215,7 +211,7 @@ public class SmartRouter extends Router {
             try {
                 String value = obj + "";
                 if (value.contains(" ")) {
-                    String[] bools = value.split(" ");
+                    String[] bools = value.intern().split(" ");
                     if (bools.length == 4) {
                         up = Boolean.parseBoolean(bools[0]);
                         down = Boolean.parseBoolean(bools[1]);
@@ -223,7 +219,7 @@ public class SmartRouter extends Router {
                         right = Boolean.parseBoolean(bools[3]);
                     }
                 } else if (value.startsWith("1r")) {
-                    String[] bools = value.substring(2).split("");
+                    String[] bools = value.substring(2).intern().split("");
 //                    Log.info("@", Arrays.toString(bools));
                     if (bools.length == 4) {
                         up = bools[0].equals("1");

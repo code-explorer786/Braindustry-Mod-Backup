@@ -25,8 +25,6 @@ import mindustryAddition.graphics.ModLines;
 public class SideJunction extends Block {
     public float speed = 26.0F;
     public int capacity = 6;
-//    public @ModAnnotations.Load("@-top") TextureRegion regionTop;
-//    public @ModAnnotations.Load("@-bottom") TextureRegion regionBottom;
     public SideJunction(String name) {
         super(name);
         this.update = true;
@@ -59,7 +57,7 @@ public class SideJunction extends Block {
         float radius = halfTile * (float)req.block.size;
         Vec2 trns = (new Vec2()).trns(rotation, -radius, radius);
         Draw.color(Pal.accent);
-        Lines.stroke(2.0F);
+        Lines.stroke(1.0F);
         ModLines.swirl(trns.x + x, trns.y + y, radius, 0.25F, 180.0F + rotation + 90.0F);
         trns.rotate(180.0F);
         ModLines.swirl(trns.x + x, trns.y + y, radius, 0.25F, rotation + 90.0F);
@@ -82,11 +80,11 @@ public class SideJunction extends Block {
             float rotation = rotdeg();
             float radius = halfTile * (float)block.size;
             Vec2 trns = (new Vec2()).trns(rotation, -radius, radius);
-            Draw.color(Pal.accent);
-            Lines.stroke(2.0F);
-            ModLines.swirl(trns.x + x, trns.y + y, radius, 0.25F, 180.0F + rotation + 90.0F);
-            trns.rotate(180.0F);
-            ModLines.swirl(trns.x + x, trns.y + y, radius, 0.25F, rotation + 90.0F);
+//            Draw.color(Pal.accent);
+//            Lines.stroke(2.0F);
+//            ModLines.swirl(trns.x + x, trns.y + y, radius, 0.25F, 180.0F + rotation + 90.0F);
+//            trns.rotate(180.0F);
+//            ModLines.swirl(trns.x + x, trns.y + y, radius, 0.25F, rotation + 90.0F);
         }
 
         public void updateTile() {
@@ -104,7 +102,6 @@ public class SideJunction extends Block {
                         if (item != null && dest != null && dest.acceptItem(this, item) && dest.team == this.team) {
                             dest.handleItem(this, item);
                             System.arraycopy(this.buffer.buffers[i], 1, this.buffer.buffers[i], 0, this.buffer.indexes[i] - 1);
-                            int var10002 = this.buffer.indexes[i]--;
                         }
                     }
                 }
@@ -120,17 +117,10 @@ public class SideJunction extends Block {
 
         public boolean acceptItem(Building source, Item item) {
             int relative = source.relativeTo(tile);
-//            int relative = source.relativeTo(this.tile);
             int i= next(relative);
             if (relative==-1 || !buffer.accepts(i))return false;
             Building to = nearby(i);
             return to != null && to.team == team;
-
-//            if (relative != -1 && this.buffer.accepts(relative)) {
-//                Building to = this.nearby(relative);
-//            } else {
-//                return false;
-//            }
         }
 
         private int next(int relative) {
