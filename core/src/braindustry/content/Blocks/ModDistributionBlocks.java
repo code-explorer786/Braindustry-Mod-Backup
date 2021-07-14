@@ -5,7 +5,9 @@ import braindustry.content.ModItems;
 import braindustry.content.ModLiquids;
 import braindustry.type.Rotor;
 import braindustry.world.blocks.distribution.CrossItemBridge;
+import braindustry.world.blocks.distribution.SideJunction;
 import braindustry.world.blocks.distribution.SmartRouter;
+import braindustry.world.blocks.distribution.SmartSorter;
 import braindustry.world.blocks.production.MultiRotorDrill;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
@@ -16,6 +18,7 @@ import mindustry.type.ItemStack;
 import mindustry.world.Block;
 import mindustry.world.blocks.distribution.ArmoredConveyor;
 import mindustry.world.blocks.distribution.Conveyor;
+import mindustry.world.blocks.distribution.ItemBridge;
 import mindustry.world.blocks.distribution.StackConveyor;
 import mindustry.world.blocks.liquid.Conduit;
 import mindustry.world.blocks.production.Drill;
@@ -32,6 +35,18 @@ class ModDistributionBlocks implements ContentList {
             size = 1;
             requirements(Category.distribution, ItemStack.with(Items.copper, 3, Items.silicon, 10));
             buildCostMultiplier = 4.0F;
+        }};
+        smartSorter = new SmartSorter("smart-sorter") {{
+            localizedName = "Smart Sorter";
+            description = "Sorts items not only by quantity, but also by the item itself.";
+            requirements(Category.distribution, ItemStack.with(Items.titanium, 2, Items.copper, 3));
+        }};
+        sideJunction = new SideJunction("side-junction") {{
+            localizedName = "Side Junction";
+            description = "Transports objects sideways.";
+            health = 40;
+            buildCostMultiplier = 6;
+            requirements(Category.distribution, ItemStack.with(Items.titanium, 2));
         }};
         gasRouter = new GasRouter("gas-router") {{
             localizedName = "Gas Router";
@@ -93,7 +108,8 @@ class ModDistributionBlocks implements ContentList {
             /** custom connect filter*/
             connectFilter = (build) -> {
                 Block block = build.block;
-                return block.acceptsItems || block instanceof StorageBlock;
+//                return block.acceptsItems || block instanceof StorageBlock;
+                return block instanceof ItemBridge;
             };
         }};
     }

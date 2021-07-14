@@ -1,26 +1,17 @@
 package braindustry.content.Blocks;
 
-import arc.graphics.Color;
-import arc.math.Mathf;
-import arc.util.Time;
 import braindustry.world.blocks.TestBlock;
 import braindustry.world.blocks.Unit.power.UnitPowerGenerator;
 import braindustry.world.blocks.Unit.power.UnitPowerNode;
 import braindustry.world.blocks.distribution.BufferedPayloadBridge;
 import braindustry.world.blocks.distribution.SideJunction;
-import braindustry.world.blocks.distribution.SmartRouter;
 import braindustry.world.blocks.distribution.SmartSorter;
 import braindustry.world.blocks.sandbox.DpsMeter;
-import braindustry.world.blocks.sandbox.UnitSpawner;
 import mindustry.content.Items;
 import mindustry.ctype.ContentList;
-import mindustry.graphics.Pal;
-import mindustry.logic.LAccess;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.world.Block;
-import mindustry.world.blocks.ControlBlock;
-import mindustry.world.blocks.defense.turrets.Turret;
 import mindustry.world.meta.BuildVisibility;
 
 import static mindustry.type.ItemStack.with;
@@ -28,8 +19,9 @@ import static mindustry.type.ItemStack.with;
 public class ModBlocks implements ContentList {
     public static Block
 
-//transportation
+            //transportation
             armoredPlastaniumConveyor, chromiumConduit, phaseAlloyConveyor, plasticConveyor, surgeConveyor, smartRouter,
+            sideJunction, smartSorter,
 
     //environment
     magmaFloor, obsidianBlock, obsidianFloor, oreChromium, oreOdinum,
@@ -63,10 +55,11 @@ public class ModBlocks implements ContentList {
 
     //logic
 
+    //hided
+    unitGenerator, unitNode,
 
     //experimental
-    turretSwitcher, blockHealer, dpsMeter, unitGenerator, unitNode, unitSpawner,
-            examplePayloadBridge, testBlock, node1, node2, sideJunction, smartSorter;
+    dpsMeter, unitSpawner, examplePayloadBridge, testBlock;
 
     public static Block methaneBurner, hyperMethaneBurner;
     private ContentList[] blocksContent = {
@@ -91,20 +84,7 @@ public class ModBlocks implements ContentList {
             canOverdrive = false;
             buildVisibility = BuildVisibility.debugOnly;
         }};
-        smartSorter = new SmartSorter("smart-sorter") {{
-            localizedName = "Smart Sorter";
-            description = "Sorts items not only by quantity, but also by the item itself.";
-            requirements(Category.distribution, ItemStack.with(Items.titanium, 2, Items.copper, 3));
-            //buildVisibility = BuildVisibility.shown;
-        }};
-        sideJunction = new SideJunction("side-junction") {{
-            localizedName = "Side Junction";
-            description = "Transports objects sideways.";
-            health = 40;
-            buildCostMultiplier = 6;
-            requirements(Category.distribution, ItemStack.with(Items.titanium, 2));
-            //buildVisibility = BuildVisibility.debugOnly;
-        }};
+
         testBlock = new TestBlock("test-block") {{
             size = 2;
             requirements(Category.logic, ItemStack.with(), true);
@@ -118,12 +98,6 @@ public class ModBlocks implements ContentList {
         unitNode = new UnitPowerNode("unit-node") {{
             maxNodes = Integer.MAX_VALUE;
             buildVisibility = BuildVisibility.debugOnly;
-        }};
-        dpsMeter = new DpsMeter("dps-meter") {{
-            category = Category.effect;
-            buildVisibility = BuildVisibility.debugOnly;
-            health = Integer.MAX_VALUE;
-            size = 3;
         }};
     }
 }

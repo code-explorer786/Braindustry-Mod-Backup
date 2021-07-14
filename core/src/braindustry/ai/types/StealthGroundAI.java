@@ -5,7 +5,6 @@ import arc.math.Mathf;
 import arc.struct.IntQueue;
 import arc.struct.IntSeq;
 import braindustry.gen.StealthUnitc;
-import braindustry.gen.StealthUnitc;
 import mindustry.Vars;
 import mindustry.ai.Pathfinder;
 import mindustry.ai.types.FlyingAI;
@@ -25,17 +24,17 @@ public class StealthGroundAI extends AIController {
 
     static {
         if (true) {
-            if (Pathfinder.fieldTypes.size+1<=5) {
+            if (Pathfinder.fieldTypes.size + 1 <= 5) {
                 Pathfinder.fieldTypes.add(dumpObj);
             } else if (!Pathfinder.fieldTypes.contains(dumpObj)) {
                 throw new RuntimeException("Can't add StealthFlowfield in Pathfinder.fieldTypes");
             }
-            fieldRepair=Pathfinder.fieldTypes.indexOf(dumpObj);
+            fieldRepair = Pathfinder.fieldTypes.indexOf(dumpObj);
         }
     }
 
     public void updateUnit() {
-        if (unit instanceof StealthUnitc)((StealthUnitc)unit).healing(false);
+        if (unit instanceof StealthUnitc) ((StealthUnitc) unit).healing(false);
         if (this.useFallback() && (this.fallback != null || (this.fallback = this.fallback()) != null)) {
 
             if (this.fallback.unit() != this.unit) {
@@ -52,6 +51,7 @@ public class StealthGroundAI extends AIController {
 
     protected void pathfind(int pathTarget) {
         super.pathfind(pathTarget);
+        /*
         if (true) return;
         int costType = this.unit.pathType();
         Tile tile = this.unit.tileOn();
@@ -61,7 +61,9 @@ public class StealthGroundAI extends AIController {
                 this.unit.moveAt(vec.trns(this.unit.angleTo(targetTile), this.unit.speed()));
             }
         }
+        */
     }
+
     @Override
     protected void updateMovement() {
 
@@ -72,7 +74,7 @@ public class StealthGroundAI extends AIController {
         {
             try {
                 if (target instanceof RepairPoint.RepairPointBuild) {
-                    radius = ((RepairPoint) ((RepairPoint.RepairPointBuild) target).block).repairRadius*0.75f;
+                    radius = ((RepairPoint) ((RepairPoint.RepairPointBuild) target).block).repairRadius * 0.75f;
                     break checkRadius;
                 }
                 Class<?> c = target.getClass();
@@ -89,16 +91,14 @@ public class StealthGroundAI extends AIController {
 //            targets=new Teamc[0];
         } else if (target != null) {
             sunit.healing(true);
-        } else {
-
         }
         if (unit.type.canBoost && !unit.onSolid()) {
             unit.elevation = Mathf.approachDelta(unit.elevation, 0f, 0.08f);
         }
 
-        if (target != null && !unit.within(target, 70f)) {
-//            unit.approach(Mathf.arrive(unit.x, unit.y, realtarget.x, realtarget.y, unit.vel, speed, 0f, speed, 1f).scl(1f / Time.delta));
-        }
+        /*if (target != null && !unit.within(target, 70f)) {
+            unit.approach(Mathf.arrive(unit.x, unit.y, realtarget.x, realtarget.y, unit.vel, speed, 0f, speed, 1f).scl(1f / Time.delta));
+        }*/
         if (!Units.invalidateTarget(target, unit, unit.range()) && unit.type.rotateShooting) {
             if (unit.type.hasWeapons()) {
                 unit.lookAt(Predict.intercept(unit, target, unit.type.weapons.first().bullet.speed));
@@ -111,7 +111,7 @@ public class StealthGroundAI extends AIController {
     @Override
     protected boolean useFallback() {
         Teamc target = targetFlag(unit.x, unit.y, BlockFlag.repair, false);
-        return !(this.unit instanceof StealthUnitc && ((StealthUnitc) unit).mustHeal()) || target==null;
+        return !(this.unit instanceof StealthUnitc && ((StealthUnitc) unit).mustHeal()) || target == null;
     }
 
     @Override
@@ -131,7 +131,6 @@ public class StealthGroundAI extends AIController {
         protected int refreshRate;
         IntQueue frontier;
         int search;
-        long lastUpdateTime;
         boolean initialized;
 
         public StealthFlowfield() {
@@ -142,13 +141,13 @@ public class StealthGroundAI extends AIController {
             this.targets = new IntSeq();
             this.search = 1;
         }
-
+/*
         void setup(int width, int height) {
             this.weights = new int[width][height];
             this.searches = new int[width][height];
             this.frontier.ensureCapacity((width + height) * 3);
             this.initialized = true;
-        }
+        }*/
 
         @Override
         protected void getPositions(IntSeq out) {

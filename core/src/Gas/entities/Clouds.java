@@ -77,7 +77,7 @@ public class Clouds {
             }
         } else {
             if (dest.temperature > 0.7F && gas.temperature < 0.55F) {
-                if (Mathf.chance((double)(0.5F * amount))) {
+                if (Mathf.chance((0.5F * amount))) {
                     Fx.steam.at(x, y);
                 }
 
@@ -85,7 +85,7 @@ public class Clouds {
             }
 
             if (gas.temperature > 0.7F && dest.temperature < 0.55F) {
-                if (Mathf.chance((double)(0.8F * amount))) {
+                if (Mathf.chance((0.8F * amount))) {
                     Fx.steam.at(x, y);
                 }
 

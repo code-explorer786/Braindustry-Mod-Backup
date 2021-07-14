@@ -10,6 +10,7 @@ import arc.math.geom.Vec2;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
 import braindustry.world.PayloadBuffer;
+import braindustry.world.blocks.DebugBlock;
 import mindustry.core.Renderer;
 import mindustry.gen.Building;
 import mindustry.graphics.Layer;
@@ -20,7 +21,7 @@ import mindustry.world.blocks.payloads.Payload;
 
 import static mindustry.Vars.*;
 
-public class BufferedPayloadBridge extends PayloadBridge {
+public class BufferedPayloadBridge extends PayloadBridge implements DebugBlock {
     static Payload toTransport = null;
     public float moveTime = 40f, moveForce = 201f;
     public int bufferCapacity = 50;

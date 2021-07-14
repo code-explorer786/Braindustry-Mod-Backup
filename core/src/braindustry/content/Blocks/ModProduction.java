@@ -1,12 +1,12 @@
 package braindustry.content.Blocks;
 
 import Gas.GasStack;
-import braindustry.content.Gasses;
 import Gas.world.blocks.production.GasGenericCrafter;
 import Gas.world.blocks.production.GasGenericSmelter;
 import Gas.world.consumers.ConsumeGasses;
 import arc.math.geom.Vec3;
 import arc.struct.Seq;
+import braindustry.content.Gasses;
 import braindustry.content.ModFx;
 import braindustry.content.ModItems;
 import braindustry.content.ModLiquids;
@@ -26,7 +26,7 @@ import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
 import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
-import mindustry.world.blocks.production.GenericSmelter;
+import mindustry.world.draw.DrawSmelter;
 
 import static braindustry.content.Blocks.ModBlocks.*;
 
@@ -74,7 +74,7 @@ class ModProduction implements ContentList {
             requirements(category, ItemStack.with(ModItems.odinum, 200, ModItems.graphenite, 230, ModItems.phaseAlloy, 500, ModItems.plastic, 220));
         }};
 
-        chromiumForge = new GenericSmelter("chromium-forge") {{
+        chromiumForge = new GenericCrafter("chromium-forge") {{
             localizedName = "Chromium Forge";
             description = "This forge can smelt a Chromium from Metaglass and Titanium.";
             health = 220;
@@ -87,10 +87,11 @@ class ModProduction implements ContentList {
             updateEffect = Fx.plasticburn;
             consumes.power(2.5f);
             consumes.items(ItemStack.with(Items.metaglass, 2, Items.titanium, 1));
+            drawer = new DrawSmelter();
             requirements(Category.crafting, ItemStack.with(Items.plastanium, 80, Items.titanium, 100, Items.metaglass, 120, Items.silicon, 200, ModItems.graphenite, 200));
             outputItem = new ItemStack(ModItems.chromium, 2);
         }};
-        exoticAlloySmelter = new GenericSmelter("exotic-alloy-smelter") {{
+        exoticAlloySmelter = new GenericCrafter("exotic-alloy-smelter") {{
             localizedName = "Exotic Alloy Smelter";
             description = "Cultivates Exometal from Thorium, Titanium and Spore Pods.";
             health = 140;
@@ -102,6 +103,7 @@ class ModProduction implements ContentList {
             craftTime = 80;
             updateEffect = Fx.plasticburn;
             consumes.power(1.2f);
+            drawer = new DrawSmelter();
             consumes.items(ItemStack.with(ModItems.graphenite, 1, Items.thorium, 3, Items.titanium, 1));
             requirements(Category.crafting, ItemStack.with(Items.plastanium, 40, Items.lead, 100, Items.graphite, 80, ModItems.graphenite, 100, Items.metaglass, 80));
             outputItem = new ItemStack(ModItems.exoticAlloy, 2);
@@ -121,7 +123,7 @@ class ModProduction implements ContentList {
             requirements(Category.crafting, ItemStack.with(Items.lead, 50, Items.thorium, 80, Items.silicon, 70, Items.titanium, 50, ModItems.graphenite, 85));
             outputLiquid = new LiquidStack(ModLiquids.liquidGraphenite, 12f);
         }};
-        grapheniteForge = new GenericSmelter("graphenite-forge") {{
+        grapheniteForge = new GenericCrafter("graphenite-forge") {{
             localizedName = "Graphenite Forge";
             description = "Combines Graphite, Titanium and Silicon to produce Graphenite.";
             health = 80;
@@ -134,10 +136,11 @@ class ModProduction implements ContentList {
             updateEffect = Fx.plasticburn;
             consumes.power(1.2f);
             consumes.items(ItemStack.with(Items.graphite, 2, Items.silicon, 1, Items.titanium, 1));
+            drawer = new DrawSmelter();
             requirements(Category.crafting, ItemStack.with(Items.lead, 100, Items.titanium, 30, Items.thorium, 40, Items.silicon, 70, Items.graphite, 80));
             outputItem = new ItemStack(ModItems.graphenite, 2);
         }};
-        hyperAlloySmelter = new GenericSmelter("hyper-alloy-smelter") {{
+        hyperAlloySmelter = new GenericCrafter("hyper-alloy-smelter") {{
             localizedName = "Hyper Alloy Smelter";
             description = "Bigger Surge Kiln, uses more materials and energy as well as oil for speed and higher amounts of alloy produced.";
             health = 300;
@@ -151,10 +154,11 @@ class ModProduction implements ContentList {
             consumes.power(9f);
             consumes.liquid(Liquids.oil, 0.2f).optional(false, false);
             consumes.items(ItemStack.with(Items.copper, 4, Items.titanium, 4, Items.lead, 5, Items.silicon, 5));
+            drawer = new DrawSmelter();
             requirements(Category.crafting, ItemStack.with(Items.plastanium, 120, Items.titanium, 150, Items.metaglass, 100, Items.silicon, 300, ModItems.graphenite, 170, Items.surgeAlloy, 100));
             outputItem = new ItemStack(Items.surgeAlloy, 5);
         }};
-        hyperPhaseWeaver = new GenericSmelter("hyper-phase-weaver") {{
+        hyperPhaseWeaver = new GenericCrafter("hyper-phase-weaver") {{
             localizedName = "Hyper Phase Weaver";
             description = "Bigger Phase Weaver, uses more materials and Silicon to produce more Phase Fabric.";
             health = 100;
@@ -168,6 +172,7 @@ class ModProduction implements ContentList {
             updateEffect = Fx.plasticburn;
             consumes.power(6f);
             consumes.items(ItemStack.with(Items.thorium, 6, Items.silicon, 3, Items.sand, 6));
+            drawer = new DrawSmelter();
             requirements(Category.crafting, ItemStack.with(Items.metaglass, 200, Items.titanium, 90, Items.phaseFabric, 80, Items.silicon, 200, ModItems.graphenite, 180));
             outputItem = new ItemStack(Items.phaseFabric, 4);
         }};
@@ -224,7 +229,7 @@ class ModProduction implements ContentList {
             category = Category.crafting;
             outputItem = new ItemStack(ModItems.graphenite, 4);
         }};
-        odinumExtractor = new GenericSmelter("odinum-extractor") {{
+        odinumExtractor = new GenericCrafter("odinum-extractor") {{
             localizedName = "Odinum Extractor";
             description = "This forge extracts Odinum from Plastanium, Titanium and Thorium.";
             health = 250;
@@ -237,10 +242,11 @@ class ModProduction implements ContentList {
             updateEffect = Fx.plasticburn;
             consumes.power(3f);
             consumes.items(ItemStack.with(Items.plastanium, 1, Items.thorium, 3, Items.titanium, 1));
+            drawer = new DrawSmelter();
             requirements(Category.crafting, ItemStack.with(Items.plastanium, 60, Items.titanium, 100, Items.metaglass, 50, Items.silicon, 150, Items.graphite, 80));
             outputItem = new ItemStack(ModItems.odinum, 2);
         }};
-        phaseAlloySmelter = new GenericSmelter("phase-alloy-smelter") {{
+        phaseAlloySmelter = new GenericCrafter("phase-alloy-smelter") {{
             localizedName = "Dense Composite Smelter";
             description = "Produces universal Dense Composite from Plastanium, Surge alloy and Phase fabric.";
             health = 310;
@@ -253,10 +259,11 @@ class ModProduction implements ContentList {
             updateEffect = Fx.plasticburn;
             consumes.power(3f);
             consumes.items(ItemStack.with(Items.plastanium, 1, Items.surgeAlloy, 1, Items.phaseFabric, 1));
+            drawer = new DrawSmelter();
             requirements(Category.crafting, ItemStack.with(Items.phaseFabric, 100, Items.plastanium, 100, Items.thorium, 400, ModItems.exoticAlloy, 270, ModItems.graphenite, 380));
             outputItem = new ItemStack(ModItems.phaseAlloy, 2);
         }};
-        plasticForge = new GenericSmelter("plastic-forge") {{
+        plasticForge = new GenericCrafter("plastic-forge") {{
             localizedName = "Plastic Forge";
             description = "Consumes Plastanium, Oil and Thorium to produce ultra-light Plastic.";
             health = 330;
@@ -270,10 +277,11 @@ class ModProduction implements ContentList {
             consumes.power(2.4f);
             consumes.liquid(Liquids.oil, 0.1f);
             consumes.items(ItemStack.with(Items.plastanium, 1, Items.thorium, 3));
+            drawer = new DrawSmelter();
             requirements(Category.crafting, ItemStack.with(Items.phaseFabric, 100, Items.plastanium, 200, Items.thorium, 300, Items.silicon, 470, ModItems.exoticAlloy, 130, ModItems.graphenite, 380));
             outputItem = new ItemStack(ModItems.plastic, 2);
         }};
-        refrigerantmixer = new GenericSmelter("refrigerantmixer") {{
+        refrigerantmixer = new GenericCrafter("refrigerantmixer") {{
             localizedName = "Thorium Refrigerant Mixer";
             description = "Makes cool Refrigirant from Cryofluid and crushed Thorium.";
             health = 130;
@@ -282,6 +290,7 @@ class ModProduction implements ContentList {
             consumes.liquid(Liquids.cryofluid, 0.1f);
             consumes.items(ItemStack.with(Items.thorium, 2));
             outputLiquid = new LiquidStack(ModLiquids.thoriumRefrigerant, 18f);
+            drawer = new DrawSmelter();
             requirements(Category.crafting, ItemStack.with(Items.plastanium, 200, Items.thorium, 200, Items.titanium, 100, Items.metaglass, 130, ModItems.graphenite, 190));
             updateEffect = Fx.purify;
             updateEffectChance = 0.02f;
