@@ -1207,7 +1207,7 @@ public class ModUnitTypes implements ContentList {
                                 this.shadow = 50;
                                 this.mirror = false;
                                 this.rotateSpeed = 0.5f;
-                                this.shootSound = Sounds.flame;
+                                this.shootSound = Sounds.railgun;
                                 this.alternate = true;
                                 this.bullet = new RailBulletType() {
                                     {
