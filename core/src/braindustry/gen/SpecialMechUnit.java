@@ -30,6 +30,7 @@ import mindustry.ai.formations.DistanceAssignmentStrategy;
 import mindustry.ai.formations.Formation;
 import mindustry.ai.formations.FormationPattern;
 import mindustry.entities.EntityCollisions;
+import mindustry.entities.Units;
 import mindustry.entities.units.BuildPlan;
 import mindustry.entities.units.StatusEntry;
 import mindustry.gen.*;
@@ -234,6 +235,8 @@ public class SpecialMechUnit extends MechUnit implements StealthUnitc {
             durationStealth = Math.min(stealthType.stealthDuration, durationStealth + Time.delta);
             Groups.unit.remove(this);
         }
+//        team.data().tree().remove(this);
+//        Units.closest()
         updateStealthStatus();
 
     }
@@ -411,6 +414,7 @@ public class SpecialMechUnit extends MechUnit implements StealthUnitc {
     public void read(Reads read) {
         super.read(read);
         inStealth = read.bool();
+        if (!Groups.unit.contains(u->u.equals(this)))Groups.unit.add(this);
         cooldownStealth = read.f();
         durationStealth = read.f();
     }

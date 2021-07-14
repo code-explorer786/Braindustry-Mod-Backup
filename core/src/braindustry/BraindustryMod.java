@@ -37,7 +37,7 @@ public class BraindustryMod extends Mod {
 
     public BraindustryMod() {
         ModEntityMapping.mapClasses();
-//        ModCall.
+        ModCall.registerPackets();
         EventOn(DisposeEvent.class, (d) -> {
             modUI.dispose();
             Vars.ui.dispose();
@@ -102,26 +102,15 @@ public class BraindustryMod extends Mod {
         modVars.netClient.registerCommands(handler);
     }
 
-    void createPlayer() {
-        if (true)return;
-        player = ModPlayer.create();
-        player.name = Core.settings.getString("name");
-        player.color.set(Core.settings.getInt("color-0"));
-        if (state.isGame()) {
-            player.add();
-        }
-    }
-
     public void init() {
         if (!loaded) return;
         getModContent().each(c -> {
             if (c instanceof MappableContent && !headless) ModContentRegions.loadRegions((MappableContent) c);
         });
-        createPlayer();
         modVars.init();
-        EntityMapping.idMap[12] = ModPlayer::new;
-        EntityMapping.nameMap.put("Player", ModPlayer::new);
-        EntityMapping.nameMap.put("player", ModPlayer::new);
+//        EntityMapping.idMap[12] = ModPlayer::new;
+//        EntityMapping.nameMap.put("Player", ModPlayer::new);
+//        EntityMapping.nameMap.put("player", ModPlayer::new);
         Events.fire(new ModEventType.ModInit());
     }
 
