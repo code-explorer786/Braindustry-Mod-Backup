@@ -226,7 +226,8 @@ public class ModEntityIO {
             if(write){
                 s("s", field + ".id");
             }else{
-                st(field + "mindustry.Vars.content.getByID(mindustry.ctype.ContentType.$L, read.s())", BaseProcessor.simpleName(type).toLowerCase().replace("type", ""));
+                String simpleName = BaseProcessor.simpleName(type);
+                st(field + "mindustry.Vars.content.getByID(mindustry.ctype.ContentType.$L, read.s())", simpleName.contains("Unit")?"unit":simpleName.toLowerCase().replace("type", ""));
             }
         }else if(serializer.writers.containsKey(type) && write){
             st("$L(write, $L)", serializer.writers.get(type), field);

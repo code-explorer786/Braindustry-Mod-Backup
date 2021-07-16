@@ -354,7 +354,7 @@ task downloadComp (dependsOn: [classes, configurations.runtimeClasspath]){
 
         javaexec {
             maxHeapSize = "4048m"
-            args("-Xmx4048m","--enable-preview")
+            args("-Xmx4048m","--enable-preview",mindustryVersion)
             main = "braindustry.tools.AnukeCompDownloader"
             classpath = sourceSets.main.runtimeClasspath
             workingDir = "../"

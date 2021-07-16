@@ -63,7 +63,7 @@ public class ModRemoteProcess extends ModBaseProcessor {
             }
 
             String packetName = Strings.capitalize(element.name()) + "CallPacket";
-            System.out.println("packet: "+packetName);
+//            System.out.println("packet: "+packetName);
             int[] index = {1};
 
             while (methods.contains(m -> m.packetClassName.equals(packetName + (index[0] == 1 ? "" : index[0])))) {

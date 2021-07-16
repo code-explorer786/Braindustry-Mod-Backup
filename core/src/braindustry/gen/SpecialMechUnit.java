@@ -371,6 +371,7 @@ public class SpecialMechUnit extends MechUnit implements StealthUnitc {
 
     }
     public void add() {
+        super.add();
         if (!this.added) {
             Groups.all.add(this);
             Groups.unit.add(this);

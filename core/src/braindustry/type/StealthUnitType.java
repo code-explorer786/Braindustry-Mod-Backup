@@ -15,6 +15,7 @@ import arc.util.Time;
 import arc.util.Tmp;
 import braindustry.gen.StealthUnitc;
 import braindustry.gen.StealthUnitc;
+import braindustry.gen.Stealthc;
 import braindustry.graphics.ModPal;
 import mindustry.ai.types.LogicAI;
 import mindustry.content.Blocks;
@@ -228,6 +229,12 @@ public class StealthUnitType extends ModUnitType {
         drawAlpha(unit);
         Lines.poly(unit.x, unit.y, 4, unit.hitSize + 1.5F);
         Draw.reset();
+    }
+
+    @Override
+    public void draw(Unit unit) {
+        if (unit instanceof Stealthc)alpha=((Stealthc) unit).getAlpha();
+        super.draw(unit);
     }
 
     public void drawAlpha(Unit unit){

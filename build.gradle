@@ -67,7 +67,7 @@ ext {
     }
 }
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compileClasspath fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'commons-io:commons-io:2.5'
 //    compile project(":core")
 //    implementation project(":core")

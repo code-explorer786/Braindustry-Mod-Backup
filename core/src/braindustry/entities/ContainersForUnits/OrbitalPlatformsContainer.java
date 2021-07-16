@@ -98,6 +98,7 @@ public class OrbitalPlatformsContainer extends UnitContainer {
             platform.set(platformPos);
             Draw.z(z);
             drawEngines(platform);
+            Draw.color();
             Draw.rect(ability.outlineRegion(), platformPos.x, platformPos.y, platformRot - 90);
             Draw.rect(ability.region(), platformPos.x, platformPos.y, platformRot - 90);
             drawWeapon(platform);

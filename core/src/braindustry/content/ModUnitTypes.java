@@ -8,18 +8,19 @@ import arc.math.geom.Vec2;
 import arc.struct.ObjectSet;
 import arc.struct.Seq;
 import braindustry.ai.types.StealthGroundAI;
+import braindustry.annotations.ModAnnotations;
 import braindustry.entities.abilities.BlackHoleReactorAbility;
 import braindustry.entities.abilities.ImpactReactorAbility;
 import braindustry.entities.abilities.OrbitalPlatformAbility;
 import braindustry.entities.bullets.AdamBulletType;
 import braindustry.entities.bullets.EveBulletType;
 import braindustry.entities.bullets.LilithBulletType;
-import braindustry.gen.ModSounds;
-import braindustry.gen.SpecialMechUnit;
+import braindustry.gen.*;
 import braindustry.graphics.ModPal;
 import braindustry.type.ModUnitType;
 import braindustry.type.ModWeapon;
 import braindustry.type.StealthUnitType;
+import mindustry.annotations.Annotations;
 import mindustry.content.Bullets;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
@@ -34,6 +35,7 @@ import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.type.AmmoTypes;
 import mindustry.type.ItemStack;
+import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 
 
@@ -46,19 +48,21 @@ public class ModUnitTypes implements ContentList {
             //naval
             venti, lyra, tropsy, cenda, vyvna,
             //stealth
-            tyzen, kryox, intelix, nemesis, maverix,
+
             //tx
             griffon, moray, litix, penumbra,
             //sndbox only
             kraken, orochi;
-
-
+//public void draw(
+    public static @ModAnnotations.EntityDef(value = {Stealthc.class,Unitc.class, Mechc.class})
+    UnitType tyzen, kryox, intelix, nemesis, maverix;
     public ModUnitTypes() {
         UnitTypes.class.isArray();
     }
 
     @Override
     public void load() {
+        ModEntityMapping.zero();
         //spiders
         ibis = new ModUnitType("ibis") {
             {
@@ -2507,6 +2511,6 @@ public class ModUnitTypes implements ContentList {
         static Prov<? extends Unit> naval = UnitWaterMove::create;
         static Prov<? extends Unit> legs = LegsUnit::create;
         static Prov<? extends Unit> mech = MechUnit::create;
-        static Prov<? extends Unit> stealthMech = SpecialMechUnit::new;
+        static Prov<? extends Unit> stealthMech = MechStealthUnit::create;
     }
 }
