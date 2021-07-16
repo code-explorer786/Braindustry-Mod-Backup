@@ -62,18 +62,18 @@ public class OrbitalPlatformAbility extends ModAbility {
     @Override
     public void load() {
 //        Log.info("loadCC: @==@==", getClass().getName());
-        if (region == null) region = Core.atlas.find(fullName("orbital-platform"));
-        if (outlineRegion==null)outlineRegion=Core.atlas.find(fullName("orbital-platform-outline"));
+//        if (region == null) region = Core.atlas.find(fullName("orbital-platform"));
+//        if (outlineRegion==null)outlineRegion=Core.atlas.find(fullName("orbital-platform-outline"));
         weapons.select(Objects::nonNull).each(Weapon::load);
     }
 
     @Override
     public Seq<? extends TextureRegion> outlineRegions() {
-        if (region == null) region = Core.atlas.find(fullName("orbital-platform"));
         return Seq.with(region());
     }
 
     public TextureRegion region() {
+        if (region == null) region = Core.atlas.find(fullName("orbital-platform"));
         return region;
     }
 
@@ -104,7 +104,7 @@ public class OrbitalPlatformAbility extends ModAbility {
         return unitMap.get(unit, () -> new OrbitalPlatformsContainer(unit, this));
     }
 
-    public TextureRegion outlineRegion() {
+    public TextureRegion outlineRegion() {if (outlineRegion==null)outlineRegion=Core.atlas.find(fullName("orbital-platform-outline"));
         return outlineRegion;
     }
 }

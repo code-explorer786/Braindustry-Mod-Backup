@@ -5,17 +5,18 @@ import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Lines;
+import arc.graphics.g2d.TextureAtlas;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
 import arc.math.geom.Vec2;
+import arc.scene.Element;
 import arc.scene.ui.layout.Table;
 import arc.util.Eachable;
 import arc.util.Strings;
-import arc.util.Tmp;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
 import braindustry.annotations.ModAnnotations;
-import braindustry.graphics.ModShaders;
+import braindustry.entities.abilities.OrbitalPlatformAbility;
 import braindustry.io.ModTypeIO;
 import braindustry.ui.ModStyles;
 import mindustry.Vars;
@@ -57,8 +58,8 @@ public class TestBlock extends Block implements DebugBlock {
         this.<Integer, TestBlockBuild>config(Integer.class, (build, value) -> {
             build.selectedSprite = value % build.getSizeSprites().length;
         });
-        this.config(Color.class, (TestBlockBuild build,Color value) -> {
-            build.selectedColor=value;
+        this.config(Color.class, (TestBlockBuild build, Color value) -> {
+            build.selectedColor = value;
         });
         this.<TestBlockBuild>configClear(build -> {
             build.selectedSprite = 1;
@@ -94,13 +95,13 @@ public class TestBlock extends Block implements DebugBlock {
         float x = req.drawx();
         float y = req.drawy();
         float halfTile = 4.0F;
-        Draw.rect(reg, x, y, (float)(this.size * 8), (float)(this.size * 8), 0.0F);
+        Draw.rect(reg, x, y, (float) (this.size * 8), (float) (this.size * 8), 0.0F);
         if (req.config != null) {
             this.drawRequestConfig(req, list);
         }
 
-        float rotation = (float)req.rotation * 90.0F;
-        float radius = halfTile * (float)req.block.size;
+        float rotation = (float) req.rotation * 90.0F;
+        float radius = halfTile * (float) req.block.size;
         Vec2 trns = (new Vec2()).trns(rotation, -radius, radius);
         Draw.color(Pal.accent);
         Lines.stroke(2.0F);
@@ -110,40 +111,46 @@ public class TestBlock extends Block implements DebugBlock {
     }
 
     public class TestBlockBuild extends Building implements BuildingLabel {
+        public Color selectedColor = Color.white.cpy();
         private float time = 0;
         private int spriteIndex = 1;
         private int selectedSprite;
         private float someVariable = 0.5f;
-        public Color selectedColor=Color.white.cpy();
 
         @Override
         public void buildConfiguration(Table table) {
             super.buildConfiguration(table);
             TestBlockBuild me = this;
-            table.table(Tex.buttonTrans,(t) -> {
-                t.label(()->"displayScale: "+renderer.getDisplayScale());
-                t.label(()->"scale: "+renderer.getScale());
+            table.table(Tex.buttonTrans, (t) -> {
+                t.label(() -> "displayScale: " + renderer.getDisplayScale());
+                t.label(() -> "scale: " + renderer.getScale());
 //                t.button(Icon.up,ModStyles.alphai, () -> {
 //                });
-                t.button(Icon.pick,ModStyles.alphai, () -> {
+                t.button(Icon.pick, ModStyles.alphai, () -> {
                     modVars.modUI.colorPicker.show(selectedColor, this::configure);
 //                    ModFx.Spirals.at(x, y, size, Pal.lancerLaser);
-                })                ;
+                });
                 t.button(Icon.edit, ModStyles.alphai, () -> {
-                    BaseDialog dialog = new BaseDialog("") {
-                        @Override
-                        public void draw() {
-                            Draw.draw(Draw.z(), () -> {
-                                Tmp.v1.set(Core.graphics.getWidth() / 2f, Core.graphics.getHeight() / 2f);
-                                ModShaders.testShader.set(me, region);
-                                Vec2 pos = ModShaders.worldToScreen(TestBlockBuild.this);
-                                float scl = Vars.renderer.getDisplayScale();
-                                float size = TestBlock.this.size * 8 * scl;
-                                ModShaders.waveShader.rect(getRegion(), pos.x, pos.y, size, size).forcePercent(5f / region.width).otherAxisMul(50);
-                                Draw.shader();
-                            });
-                        }
-                    };
+                    BaseDialog dialog = new BaseDialog("") {{
+                        String[] textureName = {Core.settings.getString("TestBlock.TextureName", "error")};
+                        cont.table(t -> {
+                            t.defaults().width(120).height(60).padLeft(4);
+                            t.label(() -> "textureName: ");
+                            t.field(textureName[0], name -> {
+                                textureName[0] = name;
+                                Core.settings.put("TestBlock.TextureName", name);
+                            }).row();
+
+                            t.add(new Element() {
+                                @Override
+                                public void draw() {
+                                    TextureRegion region = false ? Core.atlas.find(textureName[0]) : OrbitalPlatformAbility.region;
+                                    Draw.rect(region, x, y, region.width / region.height * height, height);
+                                }
+                            }).colspan(2).height(240).width(240);
+                        });
+
+                    }};
                     dialog.addCloseListener();
                     dialog.show();
                 });
@@ -181,10 +188,11 @@ public class TestBlock extends Block implements DebugBlock {
                     return Strings.format("@/@",selectedSprite+1,max);
                 });*/
             }).row();
-            table.table(Tex.buttonTrans,t->{
-               t.slider(0.1f,20f,0.1f,modVars.settings.getFloat("stroke"),f->{
-                   modVars.settings.setFloat("stroke",f);
-               }).row(); ;
+            table.table(Tex.buttonTrans, t -> {
+                t.slider(0.1f, 20f, 0.1f, modVars.settings.getFloat("stroke"), f -> {
+                    modVars.settings.setFloat("stroke", f);
+                }).row();
+                ;
                 t.label(() -> {
                     return Strings.format("@", modVars.settings.getFloat("stroke"));
                 }).right();
@@ -217,7 +225,9 @@ public class TestBlock extends Block implements DebugBlock {
             } else {
                 return rotation == 3 ? Vars.world.build(this.tile.x, this.tile.y - Mathf.ceil(this.block.size / 2f)) : null;
             }
-        }public Tile nearbyTile(int rotation) {
+        }
+
+        public Tile nearbyTile(int rotation) {
             if (rotation == 0) {
                 return Vars.world.tile(this.tile.x + (int) (this.block.size / 2 + 1), this.tile.y);
             } else if (rotation == 1) {
@@ -239,14 +249,15 @@ public class TestBlock extends Block implements DebugBlock {
             super.updateTile();
             time += this.delta() / 60f;
         }
+
         public void draw() {
-            float settingsRot=modVars.settings.getFloat("angle");
-            float settingsStroke=modVars.settings.getFloat("stroke",1f);
+            float settingsRot = modVars.settings.getFloat("angle");
+            float settingsStroke = modVars.settings.getFloat("stroke", 1f);
             TextureRegion region = getRegion();
             Draw.rect(region, x, y, size * 8, size * 8, 0.0F);
             float epsilon = 2f - (renderer.getDisplayScale() - renderer.minScale()) / (renderer.maxScale() - renderer.minScale());
             Draw.color(Color.red);
-            Draw.rect(region, x, y, size * 8*epsilon, size * 8*epsilon, 0.0F);
+            Draw.rect(region, x, y, size * 8 * epsilon, size * 8 * epsilon, 0.0F);
 //            Draw.rect(editorIcon(), x, y + size * 8, size * 8, size * 8, 0f);
 //            Draw.alpha(0.5f);
 
@@ -254,10 +265,10 @@ public class TestBlock extends Block implements DebugBlock {
             Lines.stroke(settingsStroke);
 //            ModLines.crystal(x, y,8f, (size) * 8f, rotdeg(),(int) someVariable);
 //            ModFill.spikesSwirl(x, y, (size) * 8, 8, modVars.settings.getFloat("angle") / 360f, rotdeg(), someVariable);
-            Vars.renderer.lights.add(()->{
+            Vars.renderer.lights.add(() -> {
                 Draw.color(selectedColor.toFloatBits());
-                ModFill.crystal(x, y,8f, (size) * 8f, rotdeg(),(int) someVariable);
-                ModFill.doubleSwirl(x, y, (size) * 8f, 8f*(size+1f), modVars.settings.getFloat("angle") / 360f, rotdeg());
+                ModFill.crystal(x, y, 8f, (size) * 8f, rotdeg(), (int) someVariable);
+                ModFill.doubleSwirl(x, y, (size) * 8f, 8f * (size + 1f), modVars.settings.getFloat("angle") / 360f, rotdeg());
             });
 //            ModLines.crystal(x, y,8f, (size) * 8f, rotdeg(),(int) someVariable);
 //            ModFill.spikesSwirl(x, y, (size) * 8, 8, modVars.settings.getFloat("angle") / 360f, rotdeg(), someVariable);
@@ -270,7 +281,7 @@ public class TestBlock extends Block implements DebugBlock {
                 Draw.color(Color.green);
                 Draw.alpha(0.3f);
                 float offset = Mathf.ceil(size / 2f);
-                ModLines.rect(front.x - offset, front.y - offset, size, size,settingsRot);
+                ModLines.rect(front.x - offset, front.y - offset, size, size, settingsRot);
             }
             Draw.reset();
         }
@@ -288,7 +299,7 @@ public class TestBlock extends Block implements DebugBlock {
         public void write(Writes write) {
             super.write(write);
             write.i(selectedSprite);
-            ModTypeIO.writeColor(write,selectedColor);
+            ModTypeIO.writeColor(write, selectedColor);
             write.f(someVariable);
         }
 
@@ -296,14 +307,15 @@ public class TestBlock extends Block implements DebugBlock {
         public byte version() {
             return 2;
         }
+
         @Override
         public void read(Reads read, byte revision) {
-            if (revision >=1) {
+            if (revision >= 1) {
                 selectedSprite = read.i() % getSizeSprites().length;
             }
-            if (revision>=2){
-                selectedColor= ModTypeIO.readColor(read);
-                someVariable=read.f();
+            if (revision >= 2) {
+                selectedColor = ModTypeIO.readColor(read);
+                someVariable = read.f();
             }
         }
     }
