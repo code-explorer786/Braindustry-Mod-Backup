@@ -18,14 +18,27 @@ import mindustry.type.Weapon;
 
 public class OrbitalPlatform implements Position {
    public float rotation=0f;
-   public float orbitRotation=0f;
-   public  long id;
+   public float orbitAngle =0f;
+   public  int id;
    public final OrbitalPlatformAbility ability;
    public WeaponMount mount=null;
    public static int sequenceNum = 0;
    public final Unit unit;
-public float x,y;
+//public float x,y;
+   public Position position() {
+      Tmp.v1.trns(orbitAngle, unit.hitSize,unit. hitSize).add(unit);
+      return new Position() {
+         @Override
+         public float getX() {
+            return Tmp.v1.x;
+         }
 
+         @Override
+         public float getY() {
+            return Tmp.v1.y;
+         }
+      };
+   }
    public OrbitalPlatform(OrbitalPlatformAbility ability, Unit unit, Weapon weapon) {
       this.ability = ability;
       this.unit = unit;
@@ -34,17 +47,12 @@ public float x,y;
          mount = new WeaponMount(weapon);
       }
    }
-
-   public void set(Vec2 pos){
-      x=pos.x;
-      y=pos.y;
-   }
    public void shoot(WeaponMount mount, float x, float y, float aimX, float aimY, float mountX,
                       float mountY, float rotation, int side) {
 
       Weapon weapon = mount.weapon;
-      float baseX = this.x;
-      float baseY = this.y;
+      float baseX = this.getX();
+      float baseY = this.getY();
       boolean delay = weapon.firstShotDelay + weapon.shotDelay > 0.0F;
       (delay ? weapon.chargeSound : weapon.continuous ? Sounds.none : weapon.shootSound).at(x, y, Mathf.random(weapon.soundPitchMin, weapon.soundPitchMax));
       BulletType ammo = weapon.bullet;
@@ -54,7 +62,7 @@ public float x,y;
          Angles.shotgun(weapon.shots, weapon.spacing, rotation, (f)->{
             Time.run(sequenceNum * weapon.shotDelay + weapon.firstShotDelay, ()->{
                if (!unit.isAdded()) return;
-               mount.bullet = bullet(weapon, x + this.x - baseX, y + this.y - baseY, f + Mathf.range(weapon.inaccuracy), lifeScl);
+               mount.bullet = bullet(weapon, x + this.getX() - baseX, y + this.getY() - baseY, f + Mathf.range(weapon.inaccuracy), lifeScl);
             });
             sequenceNum++;
          });
@@ -87,18 +95,25 @@ public float x,y;
       return weapon.bullet.create(unit, unit.team(), x + Angles.trnsx(angle, 0, xr), y + Angles.trnsy(angle, 0, xr), angle, (1.0F - weapon.velocityRnd) + Mathf.random(weapon.velocityRnd), lifescl);
    }
 
-   public OrbitalPlatform id(long id) {
+   public OrbitalPlatform id(int id) {
       this.id = id;
       return this;
    }
 
    @Override
    public float getX() {
-      return x;
+      return position().getX();
    }
 
    @Override
    public float getY() {
-      return y;
+      return position().getY();
+   }
+
+   public float x() {
+      return getX();
+   }
+   public float y() {
+      return getY();
    }
 }

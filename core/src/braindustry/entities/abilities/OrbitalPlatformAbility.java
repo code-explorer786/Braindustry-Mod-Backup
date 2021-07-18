@@ -36,6 +36,12 @@ public class OrbitalPlatformAbility extends ModAbility {
     public float visualElevation = 1;
     public Seq<Vec2> enginePosses=new Seq<>();
     public float engineSize;
+    private float platformHitsize=16f;
+
+    public OrbitalPlatformAbility platformHitsize(float platformHitsize) {
+        this.platformHitsize = platformHitsize;
+        return this;
+    }
 
     public OrbitalPlatformAbility engineSize(float engineSize) {
         this.engineSize = engineSize;
@@ -106,5 +112,9 @@ public class OrbitalPlatformAbility extends ModAbility {
 
     public TextureRegion outlineRegion() {if (outlineRegion==null)outlineRegion=Core.atlas.find(fullName("orbital-platform-outline"));
         return outlineRegion;
+    }
+
+    public float platformHitsize() {
+        return platformHitsize;
     }
 }
