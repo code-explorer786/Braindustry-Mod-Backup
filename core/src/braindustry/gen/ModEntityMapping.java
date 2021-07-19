@@ -12,15 +12,19 @@ public class ModEntityMapping {
     private static final int offset = 60;
     private static ObjectMap<Class<?>, Integer> classIdMap = new ObjectMap<>();
     private static int lastClass;
-public static void zero(){}
-    static {
-        lastClass = 0;
-        mapClass(null);
-        mapClass(null);//old Stealth Units
-        mapClass(Cloud.class);
+    private static boolean inited=false;
+public static void init(){
+    if (inited)return;
+    inited=true;
+    lastClass = 0;
+    mapClass(null);
+    mapClass(null);//old Stealth Units
+    mapClass(Cloud.class);
 //        mapClass(null);//Old Clouds
-        ModEntityMappingGenerated.init();
-        mapClass(null);
+    ModEntityMappingGenerated.init();
+    mapClass(null);}
+    static {
+        init();
     }
 
     public static int getId(Class<?> name) {

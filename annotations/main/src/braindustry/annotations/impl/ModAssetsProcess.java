@@ -1,6 +1,7 @@
 package braindustry.annotations.impl;
 
 import arc.files.Fi;
+import arc.util.Log;
 import arc.util.Strings;
 import braindustry.annotations.ModAnnotations;
 import braindustry.annotations.ModBaseProcessor;
@@ -36,6 +37,7 @@ public class ModAssetsProcess extends ModBaseProcessor {
 
     @Override
     public void process(RoundEnvironment env) throws Exception {
+        Log.info(getClass().getSimpleName() + ".work("+round+")");
         processSounds("ModSounds", rootDirectory + "/core/assets/sounds", "arc.audio.Sound");
         processSounds("ModMusics", rootDirectory + "/core/assets/music", "arc.audio.Music");
         processUI(env.getElementsAnnotatedWith(ModAnnotations.StyleDefaults.class));

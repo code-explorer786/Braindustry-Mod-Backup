@@ -43,7 +43,6 @@ import mindustry.world.modules.PowerModule;
 
 import java.util.Iterator;
 
-import static mindustry.Vars.emptyTile;
 import static mindustry.Vars.tilesize;
 
 public class GasBuilding extends Building {
@@ -291,7 +290,6 @@ public class GasBuilding extends Building {
     }
 
     public GasBuilding create(GasBlock block, Team team) {
-        this.tile = emptyTile;
         super.block=block;
         this.block = block;
         this.team = team;

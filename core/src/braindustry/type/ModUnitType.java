@@ -7,6 +7,7 @@ import braindustry.ModListener;
 import braindustry.content.ModItems;
 import braindustry.entities.abilities.ModAbility;
 import mindustry.entities.abilities.Ability;
+import mindustry.gen.EntityMapping;
 import mindustry.gen.Unit;
 import mindustry.type.ItemStack;
 import mindustry.type.UnitType;
@@ -19,6 +20,9 @@ public class ModUnitType extends UnitType {
     public int afterDeathLaserCount=5;
     public ModUnitType(String name) {
         super(name);
+        if (constructor==null){
+            constructor= EntityMapping.nameMap.get(name);
+        }
         ModListener.updaters.add(this::triggerUpdate);
     }
 

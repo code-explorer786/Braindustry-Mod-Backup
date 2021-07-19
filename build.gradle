@@ -20,7 +20,7 @@ buildscript {
         gameModFolder=null;
 //        arcHash='b8db131172548e1f10ba86392e09819c34296711'
         arcHash='128'
-        mindustryVersion = 'v128'
+        mindustryVersion = 'v128.1'
         mindustryVersionAnnotations = 'v126.2'
         arcModule = { String name ->
             //skip to last submodule

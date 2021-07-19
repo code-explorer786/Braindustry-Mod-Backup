@@ -7,6 +7,7 @@ import arc.scene.ui.layout.Table;
 import arc.struct.ObjectSet;
 import arc.struct.Seq;
 import arc.struct.StringMap;
+import arc.util.Log;
 import arc.util.Strings;
 import braindustry.annotations.ModAnnotations;
 import braindustry.annotations.ModBaseProcessor;
@@ -89,6 +90,7 @@ public class RulesProcessor extends ModBaseProcessor {
     }
 
     public void process(RoundEnvironment env) throws Exception {
+      Log.info(getClass().getSimpleName() + ".work("+round+")");
         elements = elements(ModAnnotations.Rules.class);
         Stype type = elements.first().asType().superclass();
         Seq<Svar> fields = type.fields();

@@ -1,6 +1,7 @@
 package braindustry.annotations.remote;
 
 import arc.struct.Seq;
+import arc.util.Log;
 import arc.util.Strings;
 import braindustry.annotations.ModAnnotations.Remote;
 import braindustry.annotations.ModBaseProcessor;
@@ -34,6 +35,7 @@ public class ModRemoteProcess extends ModBaseProcessor {
 
     @Override
     public void process(RoundEnvironment roundEnv) throws Exception {
+        Log.info(getClass().getSimpleName() + ".work(" + round + ")");
         //get serializers
         //class serializers
         ClassSerializer serializer = ModTypeIOResolver.resolve(this);
