@@ -167,8 +167,8 @@ project(":annotations") {
 configure (project(":core")){
 
     tasks.withType(JavaCompile) {
-        options.compilerArgs.addAll(['--release', '8'])
         if (JavaVersion.current() != JavaVersion.VERSION_1_8) {
+            options.compilerArgs.addAll(['--release', '8'])
         }
 
         doFirst {
@@ -274,6 +274,7 @@ project(":tools") {
 
         implementation project(":core")
 
+        implementation 'com.github.javaparser:javaparser-symbol-solver-core:3.22.1'
         implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersionAnnotations"
         implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
         implementation "com.github.Anuken.Mindustry:tools:$mindustryVersion"

@@ -268,21 +268,25 @@ public class ModEntitiesProc extends ModBaseProcessor {
         //parse groups
         //this needs to be done before the entity interfaces are generated, as the entity classes need to know which groups to add themselves to
         for (Selement<?> group : allGroups) {
-            ModAnnotations.GroupDef an = group.annotation(ModAnnotations.GroupDef.class);
-            Seq<Stype> types = types(an, ModAnnotations.GroupDef::value).map(stype -> {
-                Stype result = interfaceToComp(stype);
-                if (result == null)
-                    throw new IllegalArgumentException("Interface " + stype + " does not have an associated component!");
-                return result;
-            });
+            try{
+                ModAnnotations.GroupDef an = group.annotation(ModAnnotations.GroupDef.class);
+                Seq<Stype> types = types(an, ModAnnotations.GroupDef::value).map(stype -> {
+                    Stype result = interfaceToComp(stype);
+                    if (result == null)
+                        throw new IllegalArgumentException("Interface " + stype + " does not have an associated component!");
+                    return result;
+                });
 
-            //representative component type
-            Stype repr = types.first();
-            String groupType = repr.annotation(ModAnnotations.Component.class).base() ? baseName(repr) : interfaceName(repr);
+                //representative component type
+                Stype repr = types.first();
+                String groupType = repr.annotation(ModAnnotations.Component.class).base() ? baseName(repr) : interfaceName(repr);
 
-            boolean collides = an.collide();
-            groupDefs.add(new GroupDefinition(group.name().startsWith("g") ? group.name().substring(1) : group.name(),
-                    ClassName.bestGuess(packageName + "." + groupType), types, an.spatial(), an.mapping(), collides));
+                boolean collides = an.collide();
+                groupDefs.add(new GroupDefinition(group.name().startsWith("g") ? group.name().substring(1) : group.name(),
+                        ClassName.bestGuess(packageName + "." + groupType), types, an.spatial(), an.mapping(), collides));
+            } catch (RuntimeException e){
+                Log.info("@",e);
+            }
         }
 
         ObjectMap<String, Selement> usedNames = new ObjectMap<>();

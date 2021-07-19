@@ -1234,7 +1234,7 @@ public class ModUnitTypes implements ContentList {
                 this.mineTier = 2;
                 stealthDuration = 2f * 60f;
                 stealthCooldown = 2f * 60f;
-                this.constructor = Types.stealthMech;
+//                this.constructor = Types.stealthMech;
                 this.defaultController = StealthGroundAI::new;
                 this.speed = 0.9f;
                 this.hitSize = 8;
@@ -1285,7 +1285,7 @@ public class ModUnitTypes implements ContentList {
                 this.mineTier = 2;
                 stealthDuration = 3f * 60f;
                 stealthCooldown = 2.5f * 60f;
-                this.constructor = Types.stealthMech;
+//                this.constructor = Types.stealthMech;
                 this.defaultController = StealthGroundAI::new;
                 this.speed = 0.63f;
                 this.rotateSpeed = 4;
@@ -1331,7 +1331,7 @@ public class ModUnitTypes implements ContentList {
                 this.mineTier = 3;
                 stealthDuration = 4f * 60f;
                 stealthCooldown = 5f * 60f;
-                this.constructor = Types.stealthMech;
+//                this.constructor = Types.stealthMech;
                 this.defaultController = StealthGroundAI::new;
                 this.speed = 0.55f;
                 this.rotateSpeed = 3;
@@ -1385,7 +1385,7 @@ public class ModUnitTypes implements ContentList {
                 this.mineTier = 3;
                 stealthDuration = 5f * 60f;
                 stealthCooldown = 6f * 60f;
-                this.constructor = Types.stealthMech;
+//                this.constructor = Types.stealthMech;
                 this.defaultController = StealthGroundAI::new;
                 this.speed = 0.45f;
                 this.rotateSpeed = 3;
@@ -1439,7 +1439,7 @@ public class ModUnitTypes implements ContentList {
                 this.mineTier = 4;
                 stealthDuration = 7f * 60f;
                 stealthCooldown = 3f * 60f;
-                this.constructor = Types.stealthMech;
+//                this.constructor = Types.stealthMech;
                 this.defaultController = StealthGroundAI::new;
                 this.speed = 0.62f;
                 this.rotateSpeed = 3;
@@ -1864,7 +1864,7 @@ public class ModUnitTypes implements ContentList {
         litix = new StealthUnitType("litix") {
             {
                 dropItems= ItemStack.with(ModItems.chloroAlloy, 320);
-                this.constructor = Types.stealthMech;
+//                this.constructor = Types.stealthMech;
                 this.defaultController = StealthGroundAI::new;
                 this.speed = 0.62f;
                 this.rotateSpeed = 2;
@@ -2511,6 +2511,6 @@ public class ModUnitTypes implements ContentList {
         static Prov<? extends Unit> naval = UnitWaterMove::create;
         static Prov<? extends Unit> legs = LegsUnit::create;
         static Prov<? extends Unit> mech = MechUnit::create;
-        static Prov<? extends Unit> stealthMech = MechStealthUnit::create;
+//        static Prov<? extends Unit> stealthMech = MechStealthUnit::create;
     }
 }

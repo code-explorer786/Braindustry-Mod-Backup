@@ -12,9 +12,11 @@ import java.net.URL;
 
 public class AnukeCompDownloader {
     private static String selectedClassName = "";
+    private static JavaCodeConverter codeConverter=new JavaCodeConverter();
 
     public static void main(String[] args) {
         Log.info("[@]", Seq.with(args).toString(", "));
+        Fi folder = new Fi("debug");
         try {
             long nanos = System.nanoTime();
             Fi dir = new Fi("core/src/braindustry/entities/compByAnuke");
@@ -22,7 +24,6 @@ public class AnukeCompDownloader {
             String mindustryVersion = Seq.with(args).find(s -> s.startsWith("v"));
             if (dir.exists()) dir.delete();
 //            dir.mkdirs();
-            Fi folder = new Fi("debug");
             folder.mkdirs();
             Fi compJava = folder.child("compJava");
             Fi finalComp = folder.child("finalComp");
@@ -83,80 +84,20 @@ public class AnukeCompDownloader {
                 }
 
 //                Log.info("" + fi.name());
-                StringBuilder newFile = new StringBuilder();
                 String file = fi.readString();
-                String[] lines = file.split("\n");
-                StringBuilder partBuilder = new StringBuilder();
-                boolean switchStart = false;
-                int c = 0;
-                for (int i = 0; i < lines.length; i++) {
-                    String line = lines[i];
-                    line = line
-                            .replace("@Override", "__OVERRIDE__")
-                            .replace("@Nullable", "__NULLABLE__")
-                            .replace("@", "@braindustry.annotations.ModAnnotations.")
-                            .replace("__OVERRIDE__", "@Override")
-                            .replace("__NULLABLE__", "@Nullable")
-                    ;
-                    if (className.equals("MinerComp")) {
-                        line = line
-                                .replace("(!within(tile.worldx(), tile.worldy(), miningRange)", "(!within(tile.worldx(), tile.worldy(), type.miningRange)")
-                        ;
-                    }
-                    if (className.equals("UnitComp")) {
-                        if (line.contains("FormationAI ai")) {
-                            line = line.replace(" ai", " aif");
-                        }
-                    }
-                    if (className.equals("BuilderComp")) {
-                        line = line
-                                .replace("entity.deconstruct(self(), core,", "entity.deconstruct(self(), core.as(),")
-                                .replace(
-                                        "!current.breaking && (cb.cblock != current.block",
-                                        "!current.breaking && (cb.block != current.block"
-                                )
-                        .replace("var core = core();","CoreBuild core = core();")
-                        ;
-                    }
-                    if (className.equals("PayloadComp")) {
-                        line = line
-                                .replace("(payload instanceof BuildPayload b)", "(payload instanceof BuildPayload)")
-                                .replace("return dropBlock(b);", "return dropBlock((BuildPayload)payload);")
-                                .replace("(payload instanceof UnitPayload p)", "(payload instanceof UnitPayload)")
-                                .replace("return dropUnit(p);", "return dropUnit((UnitPayload)payload);")
-                                .replace(
-                                        "table.image(p.icon(Cicon.small)).size(itemSize).padRight(pad);",
-                                        "table.image(p.icon()).size(itemSize).padRight(pad);")
-                        ;
-                    }
-                    if (className.equals("StatusComp")) {
-                        line = line
-                                .replace("if(StatusEntry.tmp.effect != entry.effect){", "if(true){")
-                        .replace("var entry = statuses.find(e -> e.effect == effect);","StatusEntry entry = statuses.find(e -> e.effect == effect);");
-//                        if (line.contains("StatusEntry.tmp")) line = "";
-                    }
-//                    Log.info(i);
-                    if (switchStart) {
-                        partBuilder.append(line).append("\n");
-                        if (line.replace(" ", "").equals("};")) {
-                            switchStart = false;
-//                            Log.info(partBuilder.toString());
-                            newFile.append(transform(partBuilder.toString()));
-                        }
-                    } else if (line.contains("return switch")) {
-                        switchStart = true;
-                        partBuilder = new StringBuilder();
-                        partBuilder.append(line).append("\n");
-                    } else {
-                        newFile.append(transform(line)
-                                .replace("var core = team.core();", "mindustry.world.blocks.storage.CoreBlock.CoreBuild core = team.core();")
-                                .replace("package mindustry.entities.comp;", "package braindustry.entities.compByAnuke;")
-                                .replace("import static mindustry.logic.GlobalConstants.*;",
-                                        "import static mindustry.logic.GlobalConstants.*;\n" + "import static mindustry.logic.LAccess.*;")
-                        ).append("\n");
-                    }
-                }
-                String string = newFile.toString();
+                String convert = codeConverter.convert(file,className);
+                String string = convert
+                        .replace("var core = team.core();", "mindustry.world.blocks.storage.CoreBlock.CoreBuild core = team.core();")
+                        .replace("var core = core();", "mindustry.world.blocks.storage.CoreBlock.CoreBuild core = core();")
+                        .replace("var entry = statuses.find(e -> e.effect == effect);","StatusEntry entry = statuses.find(e -> e.effect == effect);")
+                        .replace("package mindustry.entities.comp;", "package braindustry.entities.compByAnuke;")
+                        .replace("import static mindustry.logic.GlobalConstants.*;",
+                                "import static mindustry.logic.GlobalConstants.*;\n" + "import static mindustry.logic.LAccess.*;")
+                        .replace("@Override", "__OVERRIDE__")
+                        .replace("@Nullable", "__NULLABLE__")
+                        .replace("@", "@braindustry.annotations.ModAnnotations.")
+                        .replace("__OVERRIDE__", "@Override")
+                        .replace("__NULLABLE__", "@Nullable");
                 string = string.replace("};\n" +
                                         "    }", "}\n" +
                                                  "    }");
@@ -184,14 +125,14 @@ public class AnukeCompDownloader {
             }
             file.append("\n}");
             dir.child("AnnotationConfigComponents.java").writeString(file.toString());
-            folder.deleteDirectory();
-            folder.walk(f->f.delete());
-            folder.delete();
             System.out.println(Strings.format("Time taken: @s", Time.nanosToMillis(Time.timeSinceNanos(nanos)) / 1000f));
 //        }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        folder.deleteDirectory();
+        folder.walk(f->f.delete());
+        folder.delete();
     }
 
     static String interfaceName(String comp) {
