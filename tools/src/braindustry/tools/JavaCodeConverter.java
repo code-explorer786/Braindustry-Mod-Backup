@@ -158,7 +158,9 @@ public class JavaCodeConverter {
                         }
                         entry.setStatements(nstatements);
                     }
-                    statement = new ExpressionStmt(switchExpr);
+
+//                    statement = new ExpressionStmt(switchExpr);
+                    statement=new SwitchStmt(switchExpr.getSelector(),switchExpr.getEntries());
 //                        returnStmt.setExpression(new NameExpr("return__"));
                 } else {
                     chechIfStmt(statements,returnStmt,expression);

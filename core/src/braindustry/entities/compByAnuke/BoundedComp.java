@@ -11,7 +11,7 @@ import static mindustry.Vars.*;
 @braindustry.annotations.ModAnnotations.Component
 abstract class BoundedComp implements Velc, Posc, Healthc, Flyingc {
 
-    static final float warpDst = 40f;
+    static final float warpDst = 30f;
 
     @braindustry.annotations.ModAnnotations.Import
     float x, y;
