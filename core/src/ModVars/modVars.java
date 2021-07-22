@@ -1,7 +1,6 @@
 package ModVars;
 
 import ModVars.Classes.ModAssets;
-import ModVars.Classes.ModAtlas;
 import ModVars.Classes.ModSettings;
 import ModVars.Classes.UI.ModControlsDialog;
 import ModVars.Classes.UI.settings.ModOtherSettingsDialog;
@@ -11,6 +10,7 @@ import arc.struct.ObjectMap;
 import arc.struct.Seq;
 import arc.util.io.Reads;
 import arc.util.io.ReusableByteInStream;
+import braindustry.BraindustryMod;
 import braindustry.ModListener;
 import braindustry.core.ModLogic;
 import braindustry.core.ModNetClient;
@@ -30,13 +30,7 @@ import java.lang.reflect.Constructor;
 import static mindustry.Vars.*;
 
 public class modVars {
-//    public static final byte MOD_CONTENT_ID = 66;
-    private static final String braindustryPacketPrefix = "braindustry-java-packet";
-    public static final String braindustryPacketPrefixClient =braindustryPacketPrefix+ "-client";
-    public static final String braindustryPacketPrefixServer =braindustryPacketPrefix+"-server";
-    private static final int classOffset = 40;
     public static ModSettings settings;
-    public static ModAtlas modAtlas;
     public static ModAssets modAssets;
     public static Mods.LoadedMod modInfo;
     public static ModKeyBinds keyBinds;
@@ -46,87 +40,26 @@ public class modVars {
     public static ModNetClient netClient;
     public static ModNetServer netServer;
     public static ModUI modUI;
-//    public static ModFloorRenderer floorRenderer;
     public static ModLogic logic;
     public static ModListener listener;
-//    public static ModBloom modBloom;
-    public static ClientLauncher launcher;
+    public static BraindustryMod mod;
     public static boolean renderUpdate;
     public static boolean loaded = false;
     public static boolean packSprites;
-    static Seq<Content> modContent = new Seq<>();
-    private static int lastClass = 0;
-    private static ReusableByteInStream bin;
-    private static Reads read = new Reads(new DataInputStream(bin = new ReusableByteInStream()));
+    public static boolean neededInit =true;
 
-    public static Seq<Content> getModContent() {
-        return modContent.copy();
-    }
-
-    public static void addContent(Content content) {
-        if (!modContent.contains(content)) {
-            modContent.add(content);
-        }
-    }
 
     public static void init() {
-//        net = new ModNet(platform.getNet(), net);
-        if (false) {
-            for (int i = 0; i < EntityMapping.idMap.length; i++) {
-                Prov prov = EntityMapping.idMap[i];
-                if (prov == null) continue;
-                Object o = prov.get();
-                if (o instanceof Building && !(o instanceof ModBuilding)) {
-                    EntityMapping.idMap[i] = ModBuilding::new;
-                }
-            }
-            Seq<Runnable> runners = new Seq<>();
-            for (ObjectMap.Entry<String, Prov> entry : EntityMapping.nameMap) {
-                if (entry.value == null) continue;
-                Object o = entry.value.get();
-                if (o instanceof Building && !(o instanceof ModBuilding)) {
-                    runners.add(() -> {
-                        EntityMapping.nameMap.put(entry.key, ModBuilding::new);
-                    });
-                }
-            }
-            runners.each(Runnable::run);
-            runners.clear();
-        }
-        if(!headless){
-            modUI.init();
-        }
     }
 
     public static void load() {
-        modUI = new ModUI();
+        ModListener.load();
         settings = new ModSettings();
         modAssets = new ModAssets();
-        ModListener.load();
+       if(!headless) listener.add(modUI = new ModUI());
         listener.add(netClient = new ModNetClient());
         listener.add(netServer = new ModNetServer());
         listener.add(logic = new ModLogic());
-    }
-
-    private static <T> void mapClasses(Class<?>... objClasses) {
-        Seq.with(objClasses).each(modVars::mapClass);
-    }
-
-    private static <T> void mapClass(Class<?> objClass) {
-        try {
-            if (objClass == null) return;
-            Constructor<?> cons = objClass.getDeclaredConstructor();
-            objClass.getField("classId").setInt(objClass, classOffset + lastClass);
-            EntityMapping.idMap[classOffset + lastClass++] = () -> {
-                try {
-                    return cons.newInstance();
-                } catch (Exception var3) {
-                    throw new RuntimeException(var3);
-                }
-            };
-        } catch (Exception e) {
-            modFunc.showException(e);
-        }
     }
 
     public static boolean showCheatMenu() {

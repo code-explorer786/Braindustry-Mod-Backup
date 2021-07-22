@@ -1,18 +1,12 @@
 package braindustry;
 
-import ModVars.modVars;
 import arc.ApplicationCore;
-import arc.ApplicationListener;
-import arc.Events;
-import arc.files.Fi;
+import arc.Core;
 import arc.struct.Seq;
-import arc.util.Log;
 import mindustry.ClientLauncher;
 import mindustry.Vars;
-import mindustry.game.EventType;
+
 import static ModVars.modVars.*;
-import static ModVars.modVars.launcher;
-import static mindustry.Vars.ui;
 
 public class ModListener extends ApplicationCore {
     public static Seq<Runnable> updaters=new Seq<>();
@@ -22,16 +16,11 @@ public class ModListener extends ApplicationCore {
     public static void load(){
 //        Log.info("\n @",ui);
         listener=new ModListener();
-        if (Vars.platform instanceof ClientLauncher){
-            launcher=(ClientLauncher) Vars.platform;
-            launcher.add(listener);
-
-        } else {
-            Events.on(EventType.Trigger.update.getClass(),(e)->{
-                if (e== EventType.Trigger.update){
-                    listener.update();
-                }
-            });
+        if(Vars.platform instanceof ClientLauncher){
+            ((ClientLauncher)Vars.platform).add(listener);
+            neededInit =false;
+        }else {
+            Core.app.addListener(listener);
         }
     }
 

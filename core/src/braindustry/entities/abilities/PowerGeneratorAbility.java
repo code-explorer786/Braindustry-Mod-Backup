@@ -21,6 +21,8 @@ import mindustry.gen.Building;
 import mindustry.gen.Unit;
 import mindustry.graphics.Drawf;
 
+import static ModVars.modFunc.fullName;
+
 public abstract class PowerGeneratorAbility extends ModAbility {
     public TextureRegion bottomRegion;
 
@@ -73,7 +75,9 @@ public abstract class PowerGeneratorAbility extends ModAbility {
         float vy = Mathf.sinDeg(angle1);
         float len1 = (float) (size1 * 8) / 2.0F - 1.5F;
         float len2 = (float) (size2 * 8) / 2.0F - 1.5F;
-        Drawf.laser(team, modVars.modAtlas.laser, modVars.modAtlas.laserEnd, x1 + vx * len1, y1 + vy * len1, x2 - vx * len2, y2 - vy * len2, 0.25F);
+        TextureRegion laser = Core.atlas.find(fullName("laser"), "laser"),
+        laserEnd = Core.atlas.find(fullName("laser-end"),"laser-end");
+        Drawf.laser(team, laser, laserEnd, x1 + vx * len1, y1 + vy * len1, x2 - vx * len2, y2 - vy * len2, 0.25F);
     }
     public void drawOutline(Unit unit){
         Draw.reset();

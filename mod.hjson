@@ -3,6 +3,6 @@ displayName: "Braindustry"
 author: "[#9e41ea[]]Zelaux, KOSTOLOM, PixaxeOfPixie, Vervalamis, SuperJaba2000, [#9effc0[]]p[#82e0a3[]]lo[#69c589[]]lq, Toxin[[]]"
 description: "Still in development. One of the biggest Java mod, add new star system, more than 20 units, 19 turrets, 11 new maps for planets, gasses and much more! From Russia with love."
 main: "braindustry.BraindustryMod"
-version: 2.0 public beta
-minGameVersion: 126.2
+version: 2.0.1 public beta
+minGameVersion: 128.1
 

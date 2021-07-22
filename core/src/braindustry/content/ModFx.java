@@ -234,13 +234,13 @@ public class ModFx {
             electricExplosionPart2 = new Effect(120, Distance1, (e) -> {
                 Draw.color(ModPal.electricColor, ModPal.electricColorMulled, e.fslope());
                 Draw.alpha(e.fout() / 120.0f);
-                Draw.rect(modVars.modAtlas.flash, e.x, e.y, 150.0f + 400.0f * e.fin(), 150.0f + 400.0f * e.fin());
+                Draw.rect(Core.atlas.find(fullName("flash")), e.x, e.y, 150.0f + 400.0f * e.fin(), 150.0f + 400.0f * e.fin());
                 Draw.color();
             }),
             electricExplosionPart3 = new Effect(120, Distance1, (e) -> {
                 Draw.color(ModPal.electricColor, ModPal.electricColorMulled, e.fslope());
                 Draw.alpha(e.fout() / 120);
-                Draw.rect(modVars.modAtlas.flareWhite, e.x, e.y, 350 + 400 * e.fin(), 350 + 400 * e.fin());
+                Draw.rect(Core.atlas.find(fullName("FlareWhite")), e.x, e.y, 350 + 400 * e.fin(), 350 + 400 * e.fin());
                 Draw.color();
             }),
             Spirals = new Effect(200.0F, 300f, (e) -> {

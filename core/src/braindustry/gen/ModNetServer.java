@@ -27,8 +27,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import static ModVars.modVars.braindustryPacketPrefixClient;
-import static ModVars.modVars.braindustryPacketPrefixServer;
 import static arc.util.Log.debug;
 import static mindustry.Vars.*;
 

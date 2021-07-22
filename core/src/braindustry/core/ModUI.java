@@ -5,24 +5,18 @@ import ModVars.Classes.UI.CheatUI;
 import ModVars.Classes.UI.ModControlsDialog;
 import ModVars.Classes.UI.settings.ModOtherSettingsDialog;
 import ModVars.Classes.UI.settings.ModSettingsDialog;
+import arc.ApplicationListener;
 import arc.Core;
-import arc.scene.Group;
-import arc.scene.event.Touchable;
-import arc.scene.ui.layout.WidgetGroup;
 import arc.util.Disposable;
+import arc.util.Log;
 import braindustry.ModListener;
 import braindustry.gen.StealthUnitc;
-import braindustry.graphics.g3d.ModPlanetRenderer;
 import braindustry.input.ModBinding;
-import braindustry.input.ModDesktopInput;
 import braindustry.input.ModKeyBinds;
-import braindustry.input.ModMobileInput;
-import braindustry.tools.MenuButtons;
 import braindustry.ui.AdvancedContentInfoDialog;
 import braindustry.ui.ModStyles;
 import braindustry.ui.dialogs.BackgroundStyle;
 import braindustry.ui.dialogs.ModColorPicker;
-import braindustry.ui.dialogs.ModPlanetDialog;
 import braindustry.ui.fragments.ModHudFragment;
 import braindustry.ui.fragments.ModMenuFragment;
 import mindustry.Vars;
@@ -30,11 +24,11 @@ import mindustry.ui.dialogs.BaseDialog;
 
 import static ModVars.Classes.UI.CheatUI.*;
 import static ModVars.modVars.*;
-import static arc.Core.settings;
 import static braindustry.input.ModBinding.*;
-import static mindustry.Vars.*;
+import static mindustry.Vars.headless;
+import static mindustry.Vars.ui;
 
-public class ModUI implements Disposable {
+public class ModUI implements Disposable, ApplicationListener {
     static {
         //x axis or not
         ModMenuFragment.xAxis(true);
@@ -49,49 +43,23 @@ public class ModUI implements Disposable {
 
     public ModColorPicker colorPicker;
     public BackgroundStyle backgroundStyle;
+    private boolean inited=false;
 
+    public ModUI() {
+        keyBinds = new ModKeyBinds();
+        keyBinds.setDefaults(ModBinding.values());
+        keyBinds.load();
+    }
+
+    @Override
     public void init() {
+        if (headless) return;
+        inited=true;
         ModStyles.load();
-        colorPicker = new ModColorPicker();
-        backgroundStyle=new BackgroundStyle();
-        if (mobile) {
-            control.setInput(new ModMobileInput());
-        } else {
-            control.setInput(new ModDesktopInput());
-        }
-        ModHudFragment.init();
-        settings.put("uiscalechanged", false);
-        ModListener.updaters.add(() -> {
-            boolean noDialog = !Core.scene.hasDialog();
-            boolean inGame = Vars.state.isGame();
-
-            boolean inMenu = Vars.state.isMenu() || !ui.planet.isShown();
-            if (!controls.isShown()) {
-                if (keyBinds.keyTap(show_unit_dialog) && noDialog && inGame) {
-                    openUnitChooseDialog();
-                } else if (keyBinds.keyTap(show_team_dialog) && noDialog && inGame) {
-                    openTeamChooseDialog();
-                } else if (keyBinds.keyTap(show_unlock_dialog) && !inMenu) {
-                    openUnlockContentDialog();
-                } else if (keyBinds.keyTap(show_item_manager_dialog) && noDialog) {
-                    openModCheatItemsMenu();
-                } else if (keyBinds.keyTap(show_rules_edit_dialog) && inGame && noDialog) {
-                    openRulesEditDialog();
-                }
-            }
-            if (inGame && Vars.state.isPaused() && Vars.player.unit() instanceof StealthUnitc) {
-                StealthUnitc unit = (StealthUnitc) Vars.player.unit();
-                unit.updateStealthStatus();
-            }
-
-        });
-
-        ModMenuFragment.init();
+//        settings.put("uiscalechanged", false);
         AdvancedContentInfoDialog.init();
-        ui.planet.remove();
-        Vars.renderer.planets.dispose();
-        Vars.renderer.planets = new ModPlanetRenderer();
-        ui.planet = new ModPlanetDialog();
+        ModMenuFragment.init();
+        ModHudFragment.init();
         new ModCheatMenu((table) -> {
             table.button("@cheat-menu.title", () -> {
                 BaseDialog dialog = new BaseDialog("@cheat-menu.title");
@@ -111,12 +79,38 @@ public class ModUI implements Disposable {
             }).size(280.0f / 2f, 60.0F);
             table.visibility = () -> CheatUI.visibility.get();
         });
-        keyBinds = new ModKeyBinds();
-        keyBinds.setDefaults(ModBinding.values());
-        keyBinds.load();
+
+        colorPicker = new ModColorPicker();
+        backgroundStyle = new BackgroundStyle();
         controls = new ModControlsDialog();
         otherSettingsDialog = new ModOtherSettingsDialog();
         settingsDialog = new ModSettingsDialog();
+    }
+
+    @Override
+    public void update() {
+        if (!inited)return;
+        boolean noDialog = !Core.scene.hasDialog();
+        boolean inGame = Vars.state.isGame();
+
+        boolean inMenu = Vars.state.isMenu() || !ui.planet.isShown();
+        if (!controls.isShown()) {
+            if (keyBinds.keyTap(show_unit_dialog) && noDialog && inGame) {
+                openUnitChooseDialog();
+            } else if (keyBinds.keyTap(show_team_dialog) && noDialog && inGame) {
+                openTeamChooseDialog();
+            } else if (keyBinds.keyTap(show_unlock_dialog) && !inMenu) {
+                openUnlockContentDialog();
+            } else if (keyBinds.keyTap(show_item_manager_dialog) && noDialog) {
+                openModCheatItemsMenu();
+            } else if (keyBinds.keyTap(show_rules_edit_dialog) && inGame && noDialog) {
+                openRulesEditDialog();
+            }
+        }
+        if (inGame && Vars.state.isPaused() && Vars.player.unit() instanceof StealthUnitc) {
+            StealthUnitc unit = (StealthUnitc) Vars.player.unit();
+            unit.updateStealthStatus();
+        }
     }
 
     @Override

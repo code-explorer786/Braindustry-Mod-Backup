@@ -2,7 +2,7 @@ apply plugin: "java"
 
 version '1.0'
 
-sourceCompatibility = 1.8
+
 
 //sourceSets.main.java.srcDirs = ["core/starter/"]
 //sourceSets.main.resources.srcDirs = ["core/resources/"]
@@ -13,11 +13,6 @@ repositories {
 }
 buildscript {
     ext {
-//        prop = new Properties().with { p -> p.load(file('gradle.properties').newReader()); return p }
-//        serverModFolder = prop["serverModFolder"]
-//        gameModFolder = prop["gameModFolder"]
-        serverModFolder=null;
-        gameModFolder=null;
 //        arcHash='b8db131172548e1f10ba86392e09819c34296711'
         arcHash='128'
         mindustryVersion = 'v128.1'
@@ -86,7 +81,7 @@ allprojects {
             options.compilerArgs.addAll(['--release', '8'])
         }
     }
-    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
     repositories {
         mavenLocal()
         google()
@@ -107,7 +102,7 @@ allprojects {
 configure(project(":annotations")) {
     tasks.withType(JavaCompile) {
         targetCompatibility = 8
-        sourceCompatibility = 14
+        sourceCompatibility = 8
     }
 }
 
@@ -139,7 +134,7 @@ project(":annotations") {
             options.compilerArgs.addAll(['--release', '14'])
         }
     }
-    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
     repositories {
         mavenLocal()
         mavenCentral()
@@ -170,7 +165,8 @@ configure (project(":core")){
         if (JavaVersion.current() != JavaVersion.VERSION_1_8) {
             options.compilerArgs.addAll(['--release', '8'])
         }
-
+        sourceCompatibility = 8
+        targetCompatibility = 8
         doFirst {
 //            options.compilerArgs = options.compilerArgs.findAll { it != '--enable-preview' }
         }
@@ -182,6 +178,7 @@ configure (project(":core")){
             addStringOption('-release', '8')
         }
     }
+
 }
 project(":core") {
     apply plugin: "java-library"
@@ -242,6 +239,10 @@ project(":core") {
             destinationDir = new File(buildDir, 'javadoc')
         }
     }
+    jar{
+        exclude("braindustry/entities/comp/**")
+        exclude("braindustry/entities/compByAnuke/**")
+    }
 }
 
 configure (project(":tools")){
@@ -293,15 +294,6 @@ task jarAndroid {
 
         //dex and desugar files - this requires d8 in your PATH
         doExec("d8 $dependencies --min-api 14 --output ${project.archivesBaseName}Android.jar ${project.archivesBaseName}Desktop.jar")
-    }
-}
-task pjar {
-    dependsOn "tools:pack"
-    dependsOn "jar"
-    doFirst {
-    }
-    doLast {
-
     }
 }
 jar {

@@ -38,7 +38,7 @@ import mindustry.world.blocks.environment.ShallowLiquid;
 
 import static mindustry.Vars.*;
 
-public class ModMenuShaderRenderer extends MenuRenderer {
+public class ModMenuShaderRenderer {
     private static final float darkness = 0.3F;
     private final int width;
     private final int height;
