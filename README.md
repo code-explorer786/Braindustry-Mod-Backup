@@ -1,4 +1,4 @@
-![alt tag](https://github.com/pixaxeofpixie/pictures/blob/main/postetr.jpg?raw=true)
+![alt tag](https://github.com/pixaxeofpixie/pictures/blob/main/bannerbd.png)
 ## Mindustry Mod By Braindustry Team(public beta)
 
 ## WARNING! Mod still in dev and may have bugs!
