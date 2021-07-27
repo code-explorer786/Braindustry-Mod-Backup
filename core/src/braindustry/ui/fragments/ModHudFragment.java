@@ -25,10 +25,7 @@ import arc.scene.ui.layout.Table;
 import arc.scene.ui.layout.WidgetGroup;
 import arc.struct.Bits;
 import arc.struct.Seq;
-import arc.util.Align;
-import arc.util.Scaling;
-import arc.util.Time;
-import arc.util.Tmp;
+import arc.util.*;
 import braindustry.gen.StealthUnitc;
 import braindustry.graphics.ModPal;
 import braindustry.graphics.ModShaders;
@@ -106,7 +103,9 @@ public class ModHudFragment {
        }else {
            Table overlaymarker = ui.hudGroup.find("overlaymarker");
            Table mobile_buttons = overlaymarker.find("mobile buttons");
-           actor.add(unitBar).left().top().padTop(mobile_buttons.getHeight()+4f);
+           Cell<Table> cell = actor.add(unitBar).left().top();
+           Log.info("height: @==@==@",mobile_buttons.getPrefHeight(),mobile_buttons.getHeight(),mobile_buttons.getMinHeight());
+           cell.update(t->cell.padTop(+4f));
        }
         actor.row();
         actor.add().growY();
