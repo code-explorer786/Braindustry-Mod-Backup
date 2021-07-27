@@ -105,7 +105,7 @@ public class ModHudFragment {
            Table mobile_buttons = overlaymarker.find("mobile buttons");
            Cell<Table> cell = actor.add(unitBar).left().top();
            Log.info("height: @==@==@",mobile_buttons.getPrefHeight(),mobile_buttons.getHeight(),mobile_buttons.getMinHeight());
-           cell.update(t->cell.padTop(+4f));
+           cell.update(t->cell.padTop(mobile_buttons.getPrefHeight()+4f));
        }
         actor.row();
         actor.add().growY();
