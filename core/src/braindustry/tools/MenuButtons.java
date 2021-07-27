@@ -1,5 +1,6 @@
 package braindustry.tools;
 
+import ModVars.modFunc;
 import arc.Core;
 import arc.func.Boolf;
 import arc.func.Func;
@@ -78,7 +79,8 @@ public class MenuButtons {
             }
             buttonsDesktop(t, menuButtons);
         } catch (Exception exception) {
-            throw new RuntimeException(Strings.format("container: <<@>>\nwidgetGroup: <<@>>\nexception: <<@>>",container,widgetGroup,parseException(exception)));
+//            String format = Strings.format("container: <<@>>\nwidgetGroup: <<@>>\nexception: <<@>>", container, widgetGroup, parseException(exception));
+
         }
     }
 
