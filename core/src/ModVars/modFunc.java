@@ -4,7 +4,6 @@ package ModVars;
 import arc.Core;
 import arc.Events;
 import arc.func.Cons;
-import arc.func.Prov;
 import arc.graphics.Color;
 import arc.scene.ui.Dialog;
 import arc.scene.ui.Label;
@@ -19,48 +18,49 @@ import mindustry.Vars;
 import mindustry.content.TechTree;
 import mindustry.ctype.UnlockableContent;
 import mindustry.game.EventType;
-import mindustry.game.Team;
 import mindustry.gen.Building;
 import mindustry.gen.Call;
-import mindustry.gen.EntityMapping;
-import mindustry.io.TypeIO;
 import mindustry.net.NetConnection;
-import mindustry.type.UnitType;
 import mindustry.ui.Styles;
 
 import java.util.Objects;
 
-import static ModVars.modVars.*;
+import static ModVars.modVars.modInfo;
+import static ModVars.modVars.packSprites;
 
 public class modFunc {
-    public static void clientPacketReliableExcept(NetConnection except,String type, String contents){
+    public static void clientPacketReliableExcept(NetConnection except, String type, String contents) {
     }
-    public static void serverPacketReliableExcept(NetConnection except,String type, String contents){
+
+    public static void serverPacketReliableExcept(NetConnection except, String type, String contents) {
         for (NetConnection con : Vars.net.getConnections()) {
-            if (con!=except)Call.clientPacketReliable(con,type,contents);
+            if (con != except) Call.clientPacketReliable(con, type, contents);
         }
     }
-    public static void clientPacketUnreliableExcept(NetConnection except,String type, String contents){
+
+    public static void clientPacketUnreliableExcept(NetConnection except, String type, String contents) {
     }
-    public static void serverPacketUnreliableExcept(NetConnection except,String type, String contents){
+
+    public static void serverPacketUnreliableExcept(NetConnection except, String type, String contents) {
         for (NetConnection con : Vars.net.getConnections()) {
-            if (con!=except)Call.clientPacketUnreliable(con,type,contents);
+            if (con != except) Call.clientPacketUnreliable(con, type, contents);
         }
     }
+
     public static void inTry(Runnable runnable) {
-        try{
+        try {
             runnable.run();
-        } catch (Exception ex){
+        } catch (Exception ex) {
             showException(ex);
         }
     }
 
-    public static void checkTranslate(UnlockableContent content){
+    public static void checkTranslate(UnlockableContent content) {
         content.localizedName = Core.bundle.get(content.getContentType() + "." + content.name + ".name", content.localizedName);
-        content.description = Core.bundle.get(content.getContentType() + "." + content.name + ".description",content.description);
+        content.description = Core.bundle.get(content.getContentType() + "." + content.name + ".description", content.description);
     }
 
-    public static void addResearch(UnlockableContent parentContent, UnlockableContent unlock){
+    public static void addResearch(UnlockableContent parentContent, UnlockableContent unlock) {
         TechTree.TechNode node = new TechTree.TechNode(TechTree.getNotNull(parentContent), unlock, unlock.researchRequirements());
         TechTree.TechNode parent = TechTree.getNotNull(parentContent);
         if (parent == null) {
@@ -74,10 +74,12 @@ public class modFunc {
             node.parent = parent;
         }
     }
-    public static void inspectBuilding(){
+
+    public static void inspectBuilding() {
 
     }
-    public static void addResearch(String researchName, UnlockableContent unlock){
+
+    public static void addResearch(String researchName, UnlockableContent unlock) {
         TechTree.TechNode node = new TechTree.TechNode(null, unlock, unlock.researchRequirements());
         TechTree.TechNode parent = TechTree.all.find((t) -> {
             return t.content.name.equals(researchName) || t.content.name.equals(fullName(researchName));
@@ -95,12 +97,12 @@ public class modFunc {
         }
     }
 
-    public static String fullName(String name){
-        if (packSprites)return name;
-        return Strings.format("@-@",modInfo==null?"braindustry":modInfo.name,name);
+    public static String fullName(String name) {
+        if (packSprites) return name;
+        return Strings.format("@-@", modInfo == null ? "braindustry" : modInfo.name, name);
     }
 
-    public static Dialog getInfoDialog(String title, String subTitle, String message, Color lineColor){
+    public static Dialog getInfoDialog(String title, String subTitle, String message, Color lineColor) {
         return new Dialog(title) {
             {
                 this.setFillParent(true);
@@ -117,8 +119,8 @@ public class modFunc {
         };
     }
 
-    public static String getTranslateName(String name){
-        return Strings.format("@.@", modInfo.name,name);
+    public static String getTranslateName(String name) {
+        return Strings.format("@.@", modInfo.name, name);
     }
 
     private static void showExceptionDialog(Throwable t) {
@@ -135,7 +137,7 @@ public class modFunc {
                 this.cont.row();
                 this.cont.image().width(300.0F).pad(2.0F).colspan(2).height(4.0F).color(Color.scarlet);
                 this.cont.row();
-                ((Label)this.cont.add((text.startsWith("@") ? Core.bundle.get(text.substring(1)) : text) + (message == null ? "" : "\n[lightgray](" + message + ")")).colspan(2).wrap().growX().center().get()).setAlignment(1);
+                ((Label) this.cont.add((text.startsWith("@") ? Core.bundle.get(text.substring(1)) : text) + (message == null ? "" : "\n[lightgray](" + message + ")")).colspan(2).wrap().growX().center().get()).setAlignment(1);
                 this.cont.row();
                 Collapser col = new Collapser((base) -> {
                     base.pane((t) -> {
@@ -155,22 +157,23 @@ public class modFunc {
             }
         }).show();
     }
-    public static void showException(Exception exception){
+
+    public static void showException(Exception exception) {
         Log.err(exception);
         try {
             Vars.ui.showException(Strings.format("@: error", modInfo.meta.displayName), exception);
-        } catch (NullPointerException n){
+        } catch (NullPointerException n) {
             Events.on(EventType.ClientLoadEvent.class, event -> {
-                showExceptionDialog(Strings.format("@: error", modInfo==null?null:modInfo.meta.displayName), exception);
+                showExceptionDialog(Strings.format("@: error", modInfo == null ? null : modInfo.meta.displayName), exception);
             });
         }
     }
 
-    public static <T> void  EventOn(Class<T> type, Cons<T> listener){
+    public static <T> void EventOn(Class<T> type, Cons<T> listener) {
         Events.on(type, (e) -> {
-            try{
+            try {
                 listener.get(e);
-            } catch (Exception ex){
+            } catch (Exception ex) {
                 showException(ex);
             }
         });
@@ -208,16 +211,16 @@ public class modFunc {
     }
 
     public static void print(String text, Object... args) {
-        if (true){
-            Log.info("[@] @",modInfo.name, Strings.format(text, args));
+        if (true) {
+            Log.info("[@] @", modInfo.name, Strings.format(text, args));
             return;
         }
-        Log.info("[@/@]: @",modInfo.name, modInfo.meta.displayName, Strings.format(text, args));
+        Log.info("[@/@]: @", modInfo.name, modInfo.meta.displayName, Strings.format(text, args));
     }
 
     public static boolean selected(Building building) {
-        if (Vars.headless)return false;
-            return Vars.control.input.frag.config.getSelectedTile() == building;
+        if (Vars.headless) return false;
+        return Vars.control.input.frag.config.getSelectedTile() == building;
 
     }
 }

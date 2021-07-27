@@ -20,6 +20,7 @@ import mindustry.ui.Styles;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import static mindustry.Vars.mobile;
 import static mindustry.Vars.ui;
 
 public class MenuButtons {
@@ -59,20 +60,28 @@ public class MenuButtons {
     public static void menuButton(MenuButton... menuButtons) {
         Table container=null;
         WidgetGroup widgetGroup=null;
+        if (mobile)return;
         try {
             currentMenu = null;
             widgetGroup = (WidgetGroup) ui.menuGroup.getChildren().first();
-            container = (Table) widgetGroup.getChildren().find(el -> "menu container".equals(el.name));
-            Func<String, Boolf<Cell>> find = (name) -> (cell -> cell.get() != null && name.equals(cell.get().name));
-            t = (Table) container.getCells().find(find.get("buttons")).get();
-            submenu = (Table) container.getCells().find(find.get("submenu")).get();
-            buttons(t, menuButtons);
+            if (!mobile){
+                container = (Table) widgetGroup.getChildren().find(el -> "menu container".equals(el.name));
+                Func<String, Boolf<Cell>> find = (name) -> (cell -> cell.get() != null && name.equals(cell.get().name));
+                t = (Table) container.getCells().find(find.get("buttons")).get();
+                submenu = (Table) container.getCells().find(find.get("submenu")).get();
+            } else {
+                container = (Table) widgetGroup.getChildren().find(el -> "menu container".equals(el.name));
+                Func<String, Boolf<Cell>> find = (name) -> (cell -> cell.get() != null && name.equals(cell.get().name));
+                t = (Table) container.getCells().find(find.get("buttons")).get();
+                submenu = (Table) container.getCells().find(find.get("submenu")).get();
+            }
+            buttonsDesktop(t, menuButtons);
         } catch (Exception exception) {
             throw new RuntimeException(Strings.format("container: <<@>>\nwidgetGroup: <<@>>\nexception: <<@>>",container,widgetGroup,parseException(exception)));
         }
     }
 
-    private static void buttons(Table t, MenuButton... menuButtons) {
+    private static void buttonsDesktop(Table t, MenuButton... menuButtons) {
         for (MenuButton b : menuButtons) {
             if (b == null) continue;
             Button[] out = {null};
@@ -102,7 +111,7 @@ public class MenuButtons {
                         //correctly offset the button
                         submenu.add().height((Core.graphics.getHeight() - Core.scene.marginTop - Core.scene.marginBottom - out[0].getY(Align.topLeft)) / Scl.scl(1f));
                         submenu.row();
-                        buttons(submenu, b.submenu);
+                        buttonsDesktop(submenu, b.submenu);
                     } else {
                         if (b.closeAfterPress) {
                             currentMenu = null;
