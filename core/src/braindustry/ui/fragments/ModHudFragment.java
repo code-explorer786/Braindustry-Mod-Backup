@@ -101,7 +101,13 @@ public class ModHudFragment {
                 })
         ).size(120f, 80).padRight(4);
         Table actor = new Table();
-        actor.add(unitBar).left().top();
+       if (!mobile) {
+           actor.add(unitBar).left().top();
+       }else {
+           Table overlaymarker = ui.hudGroup.find("overlaymarker");
+           Table mobile_buttons = overlaymarker.find("mobile buttons");
+           actor.add(unitBar).left().top().padTop(mobile_buttons.getHeight()+4f);
+       }
         actor.row();
         actor.add().growY();
         actor.left().bottom();
