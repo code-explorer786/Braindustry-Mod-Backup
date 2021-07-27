@@ -39,6 +39,9 @@ public class ModMenuFragment{
         try {
             WidgetGroup widgetGroup = (WidgetGroup) ui.menuGroup.getChildren().first();
             widgetGroup.getChildren().set(0, new Element() {
+                {
+                    name="custom-menu-background";
+                }
                 @Override
                 public void draw() {
                     lastRenderer.render();
@@ -46,6 +49,7 @@ public class ModMenuFragment{
             });
             widgetGroup.getChildren().set(mobile ? 4 : (becontrol.active() ? 3 : 2), new Element() {
                 {
+                    name="braindustry-logo";
                     touchable = Touchable.disabled;
                 }
 

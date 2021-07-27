@@ -13,8 +13,12 @@ import arc.scene.ui.layout.Scl;
 import arc.scene.ui.layout.Table;
 import arc.scene.ui.layout.WidgetGroup;
 import arc.util.Align;
+import arc.util.Strings;
 import mindustry.Vars;
 import mindustry.ui.Styles;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import static mindustry.Vars.ui;
 
@@ -46,18 +50,25 @@ public class MenuButtons {
         submenu.clearActions();
         submenu.actions(Actions.alpha(1f), Actions.alpha(0f, 0.2f, Interp.fade), Actions.run(() -> submenu.clearChildren()));
     }
-
+    private static String parseException(Throwable e){
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        e.printStackTrace(pw);
+        return sw.toString();
+    }
     public static void menuButton(MenuButton... menuButtons) {
+        Table container=null;
+        WidgetGroup widgetGroup=null;
         try {
             currentMenu = null;
-            WidgetGroup widgetGroup = (WidgetGroup) ui.menuGroup.getChildren().first();
-            Table container = (Table) widgetGroup.getChildren().find(el -> "menu container".equals(el.name));
+            widgetGroup = (WidgetGroup) ui.menuGroup.getChildren().first();
+            container = (Table) widgetGroup.getChildren().find(el -> "menu container".equals(el.name));
             Func<String, Boolf<Cell>> find = (name) -> (cell -> cell.get() != null && name.equals(cell.get().name));
             t = (Table) container.getCells().find(find.get("buttons")).get();
             submenu = (Table) container.getCells().find(find.get("submenu")).get();
             buttons(t, menuButtons);
         } catch (Exception exception) {
-            throw new RuntimeException(exception);
+            throw new RuntimeException(Strings.format("container: <<@>>\nwidgetGroup: <<@>>\nexception: <<@>>",container,widgetGroup,parseException(exception)));
         }
     }
 
