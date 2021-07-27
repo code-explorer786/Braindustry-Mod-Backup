@@ -1,10 +1,10 @@
 package Gas.entities;
 
-import Gas.gen.Cloud;
 import Gas.type.Gas;
 import arc.math.Mathf;
 import arc.struct.IntMap;
 import arc.util.Time;
+import braindustry.gen.Cloud;
 import mindustry.content.Bullets;
 import mindustry.content.Fx;
 import mindustry.content.Liquids;
@@ -16,7 +16,7 @@ import mindustry.world.Tile;
 
 public class Clouds {
     private static final IntMap<Cloud> map = new IntMap();
-    public static final float maxLiquid = 70.0F;
+    public static final float maxGas = 70.0F;
 
     public Clouds() {
     }

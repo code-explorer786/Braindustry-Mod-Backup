@@ -227,7 +227,13 @@ public class ModEntityIO {
                 s("s", field + ".id");
             }else{
                 String simpleName = BaseProcessor.simpleName(type);
-                st(field + "mindustry.Vars.content.getByID(mindustry.ctype.ContentType.$L, read.s())", simpleName.contains("Unit")?"unit":simpleName.toLowerCase().replace("type", ""));
+                String contentType =  simpleName.toLowerCase().replace("type", "");
+                if (simpleName.contains("Unit")) {
+                    contentType = "unit";
+                } else if (contentType.equals("gas")){
+                    contentType="typeid_UNUSED";
+                }
+                st(field + "mindustry.Vars.content.getByID(mindustry.ctype.ContentType.$L, read.s())", contentType);
             }
         }else if(serializer.writers.containsKey(type) && write){
             st("$L(write, $L)", serializer.writers.get(type), field);
