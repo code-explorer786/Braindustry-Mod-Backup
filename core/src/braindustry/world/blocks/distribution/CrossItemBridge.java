@@ -12,7 +12,7 @@ import arc.math.Mathf;
 import arc.math.geom.Point2;
 import arc.math.geom.Position;
 import arc.math.geom.Vec2;
-import arc.struct.IntSet;
+import arc.struct.IntSeq;
 import arc.struct.OrderedMap;
 import arc.struct.Seq;
 import arc.util.Time;
@@ -20,6 +20,7 @@ import arc.util.Tmp;
 import braindustry.world.meta.AStat;
 import braindustry.world.meta.AStats;
 import mindustry.Vars;
+import mindustry.core.Renderer;
 import mindustry.entities.units.BuildPlan;
 import mindustry.gen.Building;
 import mindustry.graphics.Drawf;
@@ -34,6 +35,9 @@ import mindustry.world.meta.StatUnit;
 import mindustryAddition.graphics.ModLines;
 import mindustryAddition.world.blocks.BuildingLabel;
 import mindustryAddition.world.blocks.BuildingTaskQueue;
+
+import static mindustry.Vars.tilesize;
+import static mindustry.Vars.world;
 
 public class CrossItemBridge extends ItemBridge {
     public Prov<Seq<Block>> connectBlocksGetter = () -> new Seq<>();
@@ -157,53 +161,53 @@ public class CrossItemBridge extends ItemBridge {
     }
 
     public boolean linkValid(Tile tile, Tile other, boolean checkDouble, boolean old) {
-            if (old) {
-                if (other != null && tile != null && this.positionsValid(tile.x, tile.y, other.x, other.y)) {
-                    return (other.block() == tile.block() && tile.block() == this || !(tile.block() instanceof ItemBridge) && other.block() == this) && (other.team() == tile.team() || tile.block() != this) && (!checkDouble || ((ItemBridgeBuild) other.build).link != tile.pos());
-                } else {
-                    return false;
-                }
-            }else {
-                check:
-                {
-                    if (!(other != null && tile != null) || other.build == null || tile.build == null) break check;
-                    other = other.build.tile;
-                    tile = tile.build.tile;
-                    int offset = other.block().isMultiblock() ? Mathf.floor(other.block().size / 2f) : 0;
-                    boolean b2 = tile.pos() != other.pos();
-                    if (tile.block() == this) {
-                        Vec2 offVec = Tmp.v1.trns(tile.angleTo(other) + 90f, offset, offset);
-                        if (!positionsValid(tile.x, tile.y, Mathf.ceil(other.x + offVec.x), Mathf.ceil(other.y + offVec.y)))
-                            break check;
-                        CrossItemBridge block = (CrossItemBridge) tile.block();
-                        boolean connected = false;
-                        if (other.build instanceof ItemBridgeBuild) {
-                            connected = other.build.<ItemBridgeBuild>as().link == tile.pos();
-                        }
-                        return ((block.connectFilter.get(other.build)) || !(tile.block() instanceof ItemBridge) && other.block() == this) &&
-                               b2 &&
-                               (other.team() == tile.team() || other.block() != this) &&
+        if (old) {
+            if (other != null && tile != null && this.positionsValid(tile.x, tile.y, other.x, other.y)) {
+                return (other.block() == tile.block() && tile.block() == this || !(tile.block() instanceof ItemBridge) && other.block() == this) && (other.team() == tile.team() || tile.block() != this) && (!checkDouble || ((ItemBridgeBuild) other.build).link != tile.pos());
+            } else {
+                return false;
+            }
+        } else {
+            check:
+            {
+                if (!(other != null && tile != null) || other.build == null || tile.build == null) break check;
+                other = other.build.tile;
+                tile = tile.build.tile;
+                int offset = other.block().isMultiblock() ? Mathf.floor(other.block().size / 2f) : 0;
+                boolean b2 = tile.pos() != other.pos();
+                if (tile.block() == this) {
+                    Vec2 offVec = Tmp.v1.trns(tile.angleTo(other) + 90f, offset, offset);
+                    if (!positionsValid(tile.x, tile.y, Mathf.ceil(other.x + offVec.x), Mathf.ceil(other.y + offVec.y)))
+                        break check;
+                    CrossItemBridge block = (CrossItemBridge) tile.block();
+                    boolean connected = false;
+                    if (other.build instanceof ItemBridgeBuild) {
+                        connected = other.build.<ItemBridgeBuild>as().link == tile.pos();
+                    }
+                    return ((block.connectFilter.get(other.build)) || !(tile.block() instanceof ItemBridge) && other.block() == this) &&
+                           b2 &&
+                           (other.team() == tile.team() || other.block() != this) &&
 
-                               (!checkDouble || !connected);
+                           (!checkDouble || !connected);
+                } else {
+                    if (!positionsValid(tile.x, tile.y, other.x, other.y)) break check;
+                    boolean b3 = other.team() == tile.team() || tile.block() != this;
+                    if (other.block() == this) {
+                        CrossItemBridge block = (CrossItemBridge) other.block();
+                        boolean b1 = true;
+                        boolean b4 = !checkDouble || !(other.build instanceof ItemBridgeBuild && ((ItemBridgeBuild) other.build).link == tile.pos());
+                        return b1 &&
+                               b2 &&
+                               b3 &&
+                               b4;
                     } else {
-                        if (!positionsValid(tile.x, tile.y, other.x, other.y)) break check;
-                        boolean b3 = other.team() == tile.team() || tile.block() != this;
-                        if (other.block() == this) {
-                            CrossItemBridge block = (CrossItemBridge) other.block();
-                            boolean b1 = true;
-                            boolean b4 = !checkDouble || !(other.build instanceof ItemBridgeBuild && ((ItemBridgeBuild) other.build).link == tile.pos());
-                            return b1 &&
-                                   b2 &&
-                                   b3 &&
-                                   b4;
-                        } else {
-                            return (other.block() == tile.block() && tile.block() == this || !(tile.block() instanceof ItemBridge) && other.block() == this)
-                                   && b3 &&
-                                   (!checkDouble || ((ItemBridgeBuild) other.build).link != tile.pos());
-                        }
+                        return (other.block() == tile.block() && tile.block() == this || !(tile.block() instanceof ItemBridge) && other.block() == this)
+                               && b3 &&
+                               (!checkDouble || ((ItemBridgeBuild) other.build).link != tile.pos());
                     }
                 }
             }
+        }
 
         return false;
     }
@@ -240,20 +244,14 @@ public class CrossItemBridge extends ItemBridge {
 
         @Override
         public void checkIncoming() {
-            IntSet.IntSetIterator it = this.incoming.iterator();
 
-            while (true) {
-                Tile other;
-                do {
-                    if (!it.hasNext) {
-                        return;
-                    }
-
-                    int i = it.next();
-                    other = Vars.world.tile(i);
-                } while (linkValid(this.tile, other, false) && (other.build instanceof ItemBridgeBuild && ((ItemBridgeBuild) other.build).link == this.tile.pos()));
-
-                it.remove();
+            Tile other;
+            for (int i : incoming.toArray()) {
+                other = Vars.world.tile(i);
+                boolean valid = linkValid(this.tile, other, false) && (other.build instanceof ItemBridgeBuild && ((ItemBridgeBuild) other.build).link == this.tile.pos());
+                if (!valid) {
+                    incoming.removeValue(i);
+                }
             }
         }
 
@@ -271,18 +269,18 @@ public class CrossItemBridge extends ItemBridge {
 
         public boolean onConfigureTileTapped(Building other) {
             if (other instanceof ItemBridge.ItemBridgeBuild && ((ItemBridge.ItemBridgeBuild) other).link == this.pos()) {
-                incoming.remove(other.pos());
+                incoming.removeValue(other.pos());
                 other.<ItemBridgeBuild>as().incoming.add(this.pos());
                 this.configure(other.pos());
                 other.configure(-1);
             } else if (linkValid(this.tile, other.tile)) {
                 if (this.link == other.pos()) {
-                    if (other instanceof ItemBridgeBuild) other.<ItemBridgeBuild>as().incoming.remove(this.pos());
+                    if (other instanceof ItemBridgeBuild) other.<ItemBridgeBuild>as().incoming.removeValue(this.pos());
                     incoming.add(other.pos());
                     this.configure(-1);
                 } else if (!(other instanceof CrossItemBridgeBuild && !cast(other).canLinked()) && (canLinked() || canReLink())) {
                     if (other instanceof ItemBridgeBuild) other.<ItemBridgeBuild>as().incoming.add(this.pos());
-                    incoming.remove(other.pos());
+                    incoming.removeValue(other.pos());
                     this.configure(other.pos());
                 }
 
@@ -294,35 +292,104 @@ public class CrossItemBridge extends ItemBridge {
 
         @Override
         public void updateTile() {
-            incoming.shrink(maxConnections - (link == -1 ? 0 : 1));
+            incoming.size = maxConnections - (link == -1 ? 0 : 1);
+            incoming.shrink();
             runUpdateTaskQueue();
             Building linkBuilding = Vars.world.build(link);
             if (linkBuilding != null) {
                 configureAny(linkBuilding.pos());
             }
-            this.time += this.cycleSpeed * this.delta();
-            this.time2 += (this.cycleSpeed - 1.0F) * this.delta();
-            this.checkIncoming();
-            Tile other = Vars.world.tile(this.link);
-            if (!linkValid(this.tile, other)) {
-                this.dump();
-                this.uptime = 0.0F;
+
+            if (timer(timerCheckMoved, 30f)) {
+                wasMoved = moved;
+                moved = false;
+            }
+            time += wasMoved ? delta() : 0f;
+
+            checkIncoming();
+
+            Tile other = world.tile(link);
+            if (!linkValid(tile, other)) {
+                doDump();
+                warmup = 0f;
             } else {
-                if (other.build instanceof ItemBridgeBuild)
+                if (other.build instanceof ItemBridgeBuild) {
                     if (other.build instanceof CrossItemBridgeBuild && !cast(other.build).acceptIncoming(this.tile.pos())) {
                         configureAny(-1);
                         return;
                     }
-                if (this.consValid() && Mathf.zero(1.0F - this.efficiency())) {
-                    this.uptime = Mathf.lerpDelta(this.uptime, 1.0F, 0.04F);
-                } else {
-                    this.uptime = Mathf.lerpDelta(this.uptime, 0.0F, 0.02F);
                 }
 
+                IntSeq inc = ((ItemBridgeBuild) other.build).incoming;
+                int pos = tile.pos();
+                if (!inc.contains(pos)) {
+                    inc.add(pos);
+                }
 
-                this.updateTransport(other.build);
+                warmup = Mathf.approachDelta(warmup, efficiency(), 1f / 30f);
+                updateTransport(other.build);
             }
 
+        }
+
+        public void doDump() {
+            //allow dumping multiple times per frame
+            dumpAccumulate();
+        }
+
+        public void draw() {
+            drawBase();
+            Draw.z(70.0F);
+            Tile other = Vars.world.tile(this.link);
+            Building build = Vars.world.build(link);
+            if (build == this) build = null;
+            if (build != null) other = build.tile;
+            if (linkValid(this.tile, other) && build != null) {
+                if (!Mathf.zero(Renderer.bridgeOpacity)) {
+                    final float angle = Angles.angle(x, y, build.x, build.y);
+                    float vx = Mathf.cosDeg(angle);
+                    float vy = Mathf.sinDeg(angle);
+                    float len1 = (size * 8f) / 2.0F - 1.5F;
+                    float len2 = (build.block.size * 8f) / 2.0F - 1.5F;
+                    float x = this.x + vx * len1, y = this.y + vy * len1,
+                            x2 = build.x - vx * len2, y2 = build.y - vy * len2;
+                    float
+                            d360x = (vx * 8f) / 2.0F,
+                            d360y = (vy * 8f) / 2.0F,
+                            warmup = Vars.state.isEditor() ? 1.0F : this.warmup;
+                    if (!isMultiblock()) {
+                        x -= d360x;
+                        y -= d360y;
+                    }
+                    float ex, ey, bx, by;
+                    by = y2;
+                    bx = x2;
+                    ex = x2;
+                    ey = y2;
+                    Draw.color(Color.white);
+                    Draw.color(Color.white, Color.black, Mathf.absin(Time.time, 6.0F, 0.07F));
+                    Draw.alpha(Math.max(this.warmup, 0.25F) * Renderer.bridgeOpacity);
+                    Draw.rect(endRegion, x, y, angle + 90);
+                    Draw.rect(endRegion, ex + d360x, ey + d360y, angle + 270f);
+                    Lines.stroke(8.0F);
+
+                    Lines.line(bridgeRegion, x + d360x, y + d360y, bx, by, false);
+                    int dist = (int) Mathf.dst(x, y, x2, y2)-1;
+                    int arrows = (int)(dist * tilesize / arrowSpacing);
+                    Draw.color();
+                    Vec2 arrowOffsetVector = new Vec2(Tmp.v1).scl(1f).setLength(1f);
+                    arrowOffsetVector.trns(angle - 45f, 1f, 1f);
+                    for (float a = 0; a < arrows; ++a) {
+                        Draw.alpha(Mathf.absin(a - time / arrowTimeScl, arrowPeriod, 1f) * warmup * Renderer.bridgeOpacity);
+                        float arrowX, arrowY;
+                        arrowX = x + arrowOffsetVector.x * (tilesize / 2f + a * arrowSpacing + arrowOffset);
+                        arrowY=y + arrowOffsetVector.y * (tilesize / 2f + a * arrowSpacing + arrowOffset);
+                        Draw.rect(arrowRegion, arrowX, arrowY,
+                                angle);
+                    }
+                    Draw.reset();
+                }
+            }
         }
 
         public void drawSelect() {
@@ -330,9 +397,9 @@ public class CrossItemBridge extends ItemBridge {
                 drawInput(Vars.world.tile(link));
             }
 
-            incoming.each((pos) -> {
+            for (int pos : incoming.items) {
                 drawInput(Vars.world.tile(pos));
-            });
+            }
             Draw.reset();
         }
 
@@ -397,67 +464,6 @@ public class CrossItemBridge extends ItemBridge {
 
         }
 
-        public void draw() {
-            drawBase();
-            Draw.z(70.0F);
-            Tile other = Vars.world.tile(this.link);
-            Building build = Vars.world.build(link);
-            if (build == this) build = null;
-            if (build != null) other = build.tile;
-            if (linkValid(this.tile, other) && build != null) {
-                float opacity = (float) Core.settings.getInt("bridgeopacity") / 100.0F;
-                if (!Mathf.zero(opacity)) {
-                    final float angle = Angles.angle(x, y, build.x, build.y);
-                    float vx = Mathf.cosDeg(angle);
-                    float vy = Mathf.sinDeg(angle);
-                    float len1 = (size * 8f) / 2.0F - 1.5F;
-                    float len2 = (build.block.size * 8f) / 2.0F - 1.5F;
-                    float x = this.x + vx * len1, y = this.y + vy * len1,
-                            x2 = build.x - vx * len2, y2 = build.y - vy * len2;
-
-                    Tmp.v1.set(x, y).sub(x2, y2).setLength(4.0F).scl(-1.0F);
-                    Tmp.v2.set(x, y).sub(x2, y2).setLength(1.0F).scl(1.0F);
-                    Tmp.v2.setZero().trns((angle + 135f), 0.5f, 0.5f);
-                    float
-                            d360x = (vx * 8f) / 2.0F,
-                            d360y = (vy * 8f) / 2.0F,
-                            uptime = Vars.state.isEditor() ? 1.0F : this.uptime;
-                    if (!isMultiblock()) {
-                        x -= d360x;
-                        y -= d360y;
-                    }
-                    float ex, ey, bx, by;
-                    by = y2;
-                    bx = x2;
-                    ex = x2;
-                    ey = y2;
-                    Draw.color(Color.white);
-                    Draw.color(Color.white, Color.black, Mathf.absin(Time.time, 6.0F, 0.07F));
-                    Draw.alpha(Math.max(this.uptime, 0.25F) * opacity);
-                    Draw.rect(endRegion, x, y, angle + 90);
-                    Draw.rect(endRegion, ex + d360x, ey + d360y, angle + 270f);
-                    Lines.stroke(8.0F);
-
-                    Lines.line(bridgeRegion, x + d360x, y + d360y, bx, by, false);
-                    int dist = (int) Mathf.dst(x, y, x2, y2);
-                    float time = this.time2 / 1.7F;
-                    int arrows = dist / 6;
-                    Draw.color();
-                    Vec2 arrowOffset = new Vec2(Tmp.v1).scl(1f).setLength(1f);
-                    arrowOffset.trns(angle - 45f, 1f, 1f);
-                    for (float a = 0; a < arrows; ++a) {
-                        Draw.alpha(Mathf.absin(a / arrows - time / 100.0F, 0.1F, 1.0F) * uptime * opacity);
-                        float arrowX,arrowY;
-                        arrowX = x + (float) arrowOffset.x * (4.0F + (float) a * 4.0F + time % 4.0F);
-                        arrowY = y + (float) arrowOffset.y * (4.0F + (float) a * 4.0F + time % 4.0F);
-
-                        Draw.rect(arrowRegion, arrowX, arrowY,
-                                angle);
-                    }
-                    Draw.reset();
-                }
-            }
-        }
 
     }
 }

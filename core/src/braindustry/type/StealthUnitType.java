@@ -94,7 +94,7 @@ public class StealthUnitType extends ModUnitType {
             }
 
             if(state.rules.unitAmmo){
-                bars.add(new Bar(ammoType.icon + " " + Core.bundle.get("stat.ammo"), ammoType.barColor, () -> unit.ammo / ammoCapacity));
+                bars.add(new Bar(ammoType.icon() + " " + Core.bundle.get("stat.ammo"), ammoType.barColor(), () -> unit.ammo / ammoCapacity));
                 bars.row();
             }
 

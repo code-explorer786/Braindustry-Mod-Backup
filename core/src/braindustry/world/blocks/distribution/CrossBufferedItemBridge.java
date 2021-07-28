@@ -59,16 +59,16 @@ public class CrossBufferedItemBridge extends CrossItemBridge {
                     float
                             d360x = (vx * 8f) / 2.0F,
                             d360y = (vy * 8f) / 2.0F,
-                            uptime = Vars.state.isEditor() ? 1.0F : this.uptime;
+                            warmup = Vars.state.isEditor() ? 1.0F : this.warmup;
                     if (!isMultiblock()) {
                         x -=d360x;
                         y -=d360y;
                     }
                     float
-                            ex = Mathf.lerp(x+d360x, x2, uptime),
-                            ey = Mathf.lerp(y+d360y, y2, uptime),
-                            bx = Mathf.lerp(x+d360x, x2 , uptime),
-                            by = Mathf.lerp(y+d360y , y2 , uptime);
+                            ex = Mathf.lerp(x+d360x, x2, warmup),
+                            ey = Mathf.lerp(y+d360y, y2, warmup),
+                            bx = Mathf.lerp(x+d360x, x2 , warmup),
+                            by = Mathf.lerp(y+d360y , y2 , warmup);
                     Draw.color(Color.white);
                     Draw.alpha(opacity);
                     Draw.rect(endRegion, x, y, angle + 90);
@@ -81,8 +81,8 @@ public class CrossBufferedItemBridge extends CrossItemBridge {
                     Draw.color();
                     Vec2 arrowOffset = new Vec2().trns(angle - 45f, 1f, 1f);
                     for (float a = 0; a < arrows; ++a) {
-                        Draw.alpha(Mathf.absin(a / arrows - this.time / 100.0F, 0.1F, 1.0F) * uptime * opacity);
-                        final float progress = uptime * ((1f / arrows) * (a) + 1f / arrows / 2f);
+                        Draw.alpha(Mathf.absin(a / arrows - this.time / 100.0F, 0.1F, 1.0F) * warmup * opacity);
+                        final float progress = warmup * ((1f / arrows) * (a) + 1f / arrows / 2f);
                         float arrowX = x + Mathf.lerp(arrowOffset.x * 4f, ex - x - arrowOffset.x * 4f, progress);
                         float arrowY = y + Mathf.lerp(arrowOffset.y * 4f, ey - y - arrowOffset.y * 4f, progress);
                         Draw.rect(arrowRegion, arrowX, arrowY,angle);
@@ -93,17 +93,15 @@ public class CrossBufferedItemBridge extends CrossItemBridge {
             }
         }
         public void updateTransport(Building other) {
-            if (buffer.accepts() && items.total() > 0) {
+            if(buffer.accepts() && items.total() > 0){
                 buffer.accept(items.take());
             }
 
             Item item = buffer.poll(speed / timeScale);
-            if (timer(timerAccept, 4.0F / timeScale) && item != null && other.acceptItem(this, item)) {
-                cycleSpeed = Mathf.lerpDelta(cycleSpeed, 4.0F, 0.05F);
+            if(timer(timerAccept, 4 / timeScale) && item != null && other.acceptItem(this, item)){
+                moved = true;
                 other.handleItem(this, item);
                 buffer.remove();
-            } else {
-                cycleSpeed = Mathf.lerpDelta(cycleSpeed, 0.0F, 0.008F);
             }
 
         }

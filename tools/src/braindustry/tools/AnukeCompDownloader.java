@@ -110,7 +110,7 @@ public class AnukeCompDownloader {
                 names.add(fi.nameWithoutExtension());
             }
             StringBuilder file = new StringBuilder();
-            file.append("package braindustry.type;\n" +
+            file.append("package braindustry.entities.compByAnuke;\n" +
                         "\n" +
                         "import braindustry.annotations.ModAnnotations;\n" +
                         "import mindustry.gen.Unitc;\n" +

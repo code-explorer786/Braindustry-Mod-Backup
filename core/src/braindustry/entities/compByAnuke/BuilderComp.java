@@ -20,7 +20,6 @@ import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.*;
 import mindustry.world.blocks.ConstructBlock.*;
-import mindustry.world.blocks.storage.CoreBlock.*;
 
 import java.util.*;
 
@@ -103,7 +102,7 @@ abstract class BuilderComp implements Posc, Statusc, Teamc, Rotc {
         ConstructBuild cb;
         if (!((tile.build instanceof ConstructBuild && (cb = (ConstructBuild) tile.build) == tile.build))) {
             if (!current.initialized && !current.breaking && Build.validPlace(current.block, team, current.x, current.y, current.rotation)) {
-                boolean hasAll = infinite || current.isRotation(team) || !Structs.contains(current.block.requirements, i -> core != null && !core.items.has(i.item));
+                boolean hasAll = infinite || current.isRotation(team) || !Structs.contains(current.block.requirements, i -> core != null && !core.items.has(i.item, Math.min(Mathf.round(i.amount * state.rules.buildCostMultiplier), 1)));
                 if (hasAll) {
                     Call.beginPlace(self(), current.block, team, current.x, current.y, current.rotation);
                 } else {
@@ -180,9 +179,9 @@ abstract class BuilderComp implements Posc, Statusc, Teamc, Rotc {
      */
     boolean shouldSkip(BuildPlan request, @Nullable Building core) {
         // requests that you have at least *started* are considered
-        if (state.rules.infiniteResources || team.rules().infiniteResources || request.breaking || core == null || request.isRotation(team))
+        if (state.rules.infiniteResources || team.rules().infiniteResources || request.breaking || core == null || request.isRotation(team) || (isBuilding() && !within(plans.last(), buildingRange)))
             return false;
-        return (request.stuck && !core.items.has(request.block.requirements)) || (Structs.contains(request.block.requirements, i -> !core.items.has(i.item) && Mathf.round(i.amount * state.rules.buildCostMultiplier) > 0) && !request.initialized);
+        return (request.stuck && !core.items.has(request.block.requirements)) || (Structs.contains(request.block.requirements, i -> !core.items.has(i.item, Math.min(i.amount, 15)) && Mathf.round(i.amount * state.rules.buildCostMultiplier) > 0) && !request.initialized);
     }
 
     void removeBuild(int x, int y, boolean breaking) {

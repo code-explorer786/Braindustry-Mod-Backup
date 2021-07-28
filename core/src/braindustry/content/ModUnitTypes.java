@@ -32,10 +32,10 @@ import mindustry.entities.bullet.*;
 import mindustry.gen.*;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
-import mindustry.type.AmmoTypes;
 import mindustry.type.ItemStack;
 import mindustry.type.UnitType;
 import mindustry.type.Weapon;
+import mindustry.type.ammo.PowerAmmoType;
 
 
 public class ModUnitTypes implements ContentList {
@@ -200,7 +200,7 @@ public class ModUnitTypes implements ContentList {
                 hovering = true;
                 visualElevation = 0.2f;
                 allowLegStep = true;
-                ammoType = AmmoTypes.powerHigh;
+                ammoType =new PowerAmmoType(2000);
                 groundLayer = Layer.legUnit;
                 weapons.add(
                         new ModWeapon("capra-weapon") {
@@ -256,7 +256,7 @@ public class ModUnitTypes implements ContentList {
                 hovering = true;
                 visualElevation = 0.2f;
                 allowLegStep = true;
-                ammoType = AmmoTypes.powerHigh;
+                ammoType = new PowerAmmoType(2000);
 
                 this.immunities = ObjectSet.with(StatusEffects.burning, StatusEffects.melting);
                 this.weapons.add(
@@ -355,7 +355,7 @@ public class ModUnitTypes implements ContentList {
                 legLengthScl = 0.93f;
                 rippleScale = 3f;
                 legSpeed = 0.19f;
-                ammoType = AmmoTypes.powerHigh;
+                ammoType = new PowerAmmoType(2000);
                 buildSpeed = 1f;
 
                 legSplashDamage = 80;
@@ -1548,7 +1548,7 @@ public class ModUnitTypes implements ContentList {
                 this.groundLayer = Layer.legUnit;
                 this.allowLegStep = true;
                 this.visualElevation = 0.95f;
-                this.ammoType = AmmoTypes.powerHigh;
+                this.ammoType = new PowerAmmoType(2000);
                 this.mechStepShake = 0.25f;
                 this.mechStepParticles = true;
                 this.immunities = ObjectSet.with(StatusEffects.burning);
@@ -2368,7 +2368,7 @@ public class ModUnitTypes implements ContentList {
                 legLengthScl = 0.93f;
                 rippleScale = 3f;
                 legSpeed = 0.19f;
-                ammoType = AmmoTypes.powerHigh;
+                ammoType = new PowerAmmoType(2000);
                 buildSpeed = 1f;
                 legSplashDamage = 1700;
                 legSplashRange = 130;
