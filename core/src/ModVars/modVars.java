@@ -2,7 +2,6 @@ package ModVars;
 
 import ModVars.Classes.ModAssets;
 import ModVars.Classes.ModSettings;
-import ModVars.Classes.UI.ModControlsDialog;
 import ModVars.Classes.UI.settings.ModOtherSettingsDialog;
 import ModVars.Classes.UI.settings.ModSettingsDialog;
 import arc.func.Prov;
@@ -17,7 +16,6 @@ import braindustry.core.ModNetClient;
 import braindustry.core.ModUI;
 import braindustry.gen.ModBuilding;
 import braindustry.gen.ModNetServer;
-import braindustry.input.ModKeyBinds;
 import mindustry.ClientLauncher;
 import mindustry.ctype.Content;
 import mindustry.gen.Building;
@@ -33,8 +31,6 @@ public class modVars {
     public static ModSettings settings;
     public static ModAssets modAssets;
     public static Mods.LoadedMod modInfo;
-    public static ModKeyBinds keyBinds;
-    public static ModControlsDialog controls;
     public static ModOtherSettingsDialog otherSettingsDialog;
     public static ModSettingsDialog settingsDialog;
     public static ModNetClient netClient;

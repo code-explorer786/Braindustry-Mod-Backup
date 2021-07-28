@@ -1,5 +1,6 @@
 package braindustry.input;
 
+import ModVars.modVars;
 import arc.KeyBinds;
 import arc.input.InputDevice;
 import arc.input.KeyCode;
@@ -26,11 +27,12 @@ public enum ModBinding implements KeyBinds.KeyBind {
     private ModBinding(KeyBinds.KeybindValue defaultValue) {
         this(defaultValue, null);
     }
+
     public KeyBinds.KeybindValue defaultValue(InputDevice.DeviceType type) {
         return this.defaultValue;
     }
 
     public String category() {
-        return this.category;
+        return category != null ? category : modVars.modInfo.name;
     }
 }

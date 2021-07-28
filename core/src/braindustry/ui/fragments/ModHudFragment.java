@@ -110,7 +110,7 @@ public class ModHudFragment {
                cell.padTop(overlaymarker.getRowHeight(0)+overlaymarker.getRowHeight(1));
            });
        }
-        actor.visible(()-> ui.hudfrag.shown);
+        actor.visible(()-> ui.hudfrag.shown && state.isGame());
         actor.row();
         actor.add().growY();
         actor.left().bottom();

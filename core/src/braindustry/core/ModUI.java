@@ -2,17 +2,18 @@ package braindustry.core;
 
 import ModVars.Classes.UI.Cheat.ModCheatMenu;
 import ModVars.Classes.UI.CheatUI;
-import ModVars.Classes.UI.ModControlsDialog;
 import ModVars.Classes.UI.settings.ModOtherSettingsDialog;
 import ModVars.Classes.UI.settings.ModSettingsDialog;
+import ModVars.modVars;
 import arc.ApplicationListener;
 import arc.Core;
+import arc.KeyBinds;
 import arc.util.Disposable;
 import arc.util.Log;
+import arc.util.Time;
 import braindustry.ModListener;
 import braindustry.gen.StealthUnitc;
 import braindustry.input.ModBinding;
-import braindustry.input.ModKeyBinds;
 import braindustry.ui.AdvancedContentInfoDialog;
 import braindustry.ui.ModStyles;
 import braindustry.ui.dialogs.BackgroundStyle;
@@ -24,6 +25,7 @@ import mindustry.ui.dialogs.BaseDialog;
 
 import static ModVars.Classes.UI.CheatUI.*;
 import static ModVars.modVars.*;
+import static arc.Core.settings;
 import static braindustry.input.ModBinding.*;
 import static mindustry.Vars.headless;
 import static mindustry.Vars.ui;
@@ -46,9 +48,20 @@ public class ModUI implements Disposable, ApplicationListener {
     private boolean inited=false;
 
     public ModUI() {
-        keyBinds = new ModKeyBinds();
-        keyBinds.setDefaults(ModBinding.values());
-        keyBinds.load();
+        Time.mark();
+        KeyBinds.KeyBind[] keyBinds = Core.keybinds.getKeybinds();
+        KeyBinds.KeyBind[] modBindings = ModBinding.values();
+        KeyBinds.KeyBind[] defs = new KeyBinds.KeyBind[keyBinds.length + modBindings.length];
+        for (int i = 0; i < defs.length; i++) {
+            if (i<keyBinds.length){
+                defs[i]=keyBinds[i];
+            } else {
+                defs[i]=modBindings[i-keyBinds.length];
+            }
+        }
+        Log.info("[Braindustry]Time to combine arrays: @ms",Time.elapsed());
+        Core.keybinds.setDefaults(defs);
+        settings.load();
     }
 
     @Override
@@ -82,7 +95,6 @@ public class ModUI implements Disposable, ApplicationListener {
 
         colorPicker = new ModColorPicker();
         backgroundStyle = new BackgroundStyle();
-        controls = new ModControlsDialog();
         otherSettingsDialog = new ModOtherSettingsDialog();
         settingsDialog = new ModSettingsDialog();
     }
@@ -94,16 +106,16 @@ public class ModUI implements Disposable, ApplicationListener {
         boolean inGame = Vars.state.isGame();
 
         boolean inMenu = Vars.state.isMenu() || !ui.planet.isShown();
-        if (!controls.isShown()) {
-            if (keyBinds.keyTap(show_unit_dialog) && noDialog && inGame) {
+        if (!ui.controls.isShown()) {
+            if (Core.input.keyTap(show_unit_dialog) && noDialog && inGame) {
                 openUnitChooseDialog();
-            } else if (keyBinds.keyTap(show_team_dialog) && noDialog && inGame) {
+            } else if (Core.input.keyTap(show_team_dialog) && noDialog && inGame) {
                 openTeamChooseDialog();
-            } else if (keyBinds.keyTap(show_unlock_dialog) && !inMenu) {
+            } else if (Core.input.keyTap(show_unlock_dialog) && !inMenu) {
                 openUnlockContentDialog();
-            } else if (keyBinds.keyTap(show_item_manager_dialog) && noDialog) {
+            } else if (Core.input.keyTap(show_item_manager_dialog) && noDialog) {
                 openModCheatItemsMenu();
-            } else if (keyBinds.keyTap(show_rules_edit_dialog) && inGame && noDialog) {
+            } else if (Core.input.keyTap(show_rules_edit_dialog) && inGame && noDialog) {
                 openRulesEditDialog();
             }
         }

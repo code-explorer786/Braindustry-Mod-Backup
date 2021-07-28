@@ -1,6 +1,7 @@
 package braindustry.entities.comp;
 
 import ModVars.modVars;
+import arc.Core;
 import arc.func.Boolf;
 import arc.graphics.g2d.Draw;
 import arc.math.geom.Vec3;
@@ -59,7 +60,7 @@ public abstract class StealthComp implements StealthUnitc {
     public boolean selectStealth() {
         boolean bool;
         if (isLocal()) {
-            bool = modVars.keyBinds.keyTap(ModBinding.special_key);
+            bool = Core.input.keyTap(ModBinding.special_key);
             if (Vars.mobile) {
 
                 if (!check &&longPress) {

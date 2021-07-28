@@ -89,7 +89,7 @@ public class ModSettings {
                         button.label(() -> Strings.format("@", modInfo==null?"":modInfo.meta.displayName));
                     },
                     () -> {
-                        modVars.settingsDialog.show();
+                        modVars.otherSettingsDialog.show();
                     }).height(84).right().row();
         });
     }
