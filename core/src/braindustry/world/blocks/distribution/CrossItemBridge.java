@@ -16,7 +16,6 @@ import arc.struct.IntSeq;
 import arc.struct.OrderedMap;
 import arc.struct.Seq;
 import arc.util.Time;
-import arc.util.Tmp;
 import braindustry.world.meta.AStat;
 import braindustry.world.meta.AStats;
 import mindustry.Vars;
@@ -24,6 +23,7 @@ import mindustry.core.Renderer;
 import mindustry.entities.units.BuildPlan;
 import mindustry.gen.Building;
 import mindustry.graphics.Drawf;
+import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.input.Placement;
 import mindustry.ui.Bar;
@@ -34,8 +34,9 @@ import mindustry.world.meta.Stat;
 import mindustry.world.meta.StatUnit;
 import mindustryAddition.graphics.ModLines;
 import mindustryAddition.world.blocks.BuildingLabel;
-import mindustryAddition.world.blocks.BuildingTaskQueue;
 
+import static arc.util.Tmp.v1;
+import static arc.util.Tmp.v2;
 import static mindustry.Vars.tilesize;
 import static mindustry.Vars.world;
 
@@ -97,9 +98,9 @@ public class CrossItemBridge extends ItemBridge {
     @Override
     public void drawBridge(BuildPlan req, float ox, float oy, float flip) {
         Lines.stroke(8.0F);
-        Tmp.v1.set(ox, oy).sub(req.drawx(), req.drawy()).setLength(4.0F);
+        v1.set(ox, oy).sub(req.drawx(), req.drawy()).setLength(4.0F);
 //        Angles.angle(req.drawx(),req.drawy(),ox,oy)
-        Lines.line(bridgeRegion, req.drawx() + Tmp.v1.x, req.drawy() + Tmp.v1.y, ox - Tmp.v1.x, oy - Tmp.v1.y, false);
+        Lines.line(bridgeRegion, req.drawx() + v1.x, req.drawy() + v1.y, ox - v1.x, oy - v1.y, false);
         Draw.rect(arrowRegion, (req.drawx() + ox) / 2.0F, (req.drawy() + oy) / 2.0F, Angles.angle(req.drawx(), req.drawy(), ox, oy) + flip);
     }
 
@@ -137,8 +138,8 @@ public class CrossItemBridge extends ItemBridge {
                     rectY = (float) (y + link.y) / 2.0F * 8.0F - h / 2.0F;
 //            Lines.poly(ModLines.rotRect(rectX, rectY, w, h, angle).toArray(Vec2.class), 0, 0, 1f);
             ModLines.rect(rectX, rectY, w, h, angle);
-            Tmp.v1.set(x, y).sub(link.x, link.y).setLength(4.0F).scl(-1.0F);
-            Vec2 arrowOffset = new Vec2(Tmp.v1).scl(1f).setLength(1f);
+            v1.set(x, y).sub(link.x, link.y).setLength(4.0F).scl(-1.0F);
+            Vec2 arrowOffset = new Vec2(v1).scl(1f).setLength(1f);
             Draw.rect("bridge-arrow", link.x * 8f - arrowOffset.x * 8f, link.y * 8f - arrowOffset.y * 8f, angle - 90f);
         }
 
@@ -176,7 +177,7 @@ public class CrossItemBridge extends ItemBridge {
                 int offset = other.block().isMultiblock() ? Mathf.floor(other.block().size / 2f) : 0;
                 boolean b2 = tile.pos() != other.pos();
                 if (tile.block() == this) {
-                    Vec2 offVec = Tmp.v1.trns(tile.angleTo(other) + 90f, offset, offset);
+                    Vec2 offVec = v1.trns(tile.angleTo(other) + 90f, offset, offset);
                     if (!positionsValid(tile.x, tile.y, Mathf.ceil(other.x + offVec.x), Mathf.ceil(other.y + offVec.y)))
                         break check;
                     CrossItemBridge block = (CrossItemBridge) tile.block();
@@ -231,7 +232,7 @@ public class CrossItemBridge extends ItemBridge {
         });
     }
 
-    public class CrossItemBridgeBuild extends ItemBridge.ItemBridgeBuild implements BuildingLabel, BuildingTaskQueue {
+    public class CrossItemBridgeBuild extends ItemBridge.ItemBridgeBuild implements BuildingLabel {
         public void drawBase() {
             Draw.rect(this.block.region, this.x, this.y, this.block.rotate ? this.rotdeg() : 0.0F);
             this.drawTeamTop();
@@ -292,7 +293,7 @@ public class CrossItemBridge extends ItemBridge {
 
         @Override
         public void updateTile() {
-            incoming.size = maxConnections - (link == -1 ? 0 : 1);
+            incoming.size = Math.min(incoming.size, maxConnections - (link == -1 ? 0 : 1));
             incoming.shrink();
             runUpdateTaskQueue();
             Building linkBuilding = Vars.world.build(link);
@@ -339,57 +340,51 @@ public class CrossItemBridge extends ItemBridge {
 
         public void draw() {
             drawBase();
-            Draw.z(70.0F);
-            Tile other = Vars.world.tile(this.link);
+
+            Draw.z(Layer.power);
+
+            Tile other = Vars.world.tile(link);
             Building build = Vars.world.build(link);
             if (build == this) build = null;
             if (build != null) other = build.tile;
-            if (linkValid(this.tile, other) && build != null) {
-                if (!Mathf.zero(Renderer.bridgeOpacity)) {
-                    final float angle = Angles.angle(x, y, build.x, build.y);
-                    float vx = Mathf.cosDeg(angle);
-                    float vy = Mathf.sinDeg(angle);
-                    float len1 = (size * 8f) / 2.0F - 1.5F;
-                    float len2 = (build.block.size * 8f) / 2.0F - 1.5F;
-                    float x = this.x + vx * len1, y = this.y + vy * len1,
-                            x2 = build.x - vx * len2, y2 = build.y - vy * len2;
-                    float
-                            d360x = (vx * 8f) / 2.0F,
-                            d360y = (vy * 8f) / 2.0F,
-                            warmup = Vars.state.isEditor() ? 1.0F : this.warmup;
-                    if (!isMultiblock()) {
-                        x -= d360x;
-                        y -= d360y;
-                    }
-                    float ex, ey, bx, by;
-                    by = y2;
-                    bx = x2;
-                    ex = x2;
-                    ey = y2;
-                    Draw.color(Color.white);
-                    Draw.color(Color.white, Color.black, Mathf.absin(Time.time, 6.0F, 0.07F));
-                    Draw.alpha(Math.max(this.warmup, 0.25F) * Renderer.bridgeOpacity);
-                    Draw.rect(endRegion, x, y, angle + 90);
-                    Draw.rect(endRegion, ex + d360x, ey + d360y, angle + 270f);
-                    Lines.stroke(8.0F);
-
-                    Lines.line(bridgeRegion, x + d360x, y + d360y, bx, by, false);
-                    int dist = (int) Mathf.dst(x, y, x2, y2)-1;
-                    int arrows = (int)(dist * tilesize / arrowSpacing);
-                    Draw.color();
-                    Vec2 arrowOffsetVector = new Vec2(Tmp.v1).scl(1f).setLength(1f);
-                    arrowOffsetVector.trns(angle - 45f, 1f, 1f);
-                    for (float a = 0; a < arrows; ++a) {
-                        Draw.alpha(Mathf.absin(a - time / arrowTimeScl, arrowPeriod, 1f) * warmup * Renderer.bridgeOpacity);
-                        float arrowX, arrowY;
-                        arrowX = x + arrowOffsetVector.x * (tilesize / 2f + a * arrowSpacing + arrowOffset);
-                        arrowY=y + arrowOffsetVector.y * (tilesize / 2f + a * arrowSpacing + arrowOffset);
-                        Draw.rect(arrowRegion, arrowX, arrowY,
-                                angle);
-                    }
-                    Draw.reset();
-                }
+            if (!linkValid(this.tile, other) || build == null || Mathf.zero(Renderer.bridgeOpacity)) return;
+            final float angle = Angles.angle(x, y, build.x, build.y);
+            v1.trns(angle, tilesize / 2f);
+            float len1 = (size * tilesize) / 2.0F - 1.5F;
+            float len2 = (build.block.size * tilesize) / 2.0F - 1.5F;
+            final float x = this.x + Angles.trnsx(angle, len1), y = this.y + Angles.trnsy(angle, len1);
+            final float x2 = build.x - Angles.trnsx(angle, len2), y2 = build.y - Angles.trnsy(angle, len2);
+//            Draw.color(Color.white);
+            if (pulse) {
+                Draw.color(Color.white, Color.black, Mathf.absin(Time.time, 6f, 0.07f));
             }
+
+            Draw.alpha(Math.max(warmup, 0.25F) * Renderer.bridgeOpacity);
+            Draw.rect(endRegion, x - v1.x, y - v1.y, angle + 90);
+            Draw.rect(endRegion, x2 + v1.x, y2 + v1.y, angle + 270f);
+            Lines.stroke(8.0F);
+
+            Lines.line(bridgeRegion,
+                    x,
+                    y,
+                    x2,
+                    y2,
+                    false);
+            int dist = ((int) Mathf.dst(x - v1.x, y - v1.y, x2, y2) / tilesize) - 1;
+            Draw.color();
+            int arrows = (int) ((dist * tilesize - arrowOffset - tilesize / 2f) / arrowSpacing);
+            v2.trns(angle - 45f, 1f, 1f);
+            for (float a = 0; a < arrows; ++a) {
+                Draw.alpha(Mathf.absin(a - time / arrowTimeScl, arrowPeriod, 1f) * warmup * Renderer.bridgeOpacity);
+                float arrowX, arrowY;
+                arrowX = x - v1.x + v2.x * (tilesize / 2f + a * arrowSpacing + arrowOffset);
+                arrowY = y - v1.y + v2.y * (tilesize / 2f + a * arrowSpacing + arrowOffset);
+                Draw.rect(arrowRegion, arrowX, arrowY,
+                        angle);
+            }
+            Draw.reset();
+
+
         }
 
         public void drawSelect() {
@@ -407,7 +402,7 @@ public class CrossItemBridge extends ItemBridge {
             if (linkValid(this.tile, other, false)) {
                 boolean linked = other.pos() == this.link;
                 final float angle = tile.angleTo(other);
-                Tmp.v2.trns(angle, 2.0F);
+                v2.trns(angle, 2.0F);
                 float tx = tile.drawx();
                 float ty = tile.drawy();
                 float ox = other.drawx();
@@ -421,10 +416,10 @@ public class CrossItemBridge extends ItemBridge {
                 Lines.stroke(2.5F);
                 Lines.square(ox, oy, 2.0F, 45.0F);
                 Lines.stroke(2.5F);
-                Lines.line(tx + Tmp.v2.x, ty + Tmp.v2.y, ox - Tmp.v2.x, oy - Tmp.v2.y);
+                Lines.line(tx + v2.x, ty + v2.y, ox - v2.x, oy - v2.y);
                 Draw.color(linked ? Pal.place : Pal.accent);
                 Lines.stroke(1.0F);
-                Lines.line(tx + Tmp.v2.x, ty + Tmp.v2.y, ox - Tmp.v2.x, oy - Tmp.v2.y);
+                Lines.line(tx + v2.x, ty + v2.y, ox - v2.x, oy - v2.y);
                 Lines.square(ox, oy, 2.0F, 45.0F);
                 Draw.mixcol(Draw.getColor(), 1.0F);
                 Draw.color();
