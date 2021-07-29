@@ -1,5 +1,5 @@
 ![alt tag](https://github.com/pixaxeofpixie/pictures/blob/main/bannerbd.png)
-## Mindustry Mod By Braindustry Team(public beta)
+## Mindustry Mod By Quant Team(public beta)
 
 ## WARNING! Mod still in dev and may have bugs!
 
