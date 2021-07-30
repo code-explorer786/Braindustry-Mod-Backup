@@ -7,6 +7,7 @@ import arc.scene.ui.Button;
 import arc.scene.ui.Image;
 import arc.scene.ui.ScrollPane;
 import arc.scene.ui.layout.Cell;
+import arc.scene.ui.layout.Scl;
 import arc.scene.ui.layout.Table;
 import mindustry.Vars;
 import mindustry.content.UnitTypes;
@@ -31,14 +32,14 @@ public class UnitChooseDialog extends BaseDialog {
         cont.clear();
         Table table = new Table();
         float pad = 6f;
-        float rowCount = 5;
-        final float buttonSize = !mobile ? 100f : (Core.camera.width - pad * (rowCount-1)) / rowCount;
+        float coln = 5;
+        final float buttonSize = !mobile ? 100f : (Scl.scl(Core.graphics.getWidth()) - coln * pad) / (coln);
         ScrollPane pane = new ScrollPane(table);
         pane.setScrollingDisabled(true, false);
         int[] index = {0};
         for (UnitType unitType : Vars.content.units().select(u -> !u.isHidden())) {
             if (unitType == UnitTypes.block) continue;
-            if (index[0] % rowCount == 0) table.row();
+            if (index[0] % coln == 0) table.row();
             index[0]++;
             Button button = new Button();
             button.clearChildren();
@@ -63,7 +64,7 @@ public class UnitChooseDialog extends BaseDialog {
                     getInfoDialog("", "Don't use Block unit", "", Color.scarlet).show();
                 });
             }
-            table.add(button).width(buttonSize).height(buttonSize).pad(pad);
+            table.add(button).size(buttonSize).pad(pad);
         }
         this.cont.add(pane).growY().growX().bottom().center();
 

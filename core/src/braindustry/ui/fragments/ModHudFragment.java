@@ -10,6 +10,7 @@ import arc.math.Mathf;
 import arc.scene.Element;
 import arc.scene.style.Drawable;
 import arc.scene.style.TextureRegionDrawable;
+import arc.scene.ui.layout.Cell;
 import arc.scene.ui.layout.Table;
 import arc.util.Log;
 import arc.util.Scaling;
@@ -71,32 +72,32 @@ public class ModHudFragment {
                     t.getChildren().get(1).toFront();
                 })
         ).size(120f, 80).padRight(4);
-//        Table unitBar = new Table();
+        Table actor = new Table();
         if (!mobile) {
-            unitBar.add(unitBar).left().top();
-            unitBar.update(() -> unitBar.setSize(unitBar.getPrefWidth(), Core.graphics.getHeight()));
+            actor.add(unitBar).left().top();
+            actor.update(() -> unitBar.setSize(unitBar.getPrefWidth(), Core.graphics.getHeight()));
         } else {
             Table overlaymarker = ui.hudGroup.find("overlaymarker");
             Table mobile_buttons = overlaymarker.find("mobile buttons");
-//           Cell<Table> cell = actor.add(unitBar).left().top();
-            unitBar.update(() -> {
+           Cell<Table> cell = actor.add(unitBar).left().top();
+            actor.update(() -> {
                 Log.info("height--: @ @", mobile_buttons.getHeight(), Core.camera.width);
-                unitBar.marginTop(mobile_buttons.getHeight() + 4f);
+                unitBar.marginTop(mobile_buttons.getPrefHeight() + 4f);
                 unitBar.setSize(unitBar.getPrefWidth(), Core.graphics.getHeight());
 //               cell.
             });
         }
-        unitBar.visible(() -> {
+        actor.visible(() -> {
             boolean b = state.isGame() && !ui.minimapfrag.shown() && ui.hudfrag.shown;
             if (mobile) Log.info("b: @", b);
             return b;
 //            ui.hudfrag.shown && state.isGame()
         });
-        unitBar.row();
-        unitBar.add().growY();
-        unitBar.left().bottom();
-        unitBar.setBackground(zero);
-        ui.hudGroup.addChild(unitBar);
+        actor.row();
+        actor.add().growY();
+        actor.left().bottom();
+        actor.setBackground(zero);
+        ui.hudGroup.addChild(actor);
 
 
     }
