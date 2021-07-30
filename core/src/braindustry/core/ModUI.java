@@ -8,10 +8,12 @@ import ModVars.modVars;
 import arc.ApplicationListener;
 import arc.Core;
 import arc.KeyBinds;
+import arc.scene.ui.TextButton;
 import arc.util.Disposable;
 import arc.util.Log;
 import arc.util.Time;
 import braindustry.ModListener;
+import braindustry.gen.ModTex;
 import braindustry.gen.StealthUnitc;
 import braindustry.input.ModBinding;
 import braindustry.ui.AdvancedContentInfoDialog;
@@ -21,6 +23,8 @@ import braindustry.ui.dialogs.ModColorPicker;
 import braindustry.ui.fragments.ModHudFragment;
 import braindustry.ui.fragments.ModMenuFragment;
 import mindustry.Vars;
+import mindustry.gen.Tex;
+import mindustry.ui.Styles;
 import mindustry.ui.dialogs.BaseDialog;
 
 import static ModVars.Classes.UI.CheatUI.*;
@@ -68,6 +72,8 @@ public class ModUI implements Disposable, ApplicationListener {
     public void init() {
         if (headless) return;
         inited=true;
+        Log.info("ModUI");
+        ModTex.load();
         ModStyles.load();
 //        settings.put("uiscalechanged", false);
         AdvancedContentInfoDialog.init();
@@ -89,8 +95,8 @@ public class ModUI implements Disposable, ApplicationListener {
                 dialog.addCloseButton();
                 dialog.show();
 
-            }).size(280.0f / 2f, 60.0F);
-            table.visibility = () -> CheatUI.visibility.get();
+            }).size(280.0f / 2f, 60.0F).get().setStyle(ModStyles.buttonEdge3);
+//            table.visibility = () -> CheatUI.visibility.get();
         });
 
         colorPicker = new ModColorPicker();

@@ -46,8 +46,10 @@ public class modFunc {
             if (con != except) Call.clientPacketUnreliable(con, type, contents);
         }
     }
-
-    public static void inTry(Runnable runnable) {
+public interface ThrowableRunnable {
+        void run() throws Exception;
+}
+    public static void inTry(ThrowableRunnable runnable) {
         try {
             runnable.run();
         } catch (Exception ex) {

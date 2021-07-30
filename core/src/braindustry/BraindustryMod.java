@@ -2,7 +2,13 @@ package braindustry;
 
 import ModVars.modVars;
 import arc.Core;
+import arc.assets.AssetDescriptor;
+import arc.assets.Loadable;
+import arc.files.Fi;
+import arc.files.ZipFi;
+import arc.graphics.g2d.TextureAtlas;
 import arc.graphics.g2d.TextureRegion;
+import arc.struct.ObjectMap;
 import arc.struct.Seq;
 import arc.util.CommandHandler;
 import arc.util.Log;
@@ -23,6 +29,8 @@ import mindustry.mod.Mod;
 
 import static ModVars.modFunc.*;
 import static ModVars.modVars.*;
+import static arc.Core.assets;
+import static arc.Core.atlas;
 import static mindustry.Vars.*;
 
 public class BraindustryMod extends Mod {
@@ -76,7 +84,6 @@ public class BraindustryMod extends Mod {
     }
 
     public void init() {
-        Log.info("init javaHeap: " + Core.app.getJavaHeap());
         if (!loaded) return;
         Seq<Content> all = Seq.with(content.getContentMap()).<Content>flatten().select(c -> c.minfo.mod == modInfo).as();
         for (Content c : all) {
@@ -86,24 +93,16 @@ public class BraindustryMod extends Mod {
             }
         }
         if (neededInit) listener.init();
-        Log.info("init javaHeap: " + Core.app.getJavaHeap());
     }
 
     public void loadContent() {
-        Log.info("loadContent javaHeap: " + Core.app.getJavaHeap());
         modInfo = Vars.mods.getMod(this.getClass());
         ModAudio.load();
-        print("loading mod content...");
         modAssets.init();
-        inTry(() -> {
-            if (!headless) ModShaders.init();
-        });
-        if (!headless) {
-            try {
-                ModSounds.load();
-                ModMusics.load();
-            } catch (Exception ignored) {
-            }
+        if (!headless){
+            inTry(ModShaders::init);
+            inTry(ModSounds::load);
+            inTry(ModMusics::load);
         }
         new ModContentLoader((load) -> {
             try {

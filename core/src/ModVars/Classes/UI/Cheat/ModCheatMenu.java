@@ -1,17 +1,17 @@
 package ModVars.Classes.UI.Cheat;
 
+import ModVars.Classes.UI.CheatUI;
 import arc.Core;
 import arc.Events;
 import arc.func.Cons;
-import arc.scene.Element;
 import arc.scene.event.Touchable;
 import arc.scene.ui.layout.Table;
+import braindustry.gen.ModTex;
 import mindustry.Vars;
 import mindustry.game.EventType;
-import mindustry.gen.Tex;
 import mindustry.ui.Styles;
 
-import static ModVars.modVars.*;
+import static ModVars.modVars.settings;
 
 public class ModCheatMenu {
 
@@ -34,19 +34,31 @@ public class ModCheatMenu {
     }
 
     private void loadEvent() {
+        Events.on(EventType.ClientLoadEvent.class, e -> {
+            Table table = new Table(Styles.none);
+            table.touchable = Touchable.enabled;
+            table.visibility = () -> CheatUI.visibility.get() && Vars.state.isGame();
+            cons.get(table);
+            table.left().bottom();
+            int timeControlOffset = Core.settings.getBool("mod-time-control-enabled", false) ? 62 : 0;
+            int testUtilsOffset=Core.settings.getBool("mod-test-utils-enabled",false)?60*3:0;
+            table.marginBottom(timeControlOffset+testUtilsOffset);
+            Vars.ui.hudGroup.addChild(table);
+        });
+        if (true) return;
         Events.on(EventType.Trigger.class, (e) -> {
             if (!add && isPlay()) {
-                Table table = new Table(Tex.buttonEdge3);
+                Table table = new Table(Styles.none);
                 table.touchable = Touchable.enabled;
                 table.update(() -> {
-                    table.visible=isPlay();
+                    table.visible = isPlay();
                 });
                 cons.get(table);
                 table.pack();
                 table.act(0.0F);
                 Core.scene.root.addChildAt(0, table);
                 (table.getChildren().first()).act(0.0F);
-                add=true;
+                add = true;
             } else if (add && !isPlay()) {
                 add = false;
             }

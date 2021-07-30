@@ -3,7 +3,6 @@ apply plugin: "java"
 version '1.0'
 
 
-
 //sourceSets.main.java.srcDirs = ["core/starter/"]
 //sourceSets.main.resources.srcDirs = ["core/resources/"]
 
@@ -14,7 +13,7 @@ repositories {
 buildscript {
     ext {
 //        arcHash='b8db131172548e1f10ba86392e09819c34296711'
-        arcHash='128'
+        arcHash = '128'
         mindustryVersion = 'v129.1'
         mindustryVersionAnnotations = 'v126.2'
         arcModule = { String name ->
@@ -43,6 +42,7 @@ buildscript {
         classpath "com.github.Anuken.Mindustry:annotations:$mindustryVersionAnnotations"
         classpath "com.github.Anuken.Mindustry:core:$mindustryVersion"
         classpath "com.github.Anuken.Mindustry:tools:$mindustryVersion"
+        classpath "com.github.Anuken.Arc:packer:$arcHash"
     }
 }
 ext {
@@ -91,7 +91,7 @@ allprojects {
         maven { url 'https://jitpack.io' }
         jcenter()
     }
-    tasks.withType(JavaCompile){
+    tasks.withType(JavaCompile) {
         targetCompatibility = 14
         sourceCompatibility = 8
         options.encoding = "UTF-8"
@@ -123,7 +123,7 @@ configure(subprojects - project(":annotations")) {
             addStringOption('Xdoclint:none', '-quiet')
             addBooleanOption('-enable-preview', true)
             addStringOption('-release', '8')
-            addStringOption('-source','14')
+            addStringOption('-source', '14')
         }
     }
 }
@@ -159,7 +159,7 @@ project(":annotations") {
 //        implementation "com.github.Anuken.Mindustry:entities:$mindustryVersion"
     }
 }
-configure (project(":core")){
+configure(project(":core")) {
 
     tasks.withType(JavaCompile) {
         if (JavaVersion.current() != JavaVersion.VERSION_1_8) {
@@ -220,7 +220,7 @@ project(":core") {
     afterEvaluate {
         task mergedJavadoc(type: Javadoc) {
             if (true) return null;
-            def blacklist = [ project(":annotations")]
+            def blacklist = [project(":annotations")]
             if (findProject(":android") != null) {
                 blacklist += project(":android")
             }
@@ -239,13 +239,13 @@ project(":core") {
             destinationDir = new File(buildDir, 'javadoc')
         }
     }
-    jar{
+    jar {
         exclude("braindustry/entities/comp/**")
         exclude("braindustry/entities/compByAnuke/**")
     }
 }
 
-configure (project(":tools")){
+configure(project(":tools")) {
 
     tasks.withType(JavaCompile) {
         if (JavaVersion.current() != JavaVersion.VERSION_1_8) {
@@ -265,9 +265,9 @@ configure (project(":tools")){
 }
 project(":tools") {
     apply plugin: "java"
-    repositories{
+    repositories {
         mavenCentral()
-        maven{ url 'https://www.jitpack.io' }
+        maven { url 'https://www.jitpack.io' }
     }
     dependencies {
         implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -280,8 +280,10 @@ project(":tools") {
         implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
         implementation "com.github.Anuken.Mindustry:tools:$mindustryVersion"
         compile arcModule("natives:natives-desktop")
+        compile arcModule("natives:natives-desktop")
         compile arcModule("natives:natives-freetype-desktop")
         compile arcModule("backends:backend-headless")
+        implementation arcModule(":extensions:packer")
     }
 }
 task jarAndroid {
@@ -301,7 +303,7 @@ jar {
     archiveFileName = "${project.archivesBaseName}Desktop.jar"
     from {
 //        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-        project(":core").fileTree("build/libs/core.jar").collect{ it.isDirectory() ? it : zipTree(it) }
+        project(":core").fileTree("build/libs/core.jar").collect { it.isDirectory() ? it : zipTree(it) }
     }
 
     from(rootDir) {
@@ -311,7 +313,7 @@ jar {
     from("core/assets/") {
         include "**"
     }
-    doLast{
+    doLast {
 //        doExec("python ../../cmp.py")
     }
 }

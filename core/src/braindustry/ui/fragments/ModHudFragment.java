@@ -117,10 +117,7 @@ public class ModHudFragment {
             if(Vars.ui.minimapfrag.shown()) return false;
             if(!Vars.mobile) return true;
             if(Vars.player.unit().isBuilding()) return false;
-            if(control.input.block != null) return false;
-            if(control.input instanceof MobileInput && ((MobileInput) control.input).mode == PlaceMode.breaking) return false;
-            if(!control.input.selectRequests.isEmpty() && control.input.lastSchematic != null && !control.input.selectRequests.isEmpty()) return false;
-            return true;
+            return state.isGame();
 //            ui.hudfrag.shown && state.isGame()
         });
         actor.row();
@@ -128,6 +125,9 @@ public class ModHudFragment {
         actor.left().bottom();
         actor.setBackground(zero);
         ui.hudGroup.addChild(actor);
+
+
+
     }
 
     static class SideBar extends Element {

@@ -431,14 +431,13 @@ task pack(dependsOn: [classes, configurations.runtimeClasspath]) {
             from "../core/assets-raw/sprites_out"
             into "../core/assets/sprites"
         }
-        println "Time taken for Sprites copy: ${(System.currentTimeMillis() - ms) / 1000f}"
+        println "Time taken for copieng sprites: ${(System.currentTimeMillis() - ms) / 1000f}"
     }
 }
 
 task badPack(dependsOn: [classes, configurations.runtimeClasspath]) {
 
     doLast {
-        //cleanup old sprites
         //cleanup old sprites
         delete {
             delete "../core/assets-raw/sprites_out/"
@@ -484,7 +483,10 @@ task badPack(dependsOn: [classes, configurations.runtimeClasspath]) {
             from "../core/assets-raw/sprites_out"
             into "../core/assets/sprites"
         }
-        println "Time taken for Sprites copy: ${(System.currentTimeMillis() - ms) / 1000f}"
+
+        println("\n\nPacking normal 4096 sprites...\n\n")
+
+        println "Time taken for copieng sprites: ${(System.currentTimeMillis() - ms) / 1000f}"
     }
 }
 task genSprites(dependsOn: classes, type: JavaExec) {

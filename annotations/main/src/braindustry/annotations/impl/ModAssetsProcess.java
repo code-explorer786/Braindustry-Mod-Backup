@@ -1,6 +1,7 @@
 package braindustry.annotations.impl;
 
 import arc.files.Fi;
+import arc.func.Cons;
 import arc.util.Log;
 import arc.util.Strings;
 import braindustry.annotations.ModAnnotations;
@@ -48,24 +49,27 @@ public class ModAssetsProcess extends ModBaseProcessor {
 //        TypeSpec.Builder ictype = TypeSpec.classBuilder("Icon").addModifiers(Modifier.PUBLIC);
 //        TypeSpec.Builder ichtype = TypeSpec.classBuilder("Iconc").addModifiers(Modifier.PUBLIC);
         MethodSpec.Builder load = MethodSpec.methodBuilder("load").addModifiers(Modifier.PUBLIC, Modifier.STATIC);
-        String resources = rootDirectory + "/core/assets-raw/sprites/ui";
-        if (Fi.get(resources).exists()) {
-            Fi.get(resources).walk(p -> {
-                if (!p.extEquals("png")) return;
+        String[] resourcesArray = {rootDirectory + "/core/assets-raw/sprites/ui",rootDirectory + "/core/assets-raw/sprites/cui"};
+        Cons<Fi> walker = p -> {
+            if (!p.extEquals("png")) return;
 
-                String filename = p.name();
-                filename = filename.substring(0, filename.indexOf("."));
+            String filename = p.name();
+            filename = filename.substring(0, filename.indexOf("."));
 
-                String sfilen = filename;
-                String dtype = p.name().endsWith(".9.png") ? "arc.scene.style.NinePatchDrawable" : "arc.scene.style.TextureRegionDrawable";
+            String sfilen = filename;
+            String dtype = p.name().endsWith(".9.png") ? "arc.scene.style.NinePatchDrawable" : "arc.scene.style.TextureRegionDrawable";
 
-                String varname = capitalize(sfilen);
+            String varname = capitalize(sfilen);
 
-                if (SourceVersion.isKeyword(varname)) varname += "s";
+            if (SourceVersion.isKeyword(varname)) varname += "s";
 
-                type.addField(ClassName.bestGuess(dtype), varname, Modifier.STATIC, Modifier.PUBLIC);
-                load.addStatement(varname + " = (" + dtype + ")arc.Core.atlas.drawable($S)", sfilen);
-            });
+            type.addField(ClassName.bestGuess(dtype), varname, Modifier.STATIC, Modifier.PUBLIC);
+            load.addStatement(varname + " = (" + dtype + ")arc.Core.atlas.drawable(ModVars.modFunc.fullName($S))", sfilen);
+        };
+        for (String resources : resourcesArray) {
+            if (Fi.get(resources).exists()) {
+                Fi.get(resources).walk(walker);
+            }
         }
 
         type.addMethod(load.build());
