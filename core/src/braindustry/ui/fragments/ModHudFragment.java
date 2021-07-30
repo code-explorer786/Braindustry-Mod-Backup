@@ -109,7 +109,7 @@ public class ModHudFragment {
            Cell<Table> cell = actor.add(unitBar).left().top();
            cell.update(t-> {
                Log.info("height: @==@==@==@==@",mobile_buttons.getPrefHeight(),mobile_buttons.getHeight(),mobile_buttons.getMinHeight()/*overlaymarker.getRowHeight(0),overlaymarker.getRowHeight(1)*/);
-               cell.padTop(overlaymarker.getRowHeight(0)+overlaymarker.getRowHeight(1));
+               cell.padTop(mobile_buttons.getMinHeight());
            });
        }
         actor.visible(()-> {
