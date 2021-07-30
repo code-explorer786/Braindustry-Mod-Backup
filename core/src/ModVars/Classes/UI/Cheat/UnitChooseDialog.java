@@ -29,7 +29,8 @@ public class UnitChooseDialog extends BaseDialog {
     private void setup() {
         cont.clear();
         Table table=new Table();
-        final int buttonSize=!mobile?100: (Core.graphics.getWidth()-20)/5;
+        int pad = 6;
+        final int buttonSize=!mobile?100: (Core.graphics.getWidth() - 20 - pad*5) / 5;
         ScrollPane pane = new ScrollPane(table);
         pane.setScrollingDisabled(true, false);
         int[] index={0};
@@ -60,7 +61,7 @@ public class UnitChooseDialog extends BaseDialog {
                     getInfoDialog("","Don't use Block unit","",Color.scarlet).show();
                 });
             }
-            table.add(button).width(buttonSize).height(buttonSize).pad(6);
+            table.add(button).width(buttonSize).height(buttonSize).pad(pad);
         }
         this.cont.add(pane).growY().growX().bottom().center();
 

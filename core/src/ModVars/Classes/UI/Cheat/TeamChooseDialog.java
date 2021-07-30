@@ -29,7 +29,8 @@ public class TeamChooseDialog extends BaseDialog {
         this.cont.table(i -> {
             i.table(t -> {
                 final int buttonSize = 20;
-                int coln = !mobile ? 20 : (Core.graphics.getWidth()) / 20 - 2;
+                int pad = 6;
+                int coln = !mobile ? 20 : (Core.graphics.getWidth()) /(buttonSize+pad) - 2;
                 for (Team team : Team.all) {
                     if (Seq.with(Team.all).indexOf(team) % coln == 0) t.row();
                     ImageButton button = new ImageButton(Tex.whitePane, Styles.clearToggleTransi);
@@ -41,9 +42,9 @@ public class TeamChooseDialog extends BaseDialog {
                         confirm.get(team);
                         this.hide();
                     });
-                    t.add(button).color(team.color).width(buttonSize).height(buttonSize).pad(6);
+                    t.add(button).color(team.color).width(buttonSize).height(buttonSize).pad(pad);
                 }
             });
-        }).width(360).bottom().center();
+        }).growX().bottom().center();
     }
 }
