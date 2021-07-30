@@ -1,55 +1,27 @@
 package braindustry.ui.fragments;
 
 import arc.Core;
-import arc.Events;
 import arc.func.Boolp;
 import arc.func.Floatp;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
-import arc.math.Interp;
 import arc.math.Mathf;
-import arc.scene.Action;
 import arc.scene.Element;
-import arc.scene.Group;
-import arc.scene.actions.Actions;
-import arc.scene.event.Touchable;
 import arc.scene.style.Drawable;
 import arc.scene.style.TextureRegionDrawable;
-import arc.scene.ui.Image;
-import arc.scene.ui.ImageButton;
-import arc.scene.ui.Label;
-import arc.scene.ui.TextField;
-import arc.scene.ui.layout.Cell;
 import arc.scene.ui.layout.Table;
-import arc.scene.ui.layout.WidgetGroup;
-import arc.struct.Bits;
-import arc.struct.Seq;
-import arc.util.*;
+import arc.util.Log;
+import arc.util.Scaling;
+import arc.util.Tmp;
 import braindustry.gen.StealthUnitc;
 import braindustry.graphics.ModPal;
 import braindustry.graphics.ModShaders;
-import mindustry.Vars;
-import mindustry.annotations.Annotations;
-import mindustry.core.GameState;
-import mindustry.ctype.UnlockableContent;
-import mindustry.game.EventType;
-import mindustry.game.Team;
-import mindustry.gen.*;
+import mindustry.gen.BlockUnitc;
+import mindustry.gen.Call;
+import mindustry.gen.Tex;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
-import mindustry.input.Binding;
-import mindustry.input.MobileInput;
-import mindustry.input.PlaceMode;
-import mindustry.net.Net;
-import mindustry.net.Packets;
-import mindustry.type.Item;
-import mindustry.ui.*;
-import mindustry.ui.dialogs.PausedDialog;
-import mindustry.ui.dialogs.SchematicsDialog;
-import mindustry.ui.fragments.HudFragment;
-
-import java.util.Objects;
 
 import static mindustry.Vars.*;
 
@@ -100,22 +72,22 @@ public class ModHudFragment {
                 })
         ).size(120f, 80).padRight(4);
 //        Table unitBar = new Table();
-       if (!mobile) {
-           unitBar.add(unitBar).left().top();
-           unitBar.update(() -> unitBar.setSize(unitBar.getPrefWidth(), Core.graphics.getHeight()));
-       }else {
-           Table overlaymarker = ui.hudGroup.find("overlaymarker");
-           Table mobile_buttons = overlaymarker.find("mobile buttons");
+        if (!mobile) {
+            unitBar.add(unitBar).left().top();
+            unitBar.update(() -> unitBar.setSize(unitBar.getPrefWidth(), Core.graphics.getHeight()));
+        } else {
+            Table overlaymarker = ui.hudGroup.find("overlaymarker");
+            Table mobile_buttons = overlaymarker.find("mobile buttons");
 //           Cell<Table> cell = actor.add(unitBar).left().top();
-           unitBar.update(()-> {
-               Log.info("height--: @",mobile_buttons.getHeight());
-               unitBar.marginTop(mobile_buttons.getHeight()+1);
+            unitBar.update(() -> {
+                Log.info("height--: @ @", mobile_buttons.getHeight(), Core.graphics.getHeight());
+//               unitBar.marginTop(mobile_buttons.getHeight()+1);
 //               cell.
-           });
-       }
-        unitBar.visible(()-> {
+            });
+        }
+        unitBar.visible(() -> {
             boolean b = state.isGame() && !ui.minimapfrag.shown() && ui.hudfrag.shown;
-            if (mobile)Log.info("b: @",b);
+            if (mobile) Log.info("b: @", b);
             return b;
 //            ui.hudfrag.shown && state.isGame()
         });
@@ -124,7 +96,6 @@ public class ModHudFragment {
         unitBar.left().bottom();
         unitBar.setBackground(zero);
         ui.hudGroup.addChild(unitBar);
-
 
 
     }
