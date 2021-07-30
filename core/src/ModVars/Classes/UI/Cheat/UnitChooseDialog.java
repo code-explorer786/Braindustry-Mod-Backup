@@ -45,10 +45,10 @@ public class UnitChooseDialog extends BaseDialog {
             Image image = new Image(unitType.region);
             Cell<Image> imageCell = button.add(image);
             if (image.getWidth() == image.getHeight()) {
-                imageCell.update(i -> sizeBy(size(button)));
+                imageCell.update(i -> i.setSize(size(button)));
             } else {
                 float width = image.getWidth(), height = image.getHeight();
-                imageCell.update(i -> sizeBy(size(button) * (width / height), size(button)));
+                imageCell.update(i -> i.setSize(size(button) * (width / height), size(button)));
             }
 
             if (unitType != UnitTypes.block) {
