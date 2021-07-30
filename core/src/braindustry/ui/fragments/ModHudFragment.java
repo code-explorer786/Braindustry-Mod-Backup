@@ -11,6 +11,7 @@ import arc.scene.Element;
 import arc.scene.style.Drawable;
 import arc.scene.style.TextureRegionDrawable;
 import arc.scene.ui.layout.Cell;
+import arc.scene.ui.layout.Stack;
 import arc.scene.ui.layout.Table;
 import arc.util.Log;
 import arc.util.Scaling;
@@ -79,9 +80,10 @@ public class ModHudFragment {
         } else {
             Table overlaymarker = ui.hudGroup.find("overlaymarker");
             Table mobile_buttons = overlaymarker.find("mobile buttons");
-           Cell<Table> cell = actor.add(unitBar).left().top();
+            Table status = overlaymarker.<Stack>find("waves/editor").<Table>find("waves").<Table>find("status");
+            Cell<Table> cell = actor.add(unitBar).left().top();
             actor.update(() -> {
-                Log.info("height--: @ @", mobile_buttons.getHeight(), Core.camera.width);
+                Log.info("height--: @_@=@=@", status.y,status.getHeight(), Tmp.v1.set(Core.camera.width,Core.camera.height), Tmp.v1.set(Core.graphics.getWidth(),Core.graphics.getHeight()));
                 unitBar.marginTop(65f + 4f);
                 unitBar.setSize(unitBar.getPrefWidth(), Core.graphics.getHeight());
 //               cell.

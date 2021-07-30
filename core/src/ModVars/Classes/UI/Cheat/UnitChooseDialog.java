@@ -32,7 +32,7 @@ public class UnitChooseDialog extends BaseDialog {
         Table table = new Table();
         float pad = 6f;
         float coln = 5;
-        final float buttonSize = !mobile ? 100f : (Core.graphics.getWidth() - coln * pad) / (coln);
+        final float buttonSize = !mobile ? 100f : (Core.graphics.getWidth()-coln*pad) / (coln);
         ScrollPane pane = new ScrollPane(table);
         pane.setScrollingDisabled(true, false);
         int[] index = {0};
@@ -44,34 +44,29 @@ public class UnitChooseDialog extends BaseDialog {
             button.clearChildren();
             Image image = new Image(unitType.region);
             Cell<Image> imageCell = button.add(image);
+            float imageSize = buttonSize * 0.7f;
             if (image.getWidth() == image.getHeight()) {
-                imageCell.update(i -> i.setSize(size(button)));
+                imageCell.size(imageSize);
             } else {
                 float width = image.getWidth(), height = image.getHeight();
-                imageCell.update(i -> i.setSize(size(button) * (width / height), size(button)));
+
+                imageCell.size(imageSize * (width / height), imageSize);
             }
 
             if (unitType != UnitTypes.block) {
                 button.clicked(() -> {
                     if (check.get(unitType)) this.hide();
+
                 });
             } else {
                 button.clicked(() -> {
                     getInfoDialog("", "Don't use Block unit", "", Color.scarlet).show();
                 });
             }
-            table.add(button).grow().pad(pad);
+            table.add(button).size(buttonSize).pad(pad);
         }
         this.cont.add(pane).growY().growX().bottom().center();
 
-    }
-
-    private float size(Button button) {
-        return buttonSize(button) * 0.7f;
-    }
-
-    private float buttonSize(Button button) {
-        return mobile ? button.getWidth() : 100;
     }
 
 
