@@ -12,10 +12,14 @@ import arc.struct.ObjectMap;
 import arc.struct.Seq;
 import arc.util.*;
 import braindustry.core.ModContentLoader;
+import braindustry.gen.ModContentRegions;
 import braindustry.gen.ModEntityMapping;
 import mindustry.Vars;
+import mindustry.ctype.MappableContent;
 import mindustry.ctype.UnlockableContent;
 import mindustry.tools.ImagePacker;
+
+import static mindustry.Vars.headless;
 
 public class ModImagePacker extends ImagePacker {
     static ObjectMap<String, PackIndex> cache = new ObjectMap<>();
@@ -38,19 +42,19 @@ public class ModImagePacker extends ImagePacker {
                 cache.put(path.nameWithoutExtension(), new PackIndex(path));
             }
         });
-        Core.atlas = new TextureAtlas(){
+        Core.atlas = new TextureAtlas() {
             @Override
-            public AtlasRegion find(String name){
-                if(!cache.containsKey(name)){
+            public AtlasRegion find(String name) {
+                if (!cache.containsKey(name)) {
                     GenRegion region = new GenRegion(name, null);
                     region.invalid = true;
                     return region;
                 }
 
                 PackIndex index = cache.get(name);
-                if(index.pixmap == null){
+                if (index.pixmap == null) {
                     index.pixmap = new Pixmap(index.file);
-                    index.region = new GenRegion(name, index.file){{
+                    index.region = new GenRegion(name, index.file) {{
                         width = index.pixmap.width;
                         height = index.pixmap.height;
                         u2 = v2 = 1f;
@@ -61,23 +65,23 @@ public class ModImagePacker extends ImagePacker {
             }
 
             @Override
-            public AtlasRegion find(String name, TextureRegion def){
-                if(!cache.containsKey(name)){
-                    return (AtlasRegion)def;
+            public AtlasRegion find(String name, TextureRegion def) {
+                if (!cache.containsKey(name)) {
+                    return (AtlasRegion) def;
                 }
                 return find(name);
             }
 
             @Override
-            public AtlasRegion find(String name, String def){
-                if(!cache.containsKey(name)){
+            public AtlasRegion find(String name, String def) {
+                if (!cache.containsKey(name)) {
                     return find(def);
                 }
                 return find(name);
             }
 
             @Override
-            public boolean has(String s){
+            public boolean has(String s) {
                 return cache.containsKey(s);
             }
         };
@@ -85,17 +89,20 @@ public class ModImagePacker extends ImagePacker {
 
         Draw.scl = 1f / Core.atlas.find("scale_marker").width;
 
+        Vars.content.each(c -> {
+            if (c instanceof MappableContent) ModContentRegions.loadRegions((MappableContent) c);
+        });
         Time.mark();
         Generators.run();
         Log.info("&ly[Generator]&lc Total time to generate: &lg@&lcms", Time.elapsed());
         Log.info("&ly[Disposing]&lc Start");
         Time.mark();
-        Log.info("&ly[Disposing]&lc Total time: @",Time.elapsed());
+        Log.info("&ly[Disposing]&lc Total time: @", Time.elapsed());
         modVars.packSprites = false;
     }
 
 
-    static String texname(UnlockableContent c){
+    static String texname(UnlockableContent c) {
         return c.getContentType() + "-" + c.name + "-ui";
     }
 
@@ -106,56 +113,57 @@ public class ModImagePacker extends ImagePacker {
         Log.info("&ly[Generator]&lc Time to generate &lm@&lc: &lg@&lcms", name, Time.elapsed());
     }
 
-    static Pixmap get(String name){
+    static Pixmap get(String name) {
         return get(Core.atlas.find(name));
     }
 
-    static boolean has(String name){
+    static boolean has(String name) {
         return Core.atlas.has(name);
     }
 
-    static Pixmap get(TextureRegion region){
+    static Pixmap get(TextureRegion region) {
         validate(region);
 
-        return cache.get(((TextureAtlas.AtlasRegion)region).name).pixmap.copy();
+        return cache.get(((TextureAtlas.AtlasRegion) region).name).pixmap.copy();
     }
 
-    static void save(Pixmap pix, String path){
+    static void save(Pixmap pix, String path) {
         Fi.get(path + ".png").writePng(pix);
     }
 
-    static void drawCenter(Pixmap pix, Pixmap other){
-        pix.draw(other, pix.width/2 - other.width/2, pix.height/2 - other.height/2, true);
+    static void drawCenter(Pixmap pix, Pixmap other) {
+        pix.draw(other, pix.width / 2 - other.width / 2, pix.height / 2 - other.height / 2, true);
     }
 
-    static void saveScaled(Pixmap pix, String name, int size){
+    static void saveScaled(Pixmap pix, String name, int size) {
         Pixmap scaled = new Pixmap(size, size);
         //TODO bad linear scaling
         scaled.draw(pix, 0, 0, pix.width, pix.height, 0, 0, size, size, true, true);
         save(scaled, name);
     }
 
-    static void drawScaledFit(Pixmap base, Pixmap image){
+    static void drawScaledFit(Pixmap base, Pixmap image) {
         Vec2 size = Scaling.fit.apply(image.width, image.height, base.width, base.height);
-        int wx = (int)size.x, wy = (int)size.y;
+        int wx = (int) size.x, wy = (int) size.y;
         //TODO bad linear scaling
-        base.draw(image, 0, 0, image.width, image.height, base.width/2 - wx/2, base.height/2 - wy/2, wx, wy, true, true);
+        base.draw(image, 0, 0, image.width, image.height, base.width / 2 - wx / 2, base.height / 2 - wy / 2, wx, wy, true, true);
     }
 
-    static void replace(String name, Pixmap image){
+    static void replace(String name, Pixmap image) {
         Fi.get(name + ".png").writePng(image);
-        ((GenRegion)Core.atlas.find(name)).path.delete();
+        ((GenRegion) Core.atlas.find(name)).path.delete();
     }
 
-    static void replace(TextureRegion region, Pixmap image){
-        replace(((GenRegion)region).name, image);
+    static void replace(TextureRegion region, Pixmap image) {
+        replace(((GenRegion) region).name, image);
     }
 
-    static void validate(TextureRegion region){
-        if(((GenRegion)region).invalid){
-            err("Region does not exist: @", ((GenRegion)region).name);
+    static void validate(TextureRegion region) {
+        if (((GenRegion) region).invalid) {
+            err("Region does not exist: @", ((GenRegion) region).name);
         }
     }
+
     static void err(String message, Object... args) {
         Log.err(message, args);
 //        throw new IllegalArgumentException(Strings.format(message, args));
@@ -200,13 +208,15 @@ public class ModImagePacker extends ImagePacker {
             if (!notExistNames.contains(name)) notExistNames.add(name);
         }
     }
-    static class PackIndex{
+
+    static class PackIndex {
         @Nullable
         TextureAtlas.AtlasRegion region;
-        @Nullable Pixmap pixmap;
+        @Nullable
+        Pixmap pixmap;
         Fi file;
 
-        public PackIndex(Fi file){
+        public PackIndex(Fi file) {
             this.file = file;
         }
     }

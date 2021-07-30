@@ -439,16 +439,20 @@ task badPack(dependsOn: [classes, configurations.runtimeClasspath]) {
 
     doLast {
         //cleanup old sprites
+        //cleanup old sprites
         delete {
             delete "../core/assets-raw/sprites_out/"
         }
 
         //copy in new sprites
-        if (false) {
-            copy {
-                from "../core/assets-raw/sprites/"
-                into "../core/assets-raw/sprites_out/"
-            }
+
+        copy {
+            from "../core/assets-raw/sprites/"
+            into "../core/assets-raw/sprites_out/"
+        }
+        copy {
+            from "../core/assets/sprites-override/"
+            into "../core/assets-raw/sprites_out/"
         }
 
         //run generation task; generate all needed sprites

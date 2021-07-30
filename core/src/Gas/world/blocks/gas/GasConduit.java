@@ -85,12 +85,10 @@ public class GasConduit extends GasGasBlock implements Autotiler {
 //        return (Block)(cont.get(Geometry.d4(req.rotation)) && cont.get(Geometry.d4(req.rotation - 2)) && req.tile() != null &&
 //                req.tile().block() instanceof Conduit && Mathf.mod(req.build().rotation - req.rotation, 2) == 1 ? Blocks.liquidJunction : this);
     }
-    public TextureRegion[] icons() {
-//        new Color((Color)null);
-        if (!this.drawBottom) return super.icons();
-        return new TextureRegion[]{Core.atlas.find(name+"-bottom"), this.topRegions[0]};
+    @Override
+    public TextureRegion[] icons(){
+        return new TextureRegion[]{bottomRegion, topRegions[0]};
     }
-
     public boolean blends(Tile tile, int rotation, int otherx, int othery, int otherrot, Block o) {
         if (!(o instanceof GasBlock)) return false;
         GasBlock otherblock = (GasBlock) o;
