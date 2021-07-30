@@ -2,19 +2,15 @@ package braindustry.annotations.ModEntities;
 
 import arc.files.Fi;
 import arc.func.Cons;
-import arc.func.Prov;
 import arc.struct.*;
 import arc.util.*;
 import arc.util.io.PropertiesUtils;
 import arc.util.pooling.Pool;
-import arc.util.pooling.Pools;
+import com.squareup.javapoet.*;
+import mindustry.annotations.util.*;
 import braindustry.annotations.ModAnnotations;
 import braindustry.annotations.ModBaseProcessor;
 import braindustry.annotations.remote.ModTypeIOResolver;
-import com.squareup.javapoet.*;
-import com.sun.source.tree.VariableTree;
-import com.sun.source.util.TreePath;
-import mindustry.annotations.util.*;
 
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
@@ -57,35 +53,28 @@ public class ModEntitiesProc extends ModBaseProcessor {
 
     @Override
     public void process(RoundEnvironment env) throws Exception {
+        Log.info(getClass().getSimpleName() + ".work("+round+")");
+        Time.mark();
         updateRounds();
         for (Stype type : types(ModAnnotations.EntitySuperClass.class)) {
             hasAnukeComps = true;
             allInterfaces.add(type.superclasses().peek());
         }
 
-//            int round = this.round - 1;
         try {
             if (round == 1) firstRound();
             if (round == 2) secondRound();
             if (round == 3) thirdRound();
         } catch (Exception e) {
-//            deleteMindustryComps();
             throw e;
-
         }
+        Log.info(getClass().getSimpleName() + ".work("+round+").time=@ms",Time.elapsed());
     }
 
     private void updateRounds() {
-//        allGroups.clear();
         allGroups.addAll(elements(ModAnnotations.GroupDef.class));
-//        allInterfaces.clear();
         allInterfaces.addAll(types(ModAnnotations.EntityInterface.class));
-
-//        anukeSuperInterfaces.addAll(getMindsutryComponents());
         allDefs.addAll(elements(ModAnnotations.EntityDef.class));
-//        print("allDefs: @", allDefs.map(Selement::fullName).toString(", "));
-//        print("allGroups: @", allGroups.map(Selement::fullName).toString(", "));
-//        print("EntityConfig: @", elements(ModAnnotations.EntityInterface.class).map(Selement::fullName).toString(", "));
     }
 
     private void firstRound() throws Exception {
@@ -93,7 +82,7 @@ public class ModEntitiesProc extends ModBaseProcessor {
         baseComponents = types(ModAnnotations.BaseComponent.class);
         Seq<Stype> allComponents = types(ModAnnotations.Component.class);
 
-        //store codea
+        //store code
         for (Stype component : allComponents) {
 
             for (Svar f : component.fields()) {
@@ -101,7 +90,6 @@ public class ModEntitiesProc extends ModBaseProcessor {
                 //add initializer if it exists
                 if (f.tree().getInitializer() != null) {
                     String init = f.tree().getInitializer().toString();
-//                    print("varInitializers.put(@, @);",f.descString(), init);
                     varInitializers.put(f.descString(), init);
                 }
             }
@@ -114,7 +102,6 @@ public class ModEntitiesProc extends ModBaseProcessor {
                         .replaceAll("self\\(\\)", "this") //fix self() calls
                         .replaceAll(" yield ", "") //fix enchanced switch
                         .replaceAll("\\/\\*missing\\*\\/", "var");
-//                print("methodBlocks.put(@, @);",elem.descString(), value);
                 methodBlocks.put(elem.descString(), value //fix vars
                 );
             }
@@ -132,8 +119,6 @@ public class ModEntitiesProc extends ModBaseProcessor {
         }
 
         //create component interfaces
-//        System.out.println("types:");
-//        System.out.println(Strings.join(", ",allComponents.map(type->type.fullName())));
         for (Stype component : allComponents) {
             Seq<Stype> depends = getDependencies(component);
             TypeSpec.Builder inter = null;
@@ -643,14 +628,14 @@ public class ModEntitiesProc extends ModBaseProcessor {
 
 
             //build mapping class for sync IDs
-            TypeSpec.Builder idBuilder = TypeSpec.classBuilder("ModEntityMappingGenerated").addModifiers(Modifier.PUBLIC);
+            TypeSpec.Builder idBuilder = TypeSpec.classBuilder("ModEntityMapping").addModifiers(Modifier.PUBLIC);
 
             MethodSpec.Builder idStore = MethodSpec.methodBuilder("init").addModifiers(Modifier.PUBLIC, Modifier.STATIC)
                     .returns(TypeName.get(void.class));
             //store the mappings
             for (EntityDefinition def : definitions) {
                 //store mapping
-                idStore.addStatement("braindustry.gen.ModEntityMapping.mapClass(" + def.name + ".class)");
+                idStore.addStatement("mindustry.gen.EntityMapping.register($S,$L::new)",def.name.substring(def.name.lastIndexOf(".")+1),def.name);
                 /* idStore.addStatement("idMap[$L] = $L::new", def.classID, def.name);*/
                 extraNames.get(def.naming).each(extra -> {
                     idStore.addStatement("mindustry.gen.EntityMapping.nameMap.put($S, $L::new)", extra, def.name);
@@ -663,8 +648,12 @@ public class ModEntitiesProc extends ModBaseProcessor {
 //                            .returns(int.class).addModifiers(Modifier.PUBLIC).addStatement("return " + def.classID).build());
                         .returns(int.class).addModifiers(Modifier.PUBLIC).addStatement("return braindustry.gen.ModEntityMapping.getId(getClass())").build());
             }
+            MethodSpec.Builder idGet = MethodSpec.methodBuilder("getId").addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                    .returns(TypeName.get(int.class)).addParameter(TypeName.get(Class.class),"name");
+            idGet.addStatement("return mindustry.gen.EntityMapping.customIdMap.findKey(name.getSimpleName(),false,-1)");
 
             idBuilder.addMethod(idStore.build());
+            idBuilder.addMethod(idGet.build());
 
             write(idBuilder);
 

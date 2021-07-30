@@ -30,7 +30,7 @@ public class BraindustryMod extends Mod {
 
     public BraindustryMod() {
         Log.info("javaHeap: " + Core.app.getJavaHeap());
-        ModEntityMapping.mapClasses();
+        ModEntityMapping.init();
         ModCall.registerPackets();
         Log.info("app: @\t@", Core.app, Core.app != null ? Core.app.getClass().getSimpleName() : null);
         modInfo = Vars.mods.getMod(this.getClass());

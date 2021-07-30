@@ -1,5 +1,6 @@
 package braindustry.content;
 
+import ModVars.modVars;
 import arc.func.Prov;
 import arc.graphics.Color;
 import arc.math.geom.Geometry;
@@ -64,7 +65,6 @@ public class ModUnitTypes implements ContentList {
 
     @Override
     public void load() {
-        ModEntityMapping.init();
         //spiders
         ibis = new ModUnitType("ibis") {
             {

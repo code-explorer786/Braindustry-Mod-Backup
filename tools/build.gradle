@@ -372,11 +372,14 @@ task pack(dependsOn: [classes, configurations.runtimeClasspath]) {
         }
 
         //copy in new sprites
-        if (false) {
-            copy {
-                from "../core/assets-raw/sprites/"
-                into "../core/assets-raw/sprites_out/"
-            }
+
+        copy {
+            from "../core/assets-raw/sprites/"
+            into "../core/assets-raw/sprites_out/"
+        }
+        copy {
+            from "../core/assets/sprites-override/"
+            into "../core/assets-raw/sprites_out/"
         }
 
         //run generation task; generate all needed sprites

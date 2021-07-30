@@ -12,16 +12,10 @@ import arc.struct.ObjectMap;
 import arc.struct.Seq;
 import arc.util.*;
 import braindustry.core.ModContentLoader;
+import braindustry.gen.ModEntityMapping;
 import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
 import mindustry.tools.ImagePacker;
-import mindustry.type.UnitType;
-import mindustry.world.Block;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class ModImagePacker extends ImagePacker {
     static ObjectMap<String, PackIndex> cache = new ObjectMap<>();
@@ -35,34 +29,13 @@ public class ModImagePacker extends ImagePacker {
         ArcNativesLoader.load();
         Log.logger = new Log.NoopLogHandler();
         Vars.content = new ModContentLoader();
+        ModEntityMapping.init();
         Vars.content.createBaseContent();
         Vars.content.createModContent();
         Log.logger = new Log.DefaultLogHandler();
-        Fi.get("../../../assets-raw/sprites").walk((path) -> {
+        Fi.get("../../../assets-raw/sprites_out").walk((path) -> {
             if (path.extEquals("png")) {
-//                Log.info("path: @",path);
-                String fname = path.nameWithoutExtension();
-                try {
-                    BufferedImage testImage = ImageIO.read(path.file());
-                    if (testImage == null)
-                        throw new IOException("image " + path.absolutePath() + " is null for terrible reasons");
-                    String path2 =".."+ path.absolutePath().split("../../../assets-raw/sprites")[1];
-
-                    Fi.get(path2.replace("/"+path.name(), "")).mkdirs();
-                    final Fi path2Fi = Fi.get(path2);
-                    fname=path2Fi.nameWithoutExtension();
-                    String saveName = path2Fi.parent().child(fname).absolutePath();
-                    ImageIO.write(testImage, "png", new File(saveName + ".png"));
-                    final BufferedImage image = ImageIO.read(path2Fi.file());
-                    if (image == null) {
-                        throw new IOException("image " + path.absolutePath() + " is null for terrible reasons");
-                    } else {
-                        cache.put(path.nameWithoutExtension(), new PackIndex(path));
-
-                    }
-                } catch (IOException var4) {
-                    throw new RuntimeException(var4);
-                }
+                cache.put(path.nameWithoutExtension(), new PackIndex(path));
             }
         });
         Core.atlas = new TextureAtlas(){
@@ -108,7 +81,6 @@ public class ModImagePacker extends ImagePacker {
                 return cache.containsKey(s);
             }
         };
-//        ((GenRegion) cache.get("error")).invalid = true;
         Core.atlas.setErrorRegion("error");
 
         Draw.scl = 1f / Core.atlas.find("scale_marker").width;
@@ -116,40 +88,9 @@ public class ModImagePacker extends ImagePacker {
         Time.mark();
         Generators.run();
         Log.info("&ly[Generator]&lc Total time to generate: &lg@&lcms", Time.elapsed());
-        Time.mark();
-       /* Fi.get("../../../assets-raw/sprites").walk((path) -> {
-            if (path.extEquals("png") && !path.name().endsWith("-outline")) {
-                String fname = path.nameWithoutExtension();
-                try {
-                    BufferedImage testImage = ImageIO.read(path.file());
-                    if (testImage == null)
-                        throw new IOException("image " + path.absolutePath() + " is null for terrible reasons");
-                    Image image2 = new Image(testImage);
-                    String path2 =".."+ path.absolutePath().split("../../../assets-raw/sprites")[1];
-
-                    Fi.get(path2.replace("/"+path.name(), "")).mkdirs();
-                    final Fi path2Fi = Fi.get(path2);
-                    fname=path2Fi.nameWithoutExtension();
-                    String saveName = path2Fi.parent().child(fname).absolutePath();
-                    image2.save(saveName,false);
-                    final BufferedImage image = ImageIO.read(path2Fi.file());
-                    if (image == null) {
-                        throw new IOException("image " + path.absolutePath() + " is null for terrible reasons");
-                    }
-                } catch (IOException var4) {
-                    throw new RuntimeException(var4);
-                }
-            }
-        });*/
-        Log.info("&ly[Copy]&lc Total time to copy: &lg@", Time.elapsed());
-//        Log.info("&ly[Generator]&lc Total images created: &lg@", Image.total());
         Log.info("&ly[Disposing]&lc Start");
         Time.mark();
-//        Image.dispose();
         Log.info("&ly[Disposing]&lc Total time: @",Time.elapsed());
-//        notExistNames.each(name->{
-//            Log.warn("Region does not exist: @",name);
-//        });
         modVars.packSprites = false;
     }
 

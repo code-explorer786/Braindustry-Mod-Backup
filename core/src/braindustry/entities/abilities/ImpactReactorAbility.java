@@ -45,7 +45,7 @@ public class ImpactReactorAbility extends PowerGeneratorAbility {
         light = Core.atlas.find(unitType.name + "-light");
         Seq<TextureRegion> plasmas = new Seq<>();
         int i = 0;
-        for (TextureRegion plasma = Core.atlas.find(unitType.name + "-plasma-" + i); Core.atlas.isFound(plasma); plasma = Core.atlas.find(unitType.name + "-plasma-" + (++i))) {
+        for (TextureRegion plasma = Core.atlas.find(unitType.name + "-plasma-" + i); Core.atlas.isFound(plasma) && !modVars.packSprites; plasma = Core.atlas.find(unitType.name + "-plasma-" + (++i))) {
             if (!modVars.packSprites) plasmas.add(plasma);
         }
         plasmaRegions = new TextureRegion[plasmas.size];

@@ -22,6 +22,12 @@ public class GasGasBlock extends GasBlock {
         group = BlockGroup.liquids;
         outputsGas = true;
     }
+
+    @Override
+    public TextureRegion[] icons(){
+        return new TextureRegion[]{bottomRegion, topRegion};
+    }
+
     public class GasBuild extends GasBuilding {
         @Override
         public void draw(){
