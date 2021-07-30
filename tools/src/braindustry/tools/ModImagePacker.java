@@ -85,6 +85,7 @@ public class ModImagePacker extends ImagePacker {
 
         Draw.scl = 1f / Core.atlas.find("scale_marker").width;
 
+
         Time.mark();
         Generators.run();
         Log.info("&ly[Generator]&lc Total time to generate: &lg@&lcms", Time.elapsed());
