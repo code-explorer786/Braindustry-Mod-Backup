@@ -60,14 +60,18 @@ public class UnitChooseDialog extends BaseDialog {
                     getInfoDialog("", "Don't use Block unit", "", Color.scarlet).show();
                 });
             }
-            table.add(button).growX().pad(pad).update(bu -> bu.setSize(bu.getWidth()));
+            table.add(button).grow().pad(pad);
         }
         this.cont.add(pane).growY().growX().bottom().center();
 
     }
 
     private float size(Button button) {
-        return (mobile ? button.getWidth() : 100) * 0.7f;
+        return buttonSize(button) * 0.7f;
+    }
+
+    private float buttonSize(Button button) {
+        return mobile ? button.getWidth() : 100;
     }
 
 
