@@ -72,10 +72,8 @@ public class ModUI implements Disposable, ApplicationListener {
     public void init() {
         if (headless) return;
         inited=true;
-        Log.info("ModUI");
         ModTex.load();
         ModStyles.load();
-//        settings.put("uiscalechanged", false);
         AdvancedContentInfoDialog.init();
         ModMenuFragment.init();
         ModHudFragment.init();
