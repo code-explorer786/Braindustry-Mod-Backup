@@ -18,11 +18,12 @@ public class ModPlanets implements ContentList {
             {
                 localizedName = "Zetsubo";
                 description = "Beatiful blue stars with high in Methane.";
-                hasAtmosphere = true;
+                hasAtmosphere = true;//WHAT???????
                 meshLoader = () -> new SunMesh(
                         this, 4, 5, 0.3f, 1.0f, 1.2f, 1, 1.3f,
                         Color.valueOf("5E94FF"), Color.valueOf("214CDF"), Color.valueOf("2DA9DF"), Color.valueOf("9CB5FF"),
                         Color.valueOf("61729F"), Color.valueOf("3BB1CA"));
+                lightColor = Color.valueOf("214CDF");
                 orbitRadius = 51.5f;
                 accessible = false;
                 bloom = true;
@@ -40,9 +41,10 @@ public class ModPlanets implements ContentList {
                 hasAtmosphere = true;
                 meshLoader = () -> new HexMesh(this, 6);
                 orbitRadius = 11.2f;
-                rotateTime = Float.POSITIVE_INFINITY;
+                tidalLock = true;
                 orbitTime = Mathf.pow((2.0f + 14.0f + 0.66f), 1.5f) * 80;
-                accessible = true;
+                accessible = true;//LADNO
+                landCloudColor = Color.valueOf("8c3149");//atmosphere color...
             }
         };
         shinrin = new Planet("shinrin", osore, 3, 0.4f) {
@@ -57,9 +59,11 @@ public class ModPlanets implements ContentList {
                 hasAtmosphere = true;
                 meshLoader = () -> new HexMesh(this, 6);
                 orbitRadius = 5.0f;
-                rotateTime = Float.POSITIVE_INFINITY;
+                //rotateTime = Float.POSITIVE_INFINITY;  //Also tidal lock??
+                tidalLock = true;
                 orbitTime = Mathf.pow((2.0f + 14.0f + 0.66f), 1.5f) * 80;
                 accessible = true;
+                landCloudColor = Color.valueOf("36af54");
             }
         };
     }
