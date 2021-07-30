@@ -108,16 +108,14 @@ public class ModHudFragment {
            Table mobile_buttons = overlaymarker.find("mobile buttons");
            Cell<Table> cell = actor.add(unitBar).left().top();
            cell.update(t-> {
-               Log.info("height: @==@==@==@==@",mobile_buttons.getPrefHeight(),mobile_buttons.getHeight(),mobile_buttons.getMinHeight()/*overlaymarker.getRowHeight(0),overlaymarker.getRowHeight(1)*/);
-               cell.padTop(mobile_buttons.getMinHeight());
+               Log.info("height: @",mobile_buttons.getHeight());
+               cell.padTop(mobile_buttons.getHeight());
            });
        }
         actor.visible(()-> {
-            if(!Vars.ui.hudfrag.shown) return false;
-            if(Vars.ui.minimapfrag.shown()) return false;
-            if(!Vars.mobile) return true;
-            if(Vars.player.unit().isBuilding()) return false;
-            return state.isGame();
+            boolean b = state.isGame() && !ui.minimapfrag.shown() && ui.hudfrag.shown;
+            if (mobile)Log.info("b: @",b);
+            return b;
 //            ui.hudfrag.shown && state.isGame()
         });
         actor.row();
