@@ -1,5 +1,5 @@
 ![alt tag](https://github.com/pixaxeofpixie/pictures/blob/main/bannerbd.png)
-## Mindustry Mod By Braindustry Team(public beta)
+## Mindustry Mod By Quant Team(public beta)
 
 ## WARNING! Mod still in dev and may have bugs!
 
@@ -83,3 +83,5 @@ gradlew jar  | ./gradlew jar | ./gradlew jar
 # Mod Screenshots
 
 ![a](https://github.com/pixaxeofpixie/pictures/blob/main/screen2.png?raw=true)
+![a](https://github.com/pixaxeofpixie/pictures/blob/main/452535.png?raw=true)
+![a](https://github.com/pixaxeofpixie/pictures/blob/main/123412.png?raw=true)

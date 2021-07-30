@@ -109,8 +109,8 @@ public class ModUnitTypes implements ContentList {
                                         this.length = 30;
                                         this.damage = 27;
                                         this.shootEffect = Fx.shootSmall;
-                                        this.hitColor = Color.valueOf("cf77ff");
-                                        this.color = Color.valueOf("8efff0");
+                                        this.hitColor = Color.valueOf("d6b7ff");
+                                        this.color = Color.valueOf("9267ce");
                                         this.despawnEffect = Fx.none;
                                         this.width = 0.54f;
                                         this.lifetime = 15;
@@ -165,8 +165,8 @@ public class ModUnitTypes implements ContentList {
                                         this.length = 50;
                                         this.damage = 35;
                                         this.shootEffect = Fx.shootSmall;
-                                        this.hitColor = Color.valueOf("cf77ff");
-                                        this.color = Color.valueOf("a62bff");
+                                        this.hitColor = Color.valueOf("d6b7ff");
+                                        this.color = Color.valueOf("9267ce");
                                         this.despawnEffect = Fx.none;
                                         this.width = 0.7f;
                                         this.lifetime = 35;
@@ -221,8 +221,8 @@ public class ModUnitTypes implements ContentList {
                                         this.length = 110;
                                         this.damage = 68;
                                         this.shootEffect = Fx.shootSmall;
-                                        this.hitColor = Color.valueOf("cf77ff");
-                                        this.color = Color.valueOf("a62bff");
+                                        this.hitColor = Color.valueOf("d6b7ff");
+                                        this.color = Color.valueOf("9267ce");
                                         this.despawnEffect = Fx.none;
                                         this.width = 0.7f;
                                         this.lifetime = 20;
@@ -319,8 +319,8 @@ public class ModUnitTypes implements ContentList {
                                         this.length = 135;
                                         this.damage = 40;
                                         this.shootEffect = Fx.shootSmall;
-                                        this.hitColor = Color.valueOf("cf77ff");
-                                        this.color = Color.valueOf("a62bff");
+                                        this.hitColor = Color.valueOf("d6b7ff");
+                                        this.color = Color.valueOf("9267ce");
                                         this.despawnEffect = Fx.none;
                                         this.width = 1.0f;
                                         this.lifetime = 25;
@@ -385,8 +385,8 @@ public class ModUnitTypes implements ContentList {
                                         this.length = 180;
                                         this.damage = 270;
                                         this.shootEffect = Fx.shootSmall;
-                                        this.hitColor = Color.valueOf("cf77ff");
-                                        this.color = Color.valueOf("a62bff");
+                                        this.hitColor = Color.valueOf("d6b7ff");
+                                        this.color = Color.valueOf("9267ce");
                                         this.despawnEffect = Fx.none;
                                         this.width = 1.25f;
                                         this.lifetime = 20;
@@ -413,8 +413,8 @@ public class ModUnitTypes implements ContentList {
                                         this.length = 180;
                                         this.damage = 90;
                                         this.shootEffect = Fx.shootSmall;
-                                        this.hitColor = Color.valueOf("cf77ff");
-                                        this.color = Color.valueOf("a62bff");
+                                        this.hitColor = Color.valueOf("d6b7ff");
+                                        this.color = Color.valueOf("9267ce");
                                         this.despawnEffect = Fx.none;
                                         this.width = 1.15f;
                                         this.lifetime = 20;
