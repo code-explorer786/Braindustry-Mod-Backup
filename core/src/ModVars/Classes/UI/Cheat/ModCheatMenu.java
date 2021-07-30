@@ -8,6 +8,7 @@ import arc.scene.event.Touchable;
 import arc.scene.ui.layout.Table;
 import mindustry.Vars;
 import mindustry.game.EventType;
+import mindustry.gen.Tex;
 import mindustry.ui.Styles;
 
 import static ModVars.modVars.*;
@@ -35,7 +36,7 @@ public class ModCheatMenu {
     private void loadEvent() {
         Events.on(EventType.Trigger.class, (e) -> {
             if (!add && isPlay()) {
-                Table table = new Table(Styles.black3);
+                Table table = new Table(Tex.buttonEdge3);
                 table.touchable = Touchable.enabled;
                 table.update(() -> {
                     table.visible=isPlay();

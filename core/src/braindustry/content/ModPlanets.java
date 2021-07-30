@@ -43,6 +43,8 @@ public class ModPlanets implements ContentList {
                 rotateTime = Float.POSITIVE_INFINITY;
                 orbitTime = Mathf.pow((2.0f + 14.0f + 0.66f), 1.5f) * 80;
                 accessible = true;
+                //TODO: remove after v7
+                alwaysUnlocked=true;
             }
         };
         shinrin = new Planet("shinrin", osore, 3, 0.4f) {
@@ -60,6 +62,8 @@ public class ModPlanets implements ContentList {
                 rotateTime = Float.POSITIVE_INFINITY;
                 orbitTime = Mathf.pow((2.0f + 14.0f + 0.66f), 1.5f) * 80;
                 accessible = true;
+                //TODO: remove after v7
+                alwaysUnlocked=true;
             }
         };
     }

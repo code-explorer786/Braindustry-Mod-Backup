@@ -39,6 +39,8 @@ import mindustry.gen.*;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
 import mindustry.input.Binding;
+import mindustry.input.MobileInput;
+import mindustry.input.PlaceMode;
 import mindustry.net.Net;
 import mindustry.net.Packets;
 import mindustry.type.Item;
@@ -110,7 +112,17 @@ public class ModHudFragment {
                cell.padTop(overlaymarker.getRowHeight(0)+overlaymarker.getRowHeight(1));
            });
        }
-        actor.visible(()-> ui.hudfrag.shown && state.isGame());
+        actor.visible(()-> {
+            if(!Vars.ui.hudfrag.shown) return false;
+            if(Vars.ui.minimapfrag.shown()) return false;
+            if(!Vars.mobile) return true;
+            if(Vars.player.unit().isBuilding()) return false;
+            if(control.input.block != null) return false;
+            if(control.input instanceof MobileInput && ((MobileInput) control.input).mode == PlaceMode.breaking) return false;
+            if(!control.input.selectRequests.isEmpty() && control.input.lastSchematic != null && !control.input.selectRequests.isEmpty()) return false;
+            return true;
+//            ui.hudfrag.shown && state.isGame()
+        });
         actor.row();
         actor.add().growY();
         actor.left().bottom();

@@ -44,7 +44,7 @@ public class ModAssetsProcess extends ModBaseProcessor {
     }
 
     void processUI(Set<? extends Element> elements) throws Exception {
-        TypeSpec.Builder type = TypeSpec.classBuilder("Tex").addModifiers(Modifier.PUBLIC);
+        TypeSpec.Builder type = TypeSpec.classBuilder("ModTex").addModifiers(Modifier.PUBLIC);
 //        TypeSpec.Builder ictype = TypeSpec.classBuilder("Icon").addModifiers(Modifier.PUBLIC);
 //        TypeSpec.Builder ichtype = TypeSpec.classBuilder("Iconc").addModifiers(Modifier.PUBLIC);
         MethodSpec.Builder load = MethodSpec.methodBuilder("load").addModifiers(Modifier.PUBLIC, Modifier.STATIC);
