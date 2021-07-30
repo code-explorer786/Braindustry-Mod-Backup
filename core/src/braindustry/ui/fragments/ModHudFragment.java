@@ -99,31 +99,31 @@ public class ModHudFragment {
                     t.getChildren().get(1).toFront();
                 })
         ).size(120f, 80).padRight(4);
-        Table actor = new Table();
+//        Table unitBar = new Table();
        if (!mobile) {
-           actor.add(unitBar).left().top();
-           actor.update(() -> actor.setSize(actor.getPrefWidth(), Core.graphics.getHeight()));
+           unitBar.add(unitBar).left().top();
+           unitBar.update(() -> unitBar.setSize(unitBar.getPrefWidth(), Core.graphics.getHeight()));
        }else {
            Table overlaymarker = ui.hudGroup.find("overlaymarker");
            Table mobile_buttons = overlaymarker.find("mobile buttons");
-           Cell<Table> cell = actor.add(unitBar).left().top();
-           cell.update(t-> {
+//           Cell<Table> cell = actor.add(unitBar).left().top();
+           unitBar.update(()-> {
                Log.info("height--: @",mobile_buttons.getHeight());
-               cell.marginTop(mobile_buttons.getHeight());
+               unitBar.marginTop(mobile_buttons.getHeight()+1);
 //               cell.
            });
        }
-        actor.visible(()-> {
+        unitBar.visible(()-> {
             boolean b = state.isGame() && !ui.minimapfrag.shown() && ui.hudfrag.shown;
             if (mobile)Log.info("b: @",b);
             return b;
 //            ui.hudfrag.shown && state.isGame()
         });
-        actor.row();
-        actor.add().growY();
-        actor.left().bottom();
-        actor.setBackground(zero);
-        ui.hudGroup.addChild(actor);
+        unitBar.row();
+        unitBar.add().growY();
+        unitBar.left().bottom();
+        unitBar.setBackground(zero);
+        ui.hudGroup.addChild(unitBar);
 
 
 
