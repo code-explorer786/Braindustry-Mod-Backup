@@ -3,6 +3,6 @@ displayName: "Braindustry"
 author: "#[18cecb[]]Quant Team"
 description: "From Russia with love."
 main: "braindustry.BraindustryMod"
-version: 2.0.4.3 public beta
+version: 2.0.4.4 public beta
 minGameVersion: 129.1
 
