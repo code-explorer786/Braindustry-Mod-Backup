@@ -31,13 +31,14 @@ public class UnitChooseDialog extends BaseDialog {
         cont.clear();
         Table table = new Table();
         float pad = 6f;
-        final float buttonSize = !mobile ? 100f : (Core.camera.width - 20 - pad * 5) / 5f;
+        float rowCount = 5;
+        final float buttonSize = !mobile ? 100f : (Core.camera.width - pad * (rowCount-1)) / rowCount;
         ScrollPane pane = new ScrollPane(table);
         pane.setScrollingDisabled(true, false);
         int[] index = {0};
         for (UnitType unitType : Vars.content.units().select(u -> !u.isHidden())) {
             if (unitType == UnitTypes.block) continue;
-            if (index[0] % 5 == 0) table.row();
+            if (index[0] % rowCount == 0) table.row();
             index[0]++;
             Button button = new Button();
             button.clearChildren();
