@@ -82,7 +82,7 @@ public class ModHudFragment {
            Cell<Table> cell = actor.add(unitBar).left().top();
             actor.update(() -> {
                 Log.info("height--: @ @", mobile_buttons.getHeight(), Core.camera.width);
-                unitBar.marginTop(mobile_buttons.getPrefHeight() + 4f);
+                unitBar.marginTop(mobile_buttons.getMinHeight() + 4f);
                 unitBar.setSize(unitBar.getPrefWidth(), Core.graphics.getHeight());
 //               cell.
             });
