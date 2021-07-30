@@ -81,14 +81,23 @@ public class ModUI implements Disposable, ApplicationListener {
             table.button("@cheat-menu.title", () -> {
                 BaseDialog dialog = new BaseDialog("@cheat-menu.title");
                 dialog.cont.table((t) -> {
+                    t.background(Styles.none);
                     t.defaults().size(280.0F, 60.0F);
-                    t.button("@cheat-menu.change-team", CheatUI::openTeamChooseDialog).growX().row();
-                    t.button("@cheat-menu.change-unit", CheatUI::openUnitChooseDialog).growX().row();
-                    if (!Vars.net.client())
-                        t.button("@cheat-menu.edit-rules", CheatUI::openRulesEditDialog).growX().row();
-                    t.button("@cheat-menu.items-manager", CheatUI::openModCheatItemsMenu).growX().row();
-                    t.button("@cheat-menu.unlock-content", CheatUI::openUnlockContentDialog).growX().row();
+                    t.button("@cheat-menu.change-team", CheatUI::openTeamChooseDialog).growX().get().setStyle(ModStyles.buttonPaneTop);
+                    t.row();
+                    t.button("@cheat-menu.change-unit", CheatUI::openUnitChooseDialog).growX().get().setStyle(ModStyles.buttonPane);
+                    t.row();
+                    if (!Vars.net.client()) {
+                        t.button("@cheat-menu.edit-rules", CheatUI::openRulesEditDialog).growX().get().setStyle(ModStyles.buttonPane);
+                        t.row();
+                    }
+                    t.button("@cheat-menu.items-manager", CheatUI::openModCheatItemsMenu).growX().get().setStyle(ModStyles.buttonPane);
+                    t.row();
+                    t.button("@cheat-menu.unlock-content", CheatUI::openUnlockContentDialog).growX().get().setStyle(ModStyles.buttonPaneBottom);
+                    t.row();
                 });
+//                dialog.cont
+//                t.background(Styles.none);
                 dialog.addCloseListener();
                 dialog.addCloseButton();
                 dialog.show();

@@ -1,5 +1,6 @@
 package ModVars.Classes.UI.Cheat;
 
+import arc.Core;
 import arc.func.Cons;
 import arc.scene.ui.Image;
 import arc.scene.ui.ImageButton;
@@ -10,14 +11,27 @@ import mindustry.gen.Tex;
 import mindustry.ui.Styles;
 import mindustry.ui.dialogs.BaseDialog;
 
+import static mindustry.Vars.mobile;
+
 public class TeamChooseDialog extends BaseDialog {
-    public TeamChooseDialog(Cons<Team> confirm){
+    private Cons<Team> confirm;
+
+    public TeamChooseDialog(Cons<Team> confirm) {
         super("Choose team:");
+        this.confirm = confirm;
+        setup();
+        if (mobile) onResize(this::setup);
+        this.addCloseButton();
+    }
+
+    private void setup() {
+        cont.clear();
         this.cont.table(i -> {
             i.table(t -> {
                 final int buttonSize = 20;
+                int coln = !mobile ? 20 : (Core.graphics.getWidth()) / 20 - 2;
                 for (Team team : Team.all) {
-                    if (Seq.with(Team.all).indexOf(team) % 20 == 0) t.row();
+                    if (Seq.with(Team.all).indexOf(team) % coln == 0) t.row();
                     ImageButton button = new ImageButton(Tex.whitePane, Styles.clearToggleTransi);
                     button.clearChildren();
                     Image image = new Image();
@@ -31,6 +45,5 @@ public class TeamChooseDialog extends BaseDialog {
                 }
             });
         }).width(360).bottom().center();
-        this.addCloseButton();
     }
 }

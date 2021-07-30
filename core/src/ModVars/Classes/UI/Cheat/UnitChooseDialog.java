@@ -1,5 +1,6 @@
 package ModVars.Classes.UI.Cheat;
 
+import arc.Core;
 import arc.func.Boolf;
 import arc.graphics.Color;
 import arc.scene.ui.Button;
@@ -13,12 +14,22 @@ import mindustry.type.UnitType;
 import mindustry.ui.dialogs.BaseDialog;
 
 import static ModVars. modFunc.getInfoDialog;
+import static mindustry.Vars.mobile;
 
 public class UnitChooseDialog extends BaseDialog {
+    private Boolf<UnitType> check;
     public UnitChooseDialog(Boolf<UnitType> check) {
         super("Choose unit:");
+        this.check=check;
+        setup();
+        if (mobile)   onResize(this::setup);
+        this.addCloseButton();
+    }
+
+    private void setup() {
+        cont.clear();
         Table table=new Table();
-        final int buttonSize=100;
+        final int buttonSize=!mobile?100: (Core.graphics.getWidth()-20)/5;
         ScrollPane pane = new ScrollPane(table);
         pane.setScrollingDisabled(true, false);
         int[] index={0};
@@ -53,7 +64,6 @@ public class UnitChooseDialog extends BaseDialog {
         }
         this.cont.add(pane).growY().growX().bottom().center();
 
-        this.addCloseButton();
     }
 
 

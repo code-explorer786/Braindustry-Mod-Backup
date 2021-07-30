@@ -49,7 +49,8 @@ public class RulesProcessor extends ModBaseProcessor {
     private void addColorEdit(CodeBlock.Builder builder, Svar field) {
 
         String name = "rules."+field.name();
-        addCode("table.button(\"edit\",()-> mindustry.Vars.ui.picker.show(@,c->@=c))", name, name);
+        addCode("table.label(()->\"@\").growX()", field.name());
+        addCode("table.button(\"edit\",()-> ModVars.modVars.modUI.colorPicker.show(@,c->@=c)).growX()", name, name);
 
     }
     protected void addSlider(CodeBlock.Builder builder,Svar field,String cast){

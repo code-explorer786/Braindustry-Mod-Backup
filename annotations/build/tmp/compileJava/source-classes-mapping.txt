@@ -2,8 +2,8 @@ braindustry/annotations/AdvancedStats/AStatCatProcessor.java
  braindustry.annotations.AdvancedStats.AStatCatProcessor
 braindustry/annotations/remote/ModTypeIOResolver.java
  braindustry.annotations.remote.ModTypeIOResolver
-braindustry/annotations/RulesEditDialog/RulesProcessor.java
- braindustry.annotations.RulesEditDialog.RulesProcessor
+braindustry/annotations/impl/ModAssetsProcess.java
+ braindustry.annotations.impl.ModAssetsProcess
 braindustry/annotations/ModEntities/ModEntitiesProc.java
  braindustry.annotations.ModEntities.ModEntitiesProc
  braindustry.annotations.ModEntities.ModEntitiesProc$EntityDefinition
@@ -72,5 +72,5 @@ braindustry/annotations/ModAnnotations.java
  braindustry.annotations.ModAnnotations$WritableObjectsConfig
 braindustry/annotations/ModTypeIO/ObjectReadProcessor.java
  braindustry.annotations.ModTypeIO.ObjectReadProcessor
-braindustry/annotations/impl/ModAssetsProcess.java
- braindustry.annotations.impl.ModAssetsProcess
+braindustry/annotations/RulesEditDialog/RulesProcessor.java
+ braindustry.annotations.RulesEditDialog.RulesProcessor

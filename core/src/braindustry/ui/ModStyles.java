@@ -13,17 +13,32 @@ import mindustry.ui.Styles;
 
 import static mindustry.gen.Tex.*;
 
-public class ModStyles extends Styles {
+public class ModStyles {
     private static final Color black = new Color(0f, 0f, 0f, 1f), black9 = new Color(0f, 0f, 0f, 0.9f), black8 = new Color(0f, 0f, 0f, 0.8f), black6 = new Color(0f, 0f, 0f, 0.6f), black5 = new Color(0f, 0f, 0f, 0.5f), black3 = new Color(0f, 0f, 0f, 0.3f), none = new Color(0f, 0f, 0f, 0f);
 
     public static ImageButton.ImageButtonStyle buttonSquarei, alphai;
-    public static TextButton.TextButtonStyle buttonEdge3;
+    public static TextButton.TextButtonStyle buttonEdge3,buttonPane,buttonPaneTop,buttonPaneBottom;
 
     public static void load() {
         buttonEdge3 = new TextButton.TextButtonStyle(Styles.defaultt) {{
             over = ModTex.buttonEdge3Over;
             down = ModTex.buttonEdge3Down;
             up = disabled = Tex.buttonEdge3;
+        }};
+        buttonPane = new TextButton.TextButtonStyle(Styles.defaultt) {{
+            over = ModTex.buttonPaneOver;
+            down = ModTex.buttonPaneDown;
+            up = disabled = pane;
+        }};
+        buttonPaneTop = new TextButton.TextButtonStyle(Styles.defaultt) {{
+            over = ModTex.buttonPaneTopOver;
+            down = ModTex.buttonPaneTopDown;
+            up = disabled = ModTex.buttonPaneTop;
+        }};
+        buttonPaneBottom = new TextButton.TextButtonStyle(Styles.defaultt) {{
+            over = ModTex.buttonPaneBottomOver;
+            down = ModTex.buttonPaneBottomDown;
+            up = disabled = ModTex.buttonPaneBottom;
         }};
         buttonSquarei = new ImageButton.ImageButtonStyle() {
             {
