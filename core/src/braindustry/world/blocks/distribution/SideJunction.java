@@ -9,7 +9,6 @@ import arc.util.Eachable;
 import arc.util.Time;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
-import braindustry.world.blocks.DebugBlock;
 import mindustry.Vars;
 import mindustry.entities.units.BuildPlan;
 import mindustry.gen.BufferItem;
@@ -20,7 +19,7 @@ import mindustry.type.Item;
 import mindustry.world.Block;
 import mindustry.world.DirectionalItemBuffer;
 import mindustry.world.meta.BlockGroup;
-import mindustryAddition.graphics.ModLines;
+import braindustry.graphics.ModLines;
 
 public class SideJunction extends Block {
     public float speed = 26.0F;

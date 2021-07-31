@@ -13,8 +13,8 @@ import arc.scene.ui.layout.Table;
 import arc.util.Scaling;
 import arc.util.Time;
 import arc.util.Tmp;
-import braindustry.gen.StealthUnitc;
-import braindustry.gen.StealthUnitc;
+import braindustry.gen.Stealthc;
+import braindustry.gen.Stealthc;
 import braindustry.gen.Stealthc;
 import braindustry.graphics.ModPal;
 import mindustry.ai.types.LogicAI;
@@ -88,8 +88,8 @@ public class StealthUnitType extends ModUnitType {
 
             bars.add(new Bar("stat.health", Pal.health, unit::healthf).blink(Color.white));
             bars.row();
-            if (unit instanceof StealthUnitc){
-                bars.add(new Bar("stat.special_power", ModPal.stealthBarColor, ((StealthUnitc) unit)::stealthf));
+            if (unit instanceof Stealthc){
+                bars.add(new Bar("stat.special_power", ModPal.stealthBarColor, ((Stealthc) unit)::stealthf));
                 bars.row();
             }
 
@@ -238,8 +238,8 @@ public class StealthUnitType extends ModUnitType {
     }
 
     public void drawAlpha(Unit unit){
-        if (unit instanceof StealthUnitc){
-            ((StealthUnitc)unit).drawAlpha();
+        if (unit instanceof Stealthc){
+            ((Stealthc)unit).drawAlpha();
         }
     }
     public void drawCell(Unit unit) {
@@ -253,8 +253,8 @@ public class StealthUnitType extends ModUnitType {
     public void applyColor(Unit unit) {
 
         super.applyColor(unit);
-        if (unit instanceof StealthUnitc){
-            ((StealthUnitc)unit).drawAlpha();
+        if (unit instanceof Stealthc){
+            ((Stealthc)unit).drawAlpha();
         }
     }
 }

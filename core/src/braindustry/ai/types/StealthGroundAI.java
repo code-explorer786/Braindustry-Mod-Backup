@@ -4,7 +4,7 @@ import arc.func.Prov;
 import arc.math.Mathf;
 import arc.struct.IntQueue;
 import arc.struct.IntSeq;
-import braindustry.gen.StealthUnitc;
+import braindustry.gen.Stealthc;
 import mindustry.Vars;
 import mindustry.ai.Pathfinder;
 import mindustry.ai.types.FlyingAI;
@@ -33,7 +33,7 @@ public class StealthGroundAI extends AIController {
     }
 
     public void updateUnit() {
-        if (unit instanceof StealthUnitc) ((StealthUnitc) unit).healing(false);
+        if (unit instanceof Stealthc) ((Stealthc) unit).healing(false);
         if (this.useFallback() && (this.fallback != null || (this.fallback = this.fallback()) != null)) {
 
             if (this.fallback.unit() != this.unit) {
@@ -51,7 +51,7 @@ public class StealthGroundAI extends AIController {
     @Override
     protected void updateMovement() {
 
-        StealthUnitc sunit = (StealthUnitc) this.unit;
+        Stealthc sunit = (Stealthc) this.unit;
         Teamc target = targetFlag(unit.x, unit.y, BlockFlag.repair, false);
         float radius = 8f;
         checkRadius:
@@ -88,7 +88,7 @@ public class StealthGroundAI extends AIController {
     @Override
     protected boolean useFallback() {
         Teamc target = targetFlag(unit.x, unit.y, BlockFlag.repair, false);
-        return !(this.unit instanceof StealthUnitc && ((StealthUnitc) unit).mustHeal()) || target == null;
+        return !(this.unit instanceof Stealthc && ((Stealthc) unit).mustHeal()) || target == null;
     }
 
     @Override
@@ -98,7 +98,7 @@ public class StealthGroundAI extends AIController {
 
     @Override
     public boolean shouldShoot() {
-        return (this.unit instanceof StealthUnitc && !((StealthUnitc) unit).inStealth());
+        return (this.unit instanceof Stealthc && !((Stealthc) unit).inStealth());
     }
 
     protected static class StealthFlowfield extends Pathfinder.Flowfield {

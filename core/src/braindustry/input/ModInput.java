@@ -5,8 +5,9 @@ import arc.Events;
 import arc.util.Log;
 import arc.util.Nullable;
 import braindustry.annotations.ModAnnotations;
+import braindustry.entities.ModUnits;
 import braindustry.gen.ModCall;
-import braindustry.gen.StealthUnitc;
+import braindustry.gen.Stealthc;
 import mindustry.annotations.Annotations;
 import mindustry.entities.Units;
 import mindustry.game.EventType;
@@ -25,8 +26,8 @@ public class ModInput {
     public static void tileConfig(Player player, Building build, @Nullable Object value) {
 //        Log.info("tileConfig(player: @,build: @,value: @)",player,build,value);
         if (build == null) return;
-        if (net.server() && (!Units.canInteract(player, build) ||
-                !netServer.admins.allowAction(player, Administration.ActionType.configure, build.tile, action -> action.config = value)))
+        if (net.server() && (!ModUnits.canInteract(player, build) ||
+                             !netServer.admins.allowAction(player, Administration.ActionType.configure, build.tile, action -> action.config = value)))
             throw new ValidateException(player, "Player cannot configure a tile.");
         build.configured(player == null || player.dead() ? null : player.unit(), value);
         Core.app.post(() -> Events.fire(new EventType.ConfigEvent(build, player, value)));
@@ -34,7 +35,7 @@ public class ModInput {
 
     @ModAnnotations.Remote(targets = Annotations.Loc.both, called = Annotations.Loc.server)
     public static void requestUnitPayload(Player player, Unit target) {
-        if (player == null || target instanceof StealthUnitc) return;
+        if (player == null || target instanceof Stealthc) return;
 
         Unit unit = player.unit();
         Payloadc pay = (Payloadc) unit;
@@ -47,9 +48,9 @@ public class ModInput {
 
     @ModAnnotations.Remote(targets = Annotations.Loc.server, called = Annotations.Loc.server)
     public static void pickedUnitPayload(Unit unit, Unit target) {
-        if (target != null && unit instanceof Payloadc && !(target instanceof StealthUnitc)) {
+        if (target != null && unit instanceof Payloadc && !(target instanceof Stealthc)) {
             ((Payloadc) unit).pickup(target);
-        } else if (target != null && !(target instanceof StealthUnitc)) {
+        } else if (target != null && !(target instanceof Stealthc)) {
             target.remove();
         }
     }

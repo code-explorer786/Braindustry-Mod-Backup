@@ -24,7 +24,7 @@ import static ModVars.modFunc.fullName;
 import static ModVars.modVars.modUI;
 import static mindustry.Vars.*;
 
-public class ModMenuFragment{
+public class ModMenuFragment {
     protected static boolean xAxis = false;
     protected static float pixels = 1f;
     protected static int otherAxisMul = 50;
@@ -40,8 +40,9 @@ public class ModMenuFragment{
             WidgetGroup widgetGroup = (WidgetGroup) ui.menuGroup.getChildren().first();
             widgetGroup.getChildren().set(0, new Element() {
                 {
-                    name="custom-menu-background";
+                    name = "custom-menu-background";
                 }
+
                 @Override
                 public void draw() {
                     lastRenderer.render();
@@ -49,7 +50,7 @@ public class ModMenuFragment{
             });
             widgetGroup.getChildren().set(mobile ? 4 : (becontrol.active() ? 3 : 2), new Element() {
                 {
-                    name="braindustry-logo";
+                    name = "braindustry-logo";
                     touchable = Touchable.disabled;
                 }
 

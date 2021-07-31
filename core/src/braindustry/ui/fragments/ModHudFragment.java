@@ -12,7 +12,7 @@ import arc.scene.ui.layout.Table;
 import arc.struct.SnapshotSeq;
 import arc.util.Log;
 import arc.util.Tmp;
-import braindustry.gen.StealthUnitc;
+import braindustry.gen.Stealthc;
 import braindustry.graphics.ModPal;
 import braindustry.graphics.ModShaders;
 import mindustry.graphics.Drawf;
@@ -41,9 +41,9 @@ public class ModHudFragment {
         Element unitBackground = new Element() {
             @Override
             public void draw() {
-                boolean me = player != null && player.unit() instanceof StealthUnitc && !player.unit().dead() && player.unit().isValid();
-                if (!me){
-                    oldFrag.setBounds(x,y,width,height);
+                boolean me = player != null && player.unit() instanceof Stealthc && !player.unit().dead() && player.unit().isValid();
+                if (!me) {
+                    oldFrag.setBounds(x, y, width, height);
                     oldFrag.draw();
                     return;
                 }
@@ -52,7 +52,7 @@ public class ModHudFragment {
                 Fill.poly(x + width / 2f, y + height / 2f, 6, radius);
                 Draw.reset();
                 if (me) {
-                    StealthUnitc unit = player.unit().as();
+                    Stealthc unit = player.unit().as();
                     float offset = unit.stealthf();
                     Draw.color(ModPal.stealthBarColor);
                     ModShaders.iconBackgroundShader.set(y + (radius * 2f) * offset);

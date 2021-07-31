@@ -19,7 +19,7 @@ import mindustry.content.Fx;
 import mindustry.entities.Effect;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
-import mindustryAddition.graphics.ModFill;
+import braindustry.graphics.ModFill;
 
 import static ModVars.modFunc.fullName;
 import static braindustry.content.FxValues.*;

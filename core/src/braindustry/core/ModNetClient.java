@@ -3,33 +3,18 @@ package braindustry.core;
 import ModVars.ModEnums;
 import ModVars.modVars;
 import arc.ApplicationListener;
-import arc.Events;
 import arc.graphics.Color;
 import arc.util.CommandHandler;
-import arc.util.Log;
-import arc.util.io.Reads;
 import arc.util.io.ReusableByteInStream;
 import braindustry.annotations.ModAnnotations;
 import braindustry.cfunc.Couple;
-import mindustry.Vars;
 import mindustry.annotations.Annotations;
-import mindustry.core.NetClient;
-import mindustry.game.EventType;
 import mindustry.gen.*;
-import mindustry.net.Packets;
-import mindustry.net.ValidateException;
-import mindustry.world.Tile;
-import mindustry.world.modules.ItemModule;
-import braindustry.gen.ModEntityMapping;
-import mindustryAddition.graphics.ModDraw;
+import braindustry.graphics.ModDraw;
 
 import java.io.DataInputStream;
-import java.io.IOException;
 
-import static ModVars.modVars.*;
 import static mindustry.Vars.*;
-import static mindustry.Vars.netClient;
-import static mindustry.Vars.netServer;
 
 public class ModNetClient implements ApplicationListener {
     protected ReusableByteInStream byteStream = new ReusableByteInStream();

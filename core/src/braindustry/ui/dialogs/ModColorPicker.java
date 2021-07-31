@@ -14,9 +14,9 @@ import mindustry.ui.dialogs.BaseDialog;
 import java.util.Objects;
 
 public class ModColorPicker extends BaseDialog {
+    Color current = new Color();
     private Cons<Color> cons = (c) -> {
     };
-    Color current = new Color();
 
     public ModColorPicker() {
         super("@pickcolor");
@@ -71,10 +71,10 @@ public class ModColorPicker extends BaseDialog {
                 t.slider(0.0F, 1.0F, 0.01F, var10004, var10005::a).width(w);
                 t.row();
             }
-            t.button("Write hex",()->{
-                ModTextInput.showTextInput("white hex color","hex",this.current.toString().length()-(alpha?0:2),this.current.toString(),(f, s)->{
-                    return Seq.with("abcdef1234567890#".split("")).contains((s+"").toLowerCase());
-                },(s -> {
+            t.button("Write hex", () -> {
+                ModTextInput.showTextInput("white hex color", "hex", this.current.toString().length() - (alpha ? 0 : 2), this.current.toString(), (f, s) -> {
+                    return Seq.with("abcdef1234567890#".split("")).contains((s + "").toLowerCase());
+                }, (s -> {
                     this.current.set(Color.valueOf(s));
                 }));
             }).width(w).colspan(2);

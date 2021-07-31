@@ -1,6 +1,5 @@
 package braindustry.type;
 
-import braindustry.entities.abilities.OrbitalPlatformAbility;
 import mindustry.gen.Unit;
 
 public abstract class UnitContainer {

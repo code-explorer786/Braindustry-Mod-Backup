@@ -39,7 +39,7 @@ public class ModContentLoader extends ContentLoader {
     private @Nullable Content lastAdded;
     private ObjectSet<Cons<Content>> initialization = new ObjectSet<>();
     protected boolean loadModContent=false;
-    private ContentList[] content = {
+    private final ContentList[] content = {
             new Items(),
             new StatusEffects(),
             new Liquids(),
@@ -52,13 +52,12 @@ public class ModContentLoader extends ContentLoader {
             new SectorPresets(),
             new TechTree(),
     };
-    private ContentList[] modContent = {
+    private final ContentList[] modContent = {
             new ModItems(),
             new ModStatusEffects(),
             new ModLiquids(),
             new Gasses(),
             new ModBullets(),
-//            new ModAmmoTypes(),
             new ModUnitTypes(),
             new GasBasicBlocks(),
             new ModBlocks(),

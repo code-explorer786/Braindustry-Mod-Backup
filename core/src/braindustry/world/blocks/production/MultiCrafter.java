@@ -1,7 +1,6 @@
 package braindustry.world.blocks.production;
 
 import ModVars.modFunc;
-import ModVars.modVars;
 import arc.Core;
 import arc.func.Func;
 import arc.graphics.Color;
@@ -12,7 +11,6 @@ import arc.math.Mathf;
 import arc.scene.ui.layout.Table;
 import arc.struct.EnumSet;
 import arc.struct.Seq;
-import arc.util.Strings;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
 import braindustry.content.ModFx;
@@ -29,22 +27,18 @@ import mindustry.graphics.Pal;
 import mindustry.type.*;
 import mindustry.ui.Bar;
 import mindustry.ui.Styles;
-import mindustry.world.Block;
 import mindustry.world.Tile;
 import mindustry.world.blocks.ItemSelection;
 import mindustry.world.consumers.*;
 import mindustry.world.meta.*;
-import mindustryAddition.iu.MultiBar;
-import mindustryAddition.world.consumers.ConsumeLiquidDynamic;
+import braindustry.ui.MultiBar;
+import braindustry.world.consumers.ConsumeLiquidDynamic;
 import braindustry.world.meta.AStat;
 import braindustry.world.meta.AStats;
 
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 
 import static ModVars.modFunc.fullName;
-import static ModVars.modFunc.getInfoDialog;
 
 public class MultiCrafter extends ModBlock {
     public final int timerDump;

@@ -12,8 +12,4 @@ import mindustry.type.Sector;
 @ModAnnotations.Rules
 @ModAnnotations.RulesTable
 public class ModRules extends Rules {
-
-    public static boolean check(Object var){
-        return !(var instanceof StringMap || var instanceof ObjectSet || var instanceof Seq || var instanceof Sector);
-    }
 }

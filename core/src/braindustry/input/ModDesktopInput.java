@@ -23,7 +23,7 @@ public class ModDesktopInput extends DesktopInput {
         Unit unit = player.unit();
         if(!(unit instanceof Payloadc)) return;
         Payloadc pay=unit.as();
-        Unit target = Units.closest(player.team(), pay.x(), pay.y(), unit.type.hitSize * 2f, u -> u.isAI() && u.isGrounded() && pay.canPickup(u) && u.within(unit, u.hitSize + unit.hitSize));
+        Unit target = ModUnits.closest(player.team(), pay.x(), pay.y(), unit.type.hitSize * 2f, u -> u.isAI() && u.isGrounded() && pay.canPickup(u) && u.within(unit, u.hitSize + unit.hitSize));
         if(target != null){
            ModCall.requestUnitPayload(player, target);
         }else{

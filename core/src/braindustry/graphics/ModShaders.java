@@ -49,7 +49,7 @@ public class ModShaders {
 
         testShader = new TestShader();
         iconBackgroundShader = new IconBackgroundShader();
-        waveShader=new WaveShader();
+        waveShader = new WaveShader();
 //        defaultShader=new Shaders.LoadShader("default","default");
     }
 
@@ -71,23 +71,65 @@ public class ModShaders {
         float displayScale = Vars.renderer.getDisplayScale();
         return new Vec2().set(position).sub(cameraOffset).scl(vec2(displayScale));
     }
-    public static class ModCupemapShader extends ModLoadShader{
-        public ModCupemapShader(){
-            super("modCubemap","modCubemap");
+
+    public static class ModCupemapShader extends ModLoadShader {
+        public ModCupemapShader() {
+            super("modCubemap", "modCubemap");
         }
     }
-    public static class WaveShader extends ModLoadShader{
+
+    public static class WaveShader extends ModLoadShader {
+        public WaveShaderPacker packer = new WaveShaderPacker();
+        TextureRegion region = null;
         public WaveShader() {
             super("wave", "default");
         }
-        TextureRegion region=null;
-        public WaveShaderPacker packer =new WaveShaderPacker();
-        public static    class WaveShaderPacker{
-            boolean xAxis=true;
-            float forcePercent=0.1f;
-            float otherAxisMul=10f;
-            float timeScl=1f;
-            private WaveShaderPacker(){
+
+        public WaveShaderPacker rect(TextureRegion region, float x, float y, float w, float h) {
+            return rect(region, x, y, w, h, 0f);
+        }
+
+        public WaveShaderPacker rect(TextureRegion region, float x, float y, float rotation) {
+            return rect(region, x, y, (float) region.width * Draw.scl * Draw.xscl, (float) region.height * Draw.scl * Draw.yscl, rotation);
+        }
+
+        public WaveShaderPacker rect(TextureRegion region, float x, float y) {
+            return rect(region, x, y, 0);
+        }
+
+        public WaveShaderPacker rect(TextureRegion region, float x, float y, float w, float h, float rotation) {
+            set();
+            Draw.rect(region, x, y, w * 2f, h * 2f, rotation);
+            this.region = region;
+            packer.xAxis = true;
+            packer.forcePercent = 0.1f;
+            packer.otherAxisMul = 10f;
+
+            return packer;
+        }
+
+        @Override
+        public void apply() {
+            super.apply();
+            float u_time = Time.time;
+            setUniformf("u_time", u_time * packer.timeScl);
+            setUniformf("u_delta", Time.delta / 60.f);
+            setUniformi("u_xAxis", Mathf.num(packer.xAxis));
+            setUniformf("u_forcePercent", packer.forcePercent);
+            setUniformf("u_otherAxisMul", packer.otherAxisMul);
+            if (region != null) {
+                setUniformf("u_uv", region.u, region.v);
+                setUniformf("u_uv2", region.u2, region.v2);
+            }
+        }
+
+        public static class WaveShaderPacker {
+            boolean xAxis = true;
+            float forcePercent = 0.1f;
+            float otherAxisMul = 10f;
+            float timeScl = 1f;
+
+            private WaveShaderPacker() {
 
             }
 
@@ -111,43 +153,8 @@ public class ModShaders {
                 return this;
             }
         }
-        public WaveShaderPacker rect(TextureRegion region, float x, float y, float w, float h){
-            return rect(region, x, y, w, h,0f);
-        }
-        public WaveShaderPacker rect(TextureRegion region, float x, float y,float rotation){
-            return rect(region, x, y, (float)region.width * Draw.scl * Draw.xscl, (float)region.height * Draw.scl * Draw.yscl,rotation);
-        }
-        public WaveShaderPacker rect(TextureRegion region, float x, float y){
-            return rect(region, x, y, 0);
-        }
-        public WaveShaderPacker rect(TextureRegion region, float x, float y, float w, float h, float rotation){
-            set();
-            Draw.rect(region,x,y,w*2f,h*2f,rotation);
-            this.region=region;
-            packer.xAxis=true;
-            packer.forcePercent=0.1f;
-            packer.otherAxisMul=10f;
-
-            return packer;
-        }
-
-
-
-        @Override
-        public void apply() {
-            super.apply();
-            float u_time = Time.time;
-            setUniformf("u_time", u_time*packer.timeScl);
-            setUniformf("u_delta", Time.delta / 60.f);
-            setUniformi("u_xAxis",Mathf.num(packer.xAxis));
-            setUniformf("u_forcePercent",packer.forcePercent);
-            setUniformf("u_otherAxisMul",packer.otherAxisMul);
-            if (region != null) {
-                setUniformf("u_uv", region.u, region.v);
-                setUniformf("u_uv2", region.u2, region.v2);
-            }
-        }
     }
+
     public static class IconBackgroundShader extends ModLoadShader {
 
         private float length;

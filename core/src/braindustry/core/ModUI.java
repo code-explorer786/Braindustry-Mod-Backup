@@ -14,7 +14,7 @@ import arc.util.Log;
 import arc.util.Time;
 import braindustry.ModListener;
 import braindustry.gen.ModTex;
-import braindustry.gen.StealthUnitc;
+import braindustry.gen.Stealthc;
 import braindustry.input.ModBinding;
 import braindustry.ui.AdvancedContentInfoDialog;
 import braindustry.ui.ModStyles;
@@ -132,8 +132,8 @@ public class ModUI implements Disposable, ApplicationListener {
                 openRulesEditDialog();
             }
         }
-        if (inGame && Vars.state.isPaused() && Vars.player.unit() instanceof StealthUnitc) {
-            StealthUnitc unit = (StealthUnitc) Vars.player.unit();
+        if (inGame && Vars.state.isPaused() && Vars.player.unit() instanceof Stealthc) {
+            Stealthc unit = (Stealthc) Vars.player.unit();
             unit.updateStealthStatus();
         }
     }

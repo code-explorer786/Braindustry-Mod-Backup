@@ -7,7 +7,7 @@ import braindustry.type.PowerUnitContainer;
 import mindustry.gen.Unit;
 
 public class BlackHoleReactorUnitContainer extends PowerUnitContainer<BlackHoleReactorAbility> {
-    BlackHoleDrawer drawer;
+   final BlackHoleDrawer drawer;
     public BlackHoleReactorUnitContainer(Unit unit, BlackHoleReactorAbility ability) {
         super(unit, ability);
         drawer=new BlackHoleDrawer(unit);

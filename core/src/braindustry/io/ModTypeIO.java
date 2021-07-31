@@ -8,8 +8,9 @@ import arc.util.Nullable;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
 import braindustry.annotations.ModAnnotations;
+import braindustry.entities.BuilderDrawer;
 import braindustry.gen.ObjectOperations;
-import braindustry.gen.StealthUnitc;
+import braindustry.gen.Stealthc;
 import braindustry.gen.WritableInterface;
 import mindustry.Vars;
 import mindustry.content.TechTree;
@@ -30,15 +31,24 @@ import mindustry.world.blocks.ControlBlock;
 
 @ModAnnotations.TypeIOHandler
 public class ModTypeIO extends TypeIO {
-public static void writeGas(Writes writes, Gas gas){
-    writes.i(gas.id);
-}
-public static Gas readGas(Reads reads){
-    return Vars.content.getByID(ContentType.typeid_UNUSED, reads.s());
-}
-    public static Vec2 readVec2(Reads read){
+    public static void writeBuilderDrawer(Writes writes,BuilderDrawer builderDrawer) {
+        writeBuilding(writes, (Building) builderDrawer);
+    }
+    public static BuilderDrawer readBuilderDrawer(Reads read){
+        return (BuilderDrawer) readBuilding(read);
+    }
+    public static void writeGas(Writes writes, Gas gas) {
+        writes.i(gas.id);
+    }
+
+    public static Gas readGas(Reads reads) {
+        return Vars.content.getByID(ContentType.typeid_UNUSED, reads.s());
+    }
+
+    public static Vec2 readVec2(Reads read) {
         return new Vec2(read.f(), read.f());
     }
+
     public static void writeTeam(Writes write, Team team) {
         if (team == null) {
             write.b(-1);
@@ -67,7 +77,7 @@ public static Gas readGas(Reads reads){
 
     @ModAnnotations.WritableObjectsConfig(value = {Vec2.class}, offset = 1)
     public static void writeObject(Writes write, Object object) {
-        if (object !=null && ObjectOperations.contains(write, object)) {
+        if (object != null && ObjectOperations.contains(write, object)) {
         } else if (object instanceof Vec2) {
             write.b(-1);
             TypeIO.writeVec2(write, (Vec2) object);
@@ -153,7 +163,7 @@ public static Gas readGas(Reads reads){
             if (unit == null) {
                 EntityGroup<Unit> stealthUnits = new EntityGroup<>(Unit.class, true, true);
                 Groups.all.each((entityc -> {
-                    if (entityc instanceof StealthUnitc && ((StealthUnitc) entityc).inStealth()) {
+                    if (entityc instanceof Stealthc && ((Stealthc) entityc).inStealth()) {
                         stealthUnits.add((Unit) entityc);
                     }
                 }));

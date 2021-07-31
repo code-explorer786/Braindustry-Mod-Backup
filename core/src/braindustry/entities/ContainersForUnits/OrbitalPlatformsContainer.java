@@ -25,6 +25,8 @@ import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.type.Weapon;
 
+import java.util.Arrays;
+
 import static arc.util.Tmp.v1;
 import static mindustry.Vars.*;
 
@@ -248,14 +250,7 @@ public class OrbitalPlatformsContainer extends UnitContainer {
         float onePlatformAngle = (float) (Math.acos((unit.hitSize() * unit.hitSize() * 2 - ability.platformHitsize() * ability.platformHitsize() * 4) / (2 * unit.hitSize() * unit.hitSize())) * Mathf.radiansToDegrees);
         attachAngles:
         {
-            boolean unbreak=true;
-            for (OrbitalPlatform platform : orbitalPlatforms) {
-//                unbreak&=platform.stay;
-            }
-            if (!unbreak)break attachAngles;
-            for (int i = 0; i < attachAngles.length; i++) {
-                attachAngles[i] = null;
-            }
+            Arrays.fill(attachAngles, null);
             float offset = onePlatformAngle / 2f;
             if (platformCount % 2 == 0) {
                 offset += onePlatformAngle / 2f;
@@ -269,22 +264,16 @@ public class OrbitalPlatformsContainer extends UnitContainer {
 
                 OrbitalPlatform min = null;
                 float value = Float.MAX_VALUE;
-//                Log.info("ANGLE: @",angle);
                 for (OrbitalPlatform platform : orbitalPlatforms) {
-//                    Position vec2 = platfromPosition(unitRotation + oneAngle * (platform.id));
                     Position vec2 = platform.position();
                     float dst = vec2.dst(pos);
-//                    Log.info("id: @,dst: @",platform.id,dst);
                     if (dst < value && attachAngles[platform.id] == null) {
                         value = dst;
                         min = platform;
                     }
                 }
-//                Log.info("selected: @",min.id);
-//                Log.info("id: @,angle: @",min.id,angle);
                 attachAngles[min.id] = Mathf.mod(angle, 360);
             }
-
         }
         for (OrbitalPlatform platform : orbitalPlatforms) {
             updateWeapon(platform);
@@ -295,11 +284,6 @@ public class OrbitalPlatformsContainer extends UnitContainer {
 
             }
         }
-//        Angles.moveToward()
-//        Mathf.slerpDelta()
-
-//        rotation = Mathf.lerpDelta(rotation, unit.rotation, v);
-//        rotation = Mathf.lerpDelta(rotation, unit.rotation, (ability.rotateSpeed()%360f)/360f);
     }
     private Vec2 platfromPosition(OrbitalPlatform p) {
         return v1.trns(unit.rotation + (360f / (float) orbitalPlatforms.size) * (p.id), unit.hitSize, unit.hitSize).add(unit);

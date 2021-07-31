@@ -13,6 +13,7 @@ import arc.struct.ObjectMap;
 import arc.struct.Seq;
 import arc.util.CommandHandler;
 import arc.util.Log;
+import braindustry.annotations.ModAnnotations;
 import braindustry.audio.ModAudio;
 import braindustry.core.ModContentLoader;
 import braindustry.gen.*;
@@ -34,6 +35,8 @@ import static arc.Core.assets;
 import static arc.Core.atlas;
 import static mindustry.Vars.*;
 
+@ModAnnotations.CashAnnotation1
+@ModAnnotations.AssetFolderFinder
 public class BraindustryMod extends Mod {
 
 
@@ -95,7 +98,7 @@ public class BraindustryMod extends Mod {
 
     public void loadContent() {
         modInfo = Vars.mods.getMod(this.getClass());
-        ModAudio.load();
+        ModAudio.reload();
         modAssets.init();
         if (!headless){
             inTry(ModShaders::init);

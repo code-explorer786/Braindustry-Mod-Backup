@@ -9,7 +9,7 @@ import arc.util.Time;
 import arc.util.Tmp;
 import braindustry.entities.ModUnits;
 import braindustry.gen.ModCall;
-import braindustry.gen.StealthUnitc;
+import braindustry.gen.Stealthc;
 import mindustry.Vars;
 import mindustry.content.Fx;
 import mindustry.core.World;
@@ -73,7 +73,7 @@ public class ModMobileInput extends MobileInput {
                 } else if (payloadTarget instanceof Building && pay.canPickup((Building) payloadTarget)) {
                     //building -> picking building up
                     Call.requestBuildPayload(player, (Building) payloadTarget);
-                } else if (payloadTarget instanceof Unit && !(payloadTarget instanceof StealthUnitc) && pay.canPickup((Unit) payloadTarget)) {
+                } else if (payloadTarget instanceof Unit && !(payloadTarget instanceof Stealthc) && pay.canPickup((Unit) payloadTarget)) {
                     //unit -> picking unit up
                     ModCall.requestUnitPayload(player, (Unit) payloadTarget);
                 }
@@ -181,8 +181,8 @@ public class ModMobileInput extends MobileInput {
                     Unit target = Vars.player.unit();
                     Payloadc pay;
                     float epsilon = 2f - (renderer.getDisplayScale() - renderer.minScale()) / (renderer.maxScale() - renderer.minScale());
-                    if (target instanceof StealthUnitc && pos.epsilonEquals(target.x, target.y, Math.min(4f*epsilon,target.hitSize()))) {
-                        ((StealthUnitc) target).longPress(true);
+                    if (target instanceof Stealthc && pos.epsilonEquals(target.x, target.y, Math.min(4f*epsilon,target.hitSize()))) {
+                        ((Stealthc) target).longPress(true);
                     } else if (target instanceof Payloadc) {
                         pay = (Payloadc) target;
                         target = Units.closest(Vars.player.team(), pos.x, pos.y, 8.0F, (u) -> {

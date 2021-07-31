@@ -6,7 +6,6 @@ import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Font;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
-import arc.math.geom.Vec2;
 import arc.scene.style.TextureRegionDrawable;
 import arc.scene.ui.ScrollPane;
 import arc.scene.ui.TextArea;
@@ -15,8 +14,6 @@ import arc.scene.ui.layout.Scl;
 import arc.scene.ui.layout.Table;
 import arc.util.Strings;
 import arc.util.io.Reads;
-import arc.util.io.ReusableByteInStream;
-import arc.util.io.ReusableByteOutStream;
 import arc.util.io.Writes;
 import braindustry.annotations.ModAnnotations;
 import braindustry.gen.ModBuilding;
@@ -27,18 +24,13 @@ import braindustry.world.blocks.DebugBlock;
 import mindustry.Vars;
 import mindustry.entities.TargetPriority;
 import mindustry.game.Team;
-import mindustry.gen.Building;
 import mindustry.gen.Bullet;
 import mindustry.gen.Icon;
 import mindustry.io.JsonIO;
 import mindustry.io.TypeIO;
 import mindustry.ui.Fonts;
 import mindustry.ui.Styles;
-import mindustry.world.Block;
-import mindustryAddition.graphics.ModDraw;
-
-import java.io.DataOutputStream;
-import java.util.Arrays;
+import braindustry.graphics.ModDraw;
 
 public class DpsMeter extends ModBlock implements DebugBlock {
     public @ModAnnotations.Load("@-team-region") TextureRegion teamRegionButton;

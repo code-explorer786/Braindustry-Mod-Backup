@@ -13,7 +13,7 @@ import arc.util.io.Writes;
 import braindustry.annotations.ModAnnotations;
 import braindustry.entities.ModUnits;
 import braindustry.gen.ModCall;
-import braindustry.gen.StealthUnitc;
+import braindustry.gen.Stealthc;
 import braindustry.input.ModBinding;
 import braindustry.type.StealthUnitType;
 import mindustry.Vars;
@@ -23,12 +23,14 @@ import mindustry.ai.formations.FormationPattern;
 import mindustry.entities.abilities.Ability;
 import mindustry.entities.units.UnitController;
 import mindustry.game.Team;
+import mindustry.gen.Entityc;
 import mindustry.gen.Groups;
 import mindustry.gen.Unit;
+import mindustry.gen.Unitc;
 import mindustry.type.UnitType;
 
 @ModAnnotations.Component
-public abstract class StealthComp implements StealthUnitc {
+public abstract class StealthComp implements Unitc, Entityc,Stealthc {
     public boolean inStealth = false;
     public float cooldownStealth = 0;
     public float durationStealth = 0;
@@ -157,6 +159,7 @@ public abstract class StealthComp implements StealthUnitc {
             cooldownStealth = Math.min(stealthType.stealthCooldown, time);
         }
     }
+    @ModAnnotations.Replace
     public void commandNearby(FormationPattern pattern, Boolf<Unit> include) {
 
         Formation formation = new Formation(new Vec3(x, y, rotation), pattern);
@@ -179,18 +182,18 @@ public abstract class StealthComp implements StealthUnitc {
             if (durationStealth >= stealthType.stealthDuration || selectStealth()) {
 //                removeStealth((durationStealth / stealthType.stealthDuration) * stealthType.stealthCooldown);
                 ModCall.setStealthStatus(self(),false,(durationStealth / stealthType.stealthDuration) * stealthType.stealthCooldown);
-                Seq<Unit> stealthUnitc = controlling().select((u) -> u instanceof StealthUnitc);
-                if (stealthUnitc.size > 0) {
-                    stealthUnitc.each(unit -> {
+                Seq<Unit> Stealthc = controlling().select((u) -> u instanceof Stealthc);
+                if (Stealthc.size > 0) {
+                    Stealthc.each(unit -> {
                         ModCall.setStealthStatus(unit,false,-1);
                     });
                 }
             }
         } else if (cooldownStealth == 0f && selectStealth()) {
             ModCall.setStealthStatus(self(),true,-1);
-            Seq<Unit> stealthUnitc = controlling().select((u) -> u instanceof StealthUnitc);
-            if (stealthUnitc.size > 0) {
-                stealthUnitc.each(unit -> {
+            Seq<Unit> Stealthc = controlling().select((u) -> u instanceof Stealthc);
+            if (Stealthc.size > 0) {
+                Stealthc.each(unit -> {
                     ModCall.setStealthStatus(unit,true,-1);
                 });
             }

@@ -16,6 +16,7 @@ import arc.struct.IntSeq;
 import arc.struct.OrderedMap;
 import arc.struct.Seq;
 import arc.util.Time;
+import braindustry.world.blocks.BuildingLabel;
 import braindustry.world.meta.AStat;
 import braindustry.world.meta.AStats;
 import mindustry.Vars;
@@ -32,8 +33,7 @@ import mindustry.world.Tile;
 import mindustry.world.blocks.distribution.ItemBridge;
 import mindustry.world.meta.Stat;
 import mindustry.world.meta.StatUnit;
-import mindustryAddition.graphics.ModLines;
-import mindustryAddition.world.blocks.BuildingLabel;
+import braindustry.graphics.ModLines;
 
 import static arc.util.Tmp.v1;
 import static arc.util.Tmp.v2;

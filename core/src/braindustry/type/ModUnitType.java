@@ -1,7 +1,5 @@
 package braindustry.type;
 
-import ModVars.Interface.InitableAbility;
-import ModVars.Interface.LoadableAbility;
 import arc.struct.Seq;
 import braindustry.ModListener;
 import braindustry.content.ModItems;
@@ -42,16 +40,6 @@ public class ModUnitType extends UnitType {
 
     public ModAbility toModAbility(Ability ability) {
         if (ability instanceof ModAbility) return (ModAbility) ability;
-        return null;
-    }
-
-    private LoadableAbility getLoadable(Ability ability) {
-        if (ability instanceof LoadableAbility) return (LoadableAbility) ability;
-        return null;
-    }
-
-    private InitableAbility getInitable(Ability ability) {
-        if (ability instanceof InitableAbility) return (InitableAbility) ability;
         return null;
     }
 

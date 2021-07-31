@@ -1,6 +1,5 @@
 package braindustry.type;
 
-import arc.struct.Seq;
 import mindustry.type.ItemStack;
 import mindustry.type.LiquidStack;
 

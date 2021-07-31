@@ -19,7 +19,6 @@ import mindustry.gen.Building;
 import mindustry.graphics.Layer;
 import mindustry.ui.Fonts;
 import mindustry.ui.Styles;
-import mindustryAddition.world.blocks.BuildingTaskQueue;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 

@@ -16,17 +16,18 @@ import arc.scene.ui.TextField;
 import arc.scene.ui.layout.Table;
 import arc.struct.Bits;
 import arc.struct.Seq;
-import arc.util.Log;
 import arc.util.Strings;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
 import braindustry.annotations.ModAnnotations;
 import braindustry.content.ModFx;
+import braindustry.entities.BuilderDrawer;
 import braindustry.gen.Drawer;
 import braindustry.gen.ModBuilding;
 import braindustry.gen.ModCall;
-import braindustry.graphics.ModShaders;
 import braindustry.gen.UnitEntry;
+import braindustry.graphics.ModShaders;
+import braindustry.io.ModTypeIO;
 import braindustry.world.ModBlock;
 import mindustry.Vars;
 import mindustry.game.EventType;
@@ -39,17 +40,16 @@ import mindustry.io.TypeIO;
 import mindustry.type.Category;
 import mindustry.type.Item;
 import mindustry.type.UnitType;
-//import mindustry.ui.Cicon;
 import mindustry.ui.Styles;
 import mindustry.ui.dialogs.BaseDialog;
-import mindustry.world.Block;
 import mindustry.world.Tile;
 import mindustry.world.meta.StatUnit;
 
 import static mindustry.Vars.world;
 
 public class UnitSpawner extends ModBlock {
-    public @ModAnnotations.Load(value="@-color",fallback="air") TextureRegion colorRegion;
+    public @ModAnnotations.Load(value = "@-color", fallback = "air")
+    TextureRegion colorRegion;
     public UnitSpawnerBuild currentBuilding;
     public Color targetColor = Color.gray;
     public boolean choose = false;
@@ -68,7 +68,7 @@ public class UnitSpawner extends ModBlock {
             UnitSpawnerBuild build = b.as();
             build.spawnPos.set(vec);
         });
-        config(UnitEntry.class,(b,entry)->{
+        config(UnitEntry.class, (b, entry) -> {
             ((UnitSpawnerBuild) b).addEntry(entry);
         });
     }
@@ -82,12 +82,12 @@ public class UnitSpawner extends ModBlock {
         super.init();
     }
 
-    public class UnitSpawnerBuild extends ModBuilding implements Drawer.BuilderDrawer {
+    public class UnitSpawnerBuild extends ModBuilding implements BuilderDrawer {
         public Table tmpCont;
         Vec2 spawnPos;
         Team defaultUnitTeam;
         Seq<UnitEntry> unitEntries = new Seq<>();
-        Drawer drawer;
+        Drawer drawer = Drawer.create(this);
         Runnable rebuild;
 
         @Override
@@ -102,8 +102,6 @@ public class UnitSpawner extends ModBlock {
         @Override
         public void created() {
             super.created();
-            drawer = Drawer.create(this);
-            if (added) drawer.add();
         }
 
         public void text(Table cont, String text) {
@@ -148,7 +146,7 @@ public class UnitSpawner extends ModBlock {
                                             return entry.unitType() == u && entry.team == team && ex == nx && ey == ny;
                                         });
                                         if (lastEntry == null) {
-                                            add(new UnitEntry(u, team, 1, getPos()));
+                                            add(UnitEntry.create(u, team, 1, getPos()));
                                         } else {
                                             lastEntry.amount++;
                                             add(lastEntry);
@@ -273,7 +271,7 @@ public class UnitSpawner extends ModBlock {
         }
 
         protected void addEntry(UnitEntry unitEntry) {
-            if (!unitEntries.contains(unitEntry)){
+            if (!unitEntries.contains(unitEntry)) {
                 unitEntries.add(unitEntry);
             }
             if (added) unitEntry.add();
@@ -602,6 +600,11 @@ public class UnitSpawner extends ModBlock {
         }
 
         @Override
+        public byte version() {
+            return 1;
+        }
+
+        @Override
         public void read(Reads read, byte revision) {
             super.read(read, revision);
             spawnPos = TypeIO.readVec2(read);
@@ -612,11 +615,19 @@ public class UnitSpawner extends ModBlock {
                 unitEntries.each(UnitEntry::remove);
                 unitEntries.clear();
             }
-            unitEntries = new Seq<>();
             for (int i = 0; i < amount; i++) {
 //                UnitEntry entry = new UnitEntry();
 //                entry.read(read, revision);
-                addEntry(UnitEntry.readEntry(read, revision));
+                if (revision == 0) {
+                    UnitType unitType = ModTypeIO.readUnitType(read);
+//                    if (unitType==null)throw new IllegalArgumentException("UnitType cannot be null");
+                    int count = read.i();
+                    Vec2 pos = TypeIO.readVec2(read);
+                    Team team = TypeIO.readTeam(read);
+                    addEntry(UnitEntry.create(unitType, team, count, pos));
+                } else {
+                    addEntry(UnitEntry.readEntry(read, revision));
+                }
 //                add();
             }
 //            Log.info("unitEntries.size(B): @",unitEntries.size);
