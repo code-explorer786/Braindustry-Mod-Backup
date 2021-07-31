@@ -7,6 +7,7 @@ import arc.scene.ui.Button;
 import arc.scene.ui.Image;
 import arc.scene.ui.ScrollPane;
 import arc.scene.ui.layout.Cell;
+import arc.scene.ui.layout.Scl;
 import arc.scene.ui.layout.Table;
 import mindustry.Vars;
 import mindustry.content.UnitTypes;
@@ -32,7 +33,7 @@ public class UnitChooseDialog extends BaseDialog {
         Table table = new Table();
         float pad = 6f;
         float coln = 5;
-        final float buttonSize = !mobile ? 100f : (Core.graphics.getWidth()-coln*pad) / (coln);
+        final float buttonSize = !mobile ? 100f : (Core.graphics.getWidth()-Scl.scl((coln-1)*pad)) / Scl.scl(coln);
         ScrollPane pane = new ScrollPane(table);
         pane.setScrollingDisabled(true, false);
         int[] index = {0};

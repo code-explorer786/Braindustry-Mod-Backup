@@ -84,9 +84,9 @@ public class ModHudFragment {
             Table status = overlaymarker.<Stack>find("waves/editor").<Table>find("waves").<Table>find("status");
             Cell<Table> cell = actor.add(unitBar).left().top();
             actor.update(() -> {
-                Log.info("height--@: @_@=@=@",Scl.scl(), status.y,status.getHeight(), Tmp.v1.set(Core.camera.width,Core.camera.height), Tmp.v1.set(Core.graphics.getWidth(),Core.graphics.getHeight()));
-                unitBar.marginTop(mobile_buttons.getHeight() / Scl.scl()+4f);
-                unitBar.setSize(unitBar.getPrefWidth(), Core.graphics.getHeight());
+                Log.info("height--@: @_@=@=@",Scl.scl(), mobile_buttons.y,status.getHeight(), Tmp.v1.set(Core.camera.width,Core.camera.height), Tmp.v1.set(Core.graphics.getWidth(),Core.graphics.getHeight()));
+                unitBar.setPosition(status.x,status.y);
+                unitBar.setSize(status.getPrefWidth(), status.getPrefHeight());
 //               cell.
             });
         }
