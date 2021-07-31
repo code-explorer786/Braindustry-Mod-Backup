@@ -87,7 +87,6 @@ public class UnlockContentDialog extends BaseDialog {
                     });
                     t.add(button).size(bsize).update((b) -> {
                         b.setColor(content.unlocked() ? Pal.accent : Color.grays(0.5f));
-//                        b.setColor(content.unlocked() ? Color.lime : Color.scarlet);
                     });
                 }).pad(2.0F).height(64f / Scl.scl()).left().fillX();
                 counter++;

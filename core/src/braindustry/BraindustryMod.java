@@ -52,7 +52,6 @@ public class BraindustryMod extends Mod {
         });
         EventOn(ClientLoadEvent.class, (e) -> {
             ModAudio.reload();
-            CheatUI.openUnlockContentDialog();
         });
     }
 
