@@ -41,7 +41,7 @@ public class ModHudFragment {
                 float radius = height / Mathf.sqrt3;
                 Fill.poly(x + width / 2f, y + height / 2f, 6, radius);
                 Draw.reset();
-                if (player != null && player.unit() instanceof StealthUnitc) {
+                if (player != null && player.unit() instanceof StealthUnitc && !player.unit().dead() && player.unit().isValid()) {
                     StealthUnitc unit = player.unit().as();
                     float offset = unit.stealthf();
                     Draw.color(ModPal.stealthBarColor);
@@ -84,13 +84,13 @@ public class ModHudFragment {
                         (el.name == null ? el.getClass().getSimpleName() : el.name).equals("Stack") && el.toString().contains("HudFragment$1");
             });
             SnapshotSeq<Element> children = stack.getChildren();
-            int fragIndex = children.indexOf(el ->{
+            int fragIndex = children.indexOf(el -> {
                 return
                         (el.name == null ? el.getClass().getSimpleName() : el.name).equals("HudFragment$1") || el.toString().equals("HudFragment$1");
             });
-            if (fragIndex==-1){
-                Log.info("status_ERROR: @",status);
-                Log.info("stack_ERROR: @",stack);
+            if (fragIndex == -1) {
+                Log.info("status_ERROR: @", status);
+                Log.info("stack_ERROR: @", stack);
                 return;
             }
             Element oldFrag = children.get(fragIndex);

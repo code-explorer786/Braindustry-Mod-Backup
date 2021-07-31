@@ -33,7 +33,7 @@ public class UnitChooseDialog extends BaseDialog {
         Table table = new Table();
         float pad = 6f;
         float coln = 5;
-        final float buttonSize = !mobile ? 100f : (Core.graphics.getWidth()-Scl.scl((coln+1)*pad+20)) / Scl.scl(coln);
+        final float buttonSize = !mobile ? 100f : (Core.graphics.getWidth()-Scl.scl((coln+1)*pad)-20) / Scl.scl(coln);
         ScrollPane pane = new ScrollPane(table);
         pane.setScrollingDisabled(true, false);
         int[] index = {0};

@@ -30,17 +30,17 @@ public class TeamChooseDialog extends BaseDialog {
         this.cont.table(i -> {
             i.table(t -> {
                 final int buttonSize = 20;
-                int pad = 6;
-                float coln = mobile ? 5 : 20;
+                int pad = 6,counter=0;
+                float coln = mobile ? (Core.graphics.getWidth()-20)/Scl.scl(buttonSize+pad) : 20;
 //                coln = !mobile ? 20 : (Core.graphics.getWidth() - Scl.scl((2) * pad)) / Scl.scl(buttonSize + pad);
 //                coln = Math.max(1, coln);
                 for (Team team : Team.all) {
-                    if (Seq.with(Team.all).indexOf(team) % coln == 0) t.row();
+                    if (++counter % coln == 0) t.row();
                     ImageButton button = new ImageButton(Tex.whitePane, Styles.clearToggleTransi);
                     button.clearChildren();
                     Image image = new Image();
                     button.background(image.getDrawable()).setColor(team.color);
-                    Cell<Image> imageCell = button.add(image).color(team.color).size(buttonSize);
+                    button.add(image).color(team.color).size(buttonSize);
                     button.clicked(() -> {
                         confirm.get(team);
                         this.hide();

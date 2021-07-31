@@ -9,14 +9,12 @@ import arc.scene.ui.layout.Table;
 import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
 import mindustry.gen.Tex;
-//import mindustry.ui.Cicon;
 import mindustry.ui.dialogs.BaseDialog;
 import mindustry.world.Block;
 import mindustry.world.meta.BuildVisibility;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 public class UnlockContentDialog extends BaseDialog {
+    private static int counter = 0;
     private Table items;
 
     public UnlockContentDialog() {
@@ -47,20 +45,21 @@ public class UnlockContentDialog extends BaseDialog {
         this.items.clearChildren();
         this.items.left();
         float bsize = 40.0F;
-        AtomicInteger i=new AtomicInteger(0);
+        counter = 0;
         Vars.content.each(c -> {
             if (c instanceof UnlockableContent) {
 
                 UnlockableContent content = (UnlockableContent) c;
-                if (content instanceof Block && (((Block)content).buildVisibility!= BuildVisibility.shown &&((Block)content).buildVisibility!= BuildVisibility.campaignOnly))return;
+                if (content instanceof Block && (((Block) content).buildVisibility != BuildVisibility.shown && ((Block) content).buildVisibility != BuildVisibility.campaignOnly))
+                    return;
                 this.items.table(Tex.pane, (t) -> {
                     t.margin(4.0F).marginRight(8.0F).left();
                     t.image(content.uiIcon).size(24.0F).padRight(4.0F).padLeft(4.0F);
                     t.label(() -> {
                         return content.localizedName;
-                    }).left().width(90.0F*2f);
+                    }).left().width(90.0F * 2f);
                     ImageButton button = new ImageButton(Tex.whitePane);
-                    button.clicked(()->{
+                    button.clicked(() -> {
                         if (content.unlocked()) {
                             content.clearUnlock();
                         } else {
@@ -90,8 +89,9 @@ public class UnlockContentDialog extends BaseDialog {
                         b.setColor(content.unlocked() ? Color.lime : Color.scarlet);
                     });*/
                 }).pad(2.0F).left().fillX();
-                i.addAndGet(1);
-                if (i.get()%3==0 && (!Vars.mobile || !Core.graphics.isPortrait())){
+                counter++;
+                int coln = Vars.mobile ? 2 : 3;
+                if (counter % coln == 0) {
                     this.items.row();
                 }
             }

@@ -1240,7 +1240,6 @@ public class ModUnitTypes implements ContentList {
                 this.mineTier = 2;
                 stealthDuration = 2f * 60f;
                 stealthCooldown = 2f * 60f;
-//                this.constructor = Types.stealthMech;
                 this.defaultController = StealthGroundAI::new;
                 this.speed = 0.9f;
                 this.hitSize = 8;
