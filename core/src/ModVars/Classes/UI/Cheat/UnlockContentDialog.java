@@ -57,18 +57,27 @@ public class UnlockContentDialog extends BaseDialog {
                 UnlockableContent content = (UnlockableContent) c;
                 boolean invalidateBlock = content instanceof Block && (((Block) content).buildVisibility != BuildVisibility.shown && ((Block) content).buildVisibility != BuildVisibility.campaignOnly);
                 boolean invalidateUnitType = content instanceof UnitType && content.isHidden();
-                if (invalidateBlock || invalidateBlock)
+                if (invalidateBlock || invalidateUnitType)
                     return;
                 this.items.table(Tex.pane, (t) -> {
                     t.margin(4.0F).marginRight(8.0F).left();
                     t.image(content.uiIcon).size(24.0F).padRight(4.0F).padLeft(4.0F);
                     Button button = new Button(ModStyles.buttonColor);
-                    t.label(() -> (!content.localizedName.equals(content.name) ? content.localizedName : Strings.capitalize(content.name))
+                    String replace = (!content.localizedName.equals(content.name) ? content.localizedName : Strings.capitalize(content.name))
                             .replace("   ", "_\t===\t_")
                             .replace("  ", "_\t==\t_")
                             .replace(" ", "\n")
                             .replace("_\t==\t_", "  ")
-                            .replace("_\t===\t_", "   ")).left().width(90.0F * 2f);
+                            .replace("_\t===\t_", "   ");
+                    StringBuilder contentName = new StringBuilder();
+                    for (int i = 0, counter = 0; i < replace.length(); i++) {
+                        char c1 = replace.charAt(i);
+                        if (c1 == '\n') {
+                            counter++;
+                            contentName.append(counter < 4 ? c1 : " ");
+                        } else contentName.append(c1);
+                    }
+                    t.label(contentName::toString).left().width(90.0F * 2f);
                     button.clicked(() -> {
                         if (content.unlocked()) {
                             content.clearUnlock();
@@ -80,8 +89,7 @@ public class UnlockContentDialog extends BaseDialog {
                         b.setColor(content.unlocked() ? Pal.accent : Color.grays(0.5f));
 //                        b.setColor(content.unlocked() ? Color.lime : Color.scarlet);
                     });
-                    t.setHeight(48.0f);
-                }).pad(2.0F).height(48.0f / Scl.scl()).left().fillX();
+                }).pad(2.0F).height(64f / Scl.scl()).left().fillX();
                 counter++;
                 int coln = Vars.mobile ? 2 : 3;
                 if (counter % coln == 0) {
