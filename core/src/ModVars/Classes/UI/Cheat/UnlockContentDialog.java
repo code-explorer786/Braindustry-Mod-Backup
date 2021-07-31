@@ -5,6 +5,8 @@ import arc.graphics.Color;
 import arc.input.KeyCode;
 import arc.scene.ui.Image;
 import arc.scene.ui.ImageButton;
+import arc.scene.ui.layout.Cell;
+import arc.scene.ui.layout.Scl;
 import arc.scene.ui.layout.Table;
 import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
@@ -15,6 +17,7 @@ import mindustry.world.meta.BuildVisibility;
 
 public class UnlockContentDialog extends BaseDialog {
     private static int counter = 0;
+    private static float allScale = 1f;
     private Table items;
 
     public UnlockContentDialog() {
@@ -52,13 +55,32 @@ public class UnlockContentDialog extends BaseDialog {
                 UnlockableContent content = (UnlockableContent) c;
                 if (content instanceof Block && (((Block) content).buildVisibility != BuildVisibility.shown && ((Block) content).buildVisibility != BuildVisibility.campaignOnly))
                     return;
+
                 this.items.table(Tex.pane, (t) -> {
                     t.margin(4.0F).marginRight(8.0F).left();
-                    t.image(content.uiIcon).size(24.0F).padRight(4.0F).padLeft(4.0F);
-                    t.label(() -> {
-                        return content.localizedName;
-                    }).left().width(90.0F * 2f);
+                    Cell<Image> imageCell = t.image(content.uiIcon).size(24.0F).padRight(4.0F).padLeft(4.0F);
                     ImageButton button = new ImageButton(Tex.whitePane);
+                    t.label(() -> {
+                        return "";
+                    }).update(l -> {
+                        l.setText(content.localizedName);
+                        l.setFontScale(1f);
+                        l.invalidate();
+                        float freePlace = t.getWidth() - button.getWidth() - imageCell.prefWidth() - Scl.scl(4) * 2f;
+                        float freePlaceY = t.getHeight();
+                        float scaleX = Math.min(1f, freePlace / l.getPrefWidth()), scaleY = 1f;
+                        while (scaleX < 0.60f && l.getText().toString().contains(" ")) {
+                            String text = l.getText().toString();
+                            int index = text.lastIndexOf(" ");
+                            l.setText(text.substring(0, index) + "\n" + text.substring(index + 1).intern());
+                            l.setFontScale(1f);
+                            l.invalidate();
+                            scaleX = Math.min(1f, freePlace / l.getPrefWidth());
+                            scaleY = Math.min(1f, freePlaceY / l.getPrefHeight());
+                        }
+                        allScale = Math.min(allScale, scaleX * scaleY);
+                        l.setFontScale(allScale);
+                    }).left().width(90.0F * 2f);
                     button.clicked(() -> {
                         if (content.unlocked()) {
                             content.clearUnlock();
@@ -66,7 +88,6 @@ public class UnlockContentDialog extends BaseDialog {
                             content.unlock();
                         }
                     });
-                    Image image = new Image();
 //                   button.image().size(bsize);
 //                    Cell<Image> imageCell = button.add(image).size(bsize);
 
@@ -76,19 +97,7 @@ public class UnlockContentDialog extends BaseDialog {
                         b.setColor(content.unlocked() ? Color.lime : Color.scarlet);
                         b.getImageCell().color(b.color);
                     });
-                    /*t.button(new Image().getDrawable(), () -> {
-                        if (content.unlocked()) {
-                            content.clearUnlock();
-                        } else {
-                            content.unlock();
-                        }
-
-                    }).size(bsize).update((b) -> {
-                        b.getImageCell().size(bsize);
-
-                        b.setColor(content.unlocked() ? Color.lime : Color.scarlet);
-                    });*/
-                }).pad(2.0F).left().fillX();
+                }).pad(2.0F).height(36.0f).left().fillX();
                 counter++;
                 int coln = Vars.mobile ? 2 : 3;
                 if (counter % coln == 0) {
