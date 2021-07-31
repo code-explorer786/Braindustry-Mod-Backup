@@ -1,5 +1,6 @@
 package braindustry;
 
+import ModVars.Classes.UI.CheatUI;
 import ModVars.modVars;
 import arc.Core;
 import arc.assets.AssetDescriptor;
@@ -37,10 +38,8 @@ public class BraindustryMod extends Mod {
 
 
     public BraindustryMod() {
-        Log.info("javaHeap: " + Core.app.getJavaHeap());
         ModEntityMapping.init();
         ModCall.registerPackets();
-        Log.info("app: @\t@", Core.app, Core.app != null ? Core.app.getClass().getSimpleName() : null);
         modInfo = Vars.mods.getMod(this.getClass());
         modVars.load();
         ModListener.addRun(() -> {
@@ -53,8 +52,8 @@ public class BraindustryMod extends Mod {
         });
         EventOn(ClientLoadEvent.class, (e) -> {
             ModAudio.reload();
+            CheatUI.openUnlockContentDialog();
         });
-        Log.info("javaHeap: " + Core.app.getJavaHeap());
     }
 
     public static TextureRegion getIcon() {
@@ -112,6 +111,5 @@ public class BraindustryMod extends Mod {
             }
         });
         loaded = true;
-        Log.info("loadContent javaHeap: " + Core.app.getJavaHeap());
     }
 }
