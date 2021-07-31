@@ -5,6 +5,7 @@ import arc.func.Cons;
 import arc.scene.ui.Image;
 import arc.scene.ui.ImageButton;
 import arc.scene.ui.layout.Cell;
+import arc.scene.ui.layout.Scl;
 import arc.struct.Seq;
 import mindustry.game.Team;
 import mindustry.gen.Tex;
@@ -30,7 +31,7 @@ public class TeamChooseDialog extends BaseDialog {
             i.table(t -> {
                 final int buttonSize = 20;
                 int pad = 6;
-                float coln = !mobile ? 20 : (Core.camera.width) /(buttonSize+pad);
+                float coln = !mobile ? 20 : (Core.graphics.getWidth() - Scl.scl((2) * pad)) / Scl.scl(buttonSize + pad);
                 coln=Math.max(1,coln);
                 for (Team team : Team.all) {
                     if (Seq.with(Team.all).indexOf(team) % coln == 0) t.row();

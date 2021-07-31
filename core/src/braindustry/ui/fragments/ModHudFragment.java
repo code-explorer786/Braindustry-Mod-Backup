@@ -14,6 +14,7 @@ import arc.scene.ui.layout.Cell;
 import arc.scene.ui.layout.Scl;
 import arc.scene.ui.layout.Stack;
 import arc.scene.ui.layout.Table;
+import arc.struct.SnapshotSeq;
 import arc.util.Log;
 import arc.util.Scaling;
 import arc.util.Tmp;
@@ -74,6 +75,27 @@ public class ModHudFragment {
                     t.getChildren().get(1).toFront();
                 })
         ).size(120f, 80).padRight(4);
+        if (true) {
+            Table overlaymarker = ui.hudGroup.find("overlaymarker");
+            Table mobile_buttons = overlaymarker.find("mobile buttons");
+            Table status = overlaymarker.<Stack>find("waves/editor").<Table>find("waves").<Table>find("status");
+            Stack stack = status.<Stack>find(el -> {
+                return
+                        (el.name == null ? el.getClass().getSimpleName() : el.name).equals("Stack");
+            });
+            SnapshotSeq<Element> children = stack.getChildren();
+            int fragIndex = children.indexOf(el ->{
+                return
+                        (el.name == null ? el.getClass().getSimpleName() : el.name).equals("HudFragment$1");
+            });
+            Element oldFrag = children.get(fragIndex);
+            oldFrag.parent = null;
+            oldFrag.remove();
+            children.set(fragIndex, unitBackground);
+
+            Log.info("status: @", status.toString());
+            return;
+        }
         Table actor = new Table();
         if (!mobile) {
             actor.add(unitBar).left().top();
@@ -84,9 +106,9 @@ public class ModHudFragment {
             Table status = overlaymarker.<Stack>find("waves/editor").<Table>find("waves").<Table>find("status");
             Cell<Table> cell = actor.add(unitBar).left().top();
             actor.update(() -> {
-                Log.info("height--@: @_@=@=@",Scl.scl(), mobile_buttons.y,status.getHeight(), Tmp.v1.set(Core.camera.width,Core.camera.height), Tmp.v1.set(Core.graphics.getWidth(),Core.graphics.getHeight()));
-                unitBar.setPosition(status.x,status.y);
-                unitBar.setSize(status.getPrefWidth(), status.getPrefHeight());
+                Log.info("height--@: @_@=@=@", Scl.scl(), mobile_buttons.y, status.getHeight(), Tmp.v1.set(Core.camera.width, Core.camera.height), Tmp.v1.set(Core.graphics.getWidth(), Core.graphics.getHeight()));
+                actor.setPosition(status.x, status.y);
+                actor.setSize(status.getPrefWidth(), status.getPrefHeight());
 //               cell.
             });
         }
