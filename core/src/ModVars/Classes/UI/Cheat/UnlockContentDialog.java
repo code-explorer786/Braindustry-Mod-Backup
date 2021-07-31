@@ -5,9 +5,11 @@ import arc.graphics.Color;
 import arc.input.KeyCode;
 import arc.scene.ui.Image;
 import arc.scene.ui.ImageButton;
+import arc.scene.ui.TextButton;
 import arc.scene.ui.layout.Cell;
 import arc.scene.ui.layout.Scl;
 import arc.scene.ui.layout.Table;
+import braindustry.ui.ModStyles;
 import mindustry.Vars;
 import mindustry.ctype.UnlockableContent;
 import mindustry.gen.Tex;
@@ -55,14 +57,11 @@ public class UnlockContentDialog extends BaseDialog {
                 UnlockableContent content = (UnlockableContent) c;
                 if (content instanceof Block && (((Block) content).buildVisibility != BuildVisibility.shown && ((Block) content).buildVisibility != BuildVisibility.campaignOnly))
                     return;
-
                 this.items.table(Tex.pane, (t) -> {
                     t.margin(4.0F).marginRight(8.0F).left();
                     Cell<Image> imageCell = t.image(content.uiIcon).size(24.0F).padRight(4.0F).padLeft(4.0F);
-                    ImageButton button = new ImageButton(Tex.whitePane);
-                    t.label(() -> {
-                        return "";
-                    }).update(l -> {
+                    TextButton button = new TextButton("",ModStyles.buttonColor);
+                    t.label(() -> "").update(l -> {
                         l.setText(content.localizedName);
                         l.setFontScale(1f);
                         l.invalidate();
@@ -95,7 +94,7 @@ public class UnlockContentDialog extends BaseDialog {
 //                        b.getImage().fillParent=true;
 //                        b.getImage().setDrawable(content.unlocked()?Icon.cancel:Icon.add);
                         b.setColor(content.unlocked() ? Color.lime : Color.scarlet);
-                        b.getImageCell().color(b.color);
+//                        b.getImageCell().color(b.color);
                     });
                 }).pad(2.0F).height(36.0f).left().fillX();
                 counter++;

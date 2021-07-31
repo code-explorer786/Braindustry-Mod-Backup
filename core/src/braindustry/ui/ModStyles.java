@@ -17,9 +17,14 @@ public class ModStyles {
     private static final Color black = new Color(0f, 0f, 0f, 1f), black9 = new Color(0f, 0f, 0f, 0.9f), black8 = new Color(0f, 0f, 0f, 0.8f), black6 = new Color(0f, 0f, 0f, 0.6f), black5 = new Color(0f, 0f, 0f, 0.5f), black3 = new Color(0f, 0f, 0f, 0.3f), none = new Color(0f, 0f, 0f, 0f);
 
     public static ImageButton.ImageButtonStyle buttonSquarei, alphai;
-    public static TextButton.TextButtonStyle buttonEdge3,buttonPane,buttonPaneTop,buttonPaneBottom;
+    public static TextButton.TextButtonStyle buttonEdge3,buttonPane,buttonPaneTop,buttonPaneBottom,buttonColor;
 
     public static void load() {
+        buttonColor=new TextButton.TextButtonStyle(Styles.defaultt){{
+            over = ModTex.buttonColorOver;
+            down = ModTex.buttonColorDown;
+            up = disabled = ModTex.buttonColor;
+        }};
         buttonEdge3 = new TextButton.TextButtonStyle(Styles.defaultt) {{
             over = ModTex.buttonEdge3Over;
             down = ModTex.buttonEdge3Down;
