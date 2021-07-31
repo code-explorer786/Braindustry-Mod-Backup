@@ -1,6 +1,5 @@
 package braindustry.ui.fragments;
 
-import arc.Core;
 import arc.func.Boolp;
 import arc.func.Floatp;
 import arc.graphics.Color;
@@ -8,40 +7,51 @@ import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.math.Mathf;
 import arc.scene.Element;
-import arc.scene.style.Drawable;
-import arc.scene.style.TextureRegionDrawable;
-import arc.scene.ui.layout.Cell;
-import arc.scene.ui.layout.Scl;
 import arc.scene.ui.layout.Stack;
 import arc.scene.ui.layout.Table;
 import arc.struct.SnapshotSeq;
 import arc.util.Log;
-import arc.util.Scaling;
 import arc.util.Tmp;
 import braindustry.gen.StealthUnitc;
 import braindustry.graphics.ModPal;
 import braindustry.graphics.ModShaders;
-import mindustry.gen.BlockUnitc;
-import mindustry.gen.Call;
-import mindustry.gen.Tex;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
 
-import static mindustry.Vars.*;
+import static mindustry.Vars.player;
+import static mindustry.Vars.ui;
 
 public class ModHudFragment {
     public static void init() {
-        Drawable zero = ((TextureRegionDrawable) Tex.whiteui).tint(0, 0, 0, 0);
-        Table unitBar = new Table(zero);
-        unitBar.marginTop(0).marginBottom(4).marginLeft(4);
+
+        Table overlaymarker = ui.hudGroup.find("overlaymarker");
+        Table mobile_buttons = overlaymarker.find("mobile buttons");
+        Table status = overlaymarker.<Stack>find("waves/editor").<Table>find("waves").<Table>find("status");
+        Stack stack = status.<Stack>find(el -> el.getClass().getSimpleName().equals("Stack") && el.toString().contains("HudFragment$1"));
+        SnapshotSeq<Element> children = stack.getChildren();
+        int fragIndex = children.indexOf(el -> el.getClass().getSimpleName().equals("HudFragment$1") || el.toString().equals("HudFragment$1"));
+        if (fragIndex == -1) {
+            Log.info("status_ERROR: @", status);
+            Log.info("stack_ERROR: @", stack);
+            return;
+        }
+        Element oldFrag = children.get(fragIndex);
+        oldFrag.parent = null;
+        oldFrag.remove();
         Element unitBackground = new Element() {
             @Override
             public void draw() {
+                boolean me = player != null && player.unit() instanceof StealthUnitc && !player.unit().dead() && player.unit().isValid();
+                if (!me){
+                    oldFrag.setBounds(x,y,width,height);
+                    oldFrag.draw();
+                    return;
+                }
                 Draw.color(Pal.darkerGray);
                 float radius = height / Mathf.sqrt3;
                 Fill.poly(x + width / 2f, y + height / 2f, 6, radius);
                 Draw.reset();
-                if (player != null && player.unit() instanceof StealthUnitc && !player.unit().dead() && player.unit().isValid()) {
+                if (me) {
                     StealthUnitc unit = player.unit().as();
                     float offset = unit.stealthf();
                     Draw.color(ModPal.stealthBarColor);
@@ -53,81 +63,8 @@ public class ModHudFragment {
                 Drawf.shadow(x + width / 2f, y + height / 2f, height * 1.13f);
             }
         };
-        unitBar.stack(
-                unitBackground,
-                new Table(t -> {
-                    float bw = 40f;
-                    float pad = -20;
-                    t.margin(0);
-                    t.clicked(() -> {
-                        if (!player.dead() && mobile) {
-                            Call.unitClear(player);
-                            control.input.controlledType = null;
-                        }
-                    });
-
-                    t.add(new SideBar(() -> player.unit().healthf(), () -> true, true)).width(bw).growY().padRight(pad);
-                    t.image(() -> player.icon()).scaling(Scaling.bounded).grow().maxWidth(54f);
-                    t.add(new SideBar(() -> player.dead() ? 0f : player.displayAmmo() ? player.unit().ammof() : player.unit().healthf(), () -> !player.displayAmmo(), false)).width(bw).growY().padLeft(pad).update(b -> {
-                        b.color.set(player.displayAmmo() ? player.dead() || player.unit() instanceof BlockUnitc ? Pal.ammo : player.unit().type.ammoType.color() : Pal.health);
-                    });
-
-                    t.getChildren().get(1).toFront();
-                })
-        ).size(120f, 80).padRight(4);
-        if (true) {
-            Table overlaymarker = ui.hudGroup.find("overlaymarker");
-            Table mobile_buttons = overlaymarker.find("mobile buttons");
-            Table status = overlaymarker.<Stack>find("waves/editor").<Table>find("waves").<Table>find("status");
-            Stack stack = status.<Stack>find(el -> {
-                return
-                        (el.name == null ? el.getClass().getSimpleName() : el.name).equals("Stack") && el.toString().contains("HudFragment$1");
-            });
-            SnapshotSeq<Element> children = stack.getChildren();
-            int fragIndex = children.indexOf(el -> {
-                return
-                        (el.name == null ? el.getClass().getSimpleName() : el.name).equals("HudFragment$1") || el.toString().equals("HudFragment$1");
-            });
-            if (fragIndex == -1) {
-                Log.info("status_ERROR: @", status);
-                Log.info("stack_ERROR: @", stack);
-                return;
-            }
-            Element oldFrag = children.get(fragIndex);
-            oldFrag.parent = null;
-            oldFrag.remove();
-            children.set(fragIndex, unitBackground);
-
-            Log.info("status: @", status.toString());
-            return;
-        }
-        Table actor = new Table();
-        if (!mobile) {
-            actor.add(unitBar).left().top();
-            actor.update(() -> unitBar.setSize(unitBar.getPrefWidth(), Core.graphics.getHeight()));
-        } else {
-            Table overlaymarker = ui.hudGroup.find("overlaymarker");
-            Table mobile_buttons = overlaymarker.find("mobile buttons");
-            Table status = overlaymarker.<Stack>find("waves/editor").<Table>find("waves").<Table>find("status");
-            Cell<Table> cell = actor.add(unitBar).left().top();
-            actor.update(() -> {
-                Log.info("height--@: @_@=@=@", Scl.scl(), mobile_buttons.y, status.getHeight(), Tmp.v1.set(Core.camera.width, Core.camera.height), Tmp.v1.set(Core.graphics.getWidth(), Core.graphics.getHeight()));
-                actor.setPosition(status.x, status.y);
-                actor.setSize(status.getPrefWidth(), status.getPrefHeight());
-//               cell.
-            });
-        }
-        actor.visible(() -> {
-            boolean b = state.isGame() && !ui.minimapfrag.shown() && ui.hudfrag.shown;
-            if (mobile) Log.info("b: @", b);
-            return b;
-//            ui.hudfrag.shown && state.isGame()
-        });
-        actor.row();
-        actor.add().growY();
-        actor.left().bottom();
-        actor.setBackground(zero);
-        ui.hudGroup.addChild(actor);
+        children.set(fragIndex, unitBackground);
+        return;
 
 
     }

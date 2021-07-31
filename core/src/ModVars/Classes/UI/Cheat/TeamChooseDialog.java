@@ -2,10 +2,13 @@ package ModVars.Classes.UI.Cheat;
 
 import arc.Core;
 import arc.func.Cons;
+import arc.math.Mathf;
 import arc.scene.ui.Image;
 import arc.scene.ui.ImageButton;
+import arc.scene.ui.ScrollPane;
 import arc.scene.ui.layout.Cell;
 import arc.scene.ui.layout.Scl;
+import arc.scene.ui.layout.Table;
 import arc.struct.Seq;
 import mindustry.game.Team;
 import mindustry.gen.Tex;
@@ -31,11 +34,17 @@ public class TeamChooseDialog extends BaseDialog {
             i.table(t -> {
                 final int buttonSize = 20;
                 int pad = 6,counter=0;
-                float coln = mobile ? (Core.graphics.getWidth()-20)/Scl.scl(buttonSize+pad) : 20;
+                float coln = mobile ? 10 : 20;
+                if (mobile){
+                    ScrollPane scrollPane = t.pane(p -> {
+                    }).get();
+//                    scrollPane.setScrollingDisabled(false,false);
+                    t= (Table) scrollPane.getWidget();
+                }
 //                coln = !mobile ? 20 : (Core.graphics.getWidth() - Scl.scl((2) * pad)) / Scl.scl(buttonSize + pad);
-//                coln = Math.max(1, coln);
+                coln = Mathf.clamp(coln,1,100);
                 for (Team team : Team.all) {
-                    if (++counter % coln == 0) t.row();
+                    if (counter++ % coln == 0) t.row();
                     ImageButton button = new ImageButton(Tex.whitePane, Styles.clearToggleTransi);
                     button.clearChildren();
                     Image image = new Image();
