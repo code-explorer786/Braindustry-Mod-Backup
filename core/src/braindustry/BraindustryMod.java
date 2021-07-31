@@ -40,7 +40,7 @@ public class BraindustryMod extends Mod {
     public BraindustryMod() {
         ModEntityMapping.init();
         ModCall.registerPackets();
-        modInfo = Vars.mods.getMod(this.getClass());
+        modInfo = Vars.mods.getMod(getClass());
         modVars.load();
         ModListener.addRun(() -> {
             boolean modMobile = (control.input instanceof ModMobileInput);

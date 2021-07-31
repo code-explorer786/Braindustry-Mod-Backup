@@ -1,6 +1,5 @@
 package braindustry.content;
 
-import braindustry.content.Gasses;
 import braindustry.entities.bullets.AngelContinuousBulletType;
 import braindustry.entities.bullets.GasBulletType;
 import mindustry.ctype.ContentList;
@@ -16,7 +15,7 @@ public class ModBullets implements ContentList {
         deathLaser = new AngelContinuousBulletType() {{
         }};
 
-        heavyMethaneShot=new GasBulletType(Gasses.methane){{
+        heavyMethaneShot = new GasBulletType(Gasses.methane) {{
             lifetime = 49f;
             speed = 4f;
             puddleSize = 8f;

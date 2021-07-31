@@ -1,8 +1,8 @@
 package braindustry.content.Blocks;
 
-import braindustry.content.Gasses;
 import Gas.world.blocks.power.AllBurnerGenerator;
 import Gas.world.consumers.ConsumeGasses;
+import braindustry.content.Gasses;
 import braindustry.content.ModItems;
 import braindustry.content.ModLiquids;
 import braindustry.world.blocks.power.BlackHoleReactor;

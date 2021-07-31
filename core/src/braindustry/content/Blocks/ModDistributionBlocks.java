@@ -2,17 +2,12 @@ package braindustry.content.Blocks;
 
 import Gas.world.blocks.distribution.GasRouter;
 import braindustry.content.ModItems;
-import braindustry.content.ModLiquids;
-import braindustry.type.Rotor;
 import braindustry.world.blocks.distribution.CrossItemBridge;
 import braindustry.world.blocks.distribution.SideJunction;
 import braindustry.world.blocks.distribution.SmartRouter;
 import braindustry.world.blocks.distribution.SmartSorter;
-import braindustry.world.blocks.production.MultiRotorDrill;
 import mindustry.content.Items;
-import mindustry.content.Liquids;
 import mindustry.ctype.ContentList;
-import mindustry.gen.Sounds;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.world.Block;
@@ -21,8 +16,6 @@ import mindustry.world.blocks.distribution.Conveyor;
 import mindustry.world.blocks.distribution.ItemBridge;
 import mindustry.world.blocks.distribution.StackConveyor;
 import mindustry.world.blocks.liquid.Conduit;
-import mindustry.world.blocks.production.Drill;
-import mindustry.world.blocks.storage.StorageBlock;
 
 import static braindustry.content.Blocks.ModBlocks.*;
 

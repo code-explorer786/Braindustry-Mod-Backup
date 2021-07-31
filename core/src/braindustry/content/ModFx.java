@@ -1,7 +1,6 @@
 package braindustry.content;
 
 import ModVars.Classes.Conteiners.SpiralContainer;
-import ModVars.modVars;
 import arc.Core;
 import arc.graphics.Blending;
 import arc.graphics.Color;

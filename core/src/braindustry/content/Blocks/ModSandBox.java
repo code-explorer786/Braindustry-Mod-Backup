@@ -7,7 +7,8 @@ import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.world.meta.BuildVisibility;
 
-import static braindustry.content.Blocks.ModBlocks.*;
+import static braindustry.content.Blocks.ModBlocks.dpsMeter;
+import static braindustry.content.Blocks.ModBlocks.unitSpawner;
 
 class ModSandBox implements ContentList {
     public void load() {

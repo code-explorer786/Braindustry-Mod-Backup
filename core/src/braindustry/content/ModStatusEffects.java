@@ -28,7 +28,7 @@ public class ModStatusEffects implements ContentList {
             } catch (Exception e) {
                 Log.err(e);
                 seq.add(new StatusEffect(n) {{
-                    localizedName = Strings.capitalize(n)+" error";
+                    localizedName = Strings.capitalize(n) + " error";
                 }});
             }
         }

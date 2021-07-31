@@ -15,11 +15,13 @@ import mindustry.ctype.ContentList;
 import mindustry.entities.bullet.*;
 import mindustry.gen.Bullet;
 import mindustry.gen.Sounds;
-import mindustry.graphics.Pal;
 import mindustry.type.Category;
 import mindustry.type.ItemStack;
 import mindustry.world.blocks.defense.Wall;
-import mindustry.world.blocks.defense.turrets.*;
+import mindustry.world.blocks.defense.turrets.ItemTurret;
+import mindustry.world.blocks.defense.turrets.LaserTurret;
+import mindustry.world.blocks.defense.turrets.PointDefenseTurret;
+import mindustry.world.blocks.defense.turrets.TractorBeamTurret;
 import mindustry.world.consumers.ConsumeLiquidFilter;
 
 import static braindustry.content.Blocks.ModBlocks.*;
@@ -43,24 +45,22 @@ class ModDefense implements ContentList {
             targetAir = true;
             targetGround = true;
             ammo(
-                    ModItems.graphenite, new SpikeCircleOrbonBullet() {
-                        {
-                            hitEffect = ModFx.circleSpikeHit;
-                            ammoMultiplier = 4.0f;
-                            despawnEffect = ModFx.circleSpikeHit;
-                            smokeEffect = ModFx.spikeSmoke;
-                            damage = 800;
-                            despawnShake = 2.3f;
-                            hitShake = 4.8f;
-                            speed = 2.8f;
-                            absorbable = false;
-                            reflectable = false;
-                            hittable = false;
-                            hitSize = 6.0f;
-                            status = ModStatusEffects.speedMul.get(5);
-                            statusDuration = 70.0f * 3.0f;
-                        }
-                    }
+                    ModItems.graphenite, new SpikeCircleOrbonBullet() {{
+                        hitEffect = ModFx.circleSpikeHit;
+                        ammoMultiplier = 4.0f;
+                        despawnEffect = ModFx.circleSpikeHit;
+                        smokeEffect = ModFx.spikeSmoke;
+                        damage = 800;
+                        despawnShake = 2.3f;
+                        hitShake = 4.8f;
+                        speed = 2.8f;
+                        absorbable = false;
+                        reflectable = false;
+                        hittable = false;
+                        hitSize = 6.0f;
+                        status = ModStatusEffects.speedMul.get(5);
+                        statusDuration = 70.0f * 3.0f;
+                    }}
             );
             consumes.liquid(Liquids.cryofluid, 0.2f).optional(false, true);
             requirements(Category.turret, ItemStack.with(ModItems.graphenite, 400, Items.plastanium, 350, Items.silicon, 800, Items.titanium, 420, Items.metaglass, 280));
@@ -82,6 +82,7 @@ class ModDefense implements ContentList {
                             SubBullets.addLightning(b, this);
                             super.update(b);
                         }
+
                         {
                             backColor = Color.valueOf("c2cc37");
                             width = 14;
@@ -124,40 +125,36 @@ class ModDefense implements ContentList {
             shootSound = Sounds.laser;
             requirements(Category.turret, ItemStack.with(ModItems.graphenite, 300, Items.silicon, 340, Items.plastanium, 250, Items.graphite, 240));
             ammo(
-                    ModItems.graphenite, new ShrapnelBulletType() {
-                        {
-                            length = 200;
-                            damage = 180;
-                            width = 20;
-                            serrationLenScl = 3;
-                            serrationSpaceOffset = 40;
-                            serrationFadeOffset = 0;
-                            serrations = 12;
-                            serrationWidth = 10;
-                            ammoMultiplier = 6;
-                            lifetime = 40;
-                            shootEffect = Fx.thoriumShoot;
-                            smokeEffect = Fx.sparkShoot;
-                        }
-                    },
-                    Items.plastanium, new ShrapnelBulletType() {
-                        {
-                            length = 160;
-                            damage = 280;
-                            width = 42;
-                            serrationLenScl = 6;
-                            serrationSpaceOffset = 40;
-                            serrationFadeOffset = 0;
-                            serrations = 8;
-                            serrationWidth = 5;
-                            ammoMultiplier = 7;
-                            toColor = Color.valueOf("c2f9ff");
-                            fromColor = Color.valueOf("9ee1e8");
-                            lifetime = 60;
-                            shootEffect = Fx.thoriumShoot;
-                            smokeEffect = Fx.sparkShoot;
-                        }
-                    }
+                    ModItems.graphenite, new ShrapnelBulletType() {{
+                        length = 200;
+                        damage = 180;
+                        width = 20;
+                        serrationLenScl = 3;
+                        serrationSpaceOffset = 40;
+                        serrationFadeOffset = 0;
+                        serrations = 12;
+                        serrationWidth = 10;
+                        ammoMultiplier = 6;
+                        lifetime = 40;
+                        shootEffect = Fx.thoriumShoot;
+                        smokeEffect = Fx.sparkShoot;
+                    }},
+                    Items.plastanium, new ShrapnelBulletType() {{
+                        length = 160;
+                        damage = 280;
+                        width = 42;
+                        serrationLenScl = 6;
+                        serrationSpaceOffset = 40;
+                        serrationFadeOffset = 0;
+                        serrations = 8;
+                        serrationWidth = 5;
+                        ammoMultiplier = 7;
+                        toColor = Color.valueOf("c2f9ff");
+                        fromColor = Color.valueOf("9ee1e8");
+                        lifetime = 60;
+                        shootEffect = Fx.thoriumShoot;
+                        smokeEffect = Fx.sparkShoot;
+                    }}
             );
             consumes.liquid(ModLiquids.liquidMethane, 0.04f).optional(true, true);
         }};
@@ -166,44 +163,40 @@ class ModDefense implements ContentList {
             description = "Fires a beam of death at enemies. Requires Phase Alloy to concentrate energy. Total destruction.";
             requirements(Category.turret, ItemStack.with(ModItems.graphenite, 470, Items.silicon, 500, Items.surgeAlloy, 220, Items.thorium, 420, ModItems.phaseAlloy, 230, ModItems.plastic, 250));
             ammo(
-                    ModItems.phaseAlloy, new LaserBulletType() {
-                        {
-                            length = 240;
-                            damage = 300;
-                            width = 60;
-                            lifetime = 30;
-                            lightningSpacing = 34;
-                            lightningLength = 6;
-                            lightningDelay = 1;
-                            lightningLengthRand = 21;
-                            lightningDamage = 45;
-                            lightningAngleRand = 30;
-                            largeHit = true;
-                            shootEffect = ModFx.purpleBomb;
-                            collidesTeam = true;
-                            sideAngle = 15;
-                            sideWidth = 0;
-                            sideLength = 0;
-                            lightningColor = Color.valueOf("d5b2ed");
-                            colors = new Color[]{Color.valueOf("d5b2ed"), Color.valueOf("9671b1"), Color.valueOf("a17dcd")};
-                        }
-                    },
-                    ModItems.plastic, new LaserBulletType() {
-                        {
-                            length = 240;
-                            damage = 180;
-                            width = 60;
-                            lifetime = 30;
-                            largeHit = true;
-                            shootEffect = ModFx.purpleLaserChargeSmall;
-                            collidesTeam = true;
-                            sideAngle = 15;
-                            sideWidth = 0;
-                            sideLength = 0;
-                            lightningColor = Color.valueOf("d5b2ed");
-                            colors = new Color[]{Color.valueOf("d5b2ed"), Color.valueOf("9671b1"), Color.valueOf("a17dcd")};
-                        }
-                    }
+                    ModItems.phaseAlloy, new LaserBulletType() {{
+                        length = 240;
+                        damage = 300;
+                        width = 60;
+                        lifetime = 30;
+                        lightningSpacing = 34;
+                        lightningLength = 6;
+                        lightningDelay = 1;
+                        lightningLengthRand = 21;
+                        lightningDamage = 45;
+                        lightningAngleRand = 30;
+                        largeHit = true;
+                        shootEffect = ModFx.purpleBomb;
+                        collidesTeam = true;
+                        sideAngle = 15;
+                        sideWidth = 0;
+                        sideLength = 0;
+                        lightningColor = Color.valueOf("d5b2ed");
+                        colors = new Color[]{Color.valueOf("d5b2ed"), Color.valueOf("9671b1"), Color.valueOf("a17dcd")};
+                    }},
+                    ModItems.plastic, new LaserBulletType() {{
+                        length = 240;
+                        damage = 180;
+                        width = 60;
+                        lifetime = 30;
+                        largeHit = true;
+                        shootEffect = ModFx.purpleLaserChargeSmall;
+                        collidesTeam = true;
+                        sideAngle = 15;
+                        sideWidth = 0;
+                        sideLength = 0;
+                        lightningColor = Color.valueOf("d5b2ed");
+                        colors = new Color[]{Color.valueOf("d5b2ed"), Color.valueOf("9671b1"), Color.valueOf("a17dcd")};
+                    }}
             );
             reloadTime = 120;
             shots = 3;
@@ -218,61 +211,55 @@ class ModDefense implements ContentList {
             description = "An alternative to Brain. Fires a splash-damage beam. Requires lightweight Plastic to shoot.";
             requirements(Category.turret, ItemStack.with(ModItems.graphenite, 340, Items.silicon, 500, Items.surgeAlloy, 200, ModItems.odinum, 115, ModItems.phaseAlloy, 250, ModItems.plastic, 250));
             ammo(
-                    ModItems.plastic, new ShrapnelBulletType() {
-                        {
-                            length = 220;
-                            damage = 650;
-                            width = 35;
-                            serrationLenScl = 7;
-                            serrationSpaceOffset = 60;
-                            serrationFadeOffset = 0;
-                            serrations = 11;
-                            serrationWidth = 6;
-                            fromColor = Color.valueOf("d5b2ed");
-                            toColor = Color.valueOf("a17dcd");
-                            lifetime = 45;
-                            shootEffect = Fx.sparkShoot;
-                            smokeEffect = Fx.sparkShoot;
-                        }
-                    },
-                    ModItems.odinum, new LaserBulletType() {
-                        {
-                            length = 260;
-                            damage = 420;
-                            width = 40;
-                            lifetime = 30;
-                            lightningSpacing = 34;
-                            lightningLength = 2;
-                            lightningDelay = 1;
-                            lightningLengthRand = 7;
-                            lightningDamage = 45;
-                            lightningAngleRand = 30;
-                            largeHit = true;
-                            shootEffect = Fx.greenLaserChargeSmall;
-                            collidesTeam = true;
-                            sideAngle = 15;
-                            sideWidth = 0;
-                            sideLength = 0;
-                            colors = new Color[]{Color.valueOf("ffffff"), Color.valueOf("EDEDED"), Color.valueOf("A4A4A4")};
-                        }
-                    },
-                    ModItems.exoticAlloy, new ShrapnelBulletType() {
-                        {
-                            length = 160;
-                            damage = 710;
-                            width = 25;
-                            serrationLenScl = 8;
-                            serrationSpaceOffset = 120;
-                            serrationFadeOffset = 0;
-                            serrations = 13;
-                            serrationWidth = 3;
-                            fromColor = Color.valueOf("FFF6A3");
-                            toColor = Color.valueOf("FFE70F");
-                            lifetime = 35;
-                            shootEffect = Fx.sparkShoot;
-                            smokeEffect = Fx.sparkShoot;
-                        }
-                    }
+                    ModItems.plastic, new ShrapnelBulletType() {{
+                        length = 220;
+                        damage = 650;
+                        width = 35;
+                        serrationLenScl = 7;
+                        serrationSpaceOffset = 60;
+                        serrationFadeOffset = 0;
+                        serrations = 11;
+                        serrationWidth = 6;
+                        fromColor = Color.valueOf("d5b2ed");
+                        toColor = Color.valueOf("a17dcd");
+                        lifetime = 45;
+                        shootEffect = Fx.sparkShoot;
+                        smokeEffect = Fx.sparkShoot;
+                    }},
+                    ModItems.odinum, new LaserBulletType() {{
+                        length = 260;
+                        damage = 420;
+                        width = 40;
+                        lifetime = 30;
+                        lightningSpacing = 34;
+                        lightningLength = 2;
+                        lightningDelay = 1;
+                        lightningLengthRand = 7;
+                        lightningDamage = 45;
+                        lightningAngleRand = 30;
+                        largeHit = true;
+                        shootEffect = Fx.greenLaserChargeSmall;
+                        collidesTeam = true;
+                        sideAngle = 15;
+                        sideWidth = 0;
+                        sideLength = 0;
+                        colors = new Color[]{Color.valueOf("ffffff"), Color.valueOf("EDEDED"), Color.valueOf("A4A4A4")};
+                    }},
+                    ModItems.exoticAlloy, new ShrapnelBulletType() {{
+                        length = 160;
+                        damage = 710;
+                        width = 25;
+                        serrationLenScl = 8;
+                        serrationSpaceOffset = 120;
+                        serrationFadeOffset = 0;
+                        serrations = 13;
+                        serrationWidth = 3;
+                        fromColor = Color.valueOf("FFF6A3");
+                        toColor = Color.valueOf("FFE70F");
+                        lifetime = 35;
+                        shootEffect = Fx.sparkShoot;
+                        smokeEffect = Fx.sparkShoot;
+                    }}
             );
             reloadTime = 70;
             shots = 1;
@@ -307,6 +294,7 @@ class ModDefense implements ContentList {
                     SubBullets.addLightning(b, this);
                     super.update(b);
                 }
+
                 {
                     hitSize = 14;
                     drawSize = 520;
@@ -334,7 +322,8 @@ class ModDefense implements ContentList {
                     lightningAngle = 15;
                     lightningCone = 50;
                     lightningColor = Color.valueOf("f1fc58");
-                }};
+                }
+            };
             requirements(Category.turret, ItemStack.with(ModItems.phaseAlloy, 550, ModItems.exoticAlloy, 600, Items.surgeAlloy, 450, ModItems.chromium, 420, ModItems.graphenite, 1020, Items.metaglass, 420));
             reloadTime = 4;
         }};
@@ -369,6 +358,7 @@ class ModDefense implements ContentList {
                             SubBullets.addLightning(b, this);
                             super.update(b);
                         }
+
                         {
                             backColor = Color.valueOf("c2cc37");
                             width = 4;
@@ -421,38 +411,34 @@ class ModDefense implements ContentList {
             description = "A small turret that fires lasers that do splash damage. Requires power aswell as Exotic Alloy to shoot.";
             requirements(Category.turret, ItemStack.with(ModItems.graphenite, 150, Items.silicon, 150, Items.surgeAlloy, 70, Items.plastanium, 120, Items.thorium, 270));
             ammo(
-                    ModItems.exoticAlloy, new PointBulletType() {
-                        {
-                            shootEffect = Fx.instShoot;
-                            hitEffect = Fx.instHit;
-                            smokeEffect = Fx.smokeCloud;
-                            trailEffect = Fx.instTrail;
-                            despawnEffect = Fx.instBomb;
-                            trailSpacing = 12;
-                            damage = 400;
-                            buildingDamageMultiplier = 0.3f;
-                            speed = 50;
-                            hitShake = 1;
-                            ammoMultiplier = 2;
-                        }
-                    },
-                    ModItems.plastic, new ShrapnelBulletType() {
-                        {
-                            length = 170;
-                            damage = 250;
-                            width = 15;
-                            serrationLenScl = 3;
-                            serrationSpaceOffset = 20;
-                            serrationFadeOffset = 0;
-                            serrations = 9;
-                            serrationWidth = 4;
-                            fromColor = Color.valueOf("AD5CFF");
-                            toColor = Color.valueOf("870FFF");
-                            lifetime = 45;
-                            shootEffect = Fx.sparkShoot;
-                            smokeEffect = Fx.sparkShoot;
-                        }
-                    }
+                    ModItems.exoticAlloy, new PointBulletType() {{
+                        shootEffect = Fx.instShoot;
+                        hitEffect = Fx.instHit;
+                        smokeEffect = Fx.smokeCloud;
+                        trailEffect = Fx.instTrail;
+                        despawnEffect = Fx.instBomb;
+                        trailSpacing = 12;
+                        damage = 400;
+                        buildingDamageMultiplier = 0.3f;
+                        speed = 50;
+                        hitShake = 1;
+                        ammoMultiplier = 2;
+                    }},
+                    ModItems.plastic, new ShrapnelBulletType() {{
+                        length = 170;
+                        damage = 250;
+                        width = 15;
+                        serrationLenScl = 3;
+                        serrationSpaceOffset = 20;
+                        serrationFadeOffset = 0;
+                        serrations = 9;
+                        serrationWidth = 4;
+                        fromColor = Color.valueOf("AD5CFF");
+                        toColor = Color.valueOf("870FFF");
+                        lifetime = 45;
+                        shootEffect = Fx.sparkShoot;
+                        smokeEffect = Fx.sparkShoot;
+                    }}
             );
             consumes.power(3f);
             consumes.liquid(Liquids.cryofluid, 0.14f).optional(false, false);
@@ -484,20 +470,18 @@ class ModDefense implements ContentList {
             description = "A small, but powerful turret. Requires expensive Surge Alloy to fire. Can literally reap your soul.";
             requirements(Category.turret, ItemStack.with(ModItems.graphenite, 340, Items.silicon, 405, Items.surgeAlloy, 100, ModItems.plastic, 270, ModItems.odinum, 420));
             ammo(
-                    Items.surgeAlloy, new SapBulletType() {
-                        {
-                            sapStrength = 1.2f;
-                            length = 160;
-                            damage = 400;
-                            shootEffect = Fx.shootSmall;
-                            hitColor = Color.valueOf("e88ec9");
-                            color = Color.valueOf("e88ec9");
-                            despawnEffect = Fx.none;
-                            width = 2;
-                            lifetime = 60;
-                            knockback = 0.4f;
-                        }
-                    }
+                    Items.surgeAlloy, new SapBulletType() {{
+                        sapStrength = 1.2f;
+                        length = 160;
+                        damage = 400;
+                        shootEffect = Fx.shootSmall;
+                        hitColor = Color.valueOf("e88ec9");
+                        color = Color.valueOf("e88ec9");
+                        despawnEffect = Fx.none;
+                        width = 2;
+                        lifetime = 60;
+                        knockback = 0.4f;
+                    }}
             );
             reloadTime = 60;
             shots = 1;
@@ -540,6 +524,7 @@ class ModDefense implements ContentList {
                             SubBullets.addLightning(b, this);
                             super.update(b);
                         }
+
                         {
                             sapStrength = 0.48f;
                             length = 75;
@@ -645,124 +630,115 @@ class ModDefense implements ContentList {
             targetAir = true;
             targetGround = true;
             ammo(
-                    ModItems.phaseAlloy, new BasicBulletType() {
-                        {
-                            damage = 960;
-                            width = 15;
-                            height = 18;
-                            shrinkY = 0.1f;
-                            shrinkX = 0.2f;
-                            speed = 4;
-                            hitSize = 50;
-                            lifetime = 180;
-                            status = StatusEffects.slow;
-                            statusDuration = 120;
-                            pierce = true;
-                            buildingDamageMultiplier = 0.6f;
-                            hittable = true;
-                            ammoMultiplier = 1;
-                            trailChance = 92f;
-                            trailEffect = ModFx.fireworkTrail;
-                            backColor = ModPal.blackHoleLaserBackColor;
-                            frontColor = ModPal.blackHoleLaserColor;
-                            hitColor = trailColor = lightColor = lightningColor = Color.violet;
-                        }
-                    }
+                    ModItems.phaseAlloy, new BasicBulletType() {{
+                        damage = 960;
+                        width = 15;
+                        height = 18;
+                        shrinkY = 0.1f;
+                        shrinkX = 0.2f;
+                        speed = 4;
+                        hitSize = 50;
+                        lifetime = 180;
+                        status = StatusEffects.slow;
+                        statusDuration = 120;
+                        pierce = true;
+                        buildingDamageMultiplier = 0.6f;
+                        hittable = true;
+                        ammoMultiplier = 1;
+                        trailChance = 92f;
+                        trailEffect = ModFx.fireworkTrail;
+                        backColor = ModPal.blackHoleLaserBackColor;
+                        frontColor = ModPal.blackHoleLaserColor;
+                        hitColor = trailColor = lightColor = lightningColor = Color.violet;
+                    }}
             );
             consumes.liquid(ModLiquids.liquidMethane, 0.1f).optional(false, true);
             requirements(Category.turret, ItemStack.with(ModItems.graphenite, 2000, Items.titanium, 600, ModItems.phaseAlloy, 400, Items.phaseFabric, 300, Items.silicon, 1900));
         }};
-        spark = new ItemTurret("spark"){
-            {
-                localizedName = "Spark";
-                description = "Upgraded Salvo with using high-tec Graphenite.";
-                requirements(Category.turret, ItemStack.with(Items.copper, 130, Items.graphite, 90, Items.silicon, 70, ModItems.graphenite, 80));
-                ammo(
-                        ModItems.graphenite, new BasicBulletType() {
-                            {
-                                damage = 30;
-                                width = 10;
-                                height = 11;
-                                shrinkY = 0.1f;
-                                shrinkX = 0.2f;
-                                speed = 4.1f;
-                                hitSize = 10;
-                                lifetime = 190;
-                                status = StatusEffects.shocked;
-                                statusDuration = 60;
-                                pierce = true;
-                                buildingDamageMultiplier = 0.8f;
-                                hittable = true;
-                                ammoMultiplier = 1;
-                                trailChance = 1.2f;
-                                trailEffect = Fx.missileTrail;
-                                backColor = ModPal.amethyst;
-                                frontColor = ModPal.amethystLight;
-                                hitColor = trailColor = lightColor = lightningColor = Color.violet;
-                            }
-                        },
-                        Items.copper, new BasicBulletType() {
-                            {
-                                damage = 12;
-                                width = 8;
-                                height = 9;
-                                shrinkY = 0.1f;
-                                shrinkX = 0.2f;
-                                speed = 3.1f;
-                                hitSize = 11;
-                                lifetime = 180;
-                                status = StatusEffects.shocked;
-                                statusDuration = 40;
-                                pierce = true;
-                                buildingDamageMultiplier = 0.8f;
-                                hittable = true;
-                                ammoMultiplier = 1;
-                                trailChance = 1.2f;
-                                trailEffect = Fx.missileTrail;
-                                backColor = ModPal.orangeBackColor;
-                                frontColor = ModPal.orangeFrontColor;
-                                hitColor = trailColor = lightColor = lightningColor = Color.orange;
-                            }
-                        },
-                        Items.titanium, new BasicBulletType() {
-                            {
-                                damage = 24;
-                                width = 9;
-                                height = 10;
-                                shrinkY = 0.1f;
-                                shrinkX = 0.2f;
-                                speed = 3.6f;
-                                hitSize = 10;
-                                lifetime = 190;
-                                status = StatusEffects.shocked;
-                                statusDuration = 50;
-                                pierce = true;
-                                buildingDamageMultiplier = 0.9f;
-                                hittable = true;
-                                ammoMultiplier = 1;
-                                trailChance = 1.2f;
-                                trailEffect = Fx.missileTrail;
-                                backColor = ModPal.NorthernLightsNoiseColor;
-                                frontColor = ModPal.NorthernLightsColor;
-                                hitColor = trailColor = lightColor = lightningColor = Color.cyan;
-                            }
-                        }
-                );
+        spark = new ItemTurret("spark") {{
+            localizedName = "Spark";
+            description = "Upgraded Salvo with using high-tec Graphenite.";
+            requirements(Category.turret, ItemStack.with(Items.copper, 130, Items.graphite, 90, Items.silicon, 70, ModItems.graphenite, 80));
+            ammo(
+                    ModItems.graphenite, new BasicBulletType() {{
+                        damage = 30;
+                        width = 10;
+                        height = 11;
+                        shrinkY = 0.1f;
+                        shrinkX = 0.2f;
+                        speed = 4.1f;
+                        hitSize = 10;
+                        lifetime = 190;
+                        status = StatusEffects.shocked;
+                        statusDuration = 60;
+                        pierce = true;
+                        buildingDamageMultiplier = 0.8f;
+                        hittable = true;
+                        ammoMultiplier = 1;
+                        trailChance = 1.2f;
+                        trailEffect = Fx.missileTrail;
+                        backColor = ModPal.amethyst;
+                        frontColor = ModPal.amethystLight;
+                        hitColor = trailColor = lightColor = lightningColor = Color.violet;
+                    }},
+                    Items.copper, new BasicBulletType() {{
+                        damage = 12;
+                        width = 8;
+                        height = 9;
+                        shrinkY = 0.1f;
+                        shrinkX = 0.2f;
+                        speed = 3.1f;
+                        hitSize = 11;
+                        lifetime = 180;
+                        status = StatusEffects.shocked;
+                        statusDuration = 40;
+                        pierce = true;
+                        buildingDamageMultiplier = 0.8f;
+                        hittable = true;
+                        ammoMultiplier = 1;
+                        trailChance = 1.2f;
+                        trailEffect = Fx.missileTrail;
+                        backColor = ModPal.orangeBackColor;
+                        frontColor = ModPal.orangeFrontColor;
+                        hitColor = trailColor = lightColor = lightningColor = Color.orange;
+                    }},
+                    Items.titanium, new BasicBulletType() {{
+                        damage = 24;
+                        width = 9;
+                        height = 10;
+                        shrinkY = 0.1f;
+                        shrinkX = 0.2f;
+                        speed = 3.6f;
+                        hitSize = 10;
+                        lifetime = 190;
+                        status = StatusEffects.shocked;
+                        statusDuration = 50;
+                        pierce = true;
+                        buildingDamageMultiplier = 0.9f;
+                        hittable = true;
+                        ammoMultiplier = 1;
+                        trailChance = 1.2f;
+                        trailEffect = Fx.missileTrail;
+                        backColor = ModPal.NorthernLightsNoiseColor;
+                        frontColor = ModPal.NorthernLightsColor;
+                        hitColor = trailColor = lightColor = lightningColor = Color.cyan;
+                    }}
+            );
 
-                size = 4;
-                range = 180f;
-                reloadTime = 42f;
-                restitution = 0.04f;
-                ammoEjectBack = 3.2f;
-                cooldown = 0.08f;
-                recoilAmount = 3.2f;
-                shootShake = 1f;
-                burstSpacing = 2f;
-                shots = 5;
-                ammoUseEffect = ModFx.napalmShoot;
-                health = 360 * size * size;
-                shootSound = Sounds.bang;
-            }};
+            size = 4;
+            range = 180f;
+            reloadTime = 42f;
+            restitution = 0.04f;
+            ammoEjectBack = 3.2f;
+            cooldown = 0.08f;
+            recoilAmount = 3.2f;
+            shootShake = 1f;
+            burstSpacing = 2f;
+            shots = 5;
+            ammoUseEffect = ModFx.napalmShoot;
+            health = 360 * size * size;
+            shootSound = Sounds.bang;
+        }};
         exoticAlloyWallLarge = new Wall("dense-composite-wall-large") {{
             localizedName = "Dense Composite Wall Large";
             description = "A bigger Dense Composite Wall, creates lightings when shot.";

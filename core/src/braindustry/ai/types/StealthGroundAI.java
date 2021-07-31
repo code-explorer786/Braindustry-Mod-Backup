@@ -23,14 +23,13 @@ public class StealthGroundAI extends AIController {
     static Prov<Pathfinder.Flowfield> dumpObj = StealthFlowfield::new;
 
     static {
-        if (true) {
             if (Pathfinder.fieldTypes.size + 1 <= 5) {
                 Pathfinder.fieldTypes.add(dumpObj);
             } else if (!Pathfinder.fieldTypes.contains(dumpObj)) {
                 throw new RuntimeException("Can't add StealthFlowfield in Pathfinder.fieldTypes");
             }
             fieldRepair = Pathfinder.fieldTypes.indexOf(dumpObj);
-        }
+
     }
 
     public void updateUnit() {
@@ -47,21 +46,6 @@ public class StealthGroundAI extends AIController {
             this.updateTargeting();
             this.updateMovement();
         }
-    }
-
-    protected void pathfind(int pathTarget) {
-        super.pathfind(pathTarget);
-        /*
-        if (true) return;
-        int costType = this.unit.pathType();
-        Tile tile = this.unit.tileOn();
-        if (tile != null) {
-            Tile targetTile = Vars.pathfinder.getTargetTile(tile, Vars.pathfinder.getField(this.unit.team, costType, pathTarget));
-            if (costType != 2 || targetTile.floor().isLiquid) {
-                this.unit.moveAt(vec.trns(this.unit.angleTo(targetTile), this.unit.speed()));
-            }
-        }
-        */
     }
 
     @Override
@@ -84,21 +68,14 @@ public class StealthGroundAI extends AIController {
 
             }
         }
-//        this.target=target;
-//        Arrays.fill(targets,target);
         if (target != null && !unit.within(target, radius)) {
             pathfind(fieldRepair);
-//            targets=new Teamc[0];
         } else if (target != null) {
             sunit.healing(true);
         }
         if (unit.type.canBoost && !unit.onSolid()) {
             unit.elevation = Mathf.approachDelta(unit.elevation, 0f, 0.08f);
         }
-
-        /*if (target != null && !unit.within(target, 70f)) {
-            unit.approach(Mathf.arrive(unit.x, unit.y, realtarget.x, realtarget.y, unit.vel, speed, 0f, speed, 1f).scl(1f / Time.delta));
-        }*/
         if (!Units.invalidateTarget(target, unit, unit.range()) && unit.type.rotateShooting) {
             if (unit.type.hasWeapons()) {
                 unit.lookAt(Predict.intercept(unit, target, unit.type.weapons.first().bullet.speed));
@@ -125,30 +102,6 @@ public class StealthGroundAI extends AIController {
     }
 
     protected static class StealthFlowfield extends Pathfinder.Flowfield {
-        final IntSeq targets;
-        public int[][] weights;
-        public int[][] searches;
-        protected int refreshRate;
-        IntQueue frontier;
-        int search;
-        boolean initialized;
-
-        public StealthFlowfield() {
-            super();
-
-            this.team = Team.derelict;
-            this.frontier = new IntQueue();
-            this.targets = new IntSeq();
-            this.search = 1;
-        }
-/*
-        void setup(int width, int height) {
-            this.weights = new int[width][height];
-            this.searches = new int[width][height];
-            this.frontier.ensureCapacity((width + height) * 3);
-            this.initialized = true;
-        }*/
-
         @Override
         protected void getPositions(IntSeq out) {
 

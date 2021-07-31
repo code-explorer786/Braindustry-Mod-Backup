@@ -1,4 +1,5 @@
 package braindustry.content;
+
 import Gas.type.Gas;
 import arc.graphics.Color;
 import mindustry.ctype.ContentList;
@@ -6,8 +7,9 @@ import mindustry.ctype.ContentList;
 public class Gasses implements ContentList {
     public static Gas oxygen;
     public static Gas methane;
+
     public void load() {
-       /* oxygen =new Gas("oxygen"){
+        /*oxygen =new Gas("oxygen"){
             {
                 this.explosiveness=0.1f;
                 this.flammability=1;
@@ -15,13 +17,11 @@ public class Gasses implements ContentList {
                 this.color=Color.valueOf("70FFF8");
             }
         };*/
-        methane =new Gas("methane"){
-            {
-                this.localizedName="Methane";
-                this.color= Color.valueOf("bcf9ff");
-                this.flammability=0.7f;
-                this.explosiveness=0.9f;
-            }
-        };
+        methane = new Gas("methane") {{
+            this.localizedName = "Methane";
+            this.color = Color.valueOf("bcf9ff");
+            this.flammability = 0.7f;
+            this.explosiveness = 0.9f;
+        }};
     }
 }
