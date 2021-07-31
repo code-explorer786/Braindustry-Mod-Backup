@@ -31,8 +31,9 @@ public class TeamChooseDialog extends BaseDialog {
             i.table(t -> {
                 final int buttonSize = 20;
                 int pad = 6;
-                float coln = !mobile ? 20 : (Core.graphics.getWidth() - Scl.scl((2) * pad)) / Scl.scl(buttonSize + pad);
-                coln=Math.max(1,coln);
+                float coln = mobile ? 5 : 20;
+                coln = !mobile ? 20 : (Core.graphics.getWidth() - Scl.scl((2) * pad)) / Scl.scl(buttonSize + pad);
+                coln = Math.max(1, coln);
                 for (Team team : Team.all) {
                     if (Seq.with(Team.all).indexOf(team) % coln == 0) t.row();
                     ImageButton button = new ImageButton(Tex.whitePane, Styles.clearToggleTransi);

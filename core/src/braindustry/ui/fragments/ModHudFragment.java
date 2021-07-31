@@ -88,6 +88,11 @@ public class ModHudFragment {
                 return
                         (el.name == null ? el.getClass().getSimpleName() : el.name).equals("HudFragment$1");
             });
+            if (fragIndex==-1){
+                Log.info("status_ERROR: @",status);
+                Log.info("stack_ERROR: @",stack);
+                return;
+            }
             Element oldFrag = children.get(fragIndex);
             oldFrag.parent = null;
             oldFrag.remove();
