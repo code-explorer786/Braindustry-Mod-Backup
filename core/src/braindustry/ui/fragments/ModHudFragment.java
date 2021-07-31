@@ -81,12 +81,12 @@ public class ModHudFragment {
             Table status = overlaymarker.<Stack>find("waves/editor").<Table>find("waves").<Table>find("status");
             Stack stack = status.<Stack>find(el -> {
                 return
-                        (el.name == null ? el.getClass().getSimpleName() : el.name).equals("Stack");
+                        (el.name == null ? el.getClass().getSimpleName() : el.name).equals("Stack") && el.toString().contains("HudFragment$1");
             });
             SnapshotSeq<Element> children = stack.getChildren();
             int fragIndex = children.indexOf(el ->{
                 return
-                        (el.name == null ? el.getClass().getSimpleName() : el.name).equals("HudFragment$1");
+                        (el.name == null ? el.getClass().getSimpleName() : el.name).equals("HudFragment$1") || el.toString().equals("HudFragment$1");
             });
             if (fragIndex==-1){
                 Log.info("status_ERROR: @",status);
