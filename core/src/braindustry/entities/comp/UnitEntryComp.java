@@ -26,7 +26,12 @@ public abstract class UnitEntryComp implements Drawc, Entityc, Syncc {
     public Vec2 pos;
     public Team team;
     private UnitType unitType;
-
+public float posX(){
+    return pos.x;
+}
+public float posY(){
+    return pos.y;
+}
     public static UnitEntry create(UnitType unitType, Team team, int amount, Vec2 pos) {
         if (unitType == null) throw new IllegalArgumentException("UnitType cannot be null");
         UnitEntry unitEntry = UnitEntry.create();

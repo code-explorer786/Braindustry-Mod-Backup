@@ -34,11 +34,10 @@ public class LModExecutor {
 
         @Override
         public void run(LExecutor exec) {
-            StrOp.SrtOpType type = op.type;
             Object p1 = null, p2 = null, p3 = null;
-           p1=set(exec,op.type.first,a);
-           p2=set(exec,op.type.second,b);
-           p3=set(exec,op.type.third,c);
+           p1=set(exec,op.type[0],a);
+           p2=set(exec,op.type[1],b);
+           p3=set(exec,op.type[2],c);
             if (p1 == null) return;
             Object result = op.func.get(p1, p2, p3);
             double value;

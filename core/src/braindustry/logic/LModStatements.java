@@ -2,11 +2,11 @@ package braindustry.logic;
 
 import arc.func.Cons;
 import arc.graphics.Color;
-import arc.math.Mathf;
 import arc.scene.ui.Button;
 import arc.scene.ui.ButtonGroup;
 import arc.scene.ui.layout.Cell;
 import arc.scene.ui.layout.Table;
+import arc.struct.IntSeq;
 import braindustry.annotations.ModAnnotations;
 import braindustry.logic.LModExecutor.MessageReadI;
 import braindustry.logic.LModExecutor.StrOpI;
@@ -34,7 +34,9 @@ public class LModStatements {
             field(table, dest, str -> dest = str);
 
             table.add(" = ");
-            int rtype = Mathf.num(op.type.first!=-1)+Mathf.num(op.type.second!=-1)+Mathf.num(op.type.third!=-1);
+            IntSeq intSeq = new IntSeq(op.type);
+            int rtype = op.type.length - intSeq.count(-1);
+            intSeq.clear();
 
             if (rtype == 1) {
                 opButton(table, table);
@@ -62,23 +64,25 @@ public class LModStatements {
             }, Styles.logict, () -> {
             }).size(96.0f, 40.0f).pad(4f).color(table.color);
         }
+
         @Override
-        protected <T extends Enum<T>> void showSelect(Button b, T[] values, T current, Cons<T> getter, int cols, Cons<Cell> sizer){
+        protected <T extends Enum<T>> void showSelect(Button b, T[] values, T current, Cons<T> getter, int cols, Cons<Cell> sizer) {
             showSelectTable(b, (t, hide) -> {
                 ButtonGroup<Button> group = new ButtonGroup<>();
                 int i = 0;
-                t.defaults().size(60f*1.5f, 38f*1.5f);
+                t.defaults().size(60f * 1.5f, 38f * 1.5f);
 
-                for(T p : values){
+                for (T p : values) {
                     sizer.get(t.button(p.toString(), Styles.logicTogglet, () -> {
                         getter.get(p);
                         hide.run();
                     }).self(c -> tooltip(c, p)).checked(current == p).group(group));
 
-                    if(++i % cols == 0) t.row();
+                    if (++i % cols == 0) t.row();
                 }
             });
         }
+
         @Override
         public LInstruction build(LAssembler builder) {
             return new StrOpI(op, builder.var(a), builder.var(b), builder.var(c), builder.var(dest));

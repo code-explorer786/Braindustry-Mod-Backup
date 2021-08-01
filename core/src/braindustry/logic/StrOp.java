@@ -39,7 +39,7 @@ public enum StrOp {
     public static final StrOp[] all = values();
     static final int strVal = 0, objVal = 1, numVal = 2;
     public final Func3<Object, Object, Object, Object> func;
-    public final SrtOpType type;
+    public final int[] type;
     public final String symbol;
     public final String[] params;
 
@@ -107,56 +107,56 @@ public enum StrOp {
     interface StrOpLambda3All {
         Object get(String a, String b, String c);
 
-        default SrtOpType getType() {
-            return new SrtOpType(strVal,strVal,strVal);
+        default int[] getType() {
+            return new int[]{strVal, strVal, strVal};
         }
     }
 
     interface StrOpLambda3TwoStr {
         Object get(String a, String b, Double c);
 
-        default SrtOpType getType() {
-            return new SrtOpType(strVal,strVal,numVal);
+        default int[] getType() {
+            return new int[]{strVal,strVal,numVal};
         }
     }
 
     interface StrOpLambda3 {
         Object get(String a, double b, double c);
 
-        default SrtOpType getType() {
-            return new SrtOpType(strVal,numVal,numVal);
+        default int[] getType() {
+            return new int[]{strVal,numVal,numVal};
         }
     }
 
     interface StrOpLambda2One {
         Object get(String a, double b);
 
-        default SrtOpType getType() {
-            return new SrtOpType(strVal,numVal,-1);
+        default int[] getType() {
+            return new int[]{strVal,numVal,-1};
         }
     }
 
     interface StrOpLambda2 {
         Object get(Object a, Object b);
 
-        default SrtOpType getType() {
-            return new SrtOpType(objVal,objVal,-1);
+        default int[] getType() {
+            return new int[]{objVal,objVal,-1};
         }
     }
 
     interface StrOpLambda2All {
         Object get(String a, String b);
 
-        default SrtOpType getType() {
-            return new SrtOpType(strVal,strVal,-1);
+        default int[] getType() {
+            return new int[]{strVal,strVal,-1};
         }
     }
 
     interface StrOpLambda1Str {
         Object get(String a);
 
-        default SrtOpType getType() {
-            return new SrtOpType(strVal,-1,-1);
+        default int[] getType() {
+            return new int[]{strVal,-1,-1};
         }
     }
 
@@ -164,18 +164,8 @@ public enum StrOp {
     interface StrOpLambda1 {
         String get(Object a);
 
-        default SrtOpType getType() {
-            return new SrtOpType(objVal,-1,-1);
-        }
-    }
-
-    static class SrtOpType {
-        final int first, second, third;
-
-        SrtOpType(int first, int second, int third) {
-            this.first = first;
-            this.second = second;
-            this.third = third;
+        default int[] getType() {
+            return new int[]{objVal,-1,-1};
         }
     }
 }

@@ -142,7 +142,7 @@ public class UnitSpawner extends ModBlock {
                                         UnitEntry lastEntry = unitEntries.find(entry -> {
                                             Intf<Float> conv = (c) -> (int) (c / Vars.tilesize);
                                             int nx = conv.get(spawnPos.x), ny = conv.get(spawnPos.y);
-                                            int ex = conv.get(entry.x()), ey = conv.get(entry.y());
+                                            int ex = conv.get(entry.posX()), ey = conv.get(entry.posY());
                                             return entry.unitType() == u && entry.team == team && ex == nx && ey == ny;
                                         });
                                         if (lastEntry == null) {
