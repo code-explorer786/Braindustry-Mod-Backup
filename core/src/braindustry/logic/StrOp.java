@@ -34,7 +34,15 @@ public enum StrOp {
         return null;
     }, "text", "from", "to"),
     starts("starts", (String a, String b) -> a.startsWith(b)),
-    end("ends", (String a, String b) -> a.endsWith(b));
+    end("ends", (String a, String b) -> a.endsWith(b)),
+    chatAt("chatAt", (String a, double b) -> a.charAt((int) b) + ""),
+    insert("insert", (String a, Double b, String c) -> {
+        if (b == null) return a;
+        int index = b.intValue();
+        return a.substring(0, index).intern() + c + a.substring(index + 1).intern();
+    }),
+    replace("replace", (String a, String b, String c) -> a.replace(b, c)),
+    ;
 
     public static final StrOp[] all = values();
     static final int strVal = 0, objVal = 1, numVal = 2;
@@ -99,6 +107,13 @@ public enum StrOp {
         this.params = params;
     }
 
+    StrOp(String symbol, StrOpLambda3TwoStr2 function, String... params) {
+        this.symbol = symbol;
+        func = (a, b, c) -> function.get((String) a, (Double) b, (String) c);
+        type = function.getType();
+        this.params = params;
+    }
+
     @Override
     public String toString() {
         return symbol;
@@ -116,7 +131,15 @@ public enum StrOp {
         Object get(String a, String b, Double c);
 
         default int[] getType() {
-            return new int[]{strVal,strVal,numVal};
+            return new int[]{strVal, strVal, numVal};
+        }
+    }
+
+    interface StrOpLambda3TwoStr2 {
+        Object get(String a, Double b, String c);
+
+        default int[] getType() {
+            return new int[]{strVal, numVal, strVal};
         }
     }
 
@@ -124,7 +147,7 @@ public enum StrOp {
         Object get(String a, double b, double c);
 
         default int[] getType() {
-            return new int[]{strVal,numVal,numVal};
+            return new int[]{strVal, numVal, numVal};
         }
     }
 
@@ -132,7 +155,7 @@ public enum StrOp {
         Object get(String a, double b);
 
         default int[] getType() {
-            return new int[]{strVal,numVal,-1};
+            return new int[]{strVal, numVal, -1};
         }
     }
 
@@ -140,7 +163,7 @@ public enum StrOp {
         Object get(Object a, Object b);
 
         default int[] getType() {
-            return new int[]{objVal,objVal,-1};
+            return new int[]{objVal, objVal, -1};
         }
     }
 
@@ -148,7 +171,7 @@ public enum StrOp {
         Object get(String a, String b);
 
         default int[] getType() {
-            return new int[]{strVal,strVal,-1};
+            return new int[]{strVal, strVal, -1};
         }
     }
 
@@ -156,7 +179,7 @@ public enum StrOp {
         Object get(String a);
 
         default int[] getType() {
-            return new int[]{strVal,-1,-1};
+            return new int[]{strVal, -1, -1};
         }
     }
 
@@ -165,7 +188,7 @@ public enum StrOp {
         String get(Object a);
 
         default int[] getType() {
-            return new int[]{objVal,-1,-1};
+            return new int[]{objVal, -1, -1};
         }
     }
 }

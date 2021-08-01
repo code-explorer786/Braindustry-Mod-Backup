@@ -1,5 +1,6 @@
 package braindustry.logic;
 
+import mindustry.ctype.Content;
 import mindustry.logic.LExecutor;
 import mindustry.world.blocks.logic.MessageBlock;
 
@@ -27,7 +28,8 @@ public class LModExecutor {
             } else if (value == numVal) {
                 return exec.num(index);
             } else if (value == strVal) {
-                return obj(exec, index) + "";
+                Object obj = obj(exec, index);
+                return obj + "";
             }
             return null;
         }
@@ -35,9 +37,9 @@ public class LModExecutor {
         @Override
         public void run(LExecutor exec) {
             Object p1 = null, p2 = null, p3 = null;
-           p1=set(exec,op.type[0],a);
-           p2=set(exec,op.type[1],b);
-           p3=set(exec,op.type[2],c);
+            p1 = set(exec, op.type[0], a);
+            p2 = set(exec, op.type[1], b);
+            p3 = set(exec, op.type[2], c);
             if (p1 == null) return;
             Object result = op.func.get(p1, p2, p3);
             double value;

@@ -7,21 +7,20 @@ import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
 import arc.math.geom.Vec2;
 import arc.scene.ui.layout.Table;
-import arc.util.Log;
 import arc.util.Strings;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
 import braindustry.annotations.ModAnnotations;
 import mindustry.content.Blocks;
+import mindustry.ctype.Content;
 import mindustry.gen.Building;
 import mindustry.gen.Icon;
 import mindustry.gen.Teamc;
+import mindustry.logic.LAccess;
 import mindustry.type.Item;
 import mindustry.world.Tile;
 import mindustry.world.blocks.distribution.Router;
 import mindustry.world.meta.BlockGroup;
-
-import java.util.Arrays;
 
 public class SmartRouter extends Router {
 
@@ -54,6 +53,33 @@ public class SmartRouter extends Router {
             Vec2 pos = Core.input.mouseScreen((x) + addPos - 0.5f, y + addPos);
             table.setSize(size * 12f);
             table.setPosition(pos.x, pos.y, 0);
+        }
+
+        @Override
+        public void control(LAccess type, Object p1, double p2, double p3, double p4) {
+            if (type == LAccess.config) {
+                String lastConfig = config();
+                try {
+                    String config = (String) p1;
+                    right = config.charAt(0) == '1';
+                    up = config.charAt(1) == '1';
+                    left = config.charAt(2) == '1';
+                    down = config.charAt(3) == '1';
+                    return;
+                } catch (Exception ignored) {
+                    handleString(lastConfig);
+                }
+                return;
+            }
+            super.control(type, p1, p2, p3, p4);
+        }
+
+        @Override
+        public Object senseObject(LAccess sensor) {
+            if (sensor == LAccess.config) {
+                return Strings.format("@@@@", Mathf.num(right), Mathf.num(up), Mathf.num(left), Mathf.num(down));
+            }
+            return super.senseObject(sensor);
         }
 
         @Override
@@ -185,7 +211,7 @@ public class SmartRouter extends Router {
         }
 
         @Override
-        public Object config() {
+        public String config() {
             return Strings.format("1r@@@@", Mathf.num(up), Mathf.num(down), Mathf.num(left), Mathf.num(right));
         }
 
@@ -199,9 +225,14 @@ public class SmartRouter extends Router {
         }
 
         @Override
+        public double sense(Content content) {
+            return super.sense(content);
+        }
+
+        @Override
         public void playerPlaced(Object config) {
             if (lastConfig == null) {
-                lastConfig = "false false false false";
+                lastConfig = "1r0000";
             }
             handleString(config);
         }

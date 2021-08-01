@@ -15,10 +15,12 @@ import arc.util.Strings;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
 import braindustry.annotations.ModAnnotations;
+import mindustry.ctype.ContentType;
+import mindustry.ctype.MappableContent;
 import mindustry.entities.units.BuildPlan;
 import mindustry.gen.Building;
+import mindustry.logic.LAccess;
 import mindustry.type.Item;
-//import mindustry.ui.Cicon;
 import mindustry.world.Block;
 import mindustry.world.blocks.ItemSelection;
 import mindustry.world.meta.BlockGroup;
@@ -45,13 +47,9 @@ public class SmartSorter extends Block {
         saveConfig = true;
 
         config(String.class, (SmartSorterBuild tile, String str) -> {
-            String[] split = str.split(" ");
-            for (int i = 0; i < split.length; i++) {
-                tile.configSide(i, Strings.parseInt(split[i]));
-            }
+            tile.handleString(str);
         });
     }
-
     @Override
     public void drawRequestConfig(BuildPlan req, Eachable<BuildPlan> list) {
         float x = req.drawx();
@@ -90,12 +88,51 @@ public class SmartSorter extends Block {
             Arrays.fill(sides, -1);
         }
 
-        public void configSide(int side, int item) {
-            sides[side] = item;
+        @Override
+        public Object senseObject(LAccess sensor) {
+            if (sensor==LAccess.config){
+                return config();
+            }
+            return super.senseObject(sensor);
         }
 
-        public String getConfig() {
-            return Seq.<Integer>withArrays(sides).toString(" ");
+        @Override
+        public void control(LAccess type, Object p1, double p2, double p3, double p4) {
+            if (type == LAccess.config) {
+                
+                String lastConfig = config();
+                try {
+                    String config = (String) p1;
+                    String[] split = config.split(" ");
+                    if (split.length==4) {
+                        for (int i = 0; i < split.length; i++) {
+                            String val = split[i];
+                            if (Strings.canParseFloat(val)) {
+                                sides[i] = (int) Double.parseDouble(val);
+                            } else {
+                                MappableContent byName = content.getByName(ContentType.item, val);
+                                if (byName==null){
+                                    for (Item item : content.items()) {
+                                        if (item.localizedName.equals(val)){
+                                            byName=item;
+                                            break;
+                                        }
+                                    }
+                                }
+                                sides[i] = byName.id;
+                            }
+                        }
+                    }
+                    return;
+                } catch (Exception ignored) {
+                    handleString(lastConfig);
+                }
+                return;
+            }
+            super.control(type, p1, p2, p3, p4);
+        }
+        public void configSide(int side, int item) {
+            sides[side] = item;
         }
 
         @Override
@@ -166,16 +203,6 @@ public class SmartSorter extends Block {
                     to = rotation % 2 == 0 ? c : a;
                 }
                 if (flip)rotation=Mathf.mod(rotation+1,4);
-                /*if (rotation == 0) {
-                    to = ac ? a : (bc ? b : c);
-                    if (flip) this.rotation = (byte) 1;
-                } else if (rotation == 1) {
-                    to = b;
-                    if (flip) this.rotation = (byte) 2;
-                } else {
-                    to = c;
-                    if (flip) this.rotation = (byte) 0;
-                }*/
             }
             return to;
         }
@@ -204,6 +231,20 @@ public class SmartSorter extends Block {
                 });
             });
             t.add(button).minSize(button.getMaxWidth());
+        }
+
+        @Override
+        public String config() {
+            return sides[0] + " " + sides[1] + " " + sides[2] + " " + sides[3];
+        }
+
+        @Override
+        public void handleString(Object value) {
+            String str= (String) value;
+            String[] split = str.split(" ");
+            for (int i = 0; i < split.length; i++) {
+                configSide(i, Strings.parseInt(split[i]));
+            }
         }
 
         @Override
