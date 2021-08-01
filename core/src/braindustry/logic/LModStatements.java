@@ -2,6 +2,7 @@ package braindustry.logic;
 
 import arc.func.Cons;
 import arc.graphics.Color;
+import arc.math.Mathf;
 import arc.scene.ui.Button;
 import arc.scene.ui.ButtonGroup;
 import arc.scene.ui.layout.Cell;
@@ -33,7 +34,8 @@ public class LModStatements {
             field(table, dest, str -> dest = str);
 
             table.add(" = ");
-            int rtype = (int) op.type;
+            int rtype = Mathf.num(op.type.first!=-1)+Mathf.num(op.type.second!=-1)+Mathf.num(op.type.third!=-1);
+
             if (rtype == 1) {
                 opButton(table, table);
                 field(table, a, str -> a = str);

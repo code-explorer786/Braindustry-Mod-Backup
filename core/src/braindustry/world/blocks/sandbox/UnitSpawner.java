@@ -482,6 +482,10 @@ public class UnitSpawner extends ModBlock {
         public void updateTile() {
             super.updateTile();
             this.team = Team.derelict;
+            Seq<UnitEntry> select = unitEntries.select(u -> !u.isAdded());
+            for (UnitEntry unitEntry : select) {
+                remove(unitEntry);
+            }
             drawer.set(getPos());
         }
 

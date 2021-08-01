@@ -11,6 +11,7 @@ import braindustry.gen.UnitEntryc;
 import mindustry.game.Team;
 import mindustry.gen.Drawc;
 import mindustry.gen.Entityc;
+import mindustry.gen.Syncc;
 import mindustry.type.UnitType;
 import braindustry.graphics.ModDraw;
 
@@ -19,7 +20,7 @@ import static mindustry.Vars.world;
 
 @ModAnnotations.EntityDef(value = {UnitEntryc.class},serialize = false)
 @ModAnnotations.Component(base = true)
-public abstract class UnitEntryComp implements Drawc, Entityc {
+public abstract class UnitEntryComp implements Drawc, Entityc, Syncc {
     private static final Rect viewport = new Rect();
     public int amount;
     public Vec2 pos;

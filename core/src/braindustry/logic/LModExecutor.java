@@ -3,6 +3,8 @@ package braindustry.logic;
 import mindustry.logic.LExecutor;
 import mindustry.world.blocks.logic.MessageBlock;
 
+import static braindustry.logic.StrOp.*;
+
 public class LModExecutor {
     public static class StrOpI implements LExecutor.LInstruction {
         public StrOp op = StrOp.add;
@@ -19,38 +21,24 @@ public class LModExecutor {
         StrOpI() {
         }
 
+        private Object set(LExecutor exec, int value, int index) {
+            if (value == objVal) {
+                return obj(exec, index);
+            } else if (value == numVal) {
+                return exec.num(index);
+            } else if (value == strVal) {
+                return obj(exec, index) + "";
+            }
+            return null;
+        }
+
         @Override
         public void run(LExecutor exec) {
-            float type = op.type;
+            StrOp.SrtOpType type = op.type;
             Object p1 = null, p2 = null, p3 = null;
-            if (type == 1f) {
-                p1 = exec.num(a);
-            } else if (type == 1.1f) {
-                p1 = (obj(exec, a)) + "";
-            } else if (type == 2f) {
-                p1 = (obj(exec, a));
-                p2 = (obj(exec, b));
-            } else if (type == 2.1f) {
-                p1 = (obj(exec, a)) + "";
-                p2 = exec.num(b);
-            } else  if (type == 2.2f) {
-                p1 = obj(exec, a) + "";
-                p2 = obj(exec, b)+"";
-            } else if (type == 3f) {
-                p1 = (obj(exec, a)) + "";
-                p2 = exec.num(b);
-                p3 = exec.num(c);
-            } else if (type == 3.2f) {
-                p1 = (obj(exec, a)) + "";
-                p2 = obj(exec, b) + "";
-                p3 = exec.num(c);
-            } else  if (type == 3.3f) {
-                p1 = (obj(exec, a)) + "";
-                p2 = obj(exec, b) + "";
-                p3 = exec.num(c)+"";
-            } else {
-                return;
-            }
+           p1=set(exec,op.type.first,a);
+           p2=set(exec,op.type.second,b);
+           p3=set(exec,op.type.third,c);
             if (p1 == null) return;
             Object result = op.func.get(p1, p2, p3);
             double value;
