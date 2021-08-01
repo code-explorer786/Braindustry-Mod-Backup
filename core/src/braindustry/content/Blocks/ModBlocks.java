@@ -5,8 +5,6 @@ import braindustry.world.blocks.Unit.power.UnitPowerGenerator;
 import braindustry.world.blocks.Unit.power.UnitPowerNode;
 import braindustry.world.blocks.distribution.BufferedPayloadBridge;
 import braindustry.world.blocks.logic.LaserRuler;
-import braindustry.world.blocks.logic.MessageReader;
-import braindustry.world.blocks.logic.NumberConverter;
 import mindustry.content.Items;
 import mindustry.ctype.ContentList;
 import mindustry.type.Category;

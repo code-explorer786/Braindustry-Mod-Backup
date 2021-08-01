@@ -4,6 +4,7 @@ import arc.Events;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.math.Mathf;
+import arc.math.geom.Point2;
 import arc.util.Tmp;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
@@ -26,7 +27,6 @@ import static mindustry.Vars.tilesize;
 
 public class LaserRuler extends ModBlock implements DebugBlock {
     static Tile lastTaped;
-    boolean laserRuler=false;
 
     static {
         Events.on(EventType.TapEvent.class, e -> {
@@ -44,6 +44,8 @@ public class LaserRuler extends ModBlock implements DebugBlock {
         });
     }
 
+    boolean laserRuler = false;
+
     public LaserRuler(String name) {
         super(name);
         update = true;
@@ -52,12 +54,18 @@ public class LaserRuler extends ModBlock implements DebugBlock {
         this.<Integer, LaserRulerBuild>config(Integer.class, (build, i) -> {
             build.target = i;
         });
+        this.<Point2, LaserRulerBuild>config(Point2.class, (tile, i) -> tile.target = Point2.pack(i.x + tile.tileX(), i.y + tile.tileY()));
         this.<LaserRulerBuild>configClear(build -> build.target = -1);
         size = 1;
     }
 
     public class LaserRulerBuild extends ModBuilding implements Ranged {
         public int target = -1;
+
+        @Override
+        public Point2 config() {
+            return Point2.unpack(target).sub(tile.x, tile.y);
+        }
 
         @Override
         public void update() {
@@ -76,7 +84,7 @@ public class LaserRuler extends ModBlock implements DebugBlock {
             for (int i = mul; i != val + mul; i += mul) {
                 Tile cur = tile.nearby(xdir ? i : 0, xdir ? 0 : i);
                 Tile prev = i == mul ? tile : tile.nearby(xdir ? i - mul : 0, xdir ? 0 : i - mul);
-                ModFx.laserRulerLinePart.at((laserRuler?cur:prev).drawx(), (laserRuler?cur:prev).drawy(), (cur.angleTo(prev)+180)%360, color,laserRuler? prev:null);
+                ModFx.laserRulerLinePart.at((laserRuler ? cur : prev).drawx(), (laserRuler ? cur : prev).drawy(), (cur.angleTo(prev) + 180) % 360, color, laserRuler ? prev : null);
             }
 
         }

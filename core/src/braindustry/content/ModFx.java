@@ -49,7 +49,6 @@ public class ModFx {
     public static final Effect
             nul = null,
             selectTile = new Effect(23f, 100f, e -> {
-                Log.info("selectTile");
                 Draw.color(Pal.accent);
                 Lines.stroke(e.fout() * 3f);
                 float half = tilesize / 2f;
@@ -59,7 +58,6 @@ public class ModFx {
                 } else {
                     ModLines.rect(e.x - half, e.y - half, tilesize, tilesize);
                 }
-                Log.info("selectTileAfter");
             }),
             laserRulerSelected = new Effect(2f, 100, e -> {
                 if (!(e.data instanceof Tile)) return;
