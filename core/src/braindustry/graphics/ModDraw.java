@@ -28,11 +28,13 @@ public class ModDraw extends Draw{
         font.setColor(color);
 
         float z = Draw.z();
-        Draw.z(z+1.f);
+        Draw.z(z+0.01f);
         FontCache cache = font.getCache();
         cache.clear();
         GlyphLayout layout = cache.addText(text, pos.getX(), pos.getY());
-        font.draw(text, pos.getX()- layout.width / 2f, pos.getY()- layout.height / 2f);
+
+        font.draw(text, pos.getX()- layout.width / 2f, pos.getY()+ layout.height / 2f);
+//        font.draw(text+"-", pos.getX(), pos.getY());
         Draw.z(z);
 
         font.setUseIntegerPositions(ints);

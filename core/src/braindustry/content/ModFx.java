@@ -7,27 +7,35 @@ import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
+import arc.graphics.g2d.TextureRegion;
 import arc.math.Angles;
 import arc.math.Mathf;
+import arc.math.geom.Position;
 import arc.math.geom.Vec2;
 import arc.struct.Seq;
+import arc.util.Log;
 import arc.util.Time;
 import braindustry.entities.DebugEffect;
+import braindustry.graphics.ModFill;
+import braindustry.graphics.ModLines;
 import braindustry.graphics.ModPal;
 import mindustry.Vars;
 import mindustry.content.Fx;
 import mindustry.entities.Effect;
+import mindustry.game.Team;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
-import braindustry.graphics.ModFill;
+import mindustry.world.Tile;
 
 import static ModVars.modFunc.fullName;
+import static arc.util.Tmp.v1;
 import static braindustry.content.FxValues.*;
+import static mindustry.Vars.tilesize;
 
 class FxValues {
-    static final float Distance = Vars.headless ? 0 : Core.camera.width + Core.camera.height + 30 * Vars.tilesize;
+    static final float Distance = Vars.headless ? 0 : Core.camera.width + Core.camera.height + 30 * tilesize;
     static final Color[] gemColors = {ModPal.rubyLight, ModPal.emeraldLight, ModPal.sapphireUnitDecalLight, ModPal.angel, ModPal.topazLight, ModPal.amethystLight};
-    static final float Distance1 = Vars.headless ? 0 : Core.camera.width + Core.camera.height + 50 * Vars.tilesize;
+    static final float Distance1 = Vars.headless ? 0 : Core.camera.width + Core.camera.height + 50 * tilesize;
     static final float[] energyShootsAngle = {-50, -25, 25, 50},
             energyShootsWidth = {7.6f, 9.8f, 9.8f, 7.6f},
             energyShootsHeight = {15.4f, 22.8f, 22.8f, 15.4f},
@@ -40,6 +48,47 @@ class FxValues {
 public class ModFx {
     public static final Effect
             nul = null,
+            selectTile = new Effect(23f, 100f, e -> {
+                Log.info("selectTile");
+                Draw.color(Pal.accent);
+                Lines.stroke(e.fout() * 3f);
+                float half = tilesize / 2f;
+                if (e.data instanceof Position) {
+                    Position tile = e.data();
+                    ModLines.rect(tile.getX() - half, tile.getY() - half, tilesize, tilesize);
+                } else {
+                    ModLines.rect(e.x - half, e.y - half, tilesize, tilesize);
+                }
+                Log.info("selectTileAfter");
+            }),
+            laserRulerSelected = new Effect(2f, 100, e -> {
+                if (!(e.data instanceof Tile)) return;
+                Tile tile = e.data();
+                Draw.color(e.color);
+                Lines.stroke(e.rotation);
+                float half = tilesize / 2f;
+                ModLines.rect(tile.worldx() - half, tile.worldy() - half, tilesize, tilesize);
+            }),
+            laserRulerLinePart = new Effect(2f, 100, e -> {
+                Draw.color(e.color);
+                TextureRegion laser = Core.atlas.find(fullName("laser"), "laser"),
+                        laserEnd = Core.atlas.find(fullName("laser-end"), "laser-end");
+                if (e.data instanceof Position) {
+                    Position pos = e.data();
+                    Drawf.laser(Team.derelict, laser, laserEnd, pos.getX(), pos.getY(), e.x, e.y, 0.25F);
+                } else {
+                    e.rotation = (int) (e.rotation / 90) * 90;
+                    v1.trns(e.rotation, tilesize);
+                    Lines.stroke(4);
+                    float x2 = e.x + v1.x;
+                    float y2 = e.y + v1.y;
+                    v1.trns(e.rotation + 90, 2.0f);
+                    Lines.line(laser, e.x, e.y, x2, y2, false);
+                    Lines.stroke(1);
+                    Lines.line(e.x + v1.x, e.y + v1.y, e.x - v1.x, e.y - v1.y);
+                    Lines.line(x2 + v1.x, y2 + v1.y, x2 - v1.x, y2 - v1.y);
+                }
+            }),
             redLaserCharge = new Effect(30.0F, 130.0F, (e) -> {
                 Color color = ModPal.krakenTrailColor;
                 Draw.color(color);
