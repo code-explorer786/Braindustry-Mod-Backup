@@ -5,6 +5,7 @@ import arc.util.Strings;
 
 public enum StrOp {
     add("+", (String a, String b) -> a + "" + b,"a","b"),
+    add3("+ 3x", (String a, String b,String c) -> a +b+c,"a","b","c"),
     number("num", (String a) -> {
         if (Strings.canParseFloat(a)) return Strings.parseFloat(a);
         return null;
@@ -70,7 +71,7 @@ public enum StrOp {
         this.params=params;
     }
 
-    StrOp(String symbol, StrOpLambda2Str function,String... params) {
+    StrOp(String symbol, StrOpLambda2All function, String... params) {
         this.symbol = symbol;
         func = (a, b, c) -> function.get((String) a, (String) b);
         type = 2.2f;
@@ -90,13 +91,21 @@ public enum StrOp {
         type = 3.2f;
         this.params=params;
     }
+    StrOp(String symbol, StrOpLambda3All function,String... params) {
+        this.symbol = symbol;
+        func = (a, b, c) -> function.get((String) a, (String) b, (String) c);
+        type = 3.3f;
+        this.params=params;
+    }
 
     @Override
     public String toString() {
         return symbol;
     }
 
-    interface StrOpLambda3TwoStr {
+    interface StrOpLambda3All {
+        Object get(String a, String b, String c);
+    }interface StrOpLambda3TwoStr {
         Object get(String a, String b, Double c);
     }
 
@@ -112,7 +121,7 @@ public enum StrOp {
         Object get(Object a, Object b);
     }
 
-    interface StrOpLambda2Str {
+    interface StrOpLambda2All {
         Object get(String a, String b);
     }
 

@@ -13,7 +13,6 @@ import arc.math.Mathf;
 import arc.math.geom.Position;
 import arc.math.geom.Vec2;
 import arc.struct.Seq;
-import arc.util.Log;
 import arc.util.Time;
 import braindustry.entities.DebugEffect;
 import braindustry.graphics.ModFill;
@@ -22,7 +21,6 @@ import braindustry.graphics.ModPal;
 import mindustry.Vars;
 import mindustry.content.Fx;
 import mindustry.entities.Effect;
-import mindustry.game.Team;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
 import mindustry.world.Tile;
@@ -71,21 +69,18 @@ public class ModFx {
                 Draw.color(e.color);
                 TextureRegion laser = Core.atlas.find(fullName("laser"), "laser"),
                         laserEnd = Core.atlas.find(fullName("laser-end"), "laser-end");
-                if (e.data instanceof Position) {
-                    Position pos = e.data();
-                    Drawf.laser(Team.derelict, laser, laserEnd, pos.getX(), pos.getY(), e.x, e.y, 0.25F);
-                } else {
-                    e.rotation = (int) (e.rotation / 90) * 90;
-                    v1.trns(e.rotation, tilesize);
-                    Lines.stroke(4);
-                    float x2 = e.x + v1.x;
-                    float y2 = e.y + v1.y;
-                    v1.trns(e.rotation + 90, 2.0f);
-                    Lines.line(laser, e.x, e.y, x2, y2, false);
-                    Lines.stroke(1);
-                    Lines.line(e.x + v1.x, e.y + v1.y, e.x - v1.x, e.y - v1.y);
-                    Lines.line(x2 + v1.x, y2 + v1.y, x2 - v1.x, y2 - v1.y);
-                }
+
+//                e.rotation = (int) (e.rotation / 90) * 90;
+                v1.trns(e.rotation, tilesize);
+                Lines.stroke(4);
+                float x2 = e.x + v1.x;
+                float y2 = e.y + v1.y;
+                v1.trns(e.rotation + 90, 2.0f);
+                Lines.line(laser, e.x, e.y, x2, y2, false);
+                Lines.stroke(1);
+                Lines.line(e.x + v1.x, e.y + v1.y, e.x - v1.x, e.y - v1.y);
+                Lines.line(x2 + v1.x, y2 + v1.y, x2 - v1.x, y2 - v1.y);
+
             }),
             redLaserCharge = new Effect(30.0F, 130.0F, (e) -> {
                 Color color = ModPal.krakenTrailColor;

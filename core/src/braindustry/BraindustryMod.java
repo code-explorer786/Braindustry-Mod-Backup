@@ -42,10 +42,10 @@ public class BraindustryMod extends Mod {
 
     public BraindustryMod() {
         ModEntityMapping.init();
-    if (settings.debug())    ModLogicIO.init();
         ModCall.registerPackets();
         modInfo = Vars.mods.getMod(getClass());
         modVars.load();
+        if (settings.debug())    ModLogicIO.init();
         ModListener.addRun(() -> {
             boolean modMobile = (control.input instanceof ModMobileInput);
             boolean modDesktop = (control.input instanceof ModDesktopInput);

@@ -3,6 +3,7 @@ package braindustry.world.blocks.logic;
 import arc.Events;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
+import arc.math.Angles;
 import arc.math.Mathf;
 import arc.math.geom.Point2;
 import arc.util.Tmp;
@@ -75,7 +76,8 @@ public class LaserRuler extends ModBlock implements DebugBlock {
             }
             Tile target = targetTile();
             Color color = Color.red.cpy().lerp(Color.white, 0.5f);
-            ModFx.laserRulerSelected.at(target.drawx(), target.drawy(), 1f, color, target);
+            float half=tilesize/2f;
+            ModFx.laserRulerSelected.at(target.worldx()+half, target.worldy()+half, 1f, color, target);
             int dx = target.x - tile.x;
             int dy = target.y - tile.y;
             boolean xdir = dy == 0;
@@ -84,7 +86,8 @@ public class LaserRuler extends ModBlock implements DebugBlock {
             for (int i = mul; i != val + mul; i += mul) {
                 Tile cur = tile.nearby(xdir ? i : 0, xdir ? 0 : i);
                 Tile prev = i == mul ? tile : tile.nearby(xdir ? i - mul : 0, xdir ? 0 : i - mul);
-                ModFx.laserRulerLinePart.at((laserRuler ? cur : prev).drawx(), (laserRuler ? cur : prev).drawy(), (cur.angleTo(prev) + 180) % 360, color, laserRuler ? prev : null);
+                if (cur==null || prev==null)continue;
+                ModFx.laserRulerLinePart.at((laserRuler ? cur : prev).worldx(), (laserRuler ? cur : prev).worldy(), (Angles.angle(cur.x,cur.y,prev.x,prev.y) + 180), color, null);
             }
 
         }

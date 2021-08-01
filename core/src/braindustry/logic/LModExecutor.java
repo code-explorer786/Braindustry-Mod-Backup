@@ -44,6 +44,10 @@ public class LModExecutor {
                 p1 = (obj(exec, a)) + "";
                 p2 = obj(exec, b) + "";
                 p3 = exec.num(c);
+            } else  if (type == 3.3f) {
+                p1 = (obj(exec, a)) + "";
+                p2 = obj(exec, b) + "";
+                p3 = exec.num(c)+"";
             } else {
                 return;
             }
