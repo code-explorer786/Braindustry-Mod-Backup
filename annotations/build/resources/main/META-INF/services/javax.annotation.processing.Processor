@@ -9,3 +9,4 @@ braindustry.annotations.AdvancedStats.AStatCatProcessor
 braindustry.annotations.AdvancedStats.AStatProcessor
 braindustry.annotations.impl.ModAssetsProcess
 braindustry.annotations.remote.ModRemoteProcess
+braindustry.annotations.misc.LogicStatementProcessor

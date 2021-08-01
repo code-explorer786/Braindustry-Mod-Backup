@@ -59,7 +59,7 @@ public class ModBlocks implements ContentList {
     unitGenerator, unitNode,
 
     //experimental
-    dpsMeter, unitSpawner, examplePayloadBridge, testBlock, laserRuler, messageReader, numberConverter;
+    dpsMeter, unitSpawner, examplePayloadBridge, testBlock, laserRuler;
 
     public static Block methaneBurner, hyperMethaneBurner;
     private ContentList[] blocksContent = {
@@ -77,18 +77,6 @@ public class ModBlocks implements ContentList {
         for (ContentList contentList : blocksContent) {
             contentList.load();
         }
-        numberConverter = new NumberConverter("number-converter") {{
-            localizedName = "Number converter";
-            description="Set the config variable to the value for conversion. and take the result from the same place";
-            size = 1;
-            requirements(Category.logic, BuildVisibility.debugOnly, ItemStack.with(Items.silicon, 10));
-        }};
-        messageReader = new MessageReader("message-reader") {{
-            localizedName = "Message reader";
-            description="The config variable contains the message values from all the nearest message blocks";
-            size = 1;
-            requirements(Category.logic, BuildVisibility.debugOnly, ItemStack.with(Items.silicon, 10));
-        }};
         laserRuler = new LaserRuler("laser-ruler") {{
             localizedName = "Laser ruler";
             description="The variable range contains the distance to between the block and the selected tile." +

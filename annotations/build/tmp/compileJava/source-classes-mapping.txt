@@ -74,3 +74,5 @@ braindustry/annotations/ModTypeIO/ObjectReadProcessor.java
  braindustry.annotations.ModTypeIO.ObjectReadProcessor
 braindustry/annotations/RulesEditDialog/RulesProcessor.java
  braindustry.annotations.RulesEditDialog.RulesProcessor
+braindustry/annotations/misc/LogicStatementProcessor.java
+ braindustry.annotations.misc.LogicStatementProcessor
