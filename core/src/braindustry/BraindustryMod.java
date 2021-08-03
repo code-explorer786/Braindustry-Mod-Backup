@@ -1,18 +1,11 @@
 package braindustry;
 
-import ModVars.Classes.UI.CheatUI;
 import ModVars.modVars;
 import arc.Core;
-import arc.assets.AssetDescriptor;
-import arc.assets.Loadable;
-import arc.files.Fi;
-import arc.files.ZipFi;
-import arc.graphics.g2d.TextureAtlas;
+import arc.Events;
 import arc.graphics.g2d.TextureRegion;
-import arc.struct.ObjectMap;
 import arc.struct.Seq;
 import arc.util.CommandHandler;
-import arc.util.Log;
 import braindustry.annotations.ModAnnotations;
 import braindustry.audio.ModAudio;
 import braindustry.core.ModContentLoader;
@@ -31,21 +24,19 @@ import mindustry.mod.Mod;
 
 import static ModVars.modFunc.*;
 import static ModVars.modVars.*;
-import static arc.Core.assets;
-import static arc.Core.atlas;
 import static mindustry.Vars.*;
 
 @ModAnnotations.CashAnnotation1
+@ModAnnotations.CashAnnotation2
 @ModAnnotations.AssetFolderFinder
 public class BraindustryMod extends Mod {
-
-
     public BraindustryMod() {
+        if (!BDDependencies.valid())return;
         ModEntityMapping.init();
         ModCall.registerPackets();
         modInfo = Vars.mods.getMod(getClass());
         modVars.load();
-          ModLogicIO.init();
+        ModLogicIO.init();
         ModListener.addRun(() -> {
             boolean modMobile = (control.input instanceof ModMobileInput);
             boolean modDesktop = (control.input instanceof ModDesktopInput);
@@ -54,7 +45,8 @@ public class BraindustryMod extends Mod {
             if (mobile && !modMobile) control.setInput(new ModMobileInput());
             if (desktop && !modDesktop) control.setInput(new ModDesktopInput());
         });
-        EventOn(ClientLoadEvent.class, (e) -> {
+
+        Events.on(ClientLoadEvent.class, (e) -> {
             ModAudio.reload();
         });
     }
@@ -77,15 +69,18 @@ public class BraindustryMod extends Mod {
 
     @Override
     public void registerServerCommands(CommandHandler handler) {
+        if (!BDDependencies.valid())return;
         modVars.netServer.registerCommands(handler);
     }
 
     @Override
     public void registerClientCommands(CommandHandler handler) {
+        if (!BDDependencies.valid())return;
         modVars.netClient.registerCommands(handler);
     }
 
     public void init() {
+        if (!BDDependencies.valid())return;
         if (!loaded) return;
         Seq<Content> all = Seq.with(content.getContentMap()).<Content>flatten().select(c -> c.minfo.mod == modInfo).as();
         for (Content c : all) {
@@ -99,9 +94,18 @@ public class BraindustryMod extends Mod {
 
     public void loadContent() {
         modInfo = Vars.mods.getMod(this.getClass());
+        if (!BDDependencies.valid()) {
+            if (modInfo!=null){
+                modInfo.missingDependencies.addAll(modInfo.dependencies.select(mod->!mod.enabled()).map(l->l.name));
+            }
+            return;
+        }
+        if (modInfo.dependencies.count(l -> l.enabled()) != modInfo.dependencies.size) {
+            return;
+        }
         ModAudio.reload();
         modAssets.init();
-        if (!headless){
+        if (!headless) {
             inTry(ModShaders::init);
             inTry(ModSounds::load);
             inTry(ModMusics::load);

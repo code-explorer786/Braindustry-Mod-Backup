@@ -157,6 +157,6 @@ android/libs/
 
 ## Zeluax
 cmp.py
-gradlew.bat
-gradle.properties
+#gradlew.bat
+#gradle.properties
 core/build/

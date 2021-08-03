@@ -1,6 +1,5 @@
 package braindustry.content;
 
-import Gas.content.GasBasicBlocks;
 import ModVars.Classes.TechTreeManager;
 import arc.struct.Seq;
 import braindustry.content.Blocks.ModBlocks;
@@ -246,7 +245,7 @@ public class ModTechTree extends TechTreeManager implements ContentList {
             });
         });
         node(Items.silicon, () -> {
-            nodeProduce(Gasses.methane);
+            nodeProduce(ModGasses.methane);
             nodeProduce(ModItems.graphenite, () -> {
                 nodeProduce(ModItems.odinum, () -> {
                     nodeProduce(ModItems.exoticAlloy, () -> {
@@ -281,7 +280,7 @@ public class ModTechTree extends TechTreeManager implements ContentList {
         parentNode(Blocks.phaseConveyor, ModBlocks.phaseAlloyConveyor);
         parentNode(Blocks.phaseWeaver, ModBlocks.hyperPhaseWeaver);
         parentNode(Blocks.surgeSmelter, ModBlocks.hyperAlloySmelter);
-        parentNode(ModBlocks.chromiumConduit, GasBasicBlocks.gasConduit, Seq.with(new SectorComplete(ModSectorPresets.spacePort)));
+        parentNode(ModBlocks.chromiumConduit, ModBlocks.gasConduit, Seq.with(new SectorComplete(ModSectorPresets.spacePort)));
         parentNode(Blocks.liquidTank, ModBlocks.gasTank);
         parentNode(Blocks.salvo, ModBlocks.spark);
         parentNode(Blocks.liquidRouter, ModBlocks.gasRouter);

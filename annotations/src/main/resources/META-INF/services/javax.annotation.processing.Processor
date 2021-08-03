@@ -1,0 +1,11 @@
+braindustry.annotations.AdvancedStats.AStatCatProcessor
+braindustry.annotations.AdvancedStats.AStatProcessor
+braindustry.annotations.dependencies.DependenciesProc
+braindustry.annotations.impl.ModAssetsProcess
+braindustry.annotations.misc.LogicStatementProcessor
+braindustry.annotations.misc.ModLoadRegionProcessor
+braindustry.annotations.ModAssetsFolders.AssetsFoldersProcessor
+braindustry.annotations.ModEntities.ModEntitiesProc
+braindustry.annotations.ModTypeIO.ObjectReadProcessor
+braindustry.annotations.remote.ModRemoteProcess
+braindustry.annotations.RulesEditDialog.RulesProcessor

@@ -1,8 +1,7 @@
 package braindustry.world.blocks.power;
 
-import Gas.world.blocks.power.GasImpactReactor;
+import gas.world.blocks.power.GasImpactReactor;
 import arc.graphics.g2d.Draw;
-import mindustry.world.blocks.power.ImpactReactor;
 import braindustry.graphics.BlackHoleDrawer;
 
 public class BlackHoleReactor extends GasImpactReactor {

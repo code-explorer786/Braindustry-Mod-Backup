@@ -1,5 +1,6 @@
 package braindustry.world.blocks.distribution;
 
+import acontent.world.meta.AStats;
 import arc.Core;
 import arc.func.Boolf;
 import arc.func.Prov;
@@ -17,8 +18,7 @@ import arc.struct.OrderedMap;
 import arc.struct.Seq;
 import arc.util.Time;
 import braindustry.world.blocks.BuildingLabel;
-import braindustry.world.meta.AStat;
-import braindustry.world.meta.AStats;
+import braindustry.world.meta.BDStat;
 import mindustry.Vars;
 import mindustry.core.Renderer;
 import mindustry.entities.units.BuildPlan;
@@ -81,7 +81,7 @@ public class CrossItemBridge extends ItemBridge {
     public void setStats() {
         super.setStats();
         aStats.add(Stat.range, this.range, StatUnit.blocks);
-        aStats.add(AStat.maxConnections, this.maxConnections, StatUnit.none);
+        aStats.add(BDStat.maxConnections, this.maxConnections, StatUnit.none);
     }
 
     @Override

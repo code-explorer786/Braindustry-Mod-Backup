@@ -80,7 +80,6 @@ exit /b 1
 
 :mainEnd
 rem echo args: %CMD_LINE_ARGS%
-if "%CMD_LINE_ARGS%"=="jar" python cmp.py
 
 if "%OS%"=="Windows_NT" endlocal
 

@@ -62,4 +62,8 @@ public class modVars {
 //        if (Vars.player.isLocal()) return ui.hudfrag.shown;
         return ui.hudfrag.shown && netClient.showCheatMenu();
     }
+
+    public static String modName() {
+        return modInfo==null?"no name":modInfo.name;
+    }
 }

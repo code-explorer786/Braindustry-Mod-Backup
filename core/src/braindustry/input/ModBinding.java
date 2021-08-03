@@ -33,6 +33,6 @@ public enum ModBinding implements KeyBinds.KeyBind {
     }
 
     public String category() {
-        return category != null ? category : modVars.modInfo.name;
+        return category != null ? category : modVars.modName();
     }
 }

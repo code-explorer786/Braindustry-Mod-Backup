@@ -1,11 +1,12 @@
 package braindustry.content.Blocks;
 
-import Gas.world.blocks.distribution.GasRouter;
+import gas.world.blocks.distribution.GasRouter;
 import braindustry.content.ModItems;
 import braindustry.world.blocks.distribution.CrossItemBridge;
 import braindustry.world.blocks.distribution.SideJunction;
 import braindustry.world.blocks.distribution.SmartRouter;
 import braindustry.world.blocks.distribution.SmartSorter;
+import gas.world.blocks.gas.GasConduit;
 import mindustry.content.Items;
 import mindustry.ctype.ContentList;
 import mindustry.type.Category;
@@ -48,6 +49,12 @@ class ModDistributionBlocks implements ContentList {
             hasGas = true;
             gasCapacity = 20;
             requirements(Category.liquid, ItemStack.with(Items.titanium, 1, ModItems.graphenite, 1, Items.metaglass, 3));
+        }};
+        gasConduit = new GasConduit("gas-conduit") {{
+            this.description = "Basic gas conduit from Chromium.";
+            this.localizedName = "Gas Conduit";
+            this.size = 1;
+            this.requirements(Category.liquid, ItemStack.with(ModItems.chromium, 4, Items.silicon, 6));
         }};
         gasTank = new GasRouter("gas-tank") {{
             localizedName = "Gas Tank";

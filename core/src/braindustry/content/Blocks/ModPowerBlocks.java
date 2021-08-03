@@ -1,8 +1,8 @@
 package braindustry.content.Blocks;
 
-import Gas.world.blocks.power.AllBurnerGenerator;
-import Gas.world.consumers.ConsumeGasses;
-import braindustry.content.Gasses;
+import gas.world.blocks.power.AllBurnerGenerator;
+import gas.world.consumers.ConsumeGasses;
+import braindustry.content.ModGasses;
 import braindustry.content.ModItems;
 import braindustry.content.ModLiquids;
 import braindustry.world.blocks.power.BlackHoleReactor;
@@ -28,7 +28,7 @@ class ModPowerBlocks implements ContentList {
             powerProduction = 7f;
             gasCapacity = 11f;
             size = 2;
-            consumes.addGas(new ConsumeGasses(Gasses.methane, 0.3f));
+            consumes.addGas(new ConsumeGasses(ModGasses.methane, 0.3f));
             requirements(Category.power, ItemStack.with(Items.silicon, 60, Items.titanium, 50, ModItems.chromium, 90));
         }};
         hyperMethaneBurner = new AllBurnerGenerator("hyper-methane-burner") {{
@@ -39,7 +39,7 @@ class ModPowerBlocks implements ContentList {
             powerProduction = 18f;
             gasCapacity = 25f;
             size = 3;
-            consumes.addGas(new ConsumeGasses(Gasses.methane, 0.4f));
+            consumes.addGas(new ConsumeGasses(ModGasses.methane, 0.4f));
             consumes.liquid(Liquids.water, 0.5f);
             requirements(Category.power, ItemStack.with(Items.silicon, 60, Items.plastanium, 60, Items.titanium, 50, ModItems.chromium, 1200));
         }};
@@ -156,7 +156,7 @@ class ModPowerBlocks implements ContentList {
             liquidCapacity = 100;
             itemDuration = 240;
             powerProduction = 380;
-            consumes.addGas(new ConsumeGasses(Gasses.methane, 0.2f));
+            consumes.addGas(new ConsumeGasses(ModGasses.methane, 0.2f));
             consumes.power(42f);
             consumes.liquid(ModLiquids.thoriumRefrigerant, 0.2f);
             consumes.item(ModItems.odinum, 7);

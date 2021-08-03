@@ -1,6 +1,6 @@
 package braindustry.io;
 
-import Gas.type.Gas;
+import gas.type.Gas;
 import arc.math.geom.Point2;
 import arc.math.geom.Vec2;
 import arc.struct.IntSeq;
@@ -37,12 +37,12 @@ public class ModTypeIO extends TypeIO {
     public static BuilderDrawer readBuilderDrawer(Reads read){
         return (BuilderDrawer) readBuilding(read);
     }
-    public static void writeGas(Writes writes, Gas gas) {
-        writes.i(gas.id);
+    public static void writeGas(Writes writes, Gas obj) {
+        gas.io.ModTypeIO.writeGas(writes,obj);
     }
 
     public static Gas readGas(Reads reads) {
-        return Vars.content.getByID(ContentType.typeid_UNUSED, reads.s());
+        return gas.io.ModTypeIO.readGas(reads);
     }
 
     public static Vec2 readVec2(Reads read) {

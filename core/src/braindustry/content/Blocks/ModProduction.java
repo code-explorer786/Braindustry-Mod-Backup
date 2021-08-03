@@ -1,12 +1,12 @@
 package braindustry.content.Blocks;
 
-import Gas.GasStack;
-import Gas.world.blocks.production.GasGenericCrafter;
-import Gas.world.blocks.production.GasGenericSmelter;
-import Gas.world.consumers.ConsumeGasses;
+import gas.GasStack;
+import gas.world.blocks.production.GasGenericCrafter;
+import gas.world.blocks.production.GasGenericSmelter;
+import gas.world.consumers.ConsumeGasses;
 import arc.math.geom.Vec3;
 import arc.struct.Seq;
-import braindustry.content.Gasses;
+import braindustry.content.ModGasses;
 import braindustry.content.ModFx;
 import braindustry.content.ModItems;
 import braindustry.content.ModLiquids;
@@ -307,7 +307,7 @@ class ModProduction implements ContentList {
                 hasItems = true;
                 consumes.power(2.5f);
                 consumes.liquid(Liquids.oil, 0.16f);
-                outputGas = new GasStack(Gasses.methane, 8);
+                outputGas = new GasStack(ModGasses.methane, 8);
                 requirements(Category.crafting, ItemStack.with(ModItems.odinum, 100, Items.titanium, 100, Items.metaglass, 130, ModItems.chromium, 190));
                 updateEffect = Fx.purify;
                 updateEffectChance = 0.02f;
@@ -327,7 +327,7 @@ class ModProduction implements ContentList {
             updateEffect = Fx.fuelburn;
             consumes.power(5f);
             consumes.items(ItemStack.with(Items.plastanium, 3, Items.surgeAlloy, 2, Items.phaseFabric, 2));
-            consumes.addGas(new ConsumeGasses(Gasses.methane, 1));
+            consumes.addGas(new ConsumeGasses(ModGasses.methane, 1));
             requirements(Category.crafting, ItemStack.with(Items.phaseFabric, 100, Items.plastanium, 110, Items.thorium, 400, ModItems.exoticAlloy, 270, ModItems.graphenite, 360));
             outputItem = new ItemStack(ModItems.phaseAlloy, 5);
         }};
@@ -347,7 +347,7 @@ class ModProduction implements ContentList {
             updateEffect = ModFx.contritumUpdate;
             consumes.power(3f);
             consumes.liquid(Liquids.water, 0.1f);
-            consumes.addGas(new ConsumeGasses(Gasses.methane, 0.5f));
+            consumes.addGas(new ConsumeGasses(ModGasses.methane, 0.5f));
             requirements(Category.crafting, ItemStack.with(ModItems.chromium, 130, Items.plastanium, 90, Items.metaglass, 160, ModItems.graphenite, 200));
             outputLiquid = new LiquidStack(ModLiquids.liquidMethane, 1f);
         }};
@@ -365,7 +365,7 @@ class ModProduction implements ContentList {
             updateEffect = Fx.impactsmoke;
             consumes.power(5f);
             consumes.items(ItemStack.with(Items.titanium, 5, Items.thorium, 4, ModItems.graphenite, 4));
-            consumes.addGas(new ConsumeGasses(Gasses.methane, 0.5f));
+            consumes.addGas(new ConsumeGasses(ModGasses.methane, 0.5f));
             requirements(Category.crafting, ItemStack.with(Items.plastanium, 120, Items.thorium, 420, ModItems.exoticAlloy, 120, ModItems.graphenite, 210, Items.titanium, 300));
             outputItem = new ItemStack(ModItems.exoticAlloy, 5);
         }};

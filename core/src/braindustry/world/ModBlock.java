@@ -1,7 +1,7 @@
 package braindustry.world;
 
+import acontent.world.meta.AStats;
 import braindustry.gen.ModContentRegions;
-import braindustry.world.meta.AStats;
 import mindustry.world.Block;
 
 public class ModBlock extends Block {

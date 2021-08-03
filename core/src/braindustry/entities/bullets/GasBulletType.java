@@ -1,20 +1,15 @@
 package braindustry.entities.bullets;
 
-import Gas.entities.Clouds;
-import Gas.type.Gas;
+import gas.entities.Clouds;
+import gas.type.Gas;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
-import arc.math.geom.Geometry;
-import arc.math.geom.Point2;
 import arc.util.Nullable;
 import mindustry.content.Fx;
-import mindustry.entities.Fires;
 import mindustry.entities.bullet.BulletType;
 import mindustry.gen.Bullet;
-import mindustry.world.Tile;
 
-import static mindustry.Vars.tilesize;
 import static mindustry.Vars.world;
 
 public class GasBulletType extends BulletType {

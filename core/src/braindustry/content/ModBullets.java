@@ -15,7 +15,7 @@ public class ModBullets implements ContentList {
         deathLaser = new AngelContinuousBulletType() {{
         }};
 
-        heavyMethaneShot = new GasBulletType(Gasses.methane) {{
+        heavyMethaneShot = new GasBulletType(ModGasses.methane) {{
             lifetime = 49f;
             speed = 4f;
             puddleSize = 8f;

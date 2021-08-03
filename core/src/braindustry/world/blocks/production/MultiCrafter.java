@@ -1,6 +1,7 @@
 package braindustry.world.blocks.production;
 
 import ModVars.modFunc;
+import acontent.world.meta.AStats;
 import arc.Core;
 import arc.func.Func;
 import arc.graphics.Color;
@@ -16,6 +17,7 @@ import arc.util.io.Writes;
 import braindustry.content.ModFx;
 import braindustry.type.Recipe;
 import braindustry.world.ModBlock;
+import braindustry.world.meta.BDStat;
 import braindustry.world.meta.RecipeListValue;
 import mindustry.content.Fx;
 import mindustry.content.Liquids;
@@ -33,8 +35,6 @@ import mindustry.world.consumers.*;
 import mindustry.world.meta.*;
 import braindustry.ui.MultiBar;
 import braindustry.world.consumers.ConsumeLiquidDynamic;
-import braindustry.world.meta.AStat;
-import braindustry.world.meta.AStats;
 
 import java.util.Objects;
 
@@ -143,7 +143,7 @@ public class MultiCrafter extends ModBlock {
         if (hasItems && itemCapacity > 0) {
             aStats.add(Stat.itemCapacity, (float)itemCapacity, StatUnit.items);
         }
-        aStats.add(AStat.recipes, new RecipeListValue(recipes));
+        aStats.add(BDStat.recipes, new RecipeListValue(recipes));
 
 
     }

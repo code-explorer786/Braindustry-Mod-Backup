@@ -49,7 +49,7 @@ public class ModBlocks implements ContentList {
     exoticAlloyWallLarge, exoticAlloyWall, grapheniteWallLarge, grapheniteWall, odinumWallLarge, odinumWall, plasticWallLarge,
             plasticWall, chloroWall, largeChloroWall,
     //gas
-    gasTank, gasRouter,
+    gasTank, gasRouter,gasConduit,
 
     //logic
 

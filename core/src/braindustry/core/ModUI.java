@@ -4,26 +4,21 @@ import ModVars.Classes.UI.Cheat.ModCheatMenu;
 import ModVars.Classes.UI.CheatUI;
 import ModVars.Classes.UI.settings.ModOtherSettingsDialog;
 import ModVars.Classes.UI.settings.ModSettingsDialog;
-import ModVars.modVars;
 import arc.ApplicationListener;
 import arc.Core;
 import arc.KeyBinds;
-import arc.scene.ui.TextButton;
 import arc.util.Disposable;
 import arc.util.Log;
 import arc.util.Time;
-import braindustry.ModListener;
 import braindustry.gen.ModTex;
 import braindustry.gen.Stealthc;
 import braindustry.input.ModBinding;
-import braindustry.ui.AdvancedContentInfoDialog;
 import braindustry.ui.ModStyles;
 import braindustry.ui.dialogs.BackgroundStyle;
 import braindustry.ui.dialogs.ModColorPicker;
 import braindustry.ui.fragments.ModHudFragment;
 import braindustry.ui.fragments.ModMenuFragment;
 import mindustry.Vars;
-import mindustry.gen.Tex;
 import mindustry.ui.Styles;
 import mindustry.ui.dialogs.BaseDialog;
 
@@ -74,7 +69,6 @@ public class ModUI implements Disposable, ApplicationListener {
         inited=true;
         ModTex.load();
         ModStyles.load();
-        AdvancedContentInfoDialog.init();
         ModMenuFragment.init();
         ModHudFragment.init();
         new ModCheatMenu((table) -> {

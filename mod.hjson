@@ -5,4 +5,4 @@ description: "From Russia with love."
 main: "braindustry.BraindustryMod"
 version: 2.0.4.4 public beta
 minGameVersion: 129.1
-
+dependencies: ["gas-library-java","advanced-content-info"]
