@@ -2,8 +2,8 @@ package braindustry.content.Blocks;
 
 import gas.GasStack;
 import gas.world.blocks.production.GasGenericCrafter;
-import gas.world.blocks.production.GasGenericSmelter;
-import gas.world.consumers.ConsumeGasses;
+import gas.world.consumers.ConsumeGas;
+import gas.world.consumers.ConsumeGas;
 import arc.math.geom.Vec3;
 import arc.struct.Seq;
 import braindustry.content.ModGasses;
@@ -16,6 +16,8 @@ import braindustry.type.Rotor;
 import braindustry.world.blocks.production.MultiCrafter;
 import braindustry.world.blocks.production.MultiGenericSmelter;
 import braindustry.world.blocks.production.MultiRotorDrill;
+import gas.world.draw.GasDrawBlock;
+import gas.world.draw.GasDrawSmelter;
 import mindustry.content.Fx;
 import mindustry.content.Items;
 import mindustry.content.Liquids;
@@ -313,7 +315,8 @@ class ModProduction implements ContentList {
                 updateEffectChance = 0.02f;
             }
         };
-        hyperDenseCompositeSmelter = new GasGenericSmelter("hyper-dense-composite-smelter") {{
+        hyperDenseCompositeSmelter = new GasGenericCrafter("hyper-dense-composite-smelter") {{
+            drawer=new GasDrawSmelter();
             localizedName = "Hyper Dense Composite Smelter";
             description = "Upgraded version of Dense Composite smelter but consumes gas for more effective production.";
             health = 510;
@@ -327,7 +330,7 @@ class ModProduction implements ContentList {
             updateEffect = Fx.fuelburn;
             consumes.power(5f);
             consumes.items(ItemStack.with(Items.plastanium, 3, Items.surgeAlloy, 2, Items.phaseFabric, 2));
-            consumes.addGas(new ConsumeGasses(ModGasses.methane, 1));
+            consumes.addGas(new ConsumeGas(ModGasses.methane, 1));
             requirements(Category.crafting, ItemStack.with(Items.phaseFabric, 100, Items.plastanium, 110, Items.thorium, 400, ModItems.exoticAlloy, 270, ModItems.graphenite, 360));
             outputItem = new ItemStack(ModItems.phaseAlloy, 5);
         }};
@@ -347,11 +350,12 @@ class ModProduction implements ContentList {
             updateEffect = ModFx.contritumUpdate;
             consumes.power(3f);
             consumes.liquid(Liquids.water, 0.1f);
-            consumes.addGas(new ConsumeGasses(ModGasses.methane, 0.5f));
+            consumes.addGas(new ConsumeGas(ModGasses.methane, 0.5f));
             requirements(Category.crafting, ItemStack.with(ModItems.chromium, 130, Items.plastanium, 90, Items.metaglass, 160, ModItems.graphenite, 200));
             outputLiquid = new LiquidStack(ModLiquids.liquidMethane, 1f);
         }};
-        hyperExoAlloySmelter = new GasGenericSmelter("hyper-exotic-alloy-smelter") {{
+        hyperExoAlloySmelter = new GasGenericCrafter("hyper-exotic-alloy-smelter") {{
+            drawer=new GasDrawSmelter();
             localizedName = "Hyper Exotic Alloy Smelter";
             description = "More powerful and effective smelter of Exotic Alloy, consumes Methane.";
             health = 420;
@@ -365,7 +369,7 @@ class ModProduction implements ContentList {
             updateEffect = Fx.impactsmoke;
             consumes.power(5f);
             consumes.items(ItemStack.with(Items.titanium, 5, Items.thorium, 4, ModItems.graphenite, 4));
-            consumes.addGas(new ConsumeGasses(ModGasses.methane, 0.5f));
+            consumes.addGas(new ConsumeGas(ModGasses.methane, 0.5f));
             requirements(Category.crafting, ItemStack.with(Items.plastanium, 120, Items.thorium, 420, ModItems.exoticAlloy, 120, ModItems.graphenite, 210, Items.titanium, 300));
             outputItem = new ItemStack(ModItems.exoticAlloy, 5);
         }};
