@@ -20,6 +20,7 @@ import arc.util.Log;
 import arc.util.noise.Noise;
 import arc.util.noise.Ridged;
 import arc.util.noise.VoronoiNoise;
+import braindustry.gen.ModContentRegions;
 import braindustry.type.ModUnitType;
 import mindustry.ctype.UnlockableContent;
 import mindustry.game.Team;
@@ -52,6 +53,8 @@ public class Generators {
 
         ObjectMap<Block, Pixmap> gens = new ObjectMap<>();
         Fi.get("../editor").mkdirs();
+        Fi.get("../override").mkdirs();
+        Fi.get("../override/editor").mkdirs();
         if (false) {
             generate("cracks", () -> {
                 for (int size = 1; size <= BlockRenderer.maxCrackSize; size++) {
@@ -102,6 +105,7 @@ public class Generators {
             Pixmap colors = new Pixmap(content.blocks().size, 1);
 
             for (Block block : content.blocks()) {
+                ModContentRegions.loadRegions(block);
                 if (block.isAir() || block instanceof ConstructBlock || block instanceof OreBlock || block instanceof LegacyBlock)
                     continue;
 
@@ -114,7 +118,7 @@ public class Generators {
                     for (TextureRegion region : block.variantRegions()) {
                         GenRegion gen = (GenRegion) region;
                         if (gen.path == null) continue;
-                        gen.path.copyTo(Fi.get("../editor/editor-" + gen.path.name()));
+                        gen.path.copyTo(Fi.get("../editor/editor-" + full( gen.path.name())));
                     }
                 }
 
@@ -191,7 +195,7 @@ public class Generators {
                     }
 
                     if (!(regions.length == 1 && regions[0] == Core.atlas.find(block.name) && shardTeamTop == null)) {
-                        save(image, "block-" + block.name + "-full");
+                        save(image, "../override/block-" + full(block.name) + "-full");
                     }
 
                     save(image, "../editor/" + block.name + "-icon-editor");
@@ -199,7 +203,7 @@ public class Generators {
                     if (block.buildVisibility != BuildVisibility.hidden) {
                         saveScaled(image, block.name + "-icon-logic", logicIconSize);
                     }
-                    saveScaled(image, "../ui/block-" + block.name + "-ui", Math.min(image.width, maxUiIcon));
+                    saveScaled(image, "../override/ui/block-" + full(block.name) + "-ui", Math.min(image.width, maxUiIcon));
 
                     boolean hasEmpty = false;
                     Color average = new Color(), c = new Color();
@@ -370,7 +374,7 @@ public class Generators {
                             true);
                 }
 
-                save(image, "unit-" + type.name + "-full");
+                save(image, "../override/unit-" + full(type.name) + "-full");
 
                 Rand rand = new Rand();
                 rand.setSeed(type.name.hashCode());
@@ -411,7 +415,7 @@ public class Generators {
                 drawScaledFit(fit, image);
 
                 saveScaled(fit, type.name + "-icon-logic", logicIconSize);
-                save(fit, "../ui/unit-" + type.name + "-ui");
+                save(fit, "../override/ui/unit-" + full(type.name) + "-ui");
             } catch (Exception e) {
                 Log.err("WARNING: Skipping unit " + type.name + ": @", e);
             }
