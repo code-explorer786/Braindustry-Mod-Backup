@@ -1,5 +1,6 @@
 package braindustry.io;
 
+import gas.io.GasTypeIO;
 import gas.type.Gas;
 import arc.math.geom.Point2;
 import arc.math.geom.Vec2;
@@ -38,11 +39,11 @@ public class ModTypeIO extends TypeIO {
         return (BuilderDrawer) readBuilding(read);
     }
     public static void writeGas(Writes writes, Gas obj) {
-        gas.io.ModTypeIO.writeGas(writes,obj);
+        GasTypeIO.writeGas(writes,obj);
     }
 
     public static Gas readGas(Reads reads) {
-        return gas.io.ModTypeIO.readGas(reads);
+        return GasTypeIO.readGas(reads);
     }
 
     public static Vec2 readVec2(Reads read) {

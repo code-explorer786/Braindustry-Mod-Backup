@@ -1,5 +1,6 @@
 package braindustry.world.blocks.production;
 
+import acontent.world.meta.AStats;
 import arc.graphics.Blending;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.TextureRegion;
@@ -9,38 +10,45 @@ import arc.util.Eachable;
 import arc.util.Time;
 import braindustry.type.Rotor;
 import braindustry.type.Rotor.DrillRotorCons;
+import braindustry.world.meta.BDStat;
 import mindustry.entities.units.BuildPlan;
 import mindustry.world.blocks.production.Drill;
 
 public class MultiRotorDrill extends Drill {
     public Seq<Rotor> rotors = new Seq<>();
     public boolean drawRotator = true;
+    public AStats aStats = new AStats();
 
     public MultiRotorDrill(String name) {
         super(name);
+        stats = aStats.copy(stats);
     }
 
     @Override
-    public void init() {
-        super.init();
+    public void setStats() {
+        super.setStats();
+        aStats.add(BDStat.rotorsCount, rotors.size);
     }
 
     public void rotors(Rotor... rotors) {
         this.rotors = Seq.with(rotors);
         for (Rotor rotor : rotors) {
-            if (rotor.size==-1)rotor.size=size;
+            if (rotor.size == -1) rotor.size = size;
         }
     }
-    public Rotor rotor(float x,float y,float size){
-        return new Rotor(x,y,size);
+
+    public Rotor rotor(float x, float y, float size) {
+        return new Rotor(x, y, size);
     }
-    public Rotor rotor(float x,float y){
-        return new Rotor(x,y);
+
+    public Rotor rotor(float x, float y) {
+        return new Rotor(x, y);
     }
-    public void rotors(float size,Rotor... rotors) {
+
+    public void rotors(float size, Rotor... rotors) {
         this.rotors = Seq.with(rotors);
         for (Rotor rotor : rotors) {
-            rotor.size=size;
+            rotor.size = size;
         }
     }
 
@@ -94,7 +102,7 @@ public class MultiRotorDrill extends Drill {
                 progress += delta() * dominantItems * speed * warmup;
 
                 if (Mathf.chanceDelta(updateEffectChance * warmup))
-                    effectAboveRotor((x,y,size)->updateEffect.at(x + Mathf.range(size * 2f), y + Mathf.range(size * 2f)));
+                    effectAboveRotor((x, y, size) -> updateEffect.at(x + Mathf.range(size * 2f), y + Mathf.range(size * 2f)));
             } else {
                 lastDrillSpeed = 0f;
                 warmup = Mathf.lerpDelta(warmup, 0f, warmupSpeed);
@@ -107,7 +115,7 @@ public class MultiRotorDrill extends Drill {
                 offload(dominantItem);
 
                 progress %= delay;
-                effectAboveRotor((x,y,size)->drillEffect.at(x + Mathf.range(size), y + Mathf.range(size), dominantItem.color));
+                effectAboveRotor((x, y, size) -> drillEffect.at(x + Mathf.range(size), y + Mathf.range(size), dominantItem.color));
             }
         }
 
@@ -115,7 +123,7 @@ public class MultiRotorDrill extends Drill {
             Rotor rotor = rotors.random();
             float xo = this.x - Mathf.floor(this.block.size / 2f) * 8;
             float yo = this.y - Mathf.floor(this.block.size / 2f) * 8;
-            cons2.get(xo + rotor.x*8, yo + rotor.y*8, rotor.size);
+            cons2.get(xo + rotor.x * 8, yo + rotor.y * 8, rotor.size);
         }
 
         public void draw() {
