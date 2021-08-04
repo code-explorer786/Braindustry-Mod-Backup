@@ -5,6 +5,7 @@ import arc.Events;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.TextureRegion;
+import arc.graphics.gl.FrameBuffer;
 import arc.scene.Element;
 import arc.scene.event.Touchable;
 import arc.scene.ui.layout.Scl;
@@ -15,13 +16,15 @@ import braindustry.graphics.ModShaders;
 import braindustry.tools.MenuButtons;
 import braindustry.tools.MenuButtons.MenuButton;
 import braindustry.tools.MenuButtons.MenuButtonUnClose;
+import mindustry.Vars;
 import mindustry.core.Version;
 import mindustry.game.EventType;
 import mindustry.gen.Icon;
 import mindustry.ui.Fonts;
 
-import static ModVars.modFunc.fullName;
-import static ModVars.modVars.modUI;
+import static arc.Core.graphics;
+import static braindustry.BDVars.fullName;
+import static braindustry.BDVars.modUI;
 import static mindustry.Vars.*;
 
 public class ModMenuFragment {
@@ -32,6 +35,7 @@ public class ModMenuFragment {
     private static ModMenuShaderRenderer lastRenderer;
 
     public static void init() {
+        if (lastRenderer!=null)return;
         lastRenderer = new ModMenuShaderRenderer();
         Events.on(EventType.DisposeEvent.class, (event) -> {
             lastRenderer.dispose();
@@ -112,7 +116,21 @@ public class ModMenuFragment {
         float fy = (int) (height - 6 - logoh) + logoh / 2 - (Core.graphics.isPortrait() ? Scl.scl(30f) : 0f);
 
         Draw.color();
-        ModShaders.waveShader.rect(logo, fx, fy, logow, logoh).forcePercent(pixels / (float) (!xAxis ? logo.height : logo.width)).xAxis(xAxis).otherAxisMul(otherAxisMul).timeScl(timeScl);
+     if (ModShaders.waveShader!=null){
+         ModShaders.waveShader
+                 .forcePercent(pixels / (float) (!xAxis ? logo.height : logo.width))
+                 .xAxis(xAxis)
+                 .otherAxisMul(otherAxisMul)
+                 .timeScl(timeScl)
+                 .region(null);
+         renderer.effectBuffer.resize(graphics.getWidth(), graphics.getHeight());
+         renderer.effectBuffer.begin(Color.clear);
+         Draw.rect(logo,fx,fy,logow,logoh);
+         renderer.effectBuffer.end();
+         renderer.effectBuffer.blit(ModShaders.waveShader);
+     } else {
+         Draw.rect(logo,fx,fy,logow,logoh);
+     }
         Draw.shader();
 
         Fonts.def.setColor(Color.white);

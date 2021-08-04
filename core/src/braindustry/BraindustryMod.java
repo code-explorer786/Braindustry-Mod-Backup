@@ -1,6 +1,5 @@
 package braindustry;
 
-import ModVars.modVars;
 import arc.Core;
 import arc.Events;
 import arc.graphics.g2d.TextureRegion;
@@ -22,20 +21,18 @@ import mindustry.input.DesktopInput;
 import mindustry.input.MobileInput;
 import mindustry.mod.Mod;
 
-import static ModVars.modFunc.*;
-import static ModVars.modVars.*;
+import static braindustry.BDVars.*;
 import static mindustry.Vars.*;
 
 @ModAnnotations.CashAnnotation1
 @ModAnnotations.CashAnnotation2
-@ModAnnotations.AssetFolderFinder
 public class BraindustryMod extends Mod {
     public BraindustryMod() {
         if (!BDDependencies.valid())return;
         ModEntityMapping.init();
         ModCall.registerPackets();
         modInfo = Vars.mods.getMod(getClass());
-        modVars.load();
+        BDVars.load();
         ModLogicIO.init();
         ModListener.addRun(() -> {
             boolean modMobile = (control.input instanceof ModMobileInput);
@@ -70,18 +67,19 @@ public class BraindustryMod extends Mod {
     @Override
     public void registerServerCommands(CommandHandler handler) {
         if (!BDDependencies.valid())return;
-        modVars.netServer.registerCommands(handler);
+        BDVars.netServer.registerCommands(handler);
     }
 
     @Override
     public void registerClientCommands(CommandHandler handler) {
         if (!BDDependencies.valid())return;
-        modVars.netClient.registerCommands(handler);
+        BDVars.netClient.registerCommands(handler);
     }
 
     public void init() {
         if (!BDDependencies.valid())return;
         if (!loaded) return;
+        modLog("load");
         Seq<Content> all = Seq.with(content.getContentMap()).<Content>flatten().select(c -> c.minfo.mod == modInfo).as();
         for (Content c : all) {
             if (inPackage("braindustry", c)) {
@@ -104,7 +102,6 @@ public class BraindustryMod extends Mod {
             return;
         }
         ModAudio.reload();
-        modAssets.init();
         if (!headless) {
             inTry(ModShaders::init);
             inTry(ModSounds::load);

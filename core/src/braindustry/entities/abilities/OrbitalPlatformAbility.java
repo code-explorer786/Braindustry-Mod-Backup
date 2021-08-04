@@ -6,7 +6,6 @@ import arc.graphics.g2d.TextureRegion;
 import arc.math.geom.Vec2;
 import arc.struct.ObjectMap;
 import arc.struct.Seq;
-import arc.util.Log;
 import braindustry.ModListener;
 import braindustry.entities.ContainersForUnits.OrbitalPlatformsContainer;
 import mindustry.gen.Unit;
@@ -14,7 +13,7 @@ import mindustry.type.Weapon;
 
 import java.util.Objects;
 
-import static ModVars.modFunc.fullName;
+import static braindustry.BDVars.fullName;
 
 public class OrbitalPlatformAbility extends ModAbility {
     private static final ObjectMap<Unit, OrbitalPlatformsContainer> unitMap = new ObjectMap<>();

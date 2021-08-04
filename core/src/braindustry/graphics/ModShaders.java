@@ -1,6 +1,7 @@
 package braindustry.graphics;
 
-import ModVars.modVars;
+import arc.util.Log;
+import braindustry.BDVars;
 import arc.Core;
 import arc.files.Fi;
 import arc.graphics.Color;
@@ -79,78 +80,56 @@ public class ModShaders {
     }
 
     public static class WaveShader extends ModLoadShader {
-        public WaveShaderPacker packer = new WaveShaderPacker();
         TextureRegion region = null;
         public WaveShader() {
-            super("wave", "default");
+            super("wave", "screenspace");
         }
 
-        public WaveShaderPacker rect(TextureRegion region, float x, float y, float w, float h) {
-            return rect(region, x, y, w, h, 0f);
-        }
+        boolean xAxis = true;
+        float forcePercent = 0.1f;
+        float otherAxisMul = 10f;
+        float timeScl = 1f;
 
-        public WaveShaderPacker rect(TextureRegion region, float x, float y, float rotation) {
-            return rect(region, x, y, (float) region.width * Draw.scl * Draw.xscl, (float) region.height * Draw.scl * Draw.yscl, rotation);
-        }
-
-        public WaveShaderPacker rect(TextureRegion region, float x, float y) {
-            return rect(region, x, y, 0);
-        }
-
-        public WaveShaderPacker rect(TextureRegion region, float x, float y, float w, float h, float rotation) {
-            set();
-            Draw.rect(region, x, y, w * 2f, h * 2f, rotation);
+        public WaveShader region(TextureRegion region) {
             this.region = region;
-            packer.xAxis = true;
-            packer.forcePercent = 0.1f;
-            packer.otherAxisMul = 10f;
+            return this;
+        }
 
-            return packer;
+        public WaveShader xAxis(boolean xAxis) {
+            this.xAxis = xAxis;
+            return this;
+        }
+
+        public WaveShader forcePercent(float forcePercent) {
+            this.forcePercent = forcePercent;
+            return this;
+        }
+
+        public WaveShader otherAxisMul(float otherAxisMul) {
+            this.otherAxisMul = otherAxisMul;
+            return this;
+        }
+
+        public WaveShader timeScl(float timeScl) {
+            this.timeScl = timeScl;
+            return this;
         }
 
         @Override
         public void apply() {
             super.apply();
             float u_time = Time.time;
-            setUniformf("u_time", u_time * packer.timeScl);
+            setUniformf("u_time", u_time * timeScl);
             setUniformf("u_delta", Time.delta / 60.f);
-            setUniformi("u_xAxis", Mathf.num(packer.xAxis));
-            setUniformf("u_forcePercent", packer.forcePercent);
-            setUniformf("u_otherAxisMul", packer.otherAxisMul);
+            setUniformi("u_xAxis", Mathf.num(xAxis));
+            setUniformf("u_forcePercent", forcePercent);
+            setUniformf("u_otherAxisMul", otherAxisMul);
             if (region != null) {
                 setUniformf("u_uv", region.u, region.v);
                 setUniformf("u_uv2", region.u2, region.v2);
-            }
-        }
-
-        public static class WaveShaderPacker {
-            boolean xAxis = true;
-            float forcePercent = 0.1f;
-            float otherAxisMul = 10f;
-            float timeScl = 1f;
-
-            private WaveShaderPacker() {
-
-            }
-
-            public WaveShaderPacker timeScl(float timeScl) {
-                this.timeScl = timeScl;
-                return this;
-            }
-
-            public WaveShaderPacker xAxis(boolean xAxis) {
-                this.xAxis = xAxis;
-                return this;
-            }
-
-            public WaveShaderPacker forcePercent(float forcePercent) {
-                this.forcePercent = forcePercent;
-                return this;
-            }
-
-            public WaveShaderPacker otherAxisMul(float otherAxisMul) {
-                this.otherAxisMul = otherAxisMul;
-                return this;
+            } else {
+                setUniformf("u_uv", 0, 0);
+                setUniformf("u_uv2", 1, 1);
             }
         }
     }
@@ -498,17 +477,14 @@ public class ModShaders {
 
     public static class ModLoadShader extends Shader {
         public ModLoadShader(String fragment, String vertex) {
-            super(loadFile(vertex + ".vert"), loadFile(fragment + ".frag"));
+            super(load("" + vertex + ".vert"), load("" + fragment + ".frag"));
         }
 
-        private static Fi loadFile(String fileName) {
-//            Seq<Fi> modShaders = Seq.with(modInfo.root.child("shaders").list());
-//            Fi foundFile = modShaders.find(fi -> fi.name().equals(fileName));
-            Fi foundFile = modVars.modAssets.get("shaders", fileName);
-            if (foundFile == null) {
-                return Core.files.internal("shaders/" + (fileName));
-            }
-            return foundFile;
+        public static Fi load(String path){
+            Fi tree = Vars.tree.get("shaders/"+path);
+            return tree.exists()?tree : BDVars.modInfo.root.child("shaders").findAll(file-> {
+                return file.name().equals(path);
+            }).first();
         }
 
         public void set() {

@@ -1,6 +1,6 @@
 package braindustry.content;
 
-import ModVars.Classes.TechTreeManager;
+import braindustry.customArc.TechTreeManager;
 import arc.struct.Seq;
 import braindustry.content.Blocks.ModBlocks;
 import mindustry.content.*;

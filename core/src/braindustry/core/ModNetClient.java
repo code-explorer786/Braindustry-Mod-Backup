@@ -1,7 +1,7 @@
 package braindustry.core;
 
-import ModVars.ModEnums;
-import ModVars.modVars;
+import braindustry.BDVars;
+
 import arc.ApplicationListener;
 import arc.graphics.Color;
 import arc.util.CommandHandler;
@@ -28,8 +28,8 @@ public class ModNetClient implements ApplicationListener {
 
     @ModAnnotations.Remote(targets = Annotations.Loc.server, called = Annotations.Loc.client)
     public static void setServerCheatLevel(int level) {
-        ModEnums.CheatLevel[] values = ModEnums.CheatLevel.values();
-        modVars.settings.cheatLevelServer(values[level % values.length]);
+        CheatLevel[] values = CheatLevel.values();
+        BDVars.settings.cheatLevelServer(values[level % values.length]);
     }
 
     public void registerCommands(CommandHandler handler) {
@@ -37,15 +37,15 @@ public class ModNetClient implements ApplicationListener {
 
     public boolean showCheatMenu() {
         boolean result = true;
-        ModEnums.CheatLevel cheatLevel = modVars.settings.cheating() ? ModEnums.CheatLevel.onlyAdmins : ModEnums.CheatLevel.off;
+        CheatLevel cheatLevel = BDVars.settings.cheating() ? CheatLevel.onlyAdmins : CheatLevel.off;
 //        Log.info("@ @ @", net.client(),net.server(),net.active());
         if (net.client()) {
-            cheatLevel = modVars.settings.cheatLevelServer();
+            cheatLevel = BDVars.settings.cheatLevelServer();
 //            Log.info("on server: @", cheatLevel);
         }else if(net.server() && net.active()){
-            cheatLevel=modVars.settings.cheatLevel();
+            cheatLevel= BDVars.settings.cheatLevel();
         } else {
-            return modVars.settings.cheating();
+            return BDVars.settings.cheating();
 //            Log.info("c-@-@", net.client(),net.server());
         }
         switch (cheatLevel) {

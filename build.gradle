@@ -210,10 +210,6 @@ project(":core") {
 }
 project(":tools") {
     apply plugin: "java"
-    repositories {
-        mavenCentral()
-        maven { url 'https://www.jitpack.io' }
-    }
     dependencies {
         implementation fileTree(dir: 'libs', include: ['*.jar'])
         implementation 'commons-io:commons-io:2.5'
@@ -235,6 +231,20 @@ project(":annotations") {
         implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersionAnnotations"
         implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
         implementation "com.github.Anuken.Mindustry:tools:$mindustryVersion"
+    }
+}
+configure([":core", ":tools"].collect { project(it) }) {
+    java {
+        withJavadocJar()
+        withSourcesJar()
+    }
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                from components.java
+            }
+        }
     }
 }
 task jarAndroid {

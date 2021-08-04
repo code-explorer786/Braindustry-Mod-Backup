@@ -1,6 +1,6 @@
 package braindustry.tools;
 
-import ModVars.modVars;
+import braindustry.BDVars;
 import arc.Core;
 import arc.files.Fi;
 import arc.graphics.Pixmap;
@@ -11,25 +11,29 @@ import arc.math.geom.Vec2;
 import arc.struct.ObjectMap;
 import arc.struct.Seq;
 import arc.util.*;
+import arc.util.serialization.Json;
+import arc.util.serialization.Jval;
 import braindustry.core.ModContentLoader;
 import braindustry.gen.ModContentRegions;
 import braindustry.gen.ModEntityMapping;
 import mindustry.Vars;
 import mindustry.ctype.MappableContent;
 import mindustry.ctype.UnlockableContent;
+import mindustry.mod.Mods;
 import mindustry.tools.ImagePacker;
-
-import static mindustry.Vars.headless;
 
 public class ModImagePacker extends ImagePacker {
     static ObjectMap<String, PackIndex> cache = new ObjectMap<>();
 
     public ModImagePacker() {
     }
-
+static Mods.ModMeta modMeta;
     public static void main(String[] args) throws Exception {
+        Json json = new Json();
+        Fi metaf = Fi.get("../../../../").child("mod.hjson");
+        modMeta = json.fromJson(Mods.ModMeta.class, Jval.read(metaf.readString()).toString(Jval.Jformat.plain));
         Vars.headless = true;
-        modVars.packSprites = true;
+        BDVars.packSprites = true;
         ArcNativesLoader.load();
         Log.logger = new Log.NoopLogHandler();
         Vars.content = new ModContentLoader();
@@ -98,7 +102,7 @@ public class ModImagePacker extends ImagePacker {
         Log.info("&ly[Disposing]&lc Start");
         Time.mark();
         Log.info("&ly[Disposing]&lc Total time: @", Time.elapsed());
-        modVars.packSprites = false;
+        BDVars.packSprites = false;
     }
 
 
@@ -167,6 +171,10 @@ public class ModImagePacker extends ImagePacker {
     static void err(String message, Object... args) {
         Log.err(message, args);
 //        throw new IllegalArgumentException(Strings.format(message, args));
+    }
+
+    public static String full(String name) {
+        return modMeta.name+"-"+name;
     }
 
     static class GenRegion extends TextureAtlas.AtlasRegion {

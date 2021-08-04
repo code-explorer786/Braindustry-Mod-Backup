@@ -1,6 +1,6 @@
 package braindustry.world.blocks;
 
-import ModVars.modVars;
+import braindustry.BDVars;
 import arc.Core;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
@@ -32,7 +32,7 @@ import mindustry.world.Tile;
 import braindustry.graphics.ModFill;
 import braindustry.graphics.ModLines;
 
-import static ModVars.modFunc.fullName;
+import static braindustry.BDVars.fullName;
 import static mindustry.Vars.renderer;
 
 public class TestBlock extends Block implements DebugBlock {
@@ -66,7 +66,7 @@ public class TestBlock extends Block implements DebugBlock {
 
     @Override
     public void load() {
-        if (modVars.packSprites) {
+        if (BDVars.packSprites) {
             super.load();
             return;
         }
@@ -125,7 +125,7 @@ public class TestBlock extends Block implements DebugBlock {
 //                t.button(Icon.up,ModStyles.alphai, () -> {
 //                });
                 t.button(Icon.pick, ModStyles.alphai, () -> {
-                    modVars.modUI.colorPicker.show(selectedColor, this::configure);
+                    BDVars.modUI.colorPicker.show(selectedColor, this::configure);
 //                    ModFx.Spirals.at(x, y, size, Pal.lancerLaser);
                 });
                 t.button(Icon.edit, ModStyles.alphai, () -> {
@@ -154,11 +154,11 @@ public class TestBlock extends Block implements DebugBlock {
                 });
             }).row();
             table.table(Tex.buttonTrans, t -> {
-                t.slider(0, 360, .001f, modVars.settings.getFloat("angle"), (f) -> {
-                    modVars.settings.setFloat("angle", Mathf.round(f, 0.001f));
+                t.slider(0, 360, .001f, BDVars.settings.getFloat("angle"), (f) -> {
+                    BDVars.settings.setFloat("angle", Mathf.round(f, 0.001f));
                 }).row();
                 t.label(() -> {
-                    String angle = Mathf.round(modVars.settings.getFloat("angle"), 1f) + "";
+                    String angle = Mathf.round(BDVars.settings.getFloat("angle"), 1f) + "";
                     StringBuilder builder = new StringBuilder(angle);
                     while (builder.length() < 3) {
                         builder.insert(0, "0");
@@ -187,12 +187,12 @@ public class TestBlock extends Block implements DebugBlock {
                 });*/
             }).row();
             table.table(Tex.buttonTrans, t -> {
-                t.slider(0.1f, 20f, 0.1f, modVars.settings.getFloat("stroke"), f -> {
-                    modVars.settings.setFloat("stroke", f);
+                t.slider(0.1f, 20f, 0.1f, BDVars.settings.getFloat("stroke"), f -> {
+                    BDVars.settings.setFloat("stroke", f);
                 }).row();
                 ;
                 t.label(() -> {
-                    return Strings.format("@", modVars.settings.getFloat("stroke"));
+                    return Strings.format("@", BDVars.settings.getFloat("stroke"));
                 }).right();
             });
         }
@@ -249,8 +249,8 @@ public class TestBlock extends Block implements DebugBlock {
         }
 
         public void draw() {
-            float settingsRot = modVars.settings.getFloat("angle");
-            float settingsStroke = modVars.settings.getFloat("stroke", 1f);
+            float settingsRot = BDVars.settings.getFloat("angle");
+            float settingsStroke = BDVars.settings.getFloat("stroke", 1f);
             TextureRegion region = getRegion();
             Draw.rect(region, x, y, size * 8, size * 8, 0.0F);
             float epsilon = 2f - (renderer.getDisplayScale() - renderer.minScale()) / (renderer.maxScale() - renderer.minScale());
@@ -266,7 +266,7 @@ public class TestBlock extends Block implements DebugBlock {
             Vars.renderer.lights.add(() -> {
                 Draw.color(selectedColor.toFloatBits());
                 ModFill.crystal(x, y, 8f, (size) * 8f, rotdeg(), (int) someVariable);
-                ModFill.doubleSwirl(x, y, (size) * 8f, 8f * (size + 1f), modVars.settings.getFloat("angle") / 360f, rotdeg());
+                ModFill.doubleSwirl(x, y, (size) * 8f, 8f * (size + 1f), BDVars.settings.getFloat("angle") / 360f, rotdeg());
             });
 //            ModLines.crystal(x, y,8f, (size) * 8f, rotdeg(),(int) someVariable);
 //            ModFill.spikesSwirl(x, y, (size) * 8, 8, modVars.settings.getFloat("angle") / 360f, rotdeg(), someVariable);

@@ -1,6 +1,5 @@
 package braindustry.content;
 
-import ModVars.Classes.Conteiners.SpiralContainer;
 import arc.Core;
 import arc.graphics.Blending;
 import arc.graphics.Color;
@@ -11,9 +10,6 @@ import arc.graphics.g2d.TextureRegion;
 import arc.math.Angles;
 import arc.math.Mathf;
 import arc.math.geom.Position;
-import arc.math.geom.Vec2;
-import arc.struct.Seq;
-import arc.util.Time;
 import braindustry.entities.DebugEffect;
 import braindustry.graphics.ModFill;
 import braindustry.graphics.ModLines;
@@ -25,7 +21,7 @@ import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
 import mindustry.world.Tile;
 
-import static ModVars.modFunc.fullName;
+import static braindustry.BDVars.fullName;
 import static arc.util.Tmp.v1;
 import static braindustry.content.FxValues.*;
 import static mindustry.Vars.tilesize;
@@ -283,42 +279,6 @@ public class ModFx {
                 Draw.alpha(e.fout() / 120);
                 Draw.rect(Core.atlas.find(fullName("FlareWhite")), e.x, e.y, 350 + 400 * e.fin(), 350 + 400 * e.fin());
                 Draw.color();
-            }),
-            Spirals = new Effect(200.0F, 300f, (e) -> {
-                float partLenght, count, angleMul;
-                SpiralContainer cont = new SpiralContainer();
-                if (e.data instanceof SpiralContainer) cont = (SpiralContainer) e.data;
-                count = cont.count;
-                partLenght = cont.partLength;
-                angleMul = cont.angleMul;
-                Draw.color(e.color);
-                float mul = e.fin() * e.fin();
-                Seq<Vec2> points = new Seq<>();
-                float lx = e.x, ly = e.y;
-
-
-                float offset = (Mathf.absin(Time.time + Mathf.randomSeed(e.id, 0, 1000000), 10f, 360f) + 360) % 360;
-                for (int i = 0; i < count; i++) {
-                    float angle = ((i) / count) * 360 + offset;
-                    Vec2 vec2 = new Vec2().trns(angle, partLenght, partLenght).add(e.x, e.y);
-                    lx = vec2.x;
-                    ly = vec2.y;
-                    points.add(vec2);
-                    for (int j = 1; j < count - 1; j += 1) {
-                        vec2 = new Vec2().trns(angle + j * angleMul * mul, partLenght, partLenght).add(lx, ly);
-                        lx = vec2.x;
-                        ly = vec2.y;
-                        points.add(vec2);
-                    }
-                    for (int j = 0; j < points.size - 1; j++) {
-                        Vec2 m = points.get(j);
-                        Vec2 next = points.get(j + 1);
-                        Lines.stroke((1f - mul) * 2 - (j / (points.size - 1)));
-                        Lines.line(m.x, m.y, next.x, next.y, false);
-                    }
-                    points.clear();
-                }
-//        Lines.circle(e.x, e.y, 8.0F + e.finpow() * e.rotation);
             }),
             shieldWave = new Effect(22.0F, (e) -> {
                 float startValue = 2.f;

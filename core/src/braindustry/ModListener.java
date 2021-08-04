@@ -6,7 +6,7 @@ import arc.struct.Seq;
 import mindustry.ClientLauncher;
 import mindustry.Vars;
 
-import static ModVars.modVars.*;
+import static braindustry.BDVars.*;
 
 public class ModListener extends ApplicationCore {
     public static Seq<Runnable> updaters=new Seq<>();

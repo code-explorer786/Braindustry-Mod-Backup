@@ -1,8 +1,8 @@
 package braindustry.content.Blocks;
 
+import braindustry.type.Rotator;
 import gas.GasStack;
 import gas.world.blocks.production.GasGenericCrafter;
-import gas.world.consumers.ConsumeGas;
 import gas.world.consumers.ConsumeGas;
 import arc.math.geom.Vec3;
 import arc.struct.Seq;
@@ -12,11 +12,9 @@ import braindustry.content.ModItems;
 import braindustry.content.ModLiquids;
 import braindustry.type.ModLiquidStack;
 import braindustry.type.Recipe;
-import braindustry.type.Rotor;
 import braindustry.world.blocks.production.MultiCrafter;
 import braindustry.world.blocks.production.MultiGenericSmelter;
 import braindustry.world.blocks.production.MultiRotorDrill;
-import gas.world.draw.GasDrawBlock;
 import gas.world.draw.GasDrawSmelter;
 import mindustry.content.Fx;
 import mindustry.content.Items;
@@ -401,7 +399,7 @@ class ModProduction implements ContentList {
             liquidCapacity = 20;
             drawMineItem = false;
             tier = 8;
-            rotors(new Rotor(2, 2), new Rotor(2, 6), new Rotor(6, 2), new Rotor(6, 6));
+            rotators(new Rotator(2, 2), new Rotator(2, 6), new Rotator(6, 2), new Rotator(6, 6));
             rotateSpeed = 3.2f;
             consumes.power(6.8F);
             consumes.liquid(ModLiquids.magma, 0.4F);

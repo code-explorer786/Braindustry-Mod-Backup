@@ -2,7 +2,6 @@ package braindustry.entities.compByAnuke;
 
 import braindustry.annotations.ModAnnotations;
 import mindustry.gen.Unitc;
-@ModAnnotations.AssetFolderFinder
 public class AnnotationConfigComponents {@ModAnnotations.EntitySuperClass
     public static interface BlockUnitc extends mindustry.gen.BlockUnitc{
     }

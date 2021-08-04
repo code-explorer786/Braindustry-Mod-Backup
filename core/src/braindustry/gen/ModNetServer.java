@@ -1,7 +1,7 @@
 package braindustry.gen;
 
-import ModVars.ModEnums;
-import ModVars.modVars;
+import braindustry.BDVars;
+
 import arc.ApplicationListener;
 import arc.Events;
 import arc.func.Cons;
@@ -10,6 +10,7 @@ import arc.struct.Seq;
 import arc.util.CommandHandler;
 import arc.util.Log;
 import braindustry.annotations.ModAnnotations;
+import braindustry.core.CheatLevel;
 import mindustry.annotations.Annotations;
 import mindustry.game.EventType;
 import mindustry.game.Team;
@@ -23,9 +24,9 @@ import static mindustry.Vars.net;
 public class ModNetServer implements ApplicationListener {
 
     private static boolean cheating(Player player) {
-        if (!net.active()) return modVars.settings.cheating();
-        ModEnums.CheatLevel cheatLevel = modVars.settings.cheatLevel();
-        return (cheatLevel == ModEnums.CheatLevel.onlyAdmins && player.admin()) || ModEnums.CheatLevel.all == cheatLevel;
+        if (!net.active()) return BDVars.settings.cheating();
+        CheatLevel cheatLevel = BDVars.settings.cheatLevel();
+        return (cheatLevel == CheatLevel.onlyAdmins && player.admin()) || CheatLevel.all == cheatLevel;
     }
 
     @ModAnnotations.Remote(targets = Annotations.Loc.client, called = Annotations.Loc.server)
@@ -135,21 +136,21 @@ public class ModNetServer implements ApplicationListener {
 
     public void registerCommands(CommandHandler handler) {
         Events.on(EventType.PlayerConnect.class, e -> {
-            ModCall.setServerCheatLevel(modVars.settings.cheatLevel().ordinal());
+            ModCall.setServerCheatLevel(BDVars.settings.cheatLevel().ordinal());
         });
         handler.register("cheats", "[value]", "Set cheat level or return it.", (args) -> {
             if (args.length == 0) {
-                Log.info("Cheat level: @", modVars.settings.cheatLevel());
+                Log.info("Cheat level: @", BDVars.settings.cheatLevel());
                 return;
             }
             String value = args[0];
-            if (!ModEnums.contains(ModEnums.CheatLevel.class, value)) {
-                Log.info("Cheat levels: @", Seq.with(ModEnums.CheatLevel.values()).toString(", "));
+            if (!Seq.with(CheatLevel.values()).contains(c->c.name().equals(value))) {
+                Log.info("Cheat levels: @", Seq.with(CheatLevel.values()).toString(", "));
                 return;
             }
-            modVars.settings.cheatLevel(ModEnums.CheatLevel.valueOf(value));
-            Log.info("Cheat level updated to @", modVars.settings.cheatLevel());
-            ModCall.setServerCheatLevel(modVars.settings.cheatLevel().ordinal());
+            BDVars.settings.cheatLevel(CheatLevel.valueOf(value));
+            Log.info("Cheat level updated to @", BDVars.settings.cheatLevel());
+            ModCall.setServerCheatLevel(BDVars.settings.cheatLevel().ordinal());
         });
     }
 }

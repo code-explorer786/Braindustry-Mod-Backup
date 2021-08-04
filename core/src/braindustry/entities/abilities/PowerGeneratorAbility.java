@@ -1,6 +1,5 @@
 package braindustry.entities.abilities;
 
-import ModVars.modVars;
 import arc.Core;
 import arc.func.Boolf2;
 import arc.graphics.g2d.Draw;
@@ -21,7 +20,7 @@ import mindustry.gen.Building;
 import mindustry.gen.Unit;
 import mindustry.graphics.Drawf;
 
-import static ModVars.modFunc.fullName;
+import static braindustry.BDVars.fullName;
 
 public abstract class PowerGeneratorAbility extends ModAbility {
     public TextureRegion bottomRegion;

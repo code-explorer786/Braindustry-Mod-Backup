@@ -4,7 +4,6 @@ import arc.ApplicationListener;
 import arc.Events;
 import arc.func.Prov;
 import arc.struct.Seq;
-import arc.util.Log;
 import braindustry.content.ModBullets;
 import braindustry.type.ModUnitType;
 import braindustry.world.blocks.DebugBlock;
@@ -20,7 +19,7 @@ import mindustry.type.ItemStack;
 import mindustry.world.Block;
 import mindustry.world.meta.BuildVisibility;
 
-import static ModVars.modVars.settings;
+import static braindustry.BDVars.settings;
 
 public class ModLogic implements ApplicationListener {
     boolean debug;

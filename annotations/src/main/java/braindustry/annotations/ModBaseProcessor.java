@@ -59,12 +59,7 @@ public abstract class ModBaseProcessor extends BaseProcessor {
     public static void print(String obj, Object... args) {
         String message = Strings.format(obj.toString(), args);
         System.out.println(message);
-//    messager.printMessage(Diagnostic.Kind.OTHER,message);
     }
-
-    //    public TypeElement typeElement(String name){
-//        return elementu.getTypeElement(name);
-//    }
     public static void err(String message, Selement elem, int zero) {
         err(message, elem.e);
     }

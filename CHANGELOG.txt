@@ -1,6 +1,11 @@
--fixed oh no gas router
--fixed planet list without Braindustry planets
--change cheat menu button style
+-fixed "oh no" texture of gas router
+-fixed game planet list without Braindustry planets
+-changed cheat menu button style
 -cheat menu is now arranged depending on the availability of mods: time-control, test-utils
 -hotkey mod is now in game hotkeys
 -changed cheat menu style
+-added liquids to background menu
+-added new functions to Rules editor
+-added rotators to MultiRotatorDrill icon
+-Gas and AdvancedContentInfo are now independent libraries
+-added rotatorsCount stat to MultiRotatorDrill

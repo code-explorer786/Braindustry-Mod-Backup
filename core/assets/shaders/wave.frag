@@ -13,8 +13,8 @@ void main(){
     vec4 color = texture2D(u_texture, v_texCoords);
     vec2 size=(u_uv2-u_uv);
     vec2 coords=(v_texCoords.xy-u_uv)/size;
-    coords.x=trans(coords.x);
-    coords.y=trans(coords.y);
+    coords.x=coords.x-0.5;
+    coords.y=coords.y-0.5;
     if (u_xAxis==1){
         coords.x+=sin(coords.y*u_otherAxisMul+u_time)*u_forcePercent;
     } else{

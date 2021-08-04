@@ -114,7 +114,6 @@ public class AnukeCompDownloader {
                         "\n" +
                         "import braindustry.annotations.ModAnnotations;\n" +
                         "import mindustry.gen.Unitc;\n" +
-                        "@ModAnnotations.AssetFolderFinder\n" +
                         "public class AnnotationConfigComponents {");
             for (String name : names) {
                 if (!name.endsWith("Comp")) continue;

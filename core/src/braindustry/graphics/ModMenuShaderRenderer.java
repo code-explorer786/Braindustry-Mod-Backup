@@ -1,6 +1,7 @@
 package braindustry.graphics;
 
-import ModVars.modVars;
+import arc.struct.ObjectSet;
+import braindustry.BDVars;
 import arc.Core;
 import arc.files.Fi;
 import arc.func.Floatc2;
@@ -26,13 +27,14 @@ import mindustry.Vars;
 import mindustry.content.Blocks;
 import mindustry.content.UnitTypes;
 import mindustry.game.Team;
-import mindustry.graphics.MenuRenderer;
+import mindustry.graphics.CacheLayer;
 import mindustry.graphics.Pal;
 import mindustry.type.UnitType;
 import mindustry.world.Block;
 import mindustry.world.CachedTile;
 import mindustry.world.Tile;
 import mindustry.world.Tiles;
+import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.environment.ShallowLiquid;
 
@@ -43,7 +45,7 @@ public class ModMenuShaderRenderer {
     private final int width;
     private final int height;
     boolean errorred = false;
-    private int cacheFloor;
+    private int[] cacheLayers=new int[CacheLayer.all.length];
     private int cacheWall;
     private Camera camera;
     private Mat mat;
@@ -66,7 +68,7 @@ public class ModMenuShaderRenderer {
     }
 
     public void takeBackgroundScreenshot() {
-        int aFloat = (int) modVars.settings.getFloat("background.screenshot.scl");
+        int aFloat = (int) BDVars.settings.getFloat("background.screenshot.scl");
         int w = width * tilesize * aFloat, h = height * tilesize * aFloat;
         int memory = w * h * 4 / 1024 / 1024;
 
@@ -117,6 +119,10 @@ public class ModMenuShaderRenderer {
     }
 
     protected void buildMain(boolean timeMark) {
+        if (cacheLayers.length!=CacheLayer.all.length){
+            cacheLayers=null;
+            cacheLayers=new int[CacheLayer.all.length];
+        }
         this.camera = new Camera();
         this.mat = new Mat();
         Mathf.rand.setSeed(BackgroundStyle.useSeed() ? BackgroundStyle.seedValue() : System.nanoTime());
@@ -328,27 +334,61 @@ public class ModMenuShaderRenderer {
         Batch prev = Core.batch;
 
         Core.batch = batch = new CacheBatch(new SpriteCache(width * height * 6, false));
-        batch.beginCache();
+        ObjectSet<CacheLayer> used=new ObjectSet<>();
+        for(int tilex = 0;  tilex < world.width(); tilex++){
+            for(int tiley = 0; tiley < world.height(); tiley++){
+                Tile tile = world.rawTile(tilex, tiley);
+                boolean wall = tile.block().cacheLayer != CacheLayer.normal;
 
-//        for(Tile tile : world.tiles){
-//            tile.floor().drawBase(tile);
-//        }
-        for (Tile tile : world.tiles) {
-            if (!(tile.floor() instanceof ShallowLiquid))
-                tile.floor().drawBase(tile);
-        }
+                if(wall){
+                    used.add(tile.block().cacheLayer);
+                }
 
-        for (Tile tile : world.tiles) {
-            if (!(tile.floor() instanceof ShallowLiquid))
-                tile.overlay().drawBase(tile);
+                if(!wall || world.isAccessible(tilex, tiley)){
+                    used.add(tile.floor().cacheLayer);
+                }
+            }
         }
+        for (CacheLayer layer : used) {
+            batch.beginCache();
+            for(int tilex = 0;  tilex < world.width(); tilex++){
+                for(int tiley = 0; tiley < world.height(); tiley++){
+                    Tile tile = world.tile(tilex, tiley);
+                    Floor floor;
+
+                    if(tile == null){
+                        continue;
+                    }else{
+                        floor = tile.floor();
+                    }
+
+                    if(tile.block().cacheLayer == layer && layer == CacheLayer.walls && !(tile.isDarkened() && tile.data >= 5)){
+                        tile.block().drawBase(tile);
+                    }else if(floor.cacheLayer == layer && (world.isAccessible(tile.x, tile.y) || tile.block().cacheLayer != CacheLayer.walls || !tile.block().fillsTile)){
+                        floor.drawBase(tile);
+                    }else if(floor.cacheLayer != layer && layer != CacheLayer.walls){
+                        floor.drawNonLayer(tile, layer);
+                    }
+                }
+            }
+            /*for (Tile tile : world.tiles) {
+                if (!(tile.floor() instanceof ShallowLiquid))
+                    tile.floor().drawBase(tile);
+            }
+
+            for (Tile tile : world.tiles) {
+                if (!(tile.floor() instanceof ShallowLiquid))
+                    tile.overlay().drawBase(tile);
+            }*/
 //        for (Tile tile : world.tiles) {
 //            if (!(tile.floor() instanceof ShallowLiquid)){
 //                tile.floor().drawBase(tile);
 //                tile.overlay().drawBase(tile);
 //            }
 //        }
-        cacheFloor = batch.endCache();
+            cacheLayers[layer.id] = batch.endCache();
+        }
+
         batch.beginCache();
 
         for (Tile tile : world.tiles) {
@@ -371,9 +411,16 @@ public class ModMenuShaderRenderer {
         Draw.flush();
         Draw.proj(camera);
         batch.setProjection(camera.mat);
-        batch.beginDraw();
-        batch.drawCache(cacheFloor);
-        batch.endDraw();
+        float prev = Time.time;
+        Time.time=time;
+        for (int i = 0; i < cacheLayers.length; i++) {
+            CacheLayer.all[i].begin();
+            batch.beginDraw();
+            batch.drawCache(cacheLayers[i]);
+            batch.endDraw();
+            CacheLayer.all[i].end();
+        }
+        Time.time=prev;
         Draw.color();
         Draw.rect(Draw.wrap(shadows.getTexture()),
                 width * tilesize / 2f - 4f, height * tilesize / 2f - 4f,

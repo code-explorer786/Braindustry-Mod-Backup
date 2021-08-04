@@ -1,6 +1,5 @@
 package braindustry.tools;
 
-import ModVars.modFunc;
 import arc.Core;
 import arc.func.Boolf;
 import arc.func.Func;
@@ -14,7 +13,6 @@ import arc.scene.ui.layout.Scl;
 import arc.scene.ui.layout.Table;
 import arc.scene.ui.layout.WidgetGroup;
 import arc.util.Align;
-import arc.util.Strings;
 import mindustry.Vars;
 import mindustry.ui.Styles;
 

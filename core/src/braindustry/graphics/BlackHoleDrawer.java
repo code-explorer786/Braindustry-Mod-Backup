@@ -14,7 +14,7 @@ import mindustry.gen.Unit;
 
 import java.util.Arrays;
 
-import static ModVars.modFunc.fullName;
+import static braindustry.BDVars.fullName;
 
 public class BlackHoleDrawer {
     DistortionField[] distortions = create("black-hole-distortion", 4, Mathf.random(0.3f, 0.5f), -0.5f, 0.8f, -1.0f, -1.15f, Mathf.random(0.6f, 1.3f));

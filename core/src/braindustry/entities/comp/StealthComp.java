@@ -1,6 +1,5 @@
 package braindustry.entities.comp;
 
-import ModVars.modVars;
 import arc.Core;
 import arc.func.Boolf;
 import arc.graphics.g2d.Draw;

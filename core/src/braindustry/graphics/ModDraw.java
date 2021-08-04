@@ -1,6 +1,6 @@
 package braindustry.graphics;
 
-import ModVars.math.ModMath;
+import braindustry.customArc.math.ModMath;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Font;

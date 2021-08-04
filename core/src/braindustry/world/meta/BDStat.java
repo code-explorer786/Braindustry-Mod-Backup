@@ -9,8 +9,6 @@ public class BDStat {
     public static final AStat
             recipes=AStat.get("recipes", StatCat.function),
             maxConnections=AStat.get("maxConnections", StatCat.function),
-            rotorsCount=AStat.get("rotorsCount", StatCat.general, Stat.size.ordinal()+1)
+            rotatorsCount =AStat.get("rotatorsCount", StatCat.general, Stat.size.ordinal() + 1)
                     ;
-//    maxConnections(AStatCat.function),
-//    recipes(AStatCat.function),
 }

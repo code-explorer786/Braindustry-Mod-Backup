@@ -56,7 +56,7 @@ public class BackgroundStyle extends Dialog {
             t.check("@background.style.seed.use.title", useSeed(), b -> settings.put(useSeed, b));
             t.button(Icon.refresh, () -> {
                 field.setProgrammaticChangeEvents(true);
-                field.setText("" + Mathf.random(Integer.MAX_VALUE - 1));
+                field.setText("" + Mathf.randomSeed(System.nanoTime(),0,Integer.MAX_VALUE - 1));
             }).size(60f).row();
             t.label(() -> "@background.style.unit").colspan(2).right();
             t.add();

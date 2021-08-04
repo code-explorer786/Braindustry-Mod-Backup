@@ -64,7 +64,7 @@ public class ModAssetsProcess extends ModBaseProcessor {
             if (SourceVersion.isKeyword(varname)) varname += "s";
 
             type.addField(ClassName.bestGuess(dtype), varname, Modifier.STATIC, Modifier.PUBLIC);
-            load.addStatement(varname + " = (" + dtype + ")arc.Core.atlas.drawable(ModVars.modFunc.fullName($S))", sfilen);
+            load.addStatement(varname + " = (" + dtype + ")arc.Core.atlas.drawable(braindustry.BDVars.fullName($S))", sfilen);
         };
         for (String resources : resourcesArray) {
             if (Fi.get(resources).exists()) {
@@ -96,14 +96,14 @@ public class ModAssetsProcess extends ModBaseProcessor {
 
             String filename = "\"" + filepath + "\"";
 
-            loadBegin.addStatement(Strings.format("@=new @(ModVars.modVars.modAssets.get(\"@\",\"@\"));", name, rtype, path.substring(path.lastIndexOf("/")+1) ,p.path().substring(p.path().lastIndexOf(path) + path.length()+1)));
+//            loadBegin.addStatement(Strings.format("@=new @(ModVars.modVars.modAssets.get(\"@\",\"@\"));", name, rtype, path.substring(path.lastIndexOf("/")+1) ,p.path().substring(p.path().lastIndexOf(path) + path.length()+1)));
 //            loadBegin.addStatement(                    Strings.format("@=new @(ModVars.modVars.modInfo.root.child(@));",name,rtype,filename));
-//            loadBegin.addStatement("arc.Core.assets.load(" + filename + ", " + rtype + ".class).loaded = a -> " + name + " = (" + rtype + ")a", filepath, filepath.replace(".ogg", ".mp3"));
+            loadBegin.addStatement("arc.Core.assets.load(" + filename + ", " + rtype + ".class).loaded = a -> " + name + " = (" + rtype + ")a", filepath, filepath.replace(".ogg", ".mp3"));
 
             type.addField(FieldSpec.builder(ClassName.bestGuess(rtype), name, Modifier.STATIC, Modifier.PUBLIC).initializer("new arc.audio." + rtype.substring(rtype.lastIndexOf(".") + 1) + "()").build());
         });
 
-        if (classname.equals("Sounds")) {
+        if (classname.equals("ModSounds")) {
             type.addField(FieldSpec.builder(ClassName.bestGuess(rtype), "none", Modifier.STATIC, Modifier.PUBLIC).initializer("new arc.audio." + rtype.substring(rtype.lastIndexOf(".") + 1) + "()").build());
         }
 

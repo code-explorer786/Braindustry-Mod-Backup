@@ -1,7 +1,7 @@
 package braindustry.entities.ContainersForUnits;
 
-import ModVars.math.ModAngles;
-import ModVars.math.ModMath;
+import braindustry.customArc.math.ModAngles;
+import braindustry.customArc.math.ModMath;
 import arc.graphics.Blending;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;

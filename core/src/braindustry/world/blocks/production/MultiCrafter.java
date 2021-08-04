@@ -1,6 +1,5 @@
 package braindustry.world.blocks.production;
 
-import ModVars.modFunc;
 import acontent.world.meta.AStats;
 import arc.Core;
 import arc.func.Func;
@@ -38,7 +37,7 @@ import braindustry.world.consumers.ConsumeLiquidDynamic;
 
 import java.util.Objects;
 
-import static ModVars.modFunc.fullName;
+import static braindustry.BDVars.fullName;
 
 public class MultiCrafter extends ModBlock {
     public final int timerDump;
@@ -277,11 +276,9 @@ public class MultiCrafter extends ModBlock {
         public Building init(Tile tile, Team team, boolean shouldAdd, int rotation) {
             return super.init(tile, team, shouldAdd, rotation);
         }
-        boolean selected=false;
         @Override
         public void update() {
             super.update();
-            this.selected= modFunc.selected(this);
         }
         public void displayConsumption(Table table) {
             rebuildCons=()-> {
