@@ -24,59 +24,61 @@ import static mindustry.Vars.ui;
 public class ModHudFragment {
     public static void init() {
 
-        Table overlaymarker = ui.hudGroup.find("overlaymarker");
-        Table mobile_buttons = overlaymarker.find("mobile buttons");
-        Table status = overlaymarker.<Stack>find("waves/editor").<Table>find("waves").<Table>find("status");
-        Stack stack = status.<Stack>find(el -> el.getClass().getSimpleName().equals("Stack") && el.toString().contains("HudFragment$1"));
-        SnapshotSeq<Element> children = stack.getChildren();
-        int fragIndex = children.indexOf(el -> el.getClass().getSimpleName().equals("HudFragment$1") || el.toString().equals("HudFragment$1"));
-        if (fragIndex == -1) {
-            Log.info("status_ERROR: @", status);
-            Log.info("stack_ERROR: @", stack);
-            return;
-        }
-        if (fragIndex == -1) {
-            Log.info("status_ERROR: @", status);
-            Log.info("stack_ERROR: @", stack);
-            return;
-        }
-        if (fragIndex == -1) {
-            Log.info("status_ERROR: @", status);
-            Log.info("stack_ERROR: @", stack);
-            return;
-        }
-        Element oldFrag = children.get(fragIndex);
-        oldFrag.parent = null;
-        oldFrag.remove();
-        Element unitBackground = new Element() {
-            @Override
-            public void draw() {
-                boolean me = player != null && player.unit() instanceof Stealthc && !player.unit().dead() && player.unit().isValid();
-                if (!me) {
-                    oldFrag.setBounds(x, y, width, height);
-                    oldFrag.draw();
-                    return;
-                }
-                Draw.color(Pal.darkerGray);
-                float radius = height / Mathf.sqrt3;
-                Fill.poly(x + width / 2f, y + height / 2f, 6, radius);
-                Draw.reset();
-                if (me) {
-                    Stealthc unit = player.unit().as();
-                    float offset = unit.stealthf();
-                    Draw.color(ModPal.stealthBarColor);
-                    ModShaders.iconBackgroundShader.set(y + (radius * 2f) * offset);
-                    Fill.poly(x + width / 2f, y + height / 2f, 6, radius);
-                    Draw.shader();
-                    Draw.reset();
-                }
-                Drawf.shadow(x + width / 2f, y + height / 2f, height * 1.13f);
+        try{
+            Table overlaymarker = ui.hudGroup.find("overlaymarker");
+            Table mobile_buttons = overlaymarker.find("mobile buttons");
+            Table status = overlaymarker.<Stack>find("waves/editor").<Table>find("waves").<Table>find("status");
+            Stack stack = status.<Stack>find(el -> el.getClass().getSimpleName().equals("Stack") && el.toString().contains("HudFragment$1"));
+            SnapshotSeq<Element> children = stack.getChildren();
+            int fragIndex = children.indexOf(el -> el.getClass().getSimpleName().equals("HudFragment$1") || el.toString().equals("HudFragment$1"));
+            if (fragIndex == -1) {
+                Log.info("status_ERROR: @", status);
+                Log.info("stack_ERROR: @", stack);
+                return;
             }
-        };
-        children.set(fragIndex, unitBackground);
-        return;
-
-
+            if (fragIndex == -1) {
+                Log.info("status_ERROR: @", status);
+                Log.info("stack_ERROR: @", stack);
+                return;
+            }
+            if (fragIndex == -1) {
+                Log.info("status_ERROR: @", status);
+                Log.info("stack_ERROR: @", stack);
+                return;
+            }
+            Element oldFrag = children.get(fragIndex);
+            oldFrag.parent = null;
+            oldFrag.remove();
+            Element unitBackground = new Element() {
+                @Override
+                public void draw() {
+                    boolean me = player != null && player.unit() instanceof Stealthc && !player.unit().dead() && player.unit().isValid();
+                    if (!me) {
+                        oldFrag.setBounds(x, y, width, height);
+                        oldFrag.draw();
+                        return;
+                    }
+                    Draw.color(Pal.darkerGray);
+                    float radius = height / Mathf.sqrt3;
+                    Fill.poly(x + width / 2f, y + height / 2f, 6, radius);
+                    Draw.reset();
+                    if (me) {
+                        Stealthc unit = player.unit().as();
+                        float offset = unit.stealthf();
+                        Draw.color(ModPal.stealthBarColor);
+                        ModShaders.iconBackgroundShader.set(y + (radius * 2f) * offset);
+                        Fill.poly(x + width / 2f, y + height / 2f, 6, radius);
+                        Draw.shader();
+                        Draw.reset();
+                    }
+                    Drawf.shadow(x + width / 2f, y + height / 2f, height * 1.13f);
+                }
+            };
+            children.set(fragIndex, unitBackground);
+            return;
+        } catch (Exception e){
+            Log.err("cannot load stealtBar reason: @",e);
+        }
     }
 
     static class SideBar extends Element {
