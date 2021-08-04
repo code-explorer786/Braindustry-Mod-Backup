@@ -1,5 +1,4 @@
-braindustry.annotations.AdvancedStats.AStatCatProcessor
-braindustry.annotations.AdvancedStats.AStatProcessor
+braindustry.annotations.backgroundMenu.BackgroundStylesProc
 braindustry.annotations.cheatMenu.RulesProcessor
 braindustry.annotations.dependencies.DependenciesProc
 braindustry.annotations.impl.ModAssetsProcess

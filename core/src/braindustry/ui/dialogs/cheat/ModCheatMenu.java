@@ -39,8 +39,8 @@ public class ModCheatMenu {
             table.visibility = () -> CheatUI.visibility.get() && Vars.state.isGame();
             cons.get(table);
             table.left().bottom();
-            int timeControlOffset = Core.settings.getBool("mod-time-control-enabled", false) ? 62 : 0;
-            int testUtilsOffset=Core.settings.getBool("mod-test-utils-enabled",false)?60*3:0;
+            int timeControlOffset = enabledMod("time-control") ? 62 : 0;
+            int testUtilsOffset= enabledMod("test-utils")? 60 * 3:0;
             table.marginBottom(timeControlOffset+testUtilsOffset);
             Vars.ui.hudGroup.addChild(table);
         });
@@ -62,5 +62,9 @@ public class ModCheatMenu {
                 add = false;
             }
         });
+    }
+
+    private boolean enabledMod(String mod) {
+        return Core.settings.getBool("mod-" + mod + "-enabled", false) && Vars.mods!=null && Vars.mods.getMod(mod)!=null;
     }
 }

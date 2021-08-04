@@ -14,7 +14,7 @@ import braindustry.type.ModLiquidStack;
 import braindustry.type.Recipe;
 import braindustry.world.blocks.production.MultiCrafter;
 import braindustry.world.blocks.production.MultiGenericSmelter;
-import braindustry.world.blocks.production.MultiRotorDrill;
+import braindustry.world.blocks.production.MultiRotatorDrill;
 import gas.world.draw.GasDrawSmelter;
 import mindustry.content.Fx;
 import mindustry.content.Items;
@@ -386,7 +386,7 @@ class ModProduction implements ContentList {
             ambientSound = Sounds.drill;
             ambientSoundVolume = 0.01f;
         }};
-        geothermicDrill = new MultiRotorDrill("geothermic-drill") {{
+        geothermicDrill = new MultiRotatorDrill("geothermic-drill") {{
             localizedName = "Geothermic Drill";
             description = "4 rotators, more efficiency, consumes Magma";
             requirements(Category.production, ItemStack.with(

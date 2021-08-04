@@ -9,6 +9,8 @@ import arc.scene.ui.layout.Scl;
 import arc.util.Strings;
 import mindustry.gen.Icon;
 
+import static mindustry.Vars.mobile;
+
 public class ModOtherSettingsDialog extends Dialog {
     public ModOtherSettingsDialog() {
         super("@dialogs.other-settings");
@@ -37,6 +39,10 @@ public class ModOtherSettingsDialog extends Dialog {
 
             t.slider(0, 360, 0.1f, BDVars.settings.getFloat("angle"), (b) -> {
                 BDVars.settings.setFloat("angle", b);
+            }).left().row();
+            if (!mobile)return;
+            t.check("@ba", BDVars.settings.debug(), (b) -> {
+                BDVars.settings.debug(b);
             }).left().row();
 
         }).left().row();

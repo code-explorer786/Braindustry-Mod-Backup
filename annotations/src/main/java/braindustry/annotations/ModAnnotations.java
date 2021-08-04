@@ -8,31 +8,19 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 public class ModAnnotations {
-    public enum Values {
-        val;
-        Object value;
+    @Target({ElementType.FIELD})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface BackgroundStyleSources {
+        String castMethodSet()default "\n";
+        String castMethodGet()default "\n";
+        String clazz() default "\n";
 
-        public Values setValue(Object value) {
-            this.value = value;
-            return this;
-        }
-
-        public String getToStringValue() {
-            return value + "";
-        }
+        boolean noDefError()default false;
     }
 
     @Target({ElementType.METHOD})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Replace {
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface CustomStatCat {
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface CustomStat {
     }
 
     /**

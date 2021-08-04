@@ -22,12 +22,12 @@ import mindustry.entities.units.BuildPlan;
 import mindustry.graphics.MultiPacker;
 import mindustry.world.blocks.production.Drill;
 
-public class MultiRotorDrill extends Drill implements SelfIconGenerator {
+public class MultiRotatorDrill extends Drill implements SelfIconGenerator {
     public Seq<Rotator> rotators = new Seq<>();
     public boolean drawRotator = true;
     public AStats aStats = new AStats();
 
-    public MultiRotorDrill(String name) {
+    public MultiRotatorDrill(String name) {
         super(name);
         stats = aStats.copy(stats);
     }

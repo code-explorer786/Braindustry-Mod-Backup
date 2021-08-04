@@ -47,7 +47,7 @@ public class CheatUI {
         textArea.setFilter(TextField.TextFieldFilter.floatsOnly);
     }
 
-    public static void rulesEditTable(Table table, String name, Intp val, Intc cons) {
+    public static void rulesEditTable(Table table, String name, Prov<Integer> val, Intc cons) {
         table.label(() -> name + ": ");
         TextArea textArea = table.area("" + val.get(), text -> cons.get(Strings.parseInt(text, 0))).width(100).get();
         textArea.setMaxLength((Integer.MAX_VALUE + "").length());

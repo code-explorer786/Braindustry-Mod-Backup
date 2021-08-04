@@ -8,10 +8,13 @@ import arc.graphics.g2d.TextureAtlas;
 import arc.math.Mathf;
 import arc.scene.style.TextureRegionDrawable;
 import arc.scene.ui.*;
+import arc.scene.ui.layout.Cell;
 import arc.scene.ui.layout.Scl;
 import arc.scene.ui.layout.Table;
 import arc.struct.Seq;
 import arc.util.Strings;
+import braindustry.cfunc.BackgroundUnitMovingType;
+import braindustry.gen.BackgroundSettings;
 import braindustry.ui.fragments.ModMenuFragment;
 import mindustry.content.Blocks;
 import mindustry.ctype.UnlockableContent;
@@ -26,110 +29,17 @@ import mindustry.world.blocks.environment.StaticWall;
 
 import static arc.Core.bundle;
 import static arc.Core.settings;
+import static braindustry.gen.BackgroundSettings.*;
 import static mindustry.Vars.content;
-import static mindustry.Vars.failedToLaunch;
 
 public class BackgroundStyle extends Dialog {
-    public static final String
-            useSeed = "background.style.seed.use",
-            seedValue = "background.style.seed.value",
-            unit = "background.style.unit",
-            wall1 = "background.style.wall1",
-            floor1 = "background.style.floor1",
-            wall2 = "background.style.wall2",
-            floor2 = "background.style.floor2",
-            useStyles = "background.style.use",
-            zero = "";
-
     final static Boolf<Block> floorFilter = b -> b instanceof Floor && !(b instanceof OreBlock) && b != Blocks.spawn;
     final static Boolf<Block> wallFilter = b -> b instanceof StaticWall;
 
     public BackgroundStyle() {
         super("@background.style.title");
 
-        cont.table(t -> {
-            t.defaults().width(160.0f).height(70f);
-            t.label(() -> "@background.style.seed.title");
-            TextField field = t.field("" + seedValue(), TextField.TextFieldFilter.digitsOnly, (value) -> {
-                settings.put(seedValue, Strings.parseInt(value, 0));
-            }).colspan(2).get();
-            t.check("@background.style.seed.use.title", useSeed(), b -> settings.put(useSeed, b));
-            t.button(Icon.refresh, () -> {
-                field.setProgrammaticChangeEvents(true);
-                field.setText("" + Mathf.randomSeed(System.nanoTime(),0,Integer.MAX_VALUE - 1));
-            }).size(60f).row();
-            t.label(() -> "@background.style.unit").colspan(2).right();
-            t.add();
-            TextureAtlas.AtlasRegion crossRegion = Core.atlas.find("cross");
-            t.button(new TextureRegionDrawable(crossRegion), () -> {
-                openSelector(unit, content.units(), BackgroundStyle::unit, obj -> {
-                    settings.put(unit, obj == null ? -1 : (int) obj.id);
-                });
-            }).colspan(2).update(button -> {
-                UnitType block = unit();
-                if (block == null) {
-                    settings.put(unit, -1);
-                }
-                button.getStyle().imageUp = (new TextureRegionDrawable(block == null ? crossRegion : block.uiIcon));
-            }).size(60f).row();
-
-            t.label(() -> bundle.format("background.style.wall", 1));
-            t.button(new TextureRegionDrawable(crossRegion), () -> {
-                openSelector(wall1, content.blocks().select(wallFilter), BackgroundStyle::wall1, unit -> {
-                    settings.put(wall1, unit == null ? -1 : (int) unit.id);
-                });
-            }).update(button -> {
-                Block block = wall1();
-                if (block == null) {
-                    settings.put(wall1, -1);
-                }
-                button.getStyle().imageUp = (new TextureRegionDrawable(block == null ? crossRegion : block.uiIcon));
-            }).size(60f);
-            t.add();
-            t.label(() -> bundle.format("background.style.floor", 1));
-            t.button(new TextureRegionDrawable(crossRegion), () -> {
-                openSelector(floor1, content.blocks().select(floorFilter), BackgroundStyle::floor1, unit -> {
-                    settings.put(floor1, unit == null ? -1 : (int) unit.id);
-                });
-            }).update(button -> {
-                Block block = floor1();
-                if (block == null) {
-                    settings.put(floor1, -1);
-                }
-                button.getStyle().imageUp = (new TextureRegionDrawable(block == null ? crossRegion : block.uiIcon));
-            }).size(60f).row();
-
-            /**============================================*/
-            t.label(() -> bundle.format("background.style.wall", 2));
-            t.button(new TextureRegionDrawable(crossRegion), () -> {
-                openSelector(wall2, content.blocks().select(wallFilter), BackgroundStyle::wall2, unit -> {
-                    settings.put(wall2, unit == null ? -1 : (int) unit.id);
-                });
-            }).update(button -> {
-                Block block = wall2();
-                if (block == null) {
-                    settings.put(wall2, -1);
-                }
-                button.getStyle().imageUp = (new TextureRegionDrawable(block == null ? crossRegion : block.uiIcon));
-            }).size(60f);
-            t.add();
-            t.label(() -> bundle.format("background.style.floor", 2));
-            t.button(new TextureRegionDrawable(crossRegion), () -> {
-                openSelector(floor2, content.blocks().select(floorFilter), BackgroundStyle::floor2, unit -> {
-                    settings.put(floor2, unit == null ? -1 : (int) unit.id);
-                });
-            }).update(button -> {
-                Block block = floor2();
-                if (block == null) {
-                    settings.put(floor2, -1);
-                }
-                button.getStyle().imageUp = (new TextureRegionDrawable(block == null ? crossRegion : block.uiIcon));
-            }).size(60f).row();
-
-            t.defaults().reset();
-
-            t.check("@background.style.use.title", settings.getBool(useStyles, failedToLaunch), (b) -> settings.put(useStyles, b)).colspan(5).height(60f);
-        });
+        setup();
 
 
         buttons.defaults().size(210f, 64f);
@@ -139,44 +49,86 @@ public class BackgroundStyle extends Dialog {
         closeOnBack();
     }
 
-    public static Floor floor1() {
-        int id = settings.getInt(floor1, -1);
-        Block block = content.block(id);
-        return floorFilter.get(block) ? block.asFloor() : null;
+    private void setup() {
+        cont.clear();
+        cont.table(t -> {
+            t.defaults().width(160.0f).height(70f);
+            t.label(() -> "@background.style.seed.title");
+            TextField field = t.field("" + seed(), TextField.TextFieldFilter.digitsOnly, (value) -> {
+                BackgroundSettings.seed(Strings.parseInt(value, 0));
+//                BackG.parseInt(value, 0)
+            }).colspan(2).get();
+            t.check("@background.style.seed.use.title", useSeed(), BackgroundSettings::useSeed);
+            t.button(Icon.refresh, () -> {
+                field.setProgrammaticChangeEvents(true);
+                field.setText("" + Mathf.randomSeed(System.nanoTime(), 0, Integer.MAX_VALUE - 1));
+            }).size(60f).row();
+            t.label(() -> "@background.style.unit").colspan(2).right();
+            t.add();
+            TextureAtlas.AtlasRegion crossRegion = Core.atlas.find("cross");
+            t.button(new TextureRegionDrawable(crossRegion), () -> {
+                openSelector(unitKey, content.units(), BackgroundSettings::unit, BackgroundSettings::unit);
+            }).colspan(2).update(button -> {
+                UnitType block = BackgroundSettings.unit();
+                if (block == null) BackgroundSettings.unit(null);
+
+                button.getStyle().imageUp = (new TextureRegionDrawable(block == null ? crossRegion : block.uiIcon));
+            }).size(60f).row();
+
+           if (useWalls()){
+               this.<StaticWall>addBlockField(t,1,wall1Key,"wall",BackgroundSettings::wall1,wallFilter,BackgroundSettings::wall1);
+           } else {
+               this.<Floor>addBlockField(t,3,floor3Key,"floor",BackgroundSettings::floor3,floorFilter,BackgroundSettings::floor3);
+           }
+            t.add();
+            this.<Floor>addBlockField(t,1,floor1Key,"floor",BackgroundSettings::floor1,floorFilter,BackgroundSettings::floor1);
+            t.row();
+
+            /**============================================*/
+            if (useWalls()){
+                this.<StaticWall>addBlockField(t,2,wall2Key,"wall",BackgroundSettings::wall2,wallFilter,BackgroundSettings::wall2);
+            } else {
+                this.<Floor>addBlockField(t,4,floor4Key,"floor",BackgroundSettings::floor4,floorFilter,BackgroundSettings::floor4);
+            }
+            t.add();
+            this.<Floor>addBlockField(t,2,floor2Key,"floor",BackgroundSettings::floor2,floorFilter,BackgroundSettings::floor2);
+            t.row();
+            t.label(()->"@background.style.movingType.title").colspan(1);
+            t.add().colspan(4-BackgroundUnitMovingType.values().length);
+            ButtonGroup<CheckBox> buttonGroup=new ButtonGroup<>();
+            for (BackgroundUnitMovingType value : BackgroundUnitMovingType.values()) {
+                CheckBox checkBox = t.check("@unitMovingType." + value, (bool) -> {
+                    if (bool) unitMovingType(value);
+                }).get();
+                buttonGroup.add(checkBox);
+            }
+            t.defaults().reset();
+
+            t.row();
+            t.check("@background.style.walls.title", useWalls(), bool->{
+                BackgroundSettings.useWalls(bool);
+                setup();
+            }).colspan(5).height(60f);
+            t.row();
+            t.check("@background.style.units.title", hasUnits(), BackgroundSettings::hasUnits).colspan(5).height(60f);
+            t.row();
+            t.check("@background.style.use.title", useStyles(), BackgroundSettings::useStyles).colspan(5).height(60f);
+        });
     }
 
-    public static Floor floor2() {
-        int id = settings.getInt(floor2, -1);
-        Block block = content.block(id);
-        return floorFilter.get(block) ? block.asFloor() : null;
-    }
+    private <T extends Block> void addBlockField(Table table, int index, String key,String name, Prov<Block> getter, Boolf<Block> filter, Cons<T> setter) {
+        TextureAtlas.AtlasRegion crossRegion = Core.atlas.find("cross");
+        table.label(() -> bundle.format("background.style."+name, index));
+        table.button(new TextureRegionDrawable(crossRegion), () -> {
+            openSelector(key, content.blocks().select(filter), getter, unit -> {
+                if (filter.get(unit)) setter.get((T) unit);
+            });
+        }).update(button -> {
+            Block block = getter.get();
+            if (block == null) setter.get(null);
 
-    public static StaticWall wall1() {
-        int id = settings.getInt(wall1, -1);
-        Block block = content.block(id);
-        return wallFilter.get(block) ? (StaticWall) block : null;
-    }
-
-    public static StaticWall wall2() {
-        int id = settings.getInt(wall2, -1);
-        Block block = content.block(id);
-        return wallFilter.get(block) ? (StaticWall) block : null;
-    }
-
-    public static UnitType unit() {
-        return content.unit(settings.getInt(unit, -1));
-    }
-
-    public static int seedValue() {
-        return settings.getInt(seedValue, 0);
-    }
-
-    public static boolean useSeed() {
-        return settings.getBool(useSeed, false);
-    }
-
-    public static boolean useStyles() {
-        return settings.getBool(useStyles, false);
+            button.getStyle().imageUp = (new TextureRegionDrawable(block == null ? crossRegion : block.uiIcon));
+        }).size(60f);
     }
 
     private <T extends UnlockableContent> void openSelector(String name, Seq<T> items, Prov<T> holder, Cons<T> listener) {
