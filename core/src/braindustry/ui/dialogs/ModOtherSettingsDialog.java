@@ -41,7 +41,7 @@ public class ModOtherSettingsDialog extends Dialog {
                 BDVars.settings.setFloat("angle", b);
             }).left().row();
             if (!mobile)return;
-            t.check("@ba", BDVars.settings.debug(), (b) -> {
+            t.check("@background.style.title", BDVars.settings.debug(), (b) -> {
                 BDVars.settings.debug(b);
             }).left().row();
 
