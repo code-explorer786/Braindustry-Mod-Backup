@@ -79,10 +79,10 @@ public class ModUI implements Disposable, ApplicationListener {
     public void init() {
         if (headless) return;
         inited=true;
-        ModTex.load();
-        ModStyles.load();
-        ModMenuFragment.init();
-        ModHudFragment.init();
+        inTry(ModTex::load);
+        inTry(ModStyles::load);
+        inTry(ModMenuFragment::init);
+        inTry(ModHudFragment::init);
         new ModCheatMenu((table) -> {
             table.button("@cheat-menu.title", () -> {
                 BaseDialog dialog = new BaseDialog("@cheat-menu.title");
