@@ -377,7 +377,7 @@ public class Generators {
                             true);
                 }
 
-                save(image, "unit-" + type.name + "-full");
+                save(image, /*"unit-" +*/ type.name + "-full");
 
                 Rand rand = new Rand();
                 rand.setSeed(type.name.hashCode());
@@ -451,7 +451,7 @@ public class Generators {
                     save(image, "../blocks/environment/" + prefix + item.name + (i + 1));
                     save(image, "../editor/editor-" + prefix + item.name + (i + 1));
 
-                    save(image, "block-" + ore.name + "-full");
+                    save(image, /*"block-" +*/ ore.name + "-full");
                     save(image, "../ui/block-" + ore.name + "-ui");
                 }
             });

@@ -1,6 +1,5 @@
 package braindustry.tools;
 
-import braindustry.BDVars;
 import arc.Core;
 import arc.files.Fi;
 import arc.graphics.Pixmap;
@@ -13,6 +12,7 @@ import arc.struct.Seq;
 import arc.util.*;
 import arc.util.serialization.Json;
 import arc.util.serialization.Jval;
+import braindustry.BDVars;
 import braindustry.core.ModContentLoader;
 import braindustry.gen.ModContentRegions;
 import braindustry.gen.ModEntityMapping;
@@ -24,10 +24,11 @@ import mindustry.tools.ImagePacker;
 
 public class ModImagePacker extends ImagePacker {
     static ObjectMap<String, PackIndex> cache = new ObjectMap<>();
+    static Mods.ModMeta modMeta;
 
     public ModImagePacker() {
     }
-static Mods.ModMeta modMeta;
+
     public static void main(String[] args) throws Exception {
         Json json = new Json();
         Fi metaf = Fi.get("../../../../").child("mod.hjson");
@@ -174,7 +175,7 @@ static Mods.ModMeta modMeta;
     }
 
     public static String full(String name) {
-        return modMeta.name+"-"+name;
+        return modMeta.name + "-" + name;
     }
 
     static class GenRegion extends TextureAtlas.AtlasRegion {
