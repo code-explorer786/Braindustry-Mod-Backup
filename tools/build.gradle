@@ -250,3 +250,21 @@ task genSprites(dependsOn: classes, type: JavaExec) {
     standardInput = System.in
     workingDir = genFolder
 }
+task downloadComp () {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs.addAll(['--release', '8'])
+        options.compilerArgs.add('--enable-preview')
+    }
+    doFirst {
+
+        javaexec {
+            maxHeapSize = "4048m"
+            args("-Xmx4048m", "--enable-preview", mindustryVersion)
+            main = "braindustry.tools.AnukeCompDownloader"
+            classpath = sourceSets.main.runtimeClasspath
+            workingDir = "../"
+//            jvmArgs ("-Xmx2024m")
+//            systemProperties("-Xmx2024m")
+        }
+    }
+}
