@@ -5,18 +5,16 @@ import arc.Events;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.TextureRegion;
-import arc.graphics.gl.FrameBuffer;
 import arc.scene.Element;
 import arc.scene.event.Touchable;
 import arc.scene.ui.layout.Scl;
 import arc.scene.ui.layout.WidgetGroup;
 import arc.util.Align;
-import braindustry.graphics.ModMenuShaderRenderer;
+import braindustry.graphics.ModMenuRenderer;
 import braindustry.graphics.ModShaders;
 import braindustry.tools.MenuButtons;
 import braindustry.tools.MenuButtons.MenuButton;
 import braindustry.tools.MenuButtons.MenuButtonUnClose;
-import mindustry.Vars;
 import mindustry.core.Version;
 import mindustry.game.EventType;
 import mindustry.gen.Icon;
@@ -32,11 +30,11 @@ public class ModMenuFragment {
     protected static float pixels = 1f;
     protected static int otherAxisMul = 50;
     protected static float timeScl = 1f;
-    private static ModMenuShaderRenderer lastRenderer;
+    private static ModMenuRenderer lastRenderer;
 
     public static void init() {
         if (lastRenderer!=null)return;
-        lastRenderer = new ModMenuShaderRenderer();
+        lastRenderer = new ModMenuRenderer();
         Events.on(EventType.DisposeEvent.class, (event) -> {
             lastRenderer.dispose();
         });
@@ -69,7 +67,7 @@ public class ModMenuFragment {
         Runnable update = () -> {
             MenuButtons.menuButton(new MenuButton("@menu.title", Icon.menu,
                     new MenuButtonUnClose("@rebuild_menu", Icon.refresh, ModMenuFragment::rebuildMenu),
-                    new MenuButtonUnClose("@background.styles", Icon.effect, () -> modUI.backgroundStyle.show()),
+                    new MenuButtonUnClose("@background.styles", Icon.effect, () -> modUI.backgroundStyleDialog.show()),
                     new MenuButtonUnClose("@background.screenshot", Icon.copy, ModMenuFragment::takeBackgroundScreenshot)
             ));
         };

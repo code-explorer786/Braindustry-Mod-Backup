@@ -21,14 +21,13 @@ import arc.util.noise.Ridged;
 import arc.util.noise.Simplex;
 import braindustry.BDVars;
 import braindustry.cfunc.BackgroundUnitData;
-import braindustry.cfunc.BackgroundUnitMovingType;
 import braindustry.content.Blocks.ModBlocks;
 import braindustry.content.ModUnitTypes;
 import braindustry.gen.BackgroundSettings;
+import braindustry.tools.BackgroundConfig;
 import mindustry.Vars;
 import mindustry.content.Blocks;
 import mindustry.content.UnitTypes;
-import mindustry.game.Team;
 import mindustry.graphics.CacheLayer;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
@@ -45,7 +44,7 @@ import java.util.Arrays;
 
 import static mindustry.Vars.*;
 
-public class ModMenuShaderRenderer {
+public class ModMenuRenderer {
     private static final float darkness = 0.3F;
     private final int width;
     private final int height;
@@ -63,7 +62,7 @@ public class ModMenuShaderRenderer {
     UnitType flyerType;
     private BackgroundUnitData[] flyersData;
 
-    public ModMenuShaderRenderer() {
+    public ModMenuRenderer() {
         this.width = !Vars.mobile ? 100 : 60;
         this.height = !Vars.mobile ? 50 : 40;
         buildMain(true);
@@ -151,7 +150,7 @@ public class ModMenuShaderRenderer {
                 }
             }
             for (int i = 0; i < flyersData.length; i++) {
-              if (i>unitData.length)  flyersData[i].clear();
+                if (i > unitData.length) flyersData[i].clear();
                 flyersData[i] = null;
             }
             flyersData = null;
@@ -162,20 +161,15 @@ public class ModMenuShaderRenderer {
                 flyersData[i] = new BackgroundUnitData();
             }
         }
-        this.flyerType = Structs.select(
-                UnitTypes.flare, UnitTypes.flare,
-                UnitTypes.horizon, UnitTypes.mono,
-                UnitTypes.poly, UnitTypes.mega,
-                UnitTypes.zenith,
-                ModUnitTypes.armor, ModUnitTypes.armor,
-                ModUnitTypes.chainmail, ModUnitTypes.chestplate);
+        this.flyerType = content.units().select(u -> u.hitSize <= 20f && u.flying && u.region.found()).random();
 
-        if (BackgroundSettings.useStyles()) {
+        if (BackgroundSettings.units().custom()) {
             UnitType unit = BackgroundSettings.unit();
             if (unit != null) flyerType = unit;
-            if (!BackgroundSettings.hasUnits()) {
-                flyerType = null;
-            }
+
+        }
+        if (BackgroundSettings.units().disabled()) {
+            flyerType = null;
         }
         if (timeMark) Time.mark();
         this.generate();
@@ -192,66 +186,52 @@ public class ModMenuShaderRenderer {
         this.shadows = new FrameBuffer(this.width, this.height);
         int offset = Mathf.random(100000);
         int s1 = offset, s2 = offset + 1, s3 = offset + 2;
-//        Rand last = Mathf.rand;
-//        Mathf.rand=new Rand(System.nanoTime());
-        Block[] selected = {null, null};
-        Block[] selected2 = {null, null};
+        Block[] selected = Structs.select(new Block[][]{
+                {Blocks.sand, Blocks.sandWall},
+                {Blocks.shale, Blocks.shaleWall},
+                {Blocks.ice, Blocks.iceWall},
+                {ModBlocks.obsidianFloor, ModBlocks.obsidianBlock},
+                {Blocks.sand, Blocks.sandWall},
+                {Blocks.shale, Blocks.shaleWall},
+                {Blocks.ice, Blocks.iceWall},
+                {ModBlocks.obsidianFloor, ModBlocks.obsidianBlock},
+                {Blocks.moss, Blocks.sporePine},
+        });
+        Block[] selected2 = Structs.select(new Block[][]{
+                {Blocks.basalt, Blocks.duneWall},
+                {Blocks.basalt, Blocks.duneWall},
+                {Blocks.stone, Blocks.stoneWall},
+                {Blocks.stone, Blocks.stoneWall},
+                {Blocks.moss, Blocks.sporeWall},
+                {Blocks.salt, Blocks.saltWall},
+                {ModBlocks.jungleFloor, ModBlocks.jungleWall},
+                {ModBlocks.jungleFloor, ModBlocks.jungleWall},
+                {ModBlocks.crimzesFloor, ModBlocks.crimzesWall},
+                {Blocks.water, Blocks.sandWall},
 
-        boolean useWalls = true;
+        });
         Block floord3 = null, floord4 = null;
         if (BackgroundSettings.useStyles()) {
-            useWalls = BackgroundSettings.useWalls();
-            if (!useWalls) {
-                try {
-                    floord3 = BackgroundSettings.floor3();
-                    floord4 = BackgroundSettings.floor4();
-                } catch (Exception ignored) {
-                }
-                useWalls = floord3 == null || floord4 == null;
+            if (BackgroundSettings.hasFloor3()) {
+                floord3 = BackgroundSettings.floor3();
             }
-            try {
-                selected = new Block[]{BackgroundSettings.floor1(), BackgroundSettings.wall1()};
-                selected2 = new Block[]{BackgroundSettings.floor2(), BackgroundSettings.wall2()};
-            } catch (Exception ignored) {
+            if (BackgroundSettings.hasFloor4()) {
+                floord4 = BackgroundSettings.floor4();
             }
+            if (BackgroundSettings.floor1()!=null)selected[0]= BackgroundSettings.floor1();
+            if (BackgroundSettings.wall1()!=null)selected[1]= BackgroundSettings.wall1();
+            if (BackgroundSettings.floor2()!=null)selected2[0]= BackgroundSettings.floor2();
+            if (BackgroundSettings.wall2()!=null)selected2[1]= BackgroundSettings.wall2();
 
-        }
-        if (selected[0] == null || selected[1] == null) {
-            selected = Structs.select(new Block[][]{
-                    {Blocks.sand, Blocks.sandWall},
-                    {Blocks.shale, Blocks.shaleWall},
-                    {Blocks.ice, Blocks.iceWall},
-                    {ModBlocks.obsidianFloor, ModBlocks.obsidianBlock},
-                    {Blocks.sand, Blocks.sandWall},
-                    {Blocks.shale, Blocks.shaleWall},
-                    {Blocks.ice, Blocks.iceWall},
-                    {ModBlocks.obsidianFloor, ModBlocks.obsidianBlock},
-                    {Blocks.moss, Blocks.sporePine},
-            });
-        }
-        if (selected2[0] == null || selected2[1] == null) {
-            selected2 = Structs.select(new Block[][]{
-                    {Blocks.basalt, Blocks.duneWall},
-                    {Blocks.basalt, Blocks.duneWall},
-                    {Blocks.stone, Blocks.stoneWall},
-                    {Blocks.stone, Blocks.stoneWall},
-                    {Blocks.moss, Blocks.sporeWall},
-                    {Blocks.salt, Blocks.saltWall},
-                    {ModBlocks.jungleFloor, ModBlocks.jungleWall},
-                    {ModBlocks.jungleFloor, ModBlocks.jungleWall},
-                    {ModBlocks.crimzesFloor, ModBlocks.crimzesWall},
-                    {Blocks.water, Blocks.sandWall},
-
-            });
         }
         Block ore1 = ores.random();
         ores.remove(ore1);
         Block ore2 = ores.random();
-        double tr1 = (double) Mathf.random(0.65F, 0.85F);
-        double tr2 = (double) Mathf.random(0.65F, 0.85F);
-        boolean doheat = Mathf.chance(0.25D);
-        boolean tendrils = Mathf.chance(0.25D);
-        boolean tech = Mathf.chance(0.25D);
+        double tr1 = Mathf.random(0.65f, 0.85f);
+        double tr2 = Mathf.random(0.65f, 0.85f);
+        boolean doheat = Mathf.chance(0.25);
+        boolean tendrils = Mathf.chance(0.25);
+        boolean tech = Mathf.chance(0.25);
         int secSize = 10;
         Block floord = selected[0];
         Block walld = selected[1];
@@ -260,12 +240,12 @@ public class ModMenuShaderRenderer {
 
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                Block floor = floord;
+                Block floor = null;
                 Block ore = Blocks.air;
                 Block wall = Blocks.air;
 
                 if (Simplex.noise2d(s1, 3, 0.5, 1 / 20.0, x, y) > 0.5) {
-                    if (useWalls) {
+                    if (floord3 == null) {
                         wall = walld;
                     } else {
                         floor = floord3;
@@ -273,20 +253,23 @@ public class ModMenuShaderRenderer {
                 }
 
                 if (Simplex.noise2d(s3, 3, 0.5, 1 / 20.0, x, y) > 0.5) {
-                    if (!useWalls && floor != floord) {
-                        floor = floord4;
-                    } else
-                        floor = floord2;
-                    if (wall != Blocks.air && useWalls) {
-                        wall = walld2;
+                    boolean check = floord3 == null ? wall != Blocks.air : floor != null;
+                    floor = floord2;
+                    if (check) {
+                        if (floord4 != null) {
+                            floor = floord4;
+                            wall=Blocks.air;
+                        } else {
+                            wall = walld2;
+                        }
                     }
                 }
 
-                if (Simplex.noise2d(s2, 3, 0.3, 1 / 30.0, x, y) > tr1) {
+                if (Simplex.noise2d(s2, 3, 0.3, 1 / 30.0, x, y) > tr1 && BackgroundSettings.ore().enabled()) {
                     ore = ore1;
                 }
 
-                if (Simplex.noise2d(s2, 2, 0.2, 1 / 15.0, x, y + 99999) > tr2) {
+                if (Simplex.noise2d(s2, 2, 0.2, 1 / 15.0, x, y + 99999) > tr2 && BackgroundSettings.ore().enabled()) {
                     ore = ore2;
                 }
 
@@ -294,7 +277,7 @@ public class ModMenuShaderRenderer {
                     double heat = Simplex.noise2d(s3, 4, 0.6, 1 / 50.0, x, y + 9999);
                     double base = 0.65;
 
-                    if (heat > base) {
+                    if (heat > base && BackgroundSettings.heat().enabled()) {
                         ore = Blocks.air;
                         wall = Blocks.air;
                         floor = Blocks.basalt;
@@ -308,8 +291,8 @@ public class ModMenuShaderRenderer {
                         }
                     }
                 }
-
-                if (tech) {
+                tech &= !BackgroundSettings.tech().disabled();
+                if (tech || BackgroundSettings.tech().enable()) {
                     int mx = x % secSize, my = y % secSize;
                     int sclx = x / secSize, scly = y / secSize;
                     if (Simplex.noise2d(s1, 2, 1f / 10f, 0.5f, sclx, scly) > 0.4f && (mx == 0 || my == 0 || mx == secSize - 1 || my == secSize - 1)) {
@@ -325,7 +308,8 @@ public class ModMenuShaderRenderer {
                     }
                 }
 
-                if (tendrils) {
+                tendrils &= !BackgroundSettings.tendrils().disabled();
+                if (tendrils || BackgroundSettings.tendrils().enable()) {
                     if (Ridged.noise2d(1 + offset, x, y, 1f / 17f) > 0f) {
                         floor = Mathf.chance(0.2) ? Blocks.sporeMoss : Blocks.moss;
 
@@ -334,7 +318,7 @@ public class ModMenuShaderRenderer {
                         }
                     }
                 }
-
+                floor=floor==null?floord:floor;
                 Tile tile;
                 tiles.set(x, y, (tile = new CachedTile()));
                 tile.x = (short) x;
@@ -465,12 +449,11 @@ public class ModMenuShaderRenderer {
         if (flyerType == null) return;
         TextureRegion icon = this.flyerType.fullIcon;
         TextureRegion outline = this.flyerType.outlineRegion;
-        TextureRegion cellRegion = this.flyerType.cellRegion;
         float size = (float) Math.max(icon.width, icon.height) * Draw.scl * 1.6F;
-        int[] i= {0};
-        BackgroundUnitMovingType movingType = BackgroundSettings.unitMovingType();
-        if (movingType==BackgroundUnitMovingType.naval) {
-            flyers((x,y)->{
+        int[] i = {0};
+        BackgroundConfig.UnitMovingType movingType = BackgroundSettings.unitMovingType();
+        if (movingType == BackgroundConfig.UnitMovingType.naval) {
+            flyers((x, y) -> {
                 Trail tleft = flyersData[i[0]].tleft;
                 Trail tright = flyersData[i[0]].tright;
                 Color trailColor = flyersData[i[0]].trailColor;
@@ -495,7 +478,7 @@ public class ModMenuShaderRenderer {
                 Draw.z(z);
             });
         }
-        if (movingType==BackgroundUnitMovingType.flying){
+        if (movingType == BackgroundConfig.UnitMovingType.flying) {
             flyers((x, y) -> {
                 Draw.color(0.0F, 0.0F, 0.0F, 0.4F);
                 Draw.rect(outline, x - 12.0F, y - 13.0F, this.flyerRot - 90.0F);
@@ -511,7 +494,7 @@ public class ModMenuShaderRenderer {
             float engineOffset = this.flyerType.engineOffset;
             float engineSize = this.flyerType.engineSize;
             float rotation = this.flyerRot;
-            if (movingType==BackgroundUnitMovingType.flying){
+            if (movingType == BackgroundConfig.UnitMovingType.flying) {
                 Draw.color(Pal.engine);
                 Fill.circle(x + Angles.trnsx(rotation + 180.0F, engineOffset), y + Angles.trnsy(rotation + 180.0F, engineOffset), engineSize + Mathf.absin(Time.time, 2.0F, engineSize / 4.0F));
                 Draw.color(Color.white);
@@ -520,21 +503,26 @@ public class ModMenuShaderRenderer {
             Draw.color();
             Draw.rect(outline, x, y, this.flyerRot - 90.0F);
             Draw.rect(icon, x, y, this.flyerRot - 90.0F);
-            Draw.color(Team.sharded.color);
-            Draw.rect(cellRegion, x, y, this.flyerRot - 90.0F);
+//            Draw.color(Team.sharded.color);
+//            Draw.rect(cellRegion, x, y, this.flyerRot - 90.0F);
         });
     }
 
     private void flyers(Floatc2 cons) {
-        if (flyerType == null) return;
+        if (BackgroundSettings.units().disabled()) return;
         float tw = (float) (width * 8) * 1.0F + 8.0F;
         float th = (float) (height * 8) * 1.0F + 8.0F;
         float range = 500.0F;
         float offset = -100.0F;
         for (int i = 0; i < flyers; ++i) {
             Tmp.v1.trns(flyerRot, time * (2.0F + flyerType.speed));
-            float x = (Mathf.randomSeedRange((long) i, range) + Tmp.v1.x + Mathf.absin(time + Mathf.randomSeedRange((long) (i + 2), 500.0F), 10.0F, 3.4F) + offset) % (tw + (float) Mathf.randomSeed((long) (i + 5), 0, 500));
-            float y = (Mathf.randomSeedRange((long) (i + 1), range) + Tmp.v1.y + Mathf.absin(time + Mathf.randomSeedRange((long) (i + 3), 500.0F), 10.0F, 3.4F) + offset) % th;
+            float absinX = Mathf.absin(time + Mathf.randomSeedRange((long) (i + 2), 500.0F), 10.0F, 3.4F);
+            float absinY = Mathf.absin(time + Mathf.randomSeedRange((long) (i + 3), 500.0F), 10.0F, 3.4F);
+            if (BackgroundSettings.unitMovingType() != BackgroundConfig.UnitMovingType.flying) {
+                absinX = absinY = 0;
+            }
+            float x = (Mathf.randomSeedRange((long) i, range) + Tmp.v1.x + absinX + offset) % (tw + (float) Mathf.randomSeed((long) (i + 5), 0, 500));
+            float y = (Mathf.randomSeedRange((long) (i + 1), range) + Tmp.v1.y + absinY + offset) % th;
 
             cons.get(x, y);
         }

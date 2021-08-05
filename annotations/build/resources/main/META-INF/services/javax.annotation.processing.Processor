@@ -4,6 +4,6 @@ braindustry.annotations.dependencies.DependenciesProc
 braindustry.annotations.impl.ModAssetsProcess
 braindustry.annotations.misc.LogicStatementProcessor
 braindustry.annotations.misc.ModLoadRegionProcessor
-braindustry.annotations.ModEntities.ModEntitiesProc
+braindustry.annotations.modEntities.ModEntitiesProc
 braindustry.annotations.ModTypeIO.ObjectReadProcessor
 braindustry.annotations.remote.ModRemoteProcess

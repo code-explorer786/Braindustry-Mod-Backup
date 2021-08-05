@@ -2,79 +2,267 @@ package braindustry.annotations.backgroundMenu;
 
 import arc.struct.ObjectSet;
 import arc.struct.Seq;
-import arc.util.Log;
-import arc.util.Strings;
+import arc.util.io.Reads;
+import arc.util.io.Writes;
 import braindustry.annotations.ModAnnotations;
 import braindustry.annotations.ModBaseProcessor;
+import braindustry.annotations.remote.ModTypeIOResolver;
 import com.squareup.javapoet.*;
-import mindustry.annotations.util.Svar;
+import mindustry.annotations.util.*;
 
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
+import javax.lang.model.element.TypeElement;
 
-@SupportedAnnotationTypes("braindustry.annotations.ModAnnotations.BackgroundStyleSources")
+@SupportedAnnotationTypes({
+        "braindustry.annotations.ModAnnotations.BackgroundStyleSources",
+        "braindustry.annotations.ModAnnotations.TypeIOHandler",
+})
 public class BackgroundStylesProc extends ModBaseProcessor {
+    ObjectSet<String> imports = new ObjectSet<>();
+    TypeIOResolver.ClassSerializer serializer;
+    Seq<FieldSpec> allFieldSpecs = new Seq<>();
+    MethodSpec.Builder setMethodBuilder = MethodSpec.methodBuilder("set");
+    ClassName backgroundStyleClass, writesClass, readsClass, backgroundSettingsClass, seqClass;
+    String lastUsedKey = "braindustry.styles.lastUsed";
+
+    public static boolean instanceOf(String type, String other) {
+        TypeElement a = elementu.getTypeElement(type);
+        TypeElement b = elementu.getTypeElement(other);
+        return a != null && b != null && typeu.isSubtype(a.asType(), b.asType());
+    }
+
     @Override
     public void process(RoundEnvironment env) throws Exception {
-        Seq<Svar> fields = fields(ModAnnotations.BackgroundStyleSources.class);
-        TypeSpec.Builder builder = TypeSpec.classBuilder("BackgroundSettings").addModifiers(Modifier.PUBLIC);
-        ObjectSet<String> imports = new ObjectSet<>();
+        backgroundStyleClass = ClassName.bestGuess("BackgroundStyle");
+        backgroundSettingsClass = ClassName.bestGuess("BackgroundSettings");
+        writesClass = ClassName.get("braindustry.io", "ZelWrites");
+        readsClass = ClassName.get("braindustry.io", "ZelReads");
+        seqClass = ClassName.get("arc.struct", "Seq");
+        imports.clear();
+        allFieldSpecs.clear();
+        serializer = ModTypeIOResolver.resolve(this);
+
+        setMethodBuilder.addParameter(backgroundStyleClass, "other");
+
+
+        Seq<Selement> elements = elements(ModAnnotations.BackgroundStyleSources.class);
+        Seq<Svar> fields = elements.select(Selement::isVar).map(Selement::asVar);
+        Seq<Stype> classes = elements.select(Selement::isType).map(Selement::asType);
+        Seq<Smethod> methods = elements.select(Selement::isMethod).map(Selement::asMethod);
+
+        makeSettingsClass(fields, methods);
+        makeBackgroundStyleClass(fields, methods);
+    }
+
+    private void makeSettingsClass(Seq<Svar> fields, Seq<Smethod> methods) throws Exception {
+        TypeSpec.Builder settingsBuilder = TypeSpec.classBuilder("BackgroundSettings").addModifiers(Modifier.PUBLIC);
+
+        settingsBuilder.addField(FieldSpec.builder(backgroundStyleClass, "lastStyle", Modifier.STATIC, Modifier.PRIVATE).initializer("$T.load(\"\"+arc.Core.settings.get($S,$S))", backgroundStyleClass, lastUsedKey, "default").build());
+
+        settingsBuilder.addMethod(MethodSpec.methodBuilder("setLastStyle")
+                        .addParameter(String.class, "name")
+                .addStatement("lastStyle=$T.load(name)",backgroundStyleClass)
+                .addStatement("arc.Core.settings.put($S,name)",lastUsedKey)
+                        .build()
+        );
+
+        for (Smethod method : methods) {
+            MethodSpec.Builder builder = MethodSpec.methodBuilder(method.name())
+                    .addCode(method.tree().getBody().toString())
+                    .returns(method.retn())
+                    .addModifiers(method.tree().getModifiers().getFlags());
+            for (Svar param : method.params()) {
+                builder.addParameter(param.tname(), param.name());
+            }
+            settingsBuilder.addMethod(builder.build());
+        }
         for (Svar field : fields) {
-            imports.addAll(getImports(field.enclosingType().e));
             ModAnnotations.BackgroundStyleSources sources = field.annotation(ModAnnotations.BackgroundStyleSources.class);
-            String key = "background.style." + field.name();
-            String defValue = field.tree().getInitializer().toString();
-            //add stringName
-            builder.addField(FieldSpec.builder(TypeName.get(String.class), field.name()+"Key")
-                    .initializer("$S", key)
-                    .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
-                    .build()
-            );
-            boolean extraMethods = !sources.castMethodSet().equals("\n");
+
+            handleSettingField(settingsBuilder, imports, field, sources);
+        }
+
+        write(settingsBuilder, imports.asArray());
+    }
+
+    private void makeBackgroundStyleClass(Seq<Svar> fields, Seq<Smethod> methods) throws Exception {
+        TypeSpec.Builder styleBuilder = TypeSpec.classBuilder("BackgroundStyle")
+                .addModifiers(Modifier.PUBLIC)
+                .addMethod(MethodSpec.constructorBuilder().addModifiers(Modifier.PRIVATE).addParameter(String.class, "name").addStatement("this.name=name")
+                        .build())
+                .addField(String.class, "name", Modifier.PRIVATE);
+        styleBuilder.addField(FieldSpec.builder(writesClass, "write", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).initializer("new $T()", writesClass).build());
+        styleBuilder.addField(FieldSpec.builder(readsClass, "read", Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL).initializer("new $T()", readsClass).build());
+
+        //add name getter
+        styleBuilder.addMethod(MethodSpec.methodBuilder("name")
+                .returns(String.class)
+                .addModifiers(Modifier.PUBLIC)
+                .addStatement("return name")
+                .build());
+
+        for (Svar field : fields) {
+            ModAnnotations.BackgroundStyleSources sources = field.annotation(ModAnnotations.BackgroundStyleSources.class);
+            if (sources.setting()) continue;
+            handleStyleField(styleBuilder, field, sources);
+        }
+        BackgroundIO io = new BackgroundIO("BackgroundStyle", styleBuilder, allFieldSpecs, serializer, rootDirectory.child("annotations/src/main/resources/revisions").child("BackgroundStyle"));
+
+        //add read method
+        styleBuilder.addMethod(MethodSpec.methodBuilder("readBytes")
+                .addParameter(byte[].class, "bytes")
+                .addModifiers(Modifier.PUBLIC)
+                .addStatement("read.setBytes(bytes)")
+                .addStatement("read(read)")
+                .build());
+        MethodSpec.Builder readBuilder = MethodSpec.methodBuilder("read")
+                .addModifiers(Modifier.PUBLIC)
+                .addParameter(Reads.class, "read");
+        ;
+        io.write(readBuilder, false);
+        styleBuilder.addMethod(readBuilder.build());
+
+        //add write method
+        styleBuilder.addMethod(MethodSpec.methodBuilder("writeBytes")
+                .returns(byte[].class)
+                .addModifiers(Modifier.PUBLIC)
+                .addStatement("write.reset()")
+                .addStatement("write(write)")
+                .addStatement("return write.getBytes()")
+                .build());
+        MethodSpec.Builder writeBuilder = MethodSpec.methodBuilder("write")
+                .addModifiers(Modifier.PUBLIC)
+                .addParameter(Writes.class, "write");
+        io.write(writeBuilder, true);
+        styleBuilder.addMethod(writeBuilder.build());
+        ;
+
+        //load and save methods
+        styleBuilder.addMethod(MethodSpec.methodBuilder("save").addModifiers(Modifier.PUBLIC)
+                .addStatement("save(this)")
+                .build());
+        styleBuilder.addMethod(MethodSpec.methodBuilder("save")
+                .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                .addParameter(backgroundStyleClass, "style")
+                .addStatement("$T<$T> seq=$T.getStyles()", seqClass, backgroundStyleClass, backgroundSettingsClass)
+                .addStatement("seq.remove(style)")
+                .addStatement("seq.add(style)")
+                .addStatement("$T.saveStyles(seq)", backgroundSettingsClass)
+//                .addStatement("arc.Core.settings.put(\"braindustry.background.styles.\"+name,bytes)")
+                .build());
+        styleBuilder.addMethod(MethodSpec.methodBuilder("load")
+                .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                .addParameter(String.class, "name")
+                .returns(backgroundStyleClass)
+                .addStatement("$T<$T> seq=$T.getStyles()", seqClass, backgroundStyleClass, backgroundSettingsClass)
+                .addStatement("$T style=seq.find(s->s.name.equals(name))", backgroundStyleClass)
+                .beginControlFlow("if (style==null)")
+                .addStatement("style=new $T(name)", backgroundStyleClass)
+                .addStatement("seq.add(style)")
+                .addStatement("$T.saveStyles(seq)", backgroundSettingsClass)
+                .endControlFlow()
+                .addStatement("return style")
+                .build());
+        styleBuilder.addMethod(MethodSpec.methodBuilder("read")
+                .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                .addParameter(String.class, "name")
+                .addParameter(Reads.class, "read")
+                .returns(backgroundStyleClass)
+                .addStatement("$T style=new $T(name)", backgroundStyleClass, backgroundStyleClass)
+                .addStatement("style.read(read)")
+                .addStatement("return style")
+                .build());
+
+        //override equals
+        styleBuilder.addMethod(MethodSpec.methodBuilder("equals")
+                .addModifiers(Modifier.PUBLIC)
+                .returns(boolean.class)
+                .addParameter(Object.class, "obj")
+                .addAnnotation(Override.class)
+                .addStatement("return obj instanceof $T && (($T)obj).name.equals(name)", backgroundStyleClass, backgroundStyleClass)
+                .build());
+        //add rename method
+        styleBuilder.addMethod(MethodSpec.methodBuilder("rename")
+                .addParameter(String.class, "name")
+                .addModifiers(Modifier.PUBLIC)
+                .addStatement("$T<$T> seq=$T.getStyles()", seqClass, backgroundStyleClass, backgroundSettingsClass)
+                .addStatement("seq.remove(this)")
+                .addStatement("this.name=name")
+                .addStatement("seq.add(this)")
+                .addStatement("$T.saveStyles(seq)", backgroundSettingsClass)
+                .build());
+
+
+        write(styleBuilder, imports.asArray());
+    }
+
+    private void handleSettingField(TypeSpec.Builder builder, ObjectSet<String> imports, Svar field, ModAnnotations.BackgroundStyleSources sources) {
+        imports.addAll(getImports(field.enclosingType().e));
+        String key = "background.style." + field.name();
+        String defValue = field.tree().getInitializer().toString();
+        if (!field.tname().isBoxedPrimitive() && !field.tname().isPrimitive()) {
+            imports.add("import " + field.tname() + ";");
+        }
+        //add stringName
+        builder.addField(FieldSpec.builder(TypeName.get(String.class), field.name() + "Key")
+                .initializer("$S", key)
+                .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
+                .build()
+        );
+        TypeName typeName = field.tname();
+        if (sources.setting() && (field.tname().isPrimitive() || field.tname().isBoxedPrimitive())) {
+            typeName = typeName.isBoxedPrimitive() ? typeName.unbox() : typeName;
+            TypeName boxed = typeName.isPrimitive() ? typeName.box() : typeName;
             //add getter
-            String hardGetter = "get" + Strings.capitalize(field.name());
-            builder.addMethod(MethodSpec.methodBuilder(extraMethods ? hardGetter : field.name())
-                    .returns(field.tname())
-                    .addStatement("return ($T)arc.Core.settings.get($S,$L)", field.tname(), key, defValue)
-                    .addModifiers(extraMethods ? Modifier.PRIVATE : Modifier.PUBLIC, Modifier.STATIC)
+            builder.addMethod(MethodSpec.methodBuilder(field.name())
+                    .returns(typeName)
+                    .addStatement("if(!(arc.Core.settings.get($S,$L) instanceof $T))$L($L)", key, defValue, boxed, field.name(), defValue)
+                    .addStatement("return ($T)arc.Core.settings.get($S,$L)", typeName, key, defValue)
+                    .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
                     .build());
             //add setter
-            String hardSetter = "set" + Strings.capitalize(field.name());
-            builder.addMethod(MethodSpec.methodBuilder(extraMethods ? hardSetter : field.name())
-                    .addParameter(field.tname(), "value")
-                    .addStatement("arc.Core.settings.put($S,value)", key)
-                    .addModifiers(extraMethods ? Modifier.PRIVATE : Modifier.PUBLIC, Modifier.STATIC)
+            builder.addMethod(MethodSpec.methodBuilder(field.name())
+                    .addParameter(typeName, "value")
+                    .addStatement("arc.Core.settings.put($S,value)", field.name())
+                    .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
                     .build());
-            if (extraMethods) {
-                String methodGet = sources.castMethodGet();
-                String preGet = methodGet.substring(0, methodGet.indexOf("@"));
-                String postGet = methodGet.substring(methodGet.indexOf("@") + 1);
-                String methodSet = sources.castMethodSet();
-                String preSet = methodSet.substring(0, methodSet.indexOf("@"));
-                String postSet = methodSet.substring(methodSet.indexOf("@") + 1);
-                String clazz = sources.clazz();
-                ClassName type = ClassName.bestGuess(clazz);
-
-                boolean getCast=preGet.startsWith("("+clazz+")");
-                String getter = Strings.format("@@()@",!getCast?preGet: preGet.substring(("(" + clazz + ")").length()), hardGetter, postGet);
-                //add getter
-                builder.addMethod(MethodSpec.methodBuilder(field.name())
-                        .returns(type)
-                        .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
-                        .addStatement("return $L()==$L || !($L instanceof $L)?null:($L)$L", hardGetter, sources.noDefError()?-1:defValue, getter, clazz, clazz,getter)
-                        .build());
-                //add setter
-                builder.addMethod(MethodSpec.methodBuilder(field.name())
-                        .addParameter(type, "value")
-                        .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
-                        .addStatement("$L(value==null?$L:$Lvalue$L)", hardSetter, defValue, preSet, postSet)
-                        .build());
-
-            }
+        } else {
+            //add getter
+            builder.addMethod(MethodSpec.methodBuilder(field.name())
+                    .returns(typeName)
+                    .addStatement("return lastStyle==null?$L:lastStyle.$L()", defValue, field.name())
+                    .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                    .build());
+            //add setter
+            builder.addMethod(MethodSpec.methodBuilder(field.name())
+                    .addParameter(typeName, "value")
+                    .addStatement("if (lastStyle!=null)lastStyle.$L(value)", field.name())
+                    .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                    .build());
         }
-        write(builder, imports.asArray());
+    }
+
+    private void handleStyleField(TypeSpec.Builder styleBuilder, Svar field, ModAnnotations.BackgroundStyleSources sources) {
+        FieldSpec fieldSpec = FieldSpec.builder(field.tname(), field.name(), Modifier.PRIVATE).initializer(field.tree().getInitializer().toString()).build();
+        styleBuilder.addField(fieldSpec);
+        allFieldSpecs.add(fieldSpec);
+        setMethodBuilder.addStatement("$L=$L", field.name(), field.tree().getInitializer());
+        styleBuilder.addMethod(MethodSpec.methodBuilder(field.name())
+                .returns(field.tname())
+                .addStatement("return $L", field.name())
+                .addModifiers(Modifier.PUBLIC)
+                .build()
+        );
+        styleBuilder.addMethod(MethodSpec.methodBuilder(field.name())
+                .addParameter(field.tname(), field.name())
+                .addStatement("this.$L=$L", field.name(), field.name())
+                .addStatement("save()")
+                .addModifiers(Modifier.PUBLIC)
+                .build()
+        );
     }
 
     Seq<String> getImports(Element elem) {

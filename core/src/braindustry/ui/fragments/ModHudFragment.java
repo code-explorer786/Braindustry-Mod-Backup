@@ -13,6 +13,7 @@ import arc.scene.ui.layout.Stack;
 import arc.scene.ui.layout.Table;
 import arc.struct.SnapshotSeq;
 import arc.util.Log;
+import arc.util.Time;
 import arc.util.Tmp;
 import braindustry.BDVars;
 import braindustry.gen.Stealthc;
@@ -72,7 +73,7 @@ public class ModHudFragment {
         }
         BDVars.modLog("ModHudFragment.midInit()");
 
-        SideBar sideBar = new SideBar(() -> Mathf.num(!player.shooting), () -> true, false);
+        SideBar sideBar = new SideBar(() -> 1f-player.unit().ammof(), () -> true, false);
         float bw = 40f*3f/4f;
         float pad = -20;
         Table overlaymarker = ui.hudGroup.find("overlaymarker");
@@ -82,7 +83,7 @@ public class ModHudFragment {
         Cell cell = table.getCells().get(2);
         cell.setElement(new Stack(cell.get(),sideBar));
         sideBar.update(()->{
-           sideBar.color.set(Pal.heal);
+           sideBar.color.set(new Color().fromHsv(0f,Mathf.absin(Time.time,0.5f,0.5f),Mathf.sin(Time.time)));
         });
 //        table.add(sideBar).width(bw).growY().padLeft(pad)
 //                .update(b -> b.color.set(Pal.heal));

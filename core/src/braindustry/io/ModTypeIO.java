@@ -1,5 +1,7 @@
 package braindustry.io;
 
+import arc.math.Mathf;
+import braindustry.tools.BackgroundConfig;
 import gas.io.GasTypeIO;
 import gas.type.Gas;
 import arc.math.geom.Point2;
@@ -28,10 +30,47 @@ import mindustry.gen.Unit;
 import mindustry.io.TypeIO;
 import mindustry.logic.LAccess;
 import mindustry.type.UnitType;
+import mindustry.world.Block;
 import mindustry.world.blocks.ControlBlock;
+import mindustry.world.blocks.environment.Floor;
+import mindustry.world.blocks.environment.StaticWall;
 
 @ModAnnotations.TypeIOHandler
 public class ModTypeIO extends TypeIO {
+    public static void writeUnitMovingType(Writes writes, BackgroundConfig.UnitMovingType viewType) {
+        writes.s(viewType.ordinal());
+    }
+    public static BackgroundConfig.UnitMovingType readUnitMovingType(Reads read){
+        return BackgroundConfig.UnitMovingType.values()[Mathf.mod(read.s(), BackgroundConfig.UnitMovingType.values().length)];
+    }
+    public static void writeState(Writes writes, BackgroundConfig.State viewType) {
+        writes.s(viewType.ordinal());
+    }
+    public static BackgroundConfig.State readState(Reads read){
+        return BackgroundConfig.State.values()[Mathf.mod(read.s(), BackgroundConfig.State.values().length)];
+    }
+    public static void writeViewType(Writes writes, BackgroundConfig.ViewType viewType) {
+        writes.s(viewType.ordinal());
+    }
+    public static BackgroundConfig.ViewType readViewType(Reads read){
+        return BackgroundConfig.ViewType.values()[Mathf.mod(read.s(), BackgroundConfig.ViewType.values().length)];
+    }
+    public static void writeStaticWall(Writes writes, StaticWall staticWall) {
+        writes.s(staticWall==null?-1:staticWall.id);
+    }
+    public static StaticWall readStaticWall(Reads read){
+        short s = read.s();
+        Block staticWall=s==-1?null:Vars.content.block(s);
+        return staticWall instanceof StaticWall? (StaticWall) staticWall :null;
+    }
+    public static void writeFloor(Writes writes, Floor floor) {
+        writes.s(floor==null?-1:floor.id);
+    }
+    public static Floor readFloor(Reads read){
+        short s = read.s();
+        Block floor=s==-1?null:Vars.content.block(s);
+        return floor instanceof Floor? (Floor) floor :null;
+    }
     public static void writeBuilderDrawer(Writes writes,BuilderDrawer builderDrawer) {
         writeBuilding(writes, (Building) builderDrawer);
     }

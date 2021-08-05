@@ -226,7 +226,6 @@ project(":tools") {
 project(":annotations") {
     apply plugin: "java-library"
     dependencies {
-//        depe
         implementation 'com.squareup:javapoet:1.12.1'
         implementation arcModule('arc-core')
         implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersionAnnotations"

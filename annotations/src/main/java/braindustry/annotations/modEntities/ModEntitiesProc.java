@@ -1,4 +1,4 @@
-package braindustry.annotations.ModEntities;
+package braindustry.annotations.modEntities;
 
 import arc.files.Fi;
 import arc.func.Cons;

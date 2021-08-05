@@ -1,0 +1,1 @@
+{version:1,fields:[{name:hasFloor3,type:boolean},{name:hasFloor4,type:boolean},{name:seed,type:int},{name:useSeed,type:boolean}]}

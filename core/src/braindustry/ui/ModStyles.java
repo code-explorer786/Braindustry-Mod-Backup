@@ -33,6 +33,7 @@ public class ModStyles {
             over = ModTex.buttonPaneOver;
             down = ModTex.buttonPaneDown;
             up = disabled = pane;
+            checked=ModTex.buttonPaneOver;
         }};
         buttonPaneTop = new TextButton.TextButtonStyle(Styles.defaultt) {{
             over = ModTex.buttonPaneTopOver;

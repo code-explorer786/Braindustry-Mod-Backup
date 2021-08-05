@@ -8,14 +8,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 public class ModAnnotations {
-    @Target({ElementType.FIELD})
+    @Target({ElementType.FIELD,ElementType.METHOD})
     @Retention(RetentionPolicy.SOURCE)
     public @interface BackgroundStyleSources {
-        String castMethodSet()default "\n";
-        String castMethodGet()default "\n";
-        String clazz() default "\n";
-
-        boolean noDefError()default false;
+        boolean setting()default false;
     }
 
     @Target({ElementType.METHOD})

@@ -24,7 +24,7 @@ import braindustry.gen.ModTex;
 import braindustry.gen.Stealthc;
 import braindustry.input.ModBinding;
 import braindustry.ui.ModStyles;
-import braindustry.ui.dialogs.BackgroundStyle;
+import braindustry.ui.dialogs.BackgroundStyleDialog;
 import braindustry.ui.dialogs.ModColorPicker;
 import braindustry.ui.fragments.ModHudFragment;
 import braindustry.ui.fragments.ModMenuFragment;
@@ -55,7 +55,7 @@ public class ModUI implements Disposable, ApplicationListener {
     }
 
     public ModColorPicker colorPicker;
-    public BackgroundStyle backgroundStyle;
+    public BackgroundStyleDialog backgroundStyleDialog;
     private boolean inited=false;
 
     public ModUI() {
@@ -113,7 +113,7 @@ public class ModUI implements Disposable, ApplicationListener {
         });
 
         colorPicker = new ModColorPicker();
-        backgroundStyle = new BackgroundStyle();
+        backgroundStyleDialog = new BackgroundStyleDialog();
         otherSettingsDialog = new ModOtherSettingsDialog();
         settingsDialog = new ModSettingsDialog();
     }
