@@ -23,11 +23,10 @@ public class AnukeCompDownloader {
 
             String mindustryVersion = Seq.with(args).find(s -> s.startsWith("v"));
             if (dir.exists()) dir.delete();
-//            dir.mkdirs();
             folder.mkdirs();
             Fi compJava = folder.child("compJava");
             Fi finalComp = folder.child("finalComp");
-            boolean downloadNew = false, log = false;
+            boolean downloadNew = false;
 
             Fi version = new Fi("compDownloader").child("version.txt");
             Fi sourcesFi = new Fi("compDownloader").child("sources.zip");
@@ -35,15 +34,12 @@ public class AnukeCompDownloader {
                 downloadNew = true;
                 version.writeString(mindustryVersion);
             }
-//        URL sourceZipLink = ;https://codeload.github.com/Anuken/Mindustry/zip/refs/tags/v126.2
-
             if (downloadNew || !sourcesFi.exists()) {
                 Log.info("downloading new version");
                 Time.mark();
                 FileUtils.copyURLToFile(new URL("https://codeload.github.com/Anuken/Mindustry/zip/refs/tags/" + mindustryVersion), sourcesFi.file(), 10000, 10000);
                 Log.info("Time to download: @ms", Time.elapsed());
             }
-
             ZipFi sourceZip = new ZipFi(sourcesFi);
 
             Fi child = sourceZip.list()[0].child("core").child("src").child("mindustry").child("entities").child("comp");
@@ -51,20 +47,10 @@ public class AnukeCompDownloader {
                 fi.copyTo(compJava.child(fi.name()));
             }
             for (Fi fi : compJava.list()) {
-//            Log.info("@",fi);
-            }
-//        String serverLink = "https://w3g3a5v6.ssl.hwcdn.net/build/377240/1442306-archive-default?GoogleAccessId=uploader@moonscript2.iam.gserviceaccount.com&Expires=1624227195&Signature=bqM%2BK32GOMC7d1pA2KOd6xPjykHoyGHESSD5wraKzEnK%2BZf096h3lekhXg0615y0IkYIC%2BsqHVbDuOePan74h5TN42ZI0Jwo6UU%2B8%2FFVt%2BUUzVzfj8jhDZXPurs802PqNic7u1H9RdjnAl2ad2o98kBVYdOtuDc2v2KhhddnqT4dLxswIV1RdQjCtBtCnoJpt6wjWKL0Mo3RgiekHdcoswkZK1JlF%2B2fDfGzqRGHIBIVpU8yRpVNb8z3G%2BuO5u3jzVEHgoCnJr8glKMfacd9Wkoo%2Bn02EY0d0LZyO0lo3QuOBcA9AF%2FetLWfdtullTb2wpOO5ZbD1eb8KKN7J9DPWw==&hwexp=1624227455&hwsig=c472a60f0541e4cd5a1c2382fc52f0ce";
-//            String serverLink = "https://github.com/Anuken/Mindustry/releases/download/v126.2/server-release.jar";
-
-            for (Fi fi : compJava.list()) {
                 if (fi.isDirectory()) continue;
                 String className = fi.nameWithoutExtension();
                 selectedClassName = className;
-                if (className.equals("MinerComp")) {
-//                    Log.info("MinerComp\n@",fi.readString());
-                }
                 if (Seq.with("BuildingComp", "BulletComp", "DecalComp", "EffectStateComp", "FireComp", "LaunchCoreComp", "PlayerComp", "PuddleComp").contains(className)) {
-//                    Log.info("@ skipped", className);
                     compJava.child(fi.name()).delete();
                     finalComp.child(fi.name()).delete();
                     continue;
@@ -82,8 +68,6 @@ public class AnukeCompDownloader {
                     Log.info("@ skipped", className);
                     continue;
                 }
-
-//                Log.info("" + fi.name());
                 String file = fi.readString();
                 String convert = codeConverter.convert(file,className);
                 String string = convert
@@ -103,15 +87,13 @@ public class AnukeCompDownloader {
                                                  "    }");
                 finalComp.child(fi.name()).writeString(string);
             }
-//            finalComp.copyTo(dir);
             Seq<String> names = new Seq<>();
             for (Fi fi : finalComp.list()) {
                 fi.copyTo(dir.child(fi.name()));
                 names.add(fi.nameWithoutExtension());
             }
             StringBuilder file = new StringBuilder();
-            file.append("package braindustry.entities.compByAnuke;\n" +
-                        "\n" +
+            file.append("package braindustry.entities.compByAnuke;\n\n" +
                         "import braindustry.annotations.ModAnnotations;\n" +
                         "import mindustry.gen.Unitc;\n" +
                         "public class AnnotationConfigComponents {");
@@ -125,7 +107,6 @@ public class AnukeCompDownloader {
             file.append("\n}");
             dir.child("AnnotationConfigComponents.java").writeString(file.toString());
             System.out.println(Strings.format("Time taken: @s", Time.nanosToMillis(Time.timeSinceNanos(nanos)) / 1000f));
-//        }
         } catch (Exception e) {
             e.printStackTrace();
         }

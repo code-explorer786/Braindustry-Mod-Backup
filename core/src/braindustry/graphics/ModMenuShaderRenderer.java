@@ -136,7 +136,7 @@ public class ModMenuShaderRenderer {
         }
         this.camera = new Camera();
         this.mat = new Mat();
-        Mathf.rand.setSeed(BackgroundSettings.useSeed() ? BackgroundSettings.seed() : System.nanoTime());
+        Mathf.rand.setSeed(BackgroundSettings.useSeed() && BackgroundSettings.useStyles() ? BackgroundSettings.seed() : System.nanoTime());
         this.time = 0.0F;
         this.flyerRot = 45.0F;
         this.flyers = Mathf.chance(0.2D) ? Mathf.random(35) : Mathf.random(15);

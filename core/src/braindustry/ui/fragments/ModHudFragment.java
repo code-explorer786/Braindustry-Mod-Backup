@@ -7,11 +7,14 @@ import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.math.Mathf;
 import arc.scene.Element;
+import arc.scene.ui.layout.Cell;
+import arc.scene.ui.layout.Scl;
 import arc.scene.ui.layout.Stack;
 import arc.scene.ui.layout.Table;
 import arc.struct.SnapshotSeq;
 import arc.util.Log;
 import arc.util.Tmp;
+import braindustry.BDVars;
 import braindustry.gen.Stealthc;
 import braindustry.graphics.ModPal;
 import braindustry.graphics.ModShaders;
@@ -23,24 +26,15 @@ import static mindustry.Vars.ui;
 
 public class ModHudFragment {
     public static void init() {
+        BDVars.modLog("ModHudFragment.startInit()");
 
-        try{
+        try {
             Table overlaymarker = ui.hudGroup.find("overlaymarker");
             Table mobile_buttons = overlaymarker.find("mobile buttons");
             Table status = overlaymarker.<Stack>find("waves/editor").<Table>find("waves").<Table>find("status");
             Stack stack = status.<Stack>find(el -> el.getClass().getSimpleName().equals("Stack") && el.toString().contains("HudFragment$1"));
             SnapshotSeq<Element> children = stack.getChildren();
             int fragIndex = children.indexOf(el -> el.getClass().getSimpleName().equals("HudFragment$1") || el.toString().equals("HudFragment$1"));
-            if (fragIndex == -1) {
-                Log.info("status_ERROR: @", status);
-                Log.info("stack_ERROR: @", stack);
-                return;
-            }
-            if (fragIndex == -1) {
-                Log.info("status_ERROR: @", status);
-                Log.info("stack_ERROR: @", stack);
-                return;
-            }
             if (fragIndex == -1) {
                 Log.info("status_ERROR: @", status);
                 Log.info("stack_ERROR: @", stack);
@@ -62,26 +56,40 @@ public class ModHudFragment {
                     float radius = height / Mathf.sqrt3;
                     Fill.poly(x + width / 2f, y + height / 2f, 6, radius);
                     Draw.reset();
-                    if (me) {
-                        Stealthc unit = player.unit().as();
-                        float offset = unit.stealthf();
-                        Draw.color(ModPal.stealthBarColor);
-                        ModShaders.iconBackgroundShader.set(y + (radius * 2f) * offset);
-                        Fill.poly(x + width / 2f, y + height / 2f, 6, radius);
-                        Draw.shader();
-                        Draw.reset();
-                    }
+                    Stealthc unit = player.unit().as();
+                    float offset = unit.stealthf();
+                    Draw.color(ModPal.stealthBarColor);
+                    ModShaders.iconBackgroundShader.set(y + (radius * 2f) * offset);
+                    Fill.poly(x + width / 2f, y + height / 2f, 6, radius);
+                    Draw.shader();
+                    Draw.reset();
                     Drawf.shadow(x + width / 2f, y + height / 2f, height * 1.13f);
                 }
             };
             children.set(fragIndex, unitBackground);
-            return;
-        } catch (Exception e){
-            Log.err("cannot load stealtBar reason: @",e);
+        } catch (Exception e) {
+            Log.err("cannot load stealtBar reason: @", e);
         }
+        BDVars.modLog("ModHudFragment.midInit()");
+
+        SideBar sideBar = new SideBar(() -> Mathf.num(!player.shooting), () -> true, false);
+        float bw = 40f*3f/4f;
+        float pad = -20;
+        Table overlaymarker = ui.hudGroup.find("overlaymarker");
+        Table status = overlaymarker.<Stack>find("waves/editor").<Table>find("waves").<Table>find("status");
+        Stack stack = status.<Stack>find(el -> el.getClass().getSimpleName().equals("Stack") && el.toString().contains("HudFragment$1"));
+        Table table = (Table) stack.getChildren().get(1);
+        Cell cell = table.getCells().get(2);
+        cell.setElement(new Stack(cell.get(),sideBar));
+        sideBar.update(()->{
+           sideBar.color.set(Pal.heal);
+        });
+//        table.add(sideBar).width(bw).growY().padLeft(pad)
+//                .update(b -> b.color.set(Pal.heal));
+        BDVars.modLog("ModHudFragment.endInit()");
     }
 
-    static class SideBar extends Element {
+    static class SideBar extends arc.scene.Element {
         public final Floatp amount;
         public final boolean flip;
         public final Boolp flash;
@@ -112,6 +120,9 @@ public class ModHudFragment {
 
             if (Float.isNaN(value) || Float.isInfinite(value)) value = 1f;
 
+//            width=Scl.scl(20f);
+            x+=width/2f * 0.35f;
+
             drawInner(Pal.darkishGray, 1f);
             drawInner(Tmp.c1.set(color).lerp(Color.white, blink), value);
         }
@@ -125,26 +136,27 @@ public class ModHudFragment {
                 width = -width;
             }
 
-            float stroke = width * 0.35f;
+            float stroke = width * 0.35f/2f;
             float bh = height / 2f;
             Draw.color(color);
 
             float f1 = Math.min(fract * 2f, 1f), f2 = (fract - 0.5f) * 2f;
 
-            float bo = -(1f - f1) * (width - stroke);
+            float realWidth = width - stroke-stroke;
+            float bo = -(1f - f1) * realWidth;
 
             Fill.quad(
                     x, y,
                     x + stroke, y,
-                    x + width + bo, y + bh * f1,
-                    x + width - stroke + bo, y + bh * f1
+                    x + realWidth+stroke + bo, y + bh * f1,
+                    x + realWidth + bo, y + bh * f1
             );
 
             if (f2 > 0) {
-                float bx = x + (width - stroke) * (1f - f2);
+                float bx = x + realWidth * (1f - f2);
                 Fill.quad(
-                        x + width, y + bh,
-                        x + width - stroke, y + bh,
+                        x + realWidth+stroke, y + bh,
+                        x + realWidth, y + bh,
                         bx, y + height * fract,
                         bx + stroke, y + height * fract
                 );

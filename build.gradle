@@ -1,7 +1,7 @@
 buildscript {
     ext {
         arcHash = '128'
-        mindustryVersion = 'v129.1'
+        mindustryVersion = 'v129.2'
         mindustryVersionAnnotations = 'v126.2'
         aciVersion = 'v1.2'
         gassesVersion = 'v1.2'
@@ -16,7 +16,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.github.anuken:packr:-SNAPSHOT"
+        classpath "com.github.Anuken:packr:-SNAPSHOT"
 //        classpath "com.github.Anuken.Arc:packer:$mindustryVersion"
         classpath "com.github.Anuken.Arc:arc-core:$mindustryVersion"
         classpath "com.github.Anuken.Arc:arc-core:$mindustryVersion"

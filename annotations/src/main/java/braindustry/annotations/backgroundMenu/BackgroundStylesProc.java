@@ -56,11 +56,14 @@ public class BackgroundStylesProc extends ModBaseProcessor {
                 String postSet = methodSet.substring(methodSet.indexOf("@") + 1);
                 String clazz = sources.clazz();
                 ClassName type = ClassName.bestGuess(clazz);
+
+                boolean getCast=preGet.startsWith("("+clazz+")");
+                String getter = Strings.format("@@()@",!getCast?preGet: preGet.substring(("(" + clazz + ")").length()), hardGetter, postGet);
                 //add getter
                 builder.addMethod(MethodSpec.methodBuilder(field.name())
                         .returns(type)
                         .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
-                        .addStatement("return $L()==$L?null:$L$L()$L", hardGetter, sources.noDefError()?-1:defValue, preGet, hardGetter, postGet)
+                        .addStatement("return $L()==$L || !($L instanceof $L)?null:($L)$L", hardGetter, sources.noDefError()?-1:defValue, getter, clazz, clazz,getter)
                         .build());
                 //add setter
                 builder.addMethod(MethodSpec.methodBuilder(field.name())
