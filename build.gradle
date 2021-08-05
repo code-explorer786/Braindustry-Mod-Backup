@@ -5,7 +5,7 @@ buildscript {
         mindustryVersionAnnotations = 'v126.2'
         aciVersion = 'v1.2'
         gassesVersion = 'v1.2'
-        modsDirectory="classic"
+        modsDirectory = "classic"
     }
     repositories {
         mavenLocal()
@@ -226,6 +226,7 @@ project(":tools") {
 project(":annotations") {
     apply plugin: "java-library"
     dependencies {
+//        depe
         implementation 'com.squareup:javapoet:1.12.1'
         implementation arcModule('arc-core')
         implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersionAnnotations"

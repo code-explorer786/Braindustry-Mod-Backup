@@ -9,19 +9,26 @@ import arc.util.Time;
 import org.apache.commons.io.FileUtils;
 
 import java.net.URL;
+import java.util.Arrays;
 
 public class AnukeCompDownloader {
+    private static final String packageName = "braindustry", annotationsClassName = "ModAnnotations";
+    private static final JavaCodeConverter codeConverter = new JavaCodeConverter(false);
     private static String selectedClassName = "";
-    private static JavaCodeConverter codeConverter=new JavaCodeConverter();
 
     public static void main(String[] args) {
-        Log.info("[@]", Seq.with(args).toString(", "));
+        String mindustryVersion = Seq.with(args).find(s -> s.startsWith("v"));
+        if (mindustryVersion==null){
+            System.out.println("Please put mindustry version in args!!!");
+            System.exit(1);
+            return;
+        }
+        Log.info("Checking Anuke's comps for "+mindustryVersion);
         Fi folder = new Fi("debug");
         try {
             long nanos = System.nanoTime();
-            Fi dir = new Fi("core/src/braindustry/entities/compByAnuke");
+            Fi dir = new Fi("core/src/" + packageName + "/entities/compByAnuke");
 
-            String mindustryVersion = Seq.with(args).find(s -> s.startsWith("v"));
             if (dir.exists()) dir.delete();
             folder.mkdirs();
             Fi compJava = folder.child("compJava");
@@ -35,10 +42,12 @@ public class AnukeCompDownloader {
                 version.writeString(mindustryVersion);
             }
             if (downloadNew || !sourcesFi.exists()) {
-                Log.info("downloading new version");
+                Log.info("Downloading new comps version");
                 Time.mark();
                 FileUtils.copyURLToFile(new URL("https://codeload.github.com/Anuken/Mindustry/zip/refs/tags/" + mindustryVersion), sourcesFi.file(), 10000, 10000);
                 Log.info("Time to download: @ms", Time.elapsed());
+            } else {
+                Log.info("Game version and comps version are the same");
             }
             ZipFi sourceZip = new ZipFi(sourcesFi);
 
@@ -69,17 +78,17 @@ public class AnukeCompDownloader {
                     continue;
                 }
                 String file = fi.readString();
-                String convert = codeConverter.convert(file,className);
+                String convert = codeConverter.convert(file, className);
                 String string = convert
                         .replace("var core = team.core();", "mindustry.world.blocks.storage.CoreBlock.CoreBuild core = team.core();")
                         .replace("var core = core();", "mindustry.world.blocks.storage.CoreBlock.CoreBuild core = core();")
-                        .replace("var entry = statuses.find(e -> e.effect == effect);","StatusEntry entry = statuses.find(e -> e.effect == effect);")
-                        .replace("package mindustry.entities.comp;", "package braindustry.entities.compByAnuke;")
+                        .replace("var entry = statuses.find(e -> e.effect == effect);", "StatusEntry entry = statuses.find(e -> e.effect == effect);")
+                        .replace("package mindustry.entities.comp;", "package " + packageName + ".entities.compByAnuke;")
                         .replace("import static mindustry.logic.GlobalConstants.*;",
                                 "import static mindustry.logic.GlobalConstants.*;\n" + "import static mindustry.logic.LAccess.*;")
                         .replace("@Override", "__OVERRIDE__")
                         .replace("@Nullable", "__NULLABLE__")
-                        .replace("@", "@braindustry.annotations.ModAnnotations.")
+                        .replace("@", "@" + packageName + ".annotations." + annotationsClassName + ".")
                         .replace("__OVERRIDE__", "@Override")
                         .replace("__NULLABLE__", "@Nullable");
                 string = string.replace("};\n" +
@@ -93,14 +102,14 @@ public class AnukeCompDownloader {
                 names.add(fi.nameWithoutExtension());
             }
             StringBuilder file = new StringBuilder();
-            file.append("package braindustry.entities.compByAnuke;\n\n" +
-                        "import braindustry.annotations.ModAnnotations;\n" +
+            file.append("package " + packageName + ".entities.compByAnuke;\n\n" +
+                        "import " + packageName + ".annotations." + annotationsClassName + ";\n" +
                         "import mindustry.gen.Unitc;\n" +
                         "public class AnnotationConfigComponents {");
             for (String name : names) {
                 if (!name.endsWith("Comp")) continue;
                 String interfaceName = interfaceName(name);
-                file.append(Strings.format("@ModAnnotations.EntitySuperClass\n" +
+                file.append(Strings.format("@" + annotationsClassName + ".EntitySuperClass\n" +
                                            "    public static interface @ extends mindustry.gen.@{\n" +
                                            "    }", "@", interfaceName, interfaceName)).append("\n");
             }
@@ -111,7 +120,7 @@ public class AnukeCompDownloader {
             e.printStackTrace();
         }
         folder.deleteDirectory();
-        folder.walk(f->f.delete());
+        folder.walk(f -> f.delete());
         folder.delete();
     }
 
