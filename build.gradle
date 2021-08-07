@@ -4,7 +4,7 @@ buildscript {
         mindustryVersion = 'v129.2'
         mindustryVersionAnnotations = 'v126.2'
         aciVersion = 'v1.2'
-        gassesVersion = 'v1.3'
+        gassesVersion = 'v1.4'
         modsDirectory = "classic"
     }
     repositories {

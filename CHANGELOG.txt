@@ -9,3 +9,5 @@
 -added rotators to MultiRotatorDrill icon
 -Gas and AdvancedContentInfo are now independent libraries
 -added rotatorsCount stat to MultiRotatorDrill
+-made SmartRouter controllable by logic
+-made SmartSorter controllable by logic
