@@ -132,15 +132,13 @@ public class StealthUnitType extends ModUnitType {
         Leg[] legs = ((Legsc)unit).legs();
         float ssize = (float)this.footRegion.width * Draw.scl * 1.5F;
         float rotation = ((Legsc)unit).baseRotation();
-        int i = legs.length;
 
-        for(int var7 = 0; var7 <legs.length; ++var7) {
-            Leg leg = legs[var7];
+        for (Leg leg : legs) {
             Drawf.shadow(leg.base.x, leg.base.y, ssize);
         }
 
         for(int j = legs.length - 1; j >= 0; --j) {
-            i = j % 2 == 0 ? j / 2 : legs.length - 1 - j / 2;
+            int i = j % 2 == 0 ? j / 2 : legs.length - 1 - j / 2;
             Leg leg = legs[i];
             float angle = ((Legsc)unit).legAngle(rotation, i);
             boolean flip = (float)i >= (float)legs.length / 2.0F;

@@ -1,20 +1,22 @@
 package braindustry.io;
 
 import arc.math.Mathf;
-import braindustry.tools.BackgroundConfig;
-import gas.io.GasTypeIO;
-import gas.type.Gas;
 import arc.math.geom.Point2;
 import arc.math.geom.Vec2;
 import arc.struct.IntSeq;
+import arc.struct.Seq;
 import arc.util.Nullable;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
 import braindustry.annotations.ModAnnotations;
 import braindustry.entities.BuilderDrawer;
 import braindustry.gen.ObjectOperations;
+import braindustry.gen.OrbitalPlatform;
 import braindustry.gen.Stealthc;
 import braindustry.gen.WritableInterface;
+import braindustry.tools.BackgroundConfig;
+import gas.io.GasTypeIO;
+import gas.type.Gas;
 import mindustry.Vars;
 import mindustry.content.TechTree;
 import mindustry.ctype.ContentType;
@@ -33,52 +35,115 @@ import mindustry.type.UnitType;
 import mindustry.world.Block;
 import mindustry.world.blocks.ControlBlock;
 import mindustry.world.blocks.environment.Floor;
+import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.environment.StaticWall;
 
 @ModAnnotations.TypeIOHandler
 public class ModTypeIO extends TypeIO {
+    public static void writeOrbitalPlatform(Writes write, OrbitalPlatform platform){
+        platform.write(write);
+    }
+    public static OrbitalPlatform readOrbitalPlatform(Reads read){
+        OrbitalPlatform orbitalPlatform = OrbitalPlatform.create();
+        orbitalPlatform.read(read);
+        return orbitalPlatform;
+    }
+    public static void writeInteger(Writes write, Integer integer) {
+        write.i(integer);
+    }
+
+    public static Integer readInteger(Reads read) {
+        return read.i();
+    }
+
+    public static void writeSeqBuilding(Writes write, Seq<Building> buildings) {
+        write.i(buildings.size);
+        for (Building building : buildings) {
+            writeBuilding(write, building);
+        }
+    }
+
+    public static Seq<Building> readSeqBuilding(Reads read) {
+        Seq<Building> buildings = new Seq<>();
+        int size = read.i();
+        for (int i = 0; i < size; i++) {
+            buildings.add(readBuilding(read));
+        }
+        return buildings;
+    }
+
     public static void writeUnitMovingType(Writes writes, BackgroundConfig.UnitMovingType viewType) {
-        writes.s(viewType.ordinal());
+        writeEnum(writes, viewType);
     }
-    public static BackgroundConfig.UnitMovingType readUnitMovingType(Reads read){
-        return BackgroundConfig.UnitMovingType.values()[Mathf.mod(read.s(), BackgroundConfig.UnitMovingType.values().length)];
+
+    public static BackgroundConfig.UnitMovingType readUnitMovingType(Reads read) {
+        return readEnum(read, BackgroundConfig.UnitMovingType.values());
     }
+
+    public static void writeEnum(Writes writes, Enum<?> enumValue) {
+        writes.s(enumValue.ordinal());
+    }
+
+    public static <T> T readEnum(Reads read, T[] values) {
+        return values[Mathf.mod(read.s(), values.length)];
+    }
+
     public static void writeState(Writes writes, BackgroundConfig.State viewType) {
-        writes.s(viewType.ordinal());
+        writeEnum(writes, viewType);
     }
-    public static BackgroundConfig.State readState(Reads read){
-        return BackgroundConfig.State.values()[Mathf.mod(read.s(), BackgroundConfig.State.values().length)];
+
+    public static BackgroundConfig.State readState(Reads read) {
+        return readEnum(read, BackgroundConfig.State.values());
     }
+
     public static void writeViewType(Writes writes, BackgroundConfig.ViewType viewType) {
         writes.s(viewType.ordinal());
     }
-    public static BackgroundConfig.ViewType readViewType(Reads read){
+
+    public static BackgroundConfig.ViewType readViewType(Reads read) {
         return BackgroundConfig.ViewType.values()[Mathf.mod(read.s(), BackgroundConfig.ViewType.values().length)];
     }
+
     public static void writeStaticWall(Writes writes, StaticWall staticWall) {
-        writes.s(staticWall==null?-1:staticWall.id);
+        writes.s(staticWall == null ? -1 : staticWall.id);
     }
-    public static StaticWall readStaticWall(Reads read){
+
+    public static StaticWall readStaticWall(Reads read) {
         short s = read.s();
-        Block staticWall=s==-1?null:Vars.content.block(s);
-        return staticWall instanceof StaticWall? (StaticWall) staticWall :null;
+        Block staticWall = s == -1 ? null : Vars.content.block(s);
+        return staticWall instanceof StaticWall ? (StaticWall) staticWall : null;
     }
+
+    public static void writeOreBlock(Writes writes, OreBlock block) {
+        writes.s(block == null ? -1 : block.id);
+    }
+
+    public static OreBlock readOreBlock(Reads read) {
+        short s = read.s();
+        Block block = s == -1 ? null : Vars.content.block(s);
+        return block instanceof OreBlock ? (OreBlock) block : null;
+    }
+
     public static void writeFloor(Writes writes, Floor floor) {
-        writes.s(floor==null?-1:floor.id);
+        writes.s(floor == null ? -1 : floor.id);
     }
-    public static Floor readFloor(Reads read){
+
+    public static Floor readFloor(Reads read) {
         short s = read.s();
-        Block floor=s==-1?null:Vars.content.block(s);
-        return floor instanceof Floor? (Floor) floor :null;
+        Block floor = s == -1 ? null : Vars.content.block(s);
+        return floor instanceof Floor ? (Floor) floor : null;
     }
-    public static void writeBuilderDrawer(Writes writes,BuilderDrawer builderDrawer) {
+
+    public static void writeBuilderDrawer(Writes writes, BuilderDrawer builderDrawer) {
         writeBuilding(writes, (Building) builderDrawer);
     }
-    public static BuilderDrawer readBuilderDrawer(Reads read){
+
+    public static BuilderDrawer readBuilderDrawer(Reads read) {
         return (BuilderDrawer) readBuilding(read);
     }
+
     public static void writeGas(Writes writes, Gas obj) {
-        GasTypeIO.writeGas(writes,obj);
+        GasTypeIO.writeGas(writes, obj);
     }
 
     public static Gas readGas(Reads reads) {

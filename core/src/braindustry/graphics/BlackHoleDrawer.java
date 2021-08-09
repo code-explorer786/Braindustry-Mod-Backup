@@ -10,6 +10,7 @@ import arc.math.geom.Vec2;
 import arc.struct.Seq;
 import arc.util.Time;
 import mindustry.gen.Building;
+import mindustry.gen.Healthc;
 import mindustry.gen.Unit;
 
 import java.util.Arrays;
@@ -26,14 +27,14 @@ public class BlackHoleDrawer {
     private void load(){
         baseRegion=Core.atlas.find(fullName("black-hole-base"));
     }
-    public BlackHoleDrawer(Building building) {
-        healthfProvider = () -> building.health();
+    public BlackHoleDrawer(Healthc healthc) {
+        healthfProvider = () -> healthc.health();
         load();
     }
-    public BlackHoleDrawer(Unit unit) {
+   /* public BlackHoleDrawer(Unit unit) {
         healthfProvider = () -> unit.health();
         load();
-    }
+    }*/
 
     static DistortionField[] create(String name, int nameSize, float... sds) {
         String fullName = fullName(name);

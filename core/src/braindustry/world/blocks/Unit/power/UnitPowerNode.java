@@ -5,20 +5,25 @@ import arc.func.Cons;
 import arc.graphics.g2d.Draw;
 import arc.math.Mathf;
 import arc.math.geom.Geometry;
+import arc.math.geom.Intersector;
 import arc.math.geom.Point2;
+import arc.struct.Seq;
 import arc.util.Log;
+import arc.util.Tmp;
+import braindustry.entities.abilities.ModAbility;
 import braindustry.entities.abilities.PowerGeneratorAbility;
+import braindustry.gen.PowerGeneratorc;
 import mindustry.Vars;
 import mindustry.gen.Building;
 import mindustry.gen.Groups;
-import mindustry.gen.Unit;
 import mindustry.world.Tile;
 import mindustry.world.blocks.power.PowerGraph;
 import mindustry.world.blocks.power.PowerNode;
 import mindustry.world.meta.BuildVisibility;
 import mindustry.world.modules.PowerModule;
 
-import static mindustry.Vars.*;
+import static mindustry.Vars.tilesize;
+import static mindustry.Vars.world;
 
 public class UnitPowerNode extends PowerNode {
     public UnitPowerNode(String name) {
@@ -32,45 +37,62 @@ public class UnitPowerNode extends PowerNode {
         });
     }
 
-    public void getPotentialLinks(Tile tile, PowerGeneratorAbility ability, Cons<Building> others) {
-        float laserRange = ability.laserRange;
-        Boolf<Building> valid = other -> other != null  && other.power != null &&
-                (other.block.outputsPower || other.block.consumesPower || other.block instanceof PowerNode) &&
-                overlaps(tile.x * tilesize + offset, tile.y * tilesize + offset, other.tile(), laserRange * tilesize) && other.team == player.team()
-                /*&& !other.proximity.contains(e -> e.tile == tile)*/ && !graphs.contains(other.power.graph);
+    public static void getPotentialLinks(Tile tile, Seq<Building> connected, PowerGeneratorc unit, Cons<Building> others) {
+        float laserRange=unit.laserRange();
+        int maxNodes=unit.maxNodes();
+//        Log.info("@.@",maxNodes,laserRange);
+        float offset=0;
+        Boolf<Building> valid = other -> other != null && other.tile() != tile && other.power != null &&
+                                         (other.block.outputsPower || other.block.consumesPower || other.block instanceof PowerNode) &&
+                                         overlaps_(tile.x * tilesize + offset, tile.y * tilesize + offset, other.tile(), laserRange * tilesize) && other.team == unit.team() &&
+                                         (!graphs.contains(other.power.graph) || connected.contains(other)) &&
+                                         !PowerNode.insulated(tile, other.tile) &&
+                                         !(other instanceof PowerNodeBuild && other.power.links.size >= ((PowerNode) other.block).maxNodes);
 
         tempTileEnts.clear();
         graphs.clear();
-        if(tile.build != null && tile.build.power != null){
+
+        //add conducting graphs to prevent double link
+        if (tile.build != null && tile.build.power != null) {
             graphs.add(tile.build.power.graph);
         }
 
-        Geometry.circle(tile.x, tile.y, (int)(laserRange + 2), (x, y) -> {
+        Geometry.circle(tile.x, tile.y, (int) (laserRange + 2), (x, y) -> {
             Building other = world.build(x, y);
-            if(valid.get(other) && !tempTileEnts.contains(other)){
+            if (valid.get(other) && !tempTileEnts.contains(other)) {
                 tempTileEnts.add(other);
             }
         });
 
         tempTileEnts.sort((a, b) -> {
             int type = -Boolean.compare(a.block instanceof PowerNode, b.block instanceof PowerNode);
-            if(type != 0) return type;
+            if (type != 0) return type;
             return Float.compare(a.dst2(tile), b.dst2(tile));
         });
 
+        returnInt = 0;
+
         tempTileEnts.each(valid, t -> {
-            graphs.add(t.power.graph);
-            others.get(t);
+            if (returnInt++ < maxNodes) {
+                graphs.add(t.power.graph);
+                others.get(t);
+            }
         });
     }
+
+    protected boolean overlaps(float srcx, float srcy, Tile other, float range){
+        return Intersector.overlaps(Tmp.cr1.set(srcx, srcy, range), other.getHitbox(Tmp.r1));
+    }
+    protected static boolean overlaps_(float srcx, float srcy, Tile other, float range){
+        return Intersector.overlaps(Tmp.cr1.set(srcx, srcy, range), other.getHitbox(Tmp.r1));
+    }
     public class UnitPowerNodeBuild extends PowerNodeBuild {
-        public Unit parent;
-        private PowerGeneratorAbility ability;
+        public PowerGeneratorc parent;
+//        private PowerGeneratorAbility ability;
 
 
-        public void setParent(Unit parent, PowerGeneratorAbility ability) {
+        public void setParent(PowerGeneratorc parent) {
             this.parent = parent;
-            this.ability = ability;
         }
 
         @Override
@@ -127,8 +149,9 @@ public class UnitPowerNode extends PowerNode {
                     PowerGraph og = new PowerGraph();
                     og.reflow(other);
                 }
-            } else if (valid && power.links.size < ability.maxNodes && !contains && add) {
-                if (other.block instanceof PowerNode && ((PowerNode) other.block).maxNodes<=other.power.links.size)return;
+            } else if (valid && power.links.size < maxNodes() && !contains && add) {
+                if (other.block instanceof PowerNode && ((PowerNode) other.block).maxNodes <= other.power.links.size)
+                    return;
                 if (!power.links.contains(other.pos())) {
                     power.links.add(other.pos());
                 }
@@ -141,8 +164,14 @@ public class UnitPowerNode extends PowerNode {
             }
         }
 
+        private int maxNodes() {
+            Seq<ModAbility> modAbilities = parent.modUnitType().getModAbilities();
+            ModAbility ability = modAbilities.find(a -> a instanceof PowerGeneratorAbility);
+            return ability instanceof PowerGeneratorAbility ? ((PowerGeneratorAbility) ability).maxNodes : 0;
+        }
+
         protected int getPos() {
-            return -parent.id;
+            return -parent.id();
         }
 
         public int pos() {
@@ -152,8 +181,8 @@ public class UnitPowerNode extends PowerNode {
         @Override
         public void update() {
             super.update();
-            this.x = parent.x;
-            this.y = parent.y;
+            this.x = parent.x();
+            this.y = parent.y();
             Log.info("Update");
         }
 

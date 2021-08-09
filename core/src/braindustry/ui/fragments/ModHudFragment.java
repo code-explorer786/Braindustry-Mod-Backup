@@ -83,7 +83,7 @@ public class ModHudFragment {
         Cell cell = table.getCells().get(2);
         cell.setElement(new Stack(cell.get(),sideBar));
         sideBar.update(()->{
-           sideBar.color.set(new Color().fromHsv(0f,Mathf.absin(Time.time,0.5f,0.5f),Mathf.sin(Time.time)));
+           sideBar.color.set(new Color(0,0,0,1).fromHsv(Mathf.absin(1f/180f,360f),Mathf.absin(0.001f,0.5f)+0.5f,1f));
         });
 //        table.add(sideBar).width(bw).growY().padLeft(pad)
 //                .update(b -> b.color.set(Pal.heal));

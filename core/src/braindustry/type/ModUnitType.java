@@ -36,6 +36,12 @@ public class ModUnitType extends UnitType {
     }
 
     @Override
+    public void loadIcon() {
+        super.loadIcon();
+        uiIcon = Core.atlas.find(name + "-ui", uiIcon);
+    }
+
+    @Override
     public void drawBody(Unit unit) {
         Seq<ModAbility> modAbilities = getModAbilities();
         Seq<ModAbility> select = modAbilities.select(ModAbility::drawBody);
@@ -65,7 +71,7 @@ public class ModUnitType extends UnitType {
     public void load() {
         super.load();
         getModAbilities().each(ModAbility::load);
-
+        shadowRegion=Core.atlas.find(name + "-shadow", shadowRegion);
         /*if(hasDroppingItems = true){
             ItemStack[] dropItems=ItemStack.with(ModItems.chloroAlloy, 320);
         }*/

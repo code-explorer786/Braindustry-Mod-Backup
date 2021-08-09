@@ -27,7 +27,6 @@ public class ImpactReactorAbility extends PowerGeneratorAbility {
     }
 
     public void drawReactor(Unit unit) {
-
         for (int i = 0; i < this.plasmaRegions.length; ++i) {
             float r = (float) (unit.hitSize() / 2f) - 3.0F + Mathf.absin(Time.time, 2.0F + (float) i * 1.0F, 5.0F - (float) i * 0.5F);
             Draw.color(this.plasma1, this.plasma2, (float) i / (float) this.plasmaRegions.length);

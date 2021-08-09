@@ -22,12 +22,10 @@ import arc.util.noise.Simplex;
 import braindustry.BDVars;
 import braindustry.cfunc.BackgroundUnitData;
 import braindustry.content.Blocks.ModBlocks;
-import braindustry.content.ModUnitTypes;
 import braindustry.gen.BackgroundSettings;
 import braindustry.tools.BackgroundConfig;
 import mindustry.Vars;
 import mindustry.content.Blocks;
-import mindustry.content.UnitTypes;
 import mindustry.graphics.CacheLayer;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
@@ -135,7 +133,7 @@ public class ModMenuRenderer {
         }
         this.camera = new Camera();
         this.mat = new Mat();
-        Mathf.rand.setSeed(BackgroundSettings.useSeed() && BackgroundSettings.useStyles() ? BackgroundSettings.seed() : System.nanoTime());
+        Mathf.rand.setSeed(BackgroundSettings.useWorldSeed() ? BackgroundSettings.worldSeed() : System.nanoTime());
         this.time = 0.0F;
         this.flyerRot = 45.0F;
         this.flyers = Mathf.chance(0.2D) ? Mathf.random(35) : Mathf.random(15);
@@ -146,6 +144,7 @@ public class ModMenuRenderer {
                     unitData[i] = flyersData[i];
                     unitData[i].reset();
                 } else {
+
                     unitData[i] = new BackgroundUnitData();
                 }
             }
@@ -167,9 +166,6 @@ public class ModMenuRenderer {
             UnitType unit = BackgroundSettings.unit();
             if (unit != null) flyerType = unit;
 
-        }
-        if (BackgroundSettings.units().disabled()) {
-            flyerType = null;
         }
         if (timeMark) Time.mark();
         this.generate();
@@ -211,6 +207,7 @@ public class ModMenuRenderer {
 
         });
         Block floord3 = null, floord4 = null;
+        Block walld3 = null, walld4 = null;
         if (BackgroundSettings.useStyles()) {
             if (BackgroundSettings.hasFloor3()) {
                 floord3 = BackgroundSettings.floor3();
@@ -218,17 +215,31 @@ public class ModMenuRenderer {
             if (BackgroundSettings.hasFloor4()) {
                 floord4 = BackgroundSettings.floor4();
             }
-            if (BackgroundSettings.floor1()!=null)selected[0]= BackgroundSettings.floor1();
-            if (BackgroundSettings.wall1()!=null)selected[1]= BackgroundSettings.wall1();
-            if (BackgroundSettings.floor2()!=null)selected2[0]= BackgroundSettings.floor2();
-            if (BackgroundSettings.wall2()!=null)selected2[1]= BackgroundSettings.wall2();
+            if (BackgroundSettings.hasWall3()) {
+                walld3 = BackgroundSettings.wall3();
+            }
+            if (BackgroundSettings.hasWall4()) {
+                walld4 = BackgroundSettings.wall4();
+            }
+            if (BackgroundSettings.floor1() != null) selected[0] = BackgroundSettings.floor1();
+            if (BackgroundSettings.wall1() != null) selected[1] = BackgroundSettings.wall1();
+            if (BackgroundSettings.floor2() != null) selected2[0] = BackgroundSettings.floor2();
+            if (BackgroundSettings.wall2() != null) selected2[1] = BackgroundSettings.wall2();
 
         }
         Block ore1 = ores.random();
         ores.remove(ore1);
         Block ore2 = ores.random();
+        if (BackgroundSettings.ore().custom()) {
+            if (BackgroundSettings.ore1() != null) ore1 = BackgroundSettings.ore1();
+            if (BackgroundSettings.ore2() != null) ore2 = BackgroundSettings.ore2();
+        }
         double tr1 = Mathf.random(0.65f, 0.85f);
         double tr2 = Mathf.random(0.65f, 0.85f);
+        if (BackgroundSettings.useOreSeed()){
+            tr1=Mathf.randomSeed(BackgroundSettings.oreSeed(),0.65f, 0.85f);
+            tr2=Mathf.randomSeed(BackgroundSettings.oreSeed(),0.65f, 0.85f);
+        }
         boolean doheat = Mathf.chance(0.25);
         boolean tendrils = Mathf.chance(0.25);
         boolean tech = Mathf.chance(0.25);
@@ -242,42 +253,50 @@ public class ModMenuRenderer {
             for (int y = 0; y < height; y++) {
                 Block floor = null;
                 Block ore = Blocks.air;
-                Block wall = Blocks.air;
+                Block wallDef = walld3 == null ? Blocks.air : null;
+                Block wall = wallDef;
 
                 if (Simplex.noise2d(s1, 3, 0.5, 1 / 20.0, x, y) > 0.5) {
                     if (floord3 == null) {
                         wall = walld;
                     } else {
                         floor = floord3;
+                        wall = Blocks.air;
                     }
                 }
 
                 if (Simplex.noise2d(s3, 3, 0.5, 1 / 20.0, x, y) > 0.5) {
-                    boolean check = floord3 == null ? wall != Blocks.air : floor != null;
+                    boolean check = floord3 == null ? wall != wallDef : floor != null;
                     floor = floord2;
+                    wall = Blocks.air;
+                    if (walld4 != null) wall = walld4;
                     if (check) {
                         if (floord4 != null) {
                             floor = floord4;
-                            wall=Blocks.air;
+                            wall = Blocks.air;
                         } else {
                             wall = walld2;
                         }
                     }
                 }
 
-                if (Simplex.noise2d(s2, 3, 0.3, 1 / 30.0, x, y) > tr1 && BackgroundSettings.ore().enabled()) {
+                int oreSeed = BackgroundSettings.useOreSeed() ? BackgroundSettings.oreSeed() : s2;
+                if (Simplex.noise2d(oreSeed, 3, 0.3, 1 / 30.0, x, y) > tr1 && BackgroundSettings.ore().enabled()) {
                     ore = ore1;
                 }
 
-                if (Simplex.noise2d(s2, 2, 0.2, 1 / 15.0, x, y + 99999) > tr2 && BackgroundSettings.ore().enabled()) {
+                if (Simplex.noise2d(oreSeed, 2, 0.2, 1 / 15.0, x, y + 99999) > tr2 && BackgroundSettings.ore().enabled()) {
                     ore = ore2;
                 }
 
-                if (doheat) {
-                    double heat = Simplex.noise2d(s3, 4, 0.6, 1 / 50.0, x, y + 9999);
+                if (doheat && BackgroundSettings.heat().enabled() || BackgroundSettings.heat().custom()) {
+                    double heat = Simplex.noise2d(BackgroundSettings.useHeatSeed() ? BackgroundSettings.heatSeed() : s3, 4, 0.6, 1 / 50.0, x, y + 9999);
                     double base = 0.65;
-
-                    if (heat > base && BackgroundSettings.heat().enabled()) {
+                    if (BackgroundSettings.heat().custom()) {
+                        float offsetHeat = BackgroundSettings.heatValue() * (1f - 0.60f);
+                        heat += offsetHeat;
+                    }
+                    if (heat > base) {
                         ore = Blocks.air;
                         wall = Blocks.air;
                         floor = Blocks.basalt;
@@ -318,7 +337,8 @@ public class ModMenuRenderer {
                         }
                     }
                 }
-                floor=floor==null?floord:floor;
+                floor = floor == null ? floord : floor;
+                wall = wall == null ? walld3 : wall;
                 Tile tile;
                 tiles.set(x, y, (tile = new CachedTile()));
                 tile.x = (short) x;

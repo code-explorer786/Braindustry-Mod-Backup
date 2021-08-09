@@ -15,8 +15,7 @@ import braindustry.entities.abilities.OrbitalPlatformAbility;
 import braindustry.entities.bullets.AdamBulletType;
 import braindustry.entities.bullets.EveBulletType;
 import braindustry.entities.bullets.LilithBulletType;
-import braindustry.gen.ModSounds;
-import braindustry.gen.Stealthc;
+import braindustry.gen.*;
 import braindustry.graphics.ModPal;
 import braindustry.type.ModUnitType;
 import braindustry.type.ModWeapon;
@@ -40,21 +39,23 @@ import mindustry.type.ammo.PowerAmmoType;
 
 
 public class ModUnitTypes implements ContentList {
-    public static ModUnitType
-            //spider
-            ibis, aries, capra, lacerta, aquila,
-    //air
-    armor, shield, chestplate, chainmail, broadsword,
-    //naval
-    venti, lyra, tropsy, cenda, vyvna,
-    //stealth
-
+    public static @ModAnnotations.EntityDef({Unitc.class, Legsc.class, BDUnitc.class})
+    ModUnitType ibis, aries, capra, lacerta, aquila,
     //tx
-    griffon, moray, penumbra,
-    //sndbox only
-    kraken, orochi;
-    //public void draw(
-    public static @ModAnnotations.EntityDef(value = {Stealthc.class, Unitc.class, Mechc.class})
+    griffon,
+    //sandboxOnly
+    orochi;
+    public static @ModAnnotations.EntityDef({Unitc.class, Payloadc.class, BDUnitc.class})
+    ModUnitType armor, shield, chestplate, chainmail, broadsword,
+    //tx
+    penumbra;
+    public static @ModAnnotations.EntityDef({Unitc.class, WaterMovec.class, BDUnitc.class})
+    ModUnitType venti, lyra, tropsy, cenda, vyvna,
+    //tx
+    moray,
+    //sandboxOnly
+    kraken;
+    public static @ModAnnotations.EntityDef(value = {Stealthc.class, Unitc.class, Mechc.class, BDUnitc.class})
     UnitType tyzen, kryox, intelix, nemesis, maverix,
     //tx
     litix;
@@ -67,7 +68,7 @@ public class ModUnitTypes implements ContentList {
     public void load() {
         //spiders
         ibis = new ModUnitType("ibis") {{
-            this.constructor = Types.legs;
+//            this.constructor = Types.legs;
             this.groundLayer = 60.0F;
             this.localizedName = "Blast";
             this.description = "Small spider unit with high speed and firework guns.";
@@ -118,7 +119,7 @@ public class ModUnitTypes implements ContentList {
         }};
 
         aries = new ModUnitType("aries") {{
-            constructor = Types.legs;
+//            constructor = Types.legs;
             groundLayer = 60.0F;
             localizedName = "Flash";
             description = "A small 4-leg unit with strong firework sap guns.";
@@ -168,7 +169,7 @@ public class ModUnitTypes implements ContentList {
         }};
 
         capra = new ModUnitType("capra") {{
-            constructor = Types.legs;
+//            constructor = Types.legs;
             groundLayer = 68.0F;
             localizedName = "Burst";
             itemCapacity = 200;
@@ -218,7 +219,7 @@ public class ModUnitTypes implements ContentList {
         }};
 
         lacerta = new ModUnitType("lacerta") {{
-            this.constructor = Types.legs;
+//            this.constructor = Types.legs;
             this.groundLayer = Layer.legUnit;
             this.localizedName = "Salute";
             this.description = "A giant unit with 6 legs and super-powerful laser with lightnings!";
@@ -306,7 +307,7 @@ public class ModUnitTypes implements ContentList {
         }};
 
         aquila = new ModUnitType("aquila") {{
-            this.constructor = Types.legs;
+//            this.constructor = Types.legs;
             this.localizedName = "Firework";
             this.description = "Fires a fireworks and big laser.";
             this.drag = 0.1f;
@@ -427,7 +428,7 @@ public class ModUnitTypes implements ContentList {
         }};
         //fly
         armor = new ModUnitType("armor") {{
-            this.constructor = Types.payload;
+//            this.constructor = Types.payload;
             this.localizedName = "Myphros";
             this.speed = 0.9f;
             this.flying = true;
@@ -465,7 +466,7 @@ public class ModUnitTypes implements ContentList {
             );
         }};
         shield = new ModUnitType("shield") {{
-            this.constructor = Types.payload;
+//            this.constructor = Types.payload;
             this.localizedName = "Nocta";
             this.speed = 0.8f;
             this.flying = true;
@@ -506,7 +507,7 @@ public class ModUnitTypes implements ContentList {
         chestplate = new ModUnitType("chestplate") {{
             this.localizedName = "Zenum";
             this.description = "A big defense unit with sap laser guns.";
-            this.constructor = Types.payload;
+//            this.constructor = Types.payload;
             this.speed = 0.6f;
             this.flying = true;
             this.hitSize = 12;
@@ -564,7 +565,7 @@ public class ModUnitTypes implements ContentList {
         }};
         chainmail = new ModUnitType("chainmail") {{
             this.localizedName = "Dent";
-            this.constructor = Types.payload;
+//            this.constructor = Types.payload;
             this.speed = 0.8f;
             this.flying = true;
             this.hitSize = 27;
@@ -641,7 +642,7 @@ public class ModUnitTypes implements ContentList {
             );
         }};
         broadsword = new ModUnitType("broadsword") {{
-            this.constructor = Types.payload;
+//            this.constructor = Types.payload;
             this.localizedName = "Quix";
             this.description = "A colossal unit with ability to bombard, repair, defend, transport other units and shoot lasers.";
             this.armor = 13;
@@ -726,7 +727,7 @@ public class ModUnitTypes implements ContentList {
         venti = new ModUnitType("venti") {{
             this.localizedName = "Stenella";
             this.description = "First naval unit, has powerful shrapnel gun but needs support.";
-            this.constructor = Types.naval;
+//            this.constructor = Types.naval;
             this.health = 270;
             this.speed = 1.2f;
             this.drag = 0.17f;
@@ -770,7 +771,7 @@ public class ModUnitTypes implements ContentList {
         lyra = new ModUnitType("lyra") {{
             this.localizedName = "Marginata";
             this.description = "T2 sea unit with shrapnel lasers and rocketguns, good at attacking opponent's base, but needs support.";
-            this.constructor = Types.naval;
+//            this.constructor = Types.naval;
             this.health = 750;
             this.speed = 0.8f;
             this.drag = 0.18f;
@@ -839,7 +840,7 @@ public class ModUnitTypes implements ContentList {
         tropsy = new ModUnitType("tropsy") {{
             this.localizedName = "Glacialis";
             this.description = "An enlarged and improved unit created on the basis of Lyra unit.";
-            this.constructor = Types.naval;
+//            this.constructor = Types.naval;
             this.health = 3920;
             this.speed = 0.51f;
             this.accel = 0.16f;
@@ -914,7 +915,7 @@ public class ModUnitTypes implements ContentList {
         cenda = new ModUnitType("cenda") {{
             this.localizedName = "Orca";
             this.description = "A large and heavy attacking naval unit built on the proven \"Glacialis\" design, but with improvements in everything.";
-            this.constructor = Types.naval;
+//            this.constructor = Types.naval;
             this.health = 9300;
             this.speed = 0.6f;
             this.accel = 0.13f;
@@ -990,7 +991,7 @@ public class ModUnitTypes implements ContentList {
         }};
         vyvna = new ModUnitType("vyvna") {{
             this.range = 18;
-            this.constructor = Types.naval;
+//            this.constructor = Types.naval;
             this.localizedName = "Physala";
             this.description = "Giant atomic cruiser, produce energy and fires from railguns and rocket launchers.";
             this.health = 21900;
@@ -1007,7 +1008,10 @@ public class ModUnitTypes implements ContentList {
             this.trailScl = 2f;
             this.immunities = ObjectSet.with(StatusEffects.burning, StatusEffects.melting);
             int spawnTime = 1550;
-            abilities.addAll(new ImpactReactorAbility(this, 18f, 20, Integer.MAX_VALUE), new UnitSpawnAbility(ModUnitTypes.shield, spawnTime, 19.25f, -31.75f), new UnitSpawnAbility(ModUnitTypes.shield, spawnTime, -19.25f, -31.75f));
+            abilities.addAll(new ImpactReactorAbility(this, 18f, 20, Integer.MAX_VALUE)
+//                    ,new UnitSpawnAbility(ModUnitTypes.shield, spawnTime, 19.25f, -31.75f),
+//                    new UnitSpawnAbility(ModUnitTypes.shield, spawnTime, -19.25f, -31.75f)
+            );
             int brange = 1;
 
 
@@ -1356,7 +1360,7 @@ public class ModUnitTypes implements ContentList {
         //TX
         griffon = new ModUnitType("griffon") {{
             dropItems = ItemStack.with(ModItems.chloroAlloy, 320);
-            this.constructor = Types.legs;
+//            this.constructor = Types.legs;
             this.groundLayer = 60.0F;
             this.localizedName = "Griffon";
             this.description = "Ground unit with high characteristics of armor and damage, shoot an electric laser and frag bullets.";
@@ -1501,7 +1505,6 @@ public class ModUnitTypes implements ContentList {
         moray = new ModUnitType("moray") {{
             dropItems = ItemStack.with(ModItems.chloroAlloy, 320);
             this.range = 620;
-            this.constructor = Types.naval;
             this.localizedName = "Moray";
             this.description = "Naval terror with Black Hole Reactor, built-in unit factories, lasers and rocket launchers.";
             this.health = 60000;
@@ -1871,7 +1874,7 @@ public class ModUnitTypes implements ContentList {
             rotateSpeed = 1f;
             hasAfterDeathLaser = true;
             flying = true;
-            constructor = Types.payload;
+//            constructor = Types.payload;
             rotateShooting = false;
             lowAltitude = true;
             health = 15000;
@@ -1938,7 +1941,6 @@ public class ModUnitTypes implements ContentList {
         kraken = new ModUnitType("kraken") {{
             dropItems = ItemStack.with(ModItems.chloroAlloy, 320);
             this.range = 620;
-            this.constructor = Types.naval;
             this.localizedName = "Kraken";
             this.description = "Naval terror with Black Hole Reactor, built-in unit factories, lasers and rocket launchers.";
             this.health = 1965000;
@@ -2129,7 +2131,7 @@ public class ModUnitTypes implements ContentList {
         }};
         orochi = new ModUnitType("orochi") {{
             dropItems = ItemStack.with(ModItems.chloroAlloy, 320);
-            this.constructor = Types.legs;
+//            this.constructor = Types.legs;
             this.groundLayer = 60.0F;
             this.localizedName = "Orochi";
             this.description = "Huge spider unit with laser orbitals and incredible destruction abilities, true horror.";
@@ -2299,9 +2301,9 @@ public class ModUnitTypes implements ContentList {
     ;
 
     private static class Types {
-        static Prov<? extends Unit> payload = PayloadUnit::create;
-        static Prov<? extends Unit> naval = UnitWaterMove::create;
-        static Prov<? extends Unit> legs = LegsUnit::create;
+        //        static Prov<? extends Unit> payload = PayloadUnit::create;
+//        static Prov<? extends Unit> naval = UnitWaterMove::create;
+//        static Prov<? extends Unit> legs = LegsUnit::create;
         static Prov<? extends Unit> mech = MechUnit::create;
 //        static Prov<? extends Unit> stealthMech = MechStealthUnit::create;
     }

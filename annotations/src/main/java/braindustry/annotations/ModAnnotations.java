@@ -12,6 +12,7 @@ public class ModAnnotations {
     @Retention(RetentionPolicy.SOURCE)
     public @interface BackgroundStyleSources {
         boolean setting()default false;
+        boolean keyOnly()default false;
     }
 
     @Target({ElementType.METHOD})

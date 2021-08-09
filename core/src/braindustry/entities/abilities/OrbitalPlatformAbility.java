@@ -7,7 +7,6 @@ import arc.math.geom.Vec2;
 import arc.struct.ObjectMap;
 import arc.struct.Seq;
 import braindustry.ModListener;
-import braindustry.entities.ContainersForUnits.OrbitalPlatformsContainer;
 import mindustry.gen.Unit;
 import mindustry.type.Weapon;
 
@@ -16,18 +15,8 @@ import java.util.Objects;
 import static braindustry.BDVars.fullName;
 
 public class OrbitalPlatformAbility extends ModAbility {
-    private static final ObjectMap<Unit, OrbitalPlatformsContainer> unitMap = new ObjectMap<>();
     public static TextureRegion region;
     public static TextureRegion outlineRegion;
-
-    static {
-        ModListener.updaters.add(() -> {
-            Seq<Unit> deletedUnits = unitMap.keys().toSeq().select(u -> !u.isValid());
-            deletedUnits.each(unit -> {
-                unitMap.remove(unit).remove();
-            });
-        });
-    }
 
     public final Seq<Weapon> weapons;
     private final int platformsCount;
@@ -93,20 +82,6 @@ public class OrbitalPlatformAbility extends ModAbility {
     @Override
     public Seq<Weapon> weapons() {
         return weapons.copy();
-    }
-
-    @Override
-    public void update(Unit unit) {
-        getContainer(unit).update();
-    }
-
-    @Override
-    public void draw(Unit unit) {
-        getContainer(unit).draw();
-    }
-
-    private OrbitalPlatformsContainer getContainer(Unit unit) {
-        return unitMap.get(unit, () -> new OrbitalPlatformsContainer(unit, this));
     }
 
     public TextureRegion outlineRegion() {if (outlineRegion==null)outlineRegion=Core.atlas.find(fullName("orbital-platform-outline"));

@@ -7,12 +7,7 @@ import arc.graphics.g2d.TextureRegion;
 import arc.math.Angles;
 import arc.math.Mathf;
 import arc.math.geom.Vec2;
-import arc.struct.ObjectMap;
-import arc.struct.Seq;
-import braindustry.ModListener;
-import braindustry.content.Blocks.ModBlocks;
 import braindustry.type.ModUnitType;
-import braindustry.type.PowerUnitContainer;
 import braindustry.world.blocks.Unit.power.UnitPowerGenerator;
 import braindustry.world.blocks.Unit.power.UnitPowerNode;
 import mindustry.game.Team;
@@ -24,17 +19,6 @@ import static braindustry.BDVars.fullName;
 
 public abstract class PowerGeneratorAbility extends ModAbility {
     public TextureRegion bottomRegion;
-
-    protected  ObjectMap<Unit, PowerUnitContainer> unitMap = new ObjectMap<>();
-//    ObjectMap<Unit, PowerUnitContainer> unitMap
-     {
-        ModListener.updaters.add(() -> {
-            Seq<Unit> deletedUnits = unitMap.keys().toSeq().select(u -> !u.isValid());
-            deletedUnits.each(unit -> {
-                unitMap.remove(unit).remove();
-            });
-        });
-    }
 
     public final ModUnitType unitType;
     public final float laserRange;
@@ -98,23 +82,7 @@ public abstract class PowerGeneratorAbility extends ModAbility {
 
     public void draw(Unit unit) {
         super.draw(unit);
-        powerUnitContainer(unit).draw();
 //        drawReactor(unit);
-    }
-
-    public void update(Unit unit) {
-        super.update(unit);
-        powerUnitContainer(unit).update();
-    }
-    protected PowerUnitContainer powerUnitContainer(Unit unit) {
-        return unitMap.get(unit, () ->  new PowerUnitContainer(unit, this));
-    }
-
-    @Override
-    public void init() {
-        generatorBlock = (UnitPowerGenerator) ModBlocks.unitGenerator;
-        nodeBlock = (UnitPowerNode) ModBlocks.unitNode;
-
     }
 
     @Override

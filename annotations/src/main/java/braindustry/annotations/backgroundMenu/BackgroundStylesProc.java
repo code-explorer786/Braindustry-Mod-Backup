@@ -60,13 +60,13 @@ public class BackgroundStylesProc extends ModBaseProcessor {
     private void makeSettingsClass(Seq<Svar> fields, Seq<Smethod> methods) throws Exception {
         TypeSpec.Builder settingsBuilder = TypeSpec.classBuilder("BackgroundSettings").addModifiers(Modifier.PUBLIC);
 
-        settingsBuilder.addField(FieldSpec.builder(backgroundStyleClass, "lastStyle", Modifier.STATIC, Modifier.PRIVATE).initializer("$T.load(\"\"+arc.Core.settings.get($S,$S))", backgroundStyleClass, lastUsedKey, "default").build());
+        settingsBuilder.addField(FieldSpec.builder(backgroundStyleClass, "lastStyle", Modifier.STATIC).initializer("$T.load(\"\"+arc.Core.settings.get($S,$S))", backgroundStyleClass, lastUsedKey, "default").build());
 
         settingsBuilder.addMethod(MethodSpec.methodBuilder("setLastStyle")
-                        .addParameter(String.class, "name")
-                .addStatement("lastStyle=$T.load(name)",backgroundStyleClass)
-                .addStatement("arc.Core.settings.put($S,name)",lastUsedKey)
-                        .build()
+                .addParameter(String.class, "name")
+                .addStatement("lastStyle=$T.load(name)", backgroundStyleClass)
+                .addStatement("arc.Core.settings.put($S,name)", lastUsedKey)
+                .build()
         );
 
         for (Smethod method : methods) {
@@ -83,7 +83,11 @@ public class BackgroundStylesProc extends ModBaseProcessor {
             ModAnnotations.BackgroundStyleSources sources = field.annotation(ModAnnotations.BackgroundStyleSources.class);
 
             handleSettingField(settingsBuilder, imports, field, sources);
-        }
+        }/*
+        Seq<MethodSpec> settets = Seq.with(settingsBuilder.methodSpecs).select(m -> m.returnType.equals(TypeName.VOID));
+        Seq<MethodSpec> getters = Seq.with(settingsBuilder.methodSpecs).select(m -> !m.returnType.equals(TypeName.VOID));
+        settets.sort(methodSpec -> methodSpec.parameters.size());
+        MethodSpec.methodBuilder("get").addParameter();*/
 
         write(settingsBuilder, imports.asArray());
     }
@@ -106,7 +110,7 @@ public class BackgroundStylesProc extends ModBaseProcessor {
 
         for (Svar field : fields) {
             ModAnnotations.BackgroundStyleSources sources = field.annotation(ModAnnotations.BackgroundStyleSources.class);
-            if (sources.setting()) continue;
+            if (sources.setting() || sources.keyOnly()) continue;
             handleStyleField(styleBuilder, field, sources);
         }
         BackgroundIO io = new BackgroundIO("BackgroundStyle", styleBuilder, allFieldSpecs, serializer, rootDirectory.child("annotations/src/main/resources/revisions").child("BackgroundStyle"));
@@ -147,9 +151,13 @@ public class BackgroundStylesProc extends ModBaseProcessor {
         styleBuilder.addMethod(MethodSpec.methodBuilder("save")
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
                 .addParameter(backgroundStyleClass, "style")
+                .addStatement("if (style==null)return")
                 .addStatement("$T<$T> seq=$T.getStyles()", seqClass, backgroundStyleClass, backgroundSettingsClass)
-                .addStatement("seq.remove(style)")
+                .beginControlFlow("if (seq.contains(style))")
+                .addStatement("seq.set(seq.indexOf(style),style)")
+                .nextControlFlow("else")
                 .addStatement("seq.add(style)")
+                .endControlFlow()
                 .addStatement("$T.saveStyles(seq)", backgroundSettingsClass)
 //                .addStatement("arc.Core.settings.put(\"braindustry.background.styles.\"+name,bytes)")
                 .build());
@@ -189,9 +197,15 @@ public class BackgroundStylesProc extends ModBaseProcessor {
                 .addParameter(String.class, "name")
                 .addModifiers(Modifier.PUBLIC)
                 .addStatement("$T<$T> seq=$T.getStyles()", seqClass, backgroundStyleClass, backgroundSettingsClass)
-                .addStatement("seq.remove(this)")
+                .addStatement("if($T.lastStyle.equals(this))arc.Core.settings.put($S,name)",backgroundSettingsClass,"braindustry.styles.lastUsed")
+                .beginControlFlow("if (seq.contains(this))")
+                .addStatement("int index=seq.indexOf(this)")
+                .addStatement("this.name=name")
+                .addStatement("seq.set(index,this)")
+                .nextControlFlow("else")
                 .addStatement("this.name=name")
                 .addStatement("seq.add(this)")
+                .endControlFlow()
                 .addStatement("$T.saveStyles(seq)", backgroundSettingsClass)
                 .build());
 
@@ -202,17 +216,19 @@ public class BackgroundStylesProc extends ModBaseProcessor {
     private void handleSettingField(TypeSpec.Builder builder, ObjectSet<String> imports, Svar field, ModAnnotations.BackgroundStyleSources sources) {
         imports.addAll(getImports(field.enclosingType().e));
         String key = "background.style." + field.name();
-        String defValue = field.tree().getInitializer().toString();
-        if (!field.tname().isBoxedPrimitive() && !field.tname().isPrimitive()) {
-            imports.add("import " + field.tname() + ";");
-        }
+
         //add stringName
         builder.addField(FieldSpec.builder(TypeName.get(String.class), field.name() + "Key")
                 .initializer("$S", key)
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
                 .build()
         );
+        if (sources.keyOnly()) return;
         TypeName typeName = field.tname();
+        String defValue = field.tree().getInitializer().toString();
+        if (!field.tname().isBoxedPrimitive() && !field.tname().isPrimitive()) {
+            imports.add("import " + field.tname() + ";");
+        }
         if (sources.setting() && (field.tname().isPrimitive() || field.tname().isBoxedPrimitive())) {
             typeName = typeName.isBoxedPrimitive() ? typeName.unbox() : typeName;
             TypeName boxed = typeName.isPrimitive() ? typeName.box() : typeName;
@@ -226,7 +242,7 @@ public class BackgroundStylesProc extends ModBaseProcessor {
             //add setter
             builder.addMethod(MethodSpec.methodBuilder(field.name())
                     .addParameter(typeName, "value")
-                    .addStatement("arc.Core.settings.put($S,value)", field.name())
+                    .addStatement("arc.Core.settings.put($S,value)", key)
                     .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
                     .build());
         } else {

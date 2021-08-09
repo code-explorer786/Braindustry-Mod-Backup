@@ -14,16 +14,16 @@ import mindustry.gen.Sounds;
 import mindustry.gen.Unit;
 import mindustry.type.Weapon;
 
-public class OrbitalPlatform implements Position {
+public class OrbitalPlatformObj implements Position {
     public static int sequenceNum = 0;
     public final OrbitalPlatformAbility ability;
     public final Unit unit;
     public float rotation = 0f;
     public float orbitAngle = 0f;
-    public int id;
+    public int seqId;
     public WeaponMount mount = null;
 
-    public OrbitalPlatform(OrbitalPlatformAbility ability, Unit unit, Weapon weapon) {
+    public OrbitalPlatformObj(OrbitalPlatformAbility ability, Unit unit, Weapon weapon) {
         this.ability = ability;
         this.unit = unit;
 
@@ -98,8 +98,8 @@ public class OrbitalPlatform implements Position {
         return weapon.bullet.create(unit, unit.team(), x + Angles.trnsx(angle, 0, xr), y + Angles.trnsy(angle, 0, xr), angle, (1.0F - weapon.velocityRnd) + Mathf.random(weapon.velocityRnd), lifescl);
     }
 
-    public OrbitalPlatform id(int id) {
-        this.id = id;
+    public OrbitalPlatformObj seqId(int id) {
+        this.seqId = id;
         return this;
     }
 
