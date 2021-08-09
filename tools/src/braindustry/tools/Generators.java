@@ -16,10 +16,15 @@ import arc.struct.IntIntMap;
 import arc.struct.ObjectMap;
 import arc.struct.ObjectSet;
 import arc.struct.Seq;
+import arc.util.ArcRuntimeException;
 import arc.util.Log;
+import arc.util.Tmp;
 import arc.util.noise.Noise;
 import arc.util.noise.Ridged;
 import arc.util.noise.VoronoiNoise;
+import braindustry.entities.abilities.ModAbility;
+import braindustry.entities.abilities.OrbitalPlatformAbility;
+import braindustry.entities.abilities.PowerGeneratorAbility;
 import braindustry.gen.ModContentRegions;
 import braindustry.type.ModUnitType;
 import braindustry.type.SelfIconGenerator;
@@ -27,6 +32,7 @@ import mindustry.ctype.UnlockableContent;
 import mindustry.game.Team;
 import mindustry.gen.Legsc;
 import mindustry.gen.Mechc;
+import mindustry.gen.Unit;
 import mindustry.graphics.BlockRenderer;
 import mindustry.graphics.Pal;
 import mindustry.type.Item;
@@ -299,26 +305,60 @@ public class Generators {
                 type.load();
                 type.loadIcon();
                 type.init();
-                Func<Pixmap, Pixmap> outline = i -> i.outline(Pal.darkerMetal, 3);
+                Func<Pixmap, Pixmap> outline = i -> {
+                    int upScale = 0;
+                    int x = 0, y = 0;
+                    for (x = 0; x < i.width; x++) {
+                        for (y = 0; y < 3; y++) {
+                            boolean bool = i.getA(x, y) == 0 && i.getA(x, i.height - y - 1) == 0;
+                            if (!bool) {
+                                upScale = Math.max(y, upScale);
+                            }
+                        }
+                    }
+                    for (y = 0; y < i.height; y++) {
+                        for (x = 0; x < 3; x++) {
+                            boolean bool = i.getA(x, y) == 0 && i.getA(i.width - x - 1, y) == 0;
+                            if (!bool) {
+                                upScale = Math.max(x, upScale);
+                            }
+                        }
+                    }
+                    if (upScale != 0) {
+                        Pixmap pixmap = new Pixmap(i.width + upScale * 2, i.height + upScale * 2);
+                        pixmap.draw(i, pixmap.width / 2 - i.width / 2, pixmap.height / 2 - i.height / 2);
+                        i = pixmap;
+                    }
+                    return i.outline(Pal.darkerMetal, 3);
+                };
                 Cons<TextureRegion> outliner = t -> {
                     if (t != null && t.found()) {
                         replace(t, outline.get(get(t)));
                     }
                 };
 
+
                 Seq<Weapon> abilitiesWeapons = new Seq<>();
                 Seq<TextureRegion> outlineRegions = new Seq<>();
+                Seq<ModAbility> modAbilities = new Seq<>();
                 if (type instanceof ModUnitType) {
-                    ((ModUnitType) type).getModAbilities().each(modAbility -> {
+                    modAbilities.addAll(((ModUnitType) type).getModAbilities());
+                    modAbilities.each(modAbility -> {
+                        modAbility.load();
                         abilitiesWeapons.addAll(modAbility.weapons());
                         outlineRegions.addAll(modAbility.outlineRegions());
                     });
                 }
-                for (Weapon weapon : type.weapons.copy().addAll(abilitiesWeapons)) {
+                for (Weapon weapon : abilitiesWeapons) {
                     if (outlined.add(weapon.name) && has(weapon.name)) {
                         save(outline.get(get(weapon.name)), weapon.name + "-outline");
                     }
                 }
+                /*for (Weapon weapon : type.weapons.copy().addAll(abilitiesWeapons)) {
+                    if (outlined.add(weapon.name) && has(weapon.name)) {
+                        save(outline.get(get(weapon.name)), weapon.name + "-outline");
+                    }
+                }*/
                 for (TextureRegion outlineRegion : outlineRegions) {
                     if (!outlineRegion.found()) continue;
                     save(outline.get(get(outlineRegion)), outlineRegion.asAtlas().name + "-outline");
@@ -327,42 +367,52 @@ public class Generators {
                 outliner.get(type.footRegion);
                 outliner.get(type.legBaseRegion);
                 outliner.get(type.baseJointRegion);
-                if (type.constructor.get() instanceof Legsc) outliner.get(type.legRegion);
+                Unit inst = type.constructor.get();
+                if (inst instanceof Legsc) outliner.get(type.legRegion);
 
                 Pixmap image = outline.get(get(type.region));
 
-                save(image, type.name + "-outline");
 
+//                save(image, type.name + "-outline");
+
+                for (ModAbility modAbility : modAbilities) {
+                    if (modAbility instanceof PowerGeneratorAbility) {
+                        PowerGeneratorAbility ability = (PowerGeneratorAbility) modAbility;
+                        if (!ability.bottomRegion.found()) continue;
+                        Pixmap bottom = get(ability.bottomRegion);
+                        bottom = drawScaleAt(bottom, image, bottom.width / 2 - image.width / 2, bottom.height / 2 - image.height / 2);
+                        image = drawScaleAt(image, bottom, image.width / 2 - bottom.width / 2, image.height / 2 - bottom.height / 2);
+                    }
+                }
                 //draw mech parts
-                if (type.constructor.get() instanceof Mechc) {
+                if (inst instanceof Mechc) {
                     drawCenter(image, get(type.baseRegion));
                     drawCenter(image, get(type.legRegion));
                     drawCenter(image, get(type.legRegion).flipX());
-                    image.draw(get(type.region), true);
+                    drawCenter(image, get(type.region));
+//                    image.draw(get(type.region), true);
                 }
 
                 //draw outlines
                 for (Weapon weapon : type.weapons) {
                     weapon.load();
 
-                    image.draw(weapon.flipSprite ? outline.get(get(weapon.region)).flipX() : outline.get(get(weapon.region)),
-                            (int) (weapon.x / Draw.scl + image.width / 2f - weapon.region.width / 2f),
-                            (int) (-weapon.y / Draw.scl + image.height / 2f - weapon.region.height / 2f),
-                            true
-                    );
+                    Pixmap pixmap = weapon.flipSprite ? outline.get(get(weapon.region)).flipX() : outline.get(get(weapon.region));
+                    int x = (int) (weapon.x / Draw.scl + image.width / 2f - weapon.region.width / 2f);
+                    int y = (int) (-weapon.y / Draw.scl + image.height / 2f - weapon.region.height / 2f);
+                    image = drawScaleAt(image, pixmap, x, y);
                 }
 
                 //draw base region on top to mask weapons
-                image.draw(get(type.region), true);
+                drawCenter(image, get(type.region));
+//                image.draw(get(type.region), true);
                 int baseColor = Color.valueOf("ffa665").rgba();
 
                 Pixmap baseCell = get(type.cellRegion);
                 Pixmap cell = new Pixmap(type.cellRegion.width, type.cellRegion.height);
                 cell.each((x, y) -> cell.set(x, y, Color.muli(baseCell.getRaw(x, y), baseColor)));
-
-                image.draw(cell, image.width / 2 - cell.width / 2, image.height / 2 - cell.height / 2, true);
-
-
+//                image.draw(cell, image.width / 2 - cell.width / 2, image.height / 2 - cell.height / 2, image.width / 2 - cell.width / 2, image.height / 2 - cell.height / 2, true);
+                drawCenter(image, cell);
                 for (Weapon weapon : type.weapons) {
                     weapon.load();
 
@@ -371,14 +421,41 @@ public class Generators {
                         wepReg = wepReg.flipX();
                     }
 
-                    image.draw(wepReg,
-                            (int) (weapon.x / Draw.scl + image.width / 2f - weapon.region.width / 2f),
-                            (int) (-weapon.y / Draw.scl + image.height / 2f - weapon.region.height / 2f),
-                            true);
+                    image = drawScaleAt(image, wepReg, (int) (weapon.x / Draw.scl + image.width / 2f - weapon.region.width / 2f), (int) (-weapon.y / Draw.scl + image.height / 2f - weapon.region.height / 2f));
                 }
 
-                save(image, /*"unit-" +*/ type.name + "-full");
 
+                image = clearAlpha(image);
+                save(image, /*"unit-" +*/ type.name + "-shadow");
+                for (ModAbility modAbility : modAbilities) {
+                    if (modAbility instanceof OrbitalPlatformAbility) {
+                        OrbitalPlatformAbility ability = (OrbitalPlatformAbility) modAbility;
+                        if (!ability.region().found()) continue;
+                        Pixmap region = outline.get(get(ability.region()));
+                        Log.info("type: @", type);
+                        for (int i = 0; i < ability.weapons.size; i++) {
+                            int dx = 0, dy = 0;
+                            Tmp.v1.trns(i / (float) ability.platformsCount() * 360f, type.hitSize, type.hitSize).scl(1f / Draw.scl);
+                            dx = (int) Tmp.v1.x;
+                            dy = (int) Tmp.v1.y;
+                            image = drawScaleAt(image, region, image.width / 2 - region.width / 2 + dx, image.height / 2 - region.height / 2 + dy);
+
+                            Weapon weapon = ability.weapons.get(i);
+                            if (weapon == null) continue;
+                            weapon.load();
+                            if (!weapon.region.found()) {
+                                Log.err("cannot find region @", weapon.region);
+                            }
+                            Pixmap pixmap = get(weapon.region);
+                            image = drawScaleAt(image, outline.get(pixmap), image.width / 2 - pixmap.width / 2 + dx, image.height / 2 - pixmap.height / 2 + dy);
+
+                        }
+//                        Pixmap region = get(ability.region());
+//                        drawScaleAt(image,bottom,image.width/2-bottom.width/2,image.height/2-bottom.height/2);
+                    }
+                }
+                image = clearAlpha(image);
+                save(image, /*"unit-" +*/ type.name + "-full");
                 Rand rand = new Rand();
                 rand.setSeed(type.name.hashCode());
 
@@ -395,18 +472,18 @@ public class Generators {
                 }
 
                 VoronoiNoise vn = new VoronoiNoise(type.id, true);
-
+                Pixmap imageCache = image;
                 image.each((x, y) -> {
                     //add darker cracks on top
-                    boolean rValue = Math.max(Ridged.noise2d(1, x, y, 3, 1f / (20f + image.width / 8f)), 0) > 0.16f;
+                    boolean rValue = Math.max(Ridged.noise2d(1, x, y, 3, 1f / (20f + imageCache.width / 8f)), 0) > 0.16f;
                     //cut out random chunks with voronoi
-                    boolean vval = vn.noise(x, y, 1f / (14f + image.width / 40f)) > 0.47;
+                    boolean vval = vn.noise(x, y, 1f / (14f + imageCache.width / 40f)) > 0.47;
 
                     float dst = offset.dst(x, y);
                     //distort edges with random noise
-                    float noise = (float) Noise.rawNoise(dst / (9f + image.width / 70f)) * (60 + image.width / 30f);
+                    float noise = (float) Noise.rawNoise(dst / (9f + imageCache.width / 70f)) * (60 + imageCache.width / 30f);
                     int section = (int) Mathf.clamp(Mathf.mod(offset.angleTo(x, y) + noise + degrees, 360f) / 360f * splits, 0, splits - 1);
-                    if (!vval) wrecks[section].setRaw(x, y, Color.muli(image.getRaw(x, y), rValue ? 0.7f : 1f));
+                    if (!vval) wrecks[section].setRaw(x, y, Color.muli(imageCache.getRaw(x, y), rValue ? 0.7f : 1f));
                 });
 
                 for (int i = 0; i < wrecks.length; i++) {
@@ -418,7 +495,7 @@ public class Generators {
                 drawScaledFit(fit, image);
 
                 saveScaled(fit, type.name + "-icon-logic", logicIconSize);
-                save(fit, "../ui/unit-" + type.name + "-ui");
+                save(fit, "../ui/" + type.name + "-ui");
             } catch (Exception e) {
                 Log.err("WARNING: Skipping unit " + type.name + ": @", e);
             }
@@ -483,7 +560,7 @@ public class Generators {
         });
 
         if (false) {
-            ModImagePacker.generate("scorches", () -> {
+            generate("scorches", () -> {
                 for (int size = 0; size < 10; size++) {
                     for (int i = 0; i < 3; i++) {
                         mindustry.tools.Generators.ScorchGenerator gen = new mindustry.tools.Generators.ScorchGenerator();
@@ -510,5 +587,120 @@ public class Generators {
                 }
             });
         }
+    }
+
+    private static Pixmap clearAlpha(Pixmap image) {
+        int x = 0, y = 0, topx = image.width, topy = image.height;
+        //check x-
+        for (int dx = 0; dx < image.width; dx++) {
+            for (int dy = 0; dy < image.height; dy++) {
+                if (image.getA(dx, dy) != 0) {
+                    dx = topx;
+                    break;
+                }
+                x = dx;
+            }
+        }
+        //check y-
+        for (int dy = 0; dy < image.height; dy++) {
+            for (int dx = 0; dx < image.width; dx++) {
+                if (image.getA(dx, dy) != 0) {
+                    dy = topy;
+                    break;
+                }
+                y = dy;
+            }
+        }
+        //check x+
+        for (int dx = image.width - 1; dx > -1; dx--) {
+            for (int dy = image.height - 1; dy > -1; dy--) {
+                if (image.getA(dx, dy) != 0) {
+                    dx = -1;
+                    break;
+                }
+                topx = dx;
+
+            }
+        }
+        //check y+
+        for (int dy = image.height - 1; dy > -1; dy--) {
+            for (int dx = image.width - 1; dx > -1; dx--) {
+                if (image.getA(dx, dy) != 0) {
+                    dy = -1;
+                    break;
+                }
+                topy = dy+1;
+
+            }
+        }
+        if (x != 0 || y != 0 || topx != image.width || topy != image.height) {
+            int width = Math.min(x, image.width - topx);
+            int height = Math.min(y,image.height-topy);
+            Pixmap pixmap = new Pixmap(image.width - width*2, image.height - height*2);
+//            pixmap.draw(image, 0, 0, x, y, topx, topy);
+            drawCenter(pixmap,image);
+            return pixmap;
+        }
+        return image;
+    }
+
+    private static Pixmap drawScaleAt(Pixmap image, Pixmap other, int destx, int desty) {
+        int widthScale = 0, heightScale = 0;
+        if (destx > image.width) {
+            widthScale = destx - image.width + other.width;
+        } else if (destx + other.width < 0) {
+            widthScale = -(destx);
+        } else if (destx + other.width > image.width || destx < 0) {
+            int dif = destx + other.width - image.width;
+            int dx;
+            for (int y = 0; y < other.height; y++) {
+                for (dx = 0; dx < dif; dx++) {
+                    if (other.getA(other.width - dx - 1, y) == 0) continue;
+                    widthScale = Math.max(widthScale, dx);
+                }
+                for (dx = 0; dx < -destx; dx++) {
+                    if (other.getA(dx, y) == 0) continue;
+                    widthScale = Math.max(widthScale, dx);
+                }
+            }
+        }
+
+        if (image.height < desty) {
+            heightScale = desty - image.height + other.height;
+        } else if (desty + other.height < 0) {
+            heightScale = -(desty + other.height);
+        } else if (desty + other.height > image.height || desty < 0) {
+            int dif = desty + other.height - image.height;
+            int dy;
+            for (int x = 0; x < other.width; x++) {
+                for (dy = 0; dy < dif; dy++) {
+                    if (other.getA(x, other.height - dy - 1) == 0) continue;
+                    heightScale = Math.max(heightScale, dy);
+                }
+                for (dy = 0; dy < -destx; dy++) {
+                    if (other.getA(x, dy) == 0) continue;
+                    heightScale = Math.max(heightScale, dy);
+                }
+            }
+        }
+        if (widthScale != 0 || heightScale != 0) {
+            Pixmap pixmap;
+
+            try {
+                pixmap = new Pixmap(widthScale * 2 + image.width, image.height + heightScale * 2);
+            } catch (ArcRuntimeException arcRuntimeException) {
+                Log.err(arcRuntimeException);
+                return image;
+            }
+            drawCenter(pixmap, image);
+            pixmap.draw(other, destx + widthScale, desty + heightScale, true);
+            return pixmap;
+        }
+        image.draw(other,
+                destx,
+                desty,
+                true
+        );
+        return image;
     }
 }
