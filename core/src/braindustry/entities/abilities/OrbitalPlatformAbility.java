@@ -75,6 +75,7 @@ public class OrbitalPlatformAbility extends ModAbility {
 
     public TextureRegion region() {
         if (region == null) region = Core.atlas.find(fullName(spriteName));
+        if (!region.found())region=defRegion();
         return region;
     }
 
