@@ -100,8 +100,8 @@ abstract class OrbitalPlatformOwnerComp implements ModEntityc, Unitc, Entityc {
 
         float realSpeed = speed * Time.delta;
         float newAngle = ModAngles.moveLerpToward(platform.orbitAngle, angel, realSpeed);
-        Vec2 vec2 = platformPosition(newAngle).sub(platform);
-        platform.move(newAngle-platform.orbitAngle,0);
+        Vec2 vec2 = platformPosition(newAngle);
+        platform.set(vec2);
         platform.orbitAngle=newAngle;
 //        platform.orbitAngle = Mathf.mod(newAngle, 360f);
     }
@@ -112,7 +112,7 @@ abstract class OrbitalPlatformOwnerComp implements ModEntityc, Unitc, Entityc {
             attachAngles = new Object[orbitalPlatforms.size];
 
         }
-        Log.info(toString());
+//        Log.info(toString());
         for (int i = 0; i < orbitalPlatforms.size; i++) {
             OrbitalPlatform prev = orbitalPlatforms.get(i);
             if (!prev.isAdded() || prev.owner==null){
@@ -122,7 +122,7 @@ abstract class OrbitalPlatformOwnerComp implements ModEntityc, Unitc, Entityc {
                 platform.setOwner(self(),platformAbility().weapons.get(i));
                 platform.add();
             }
-            Log.info("\t@| @",i, prev);
+//            Log.info("\t@| @",i, prev);
         }
         final float platformCount = orbitalPlatforms.size;
         float oneAngle = 360f / platformCount;
@@ -175,10 +175,6 @@ abstract class OrbitalPlatformOwnerComp implements ModEntityc, Unitc, Entityc {
 
     @Override
     public void draw() {
-        if (platformAbility()==null)return;
-        for (OrbitalPlatform platform : orbitalPlatforms) {
-            Lines.line(x,y,platform.x,platform.y);
-        }
     }
 
     @Override
