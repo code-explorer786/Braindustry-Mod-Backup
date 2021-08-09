@@ -2138,7 +2138,7 @@ public class ModUnitTypes implements ContentList {
             this.health = 1405000;
             this.speed = 0.5f;
             this.mechSideSway = 0.25f;
-            this.hitSize = 226;
+            this.hitSize = 105.0f;
             this.rotateSpeed = 0.4f;
             this.hasAfterDeathLaser = true;
             this.armor = 24f;
@@ -2294,7 +2294,15 @@ public class ModUnitTypes implements ContentList {
                     orochiBlaster.copy(),
                     orochiBlaster.copy(),
                     orochiBlaster.copy()
-            ));
+            ).spriteName("big-orbital-platform").enginePosses(() -> {
+                Seq<Vec2> posses = new Seq<>();
+                for (Point2 point2 : Geometry.d4) {
+                    posses.add(new Vec2(point2.x, point2.y).scl(7.5f));
+                }
+
+//                    Log.info("posses: @",posses.toString(", "));
+                return posses;
+            }));
         }};
     }
 
