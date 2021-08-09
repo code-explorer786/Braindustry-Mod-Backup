@@ -142,7 +142,7 @@ public class TestBlock extends Block implements DebugBlock {
                             t.add(new Element() {
                                 @Override
                                 public void draw() {
-                                    TextureRegion region = false ? Core.atlas.find(textureName[0]) : OrbitalPlatformAbility.region;
+                                    TextureRegion region = false ? Core.atlas.find(textureName[0]) : OrbitalPlatformAbility.defRegion();
                                     Draw.rect(region, x, y, region.width / region.height * height, height);
                                 }
                             }).colspan(2).height(240).width(240);
