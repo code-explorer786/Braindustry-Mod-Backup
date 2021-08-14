@@ -59,7 +59,7 @@ public class AnukeCompDownloader {
                 if (fi.isDirectory()) continue;
                 String className = fi.nameWithoutExtension();
                 selectedClassName = className;
-                if (Seq.with("BuildingComp", "BulletComp", "DecalComp", "EffectStateComp", "FireComp", "LaunchCoreComp", "PlayerComp", "PuddleComp").contains(className)) {
+                if (Seq.with("BuildingComp", "BulletComp", "DecalComp", "EffectStateComp", "FireComp", "LaunchCoreComp",  "PuddleComp").contains(className)) {
                     compJava.child(fi.name()).delete();
                     finalComp.child(fi.name()).delete();
                     continue;
@@ -70,7 +70,7 @@ public class AnukeCompDownloader {
                     className.equals("EffectStateComp") ||
                     className.equals("FireComp") ||
                     className.equals("LaunchCoreComp") ||
-                    className.equals("PlayerComp") ||
+//                    className.equals("PlayerComp") ||
                     className.equals("PuddleComp") ||
                     className.equals("PosTeamDef")
                 ) {
@@ -94,11 +94,22 @@ public class AnukeCompDownloader {
                 string = string.replace("};\n" +
                                         "    }", "}\n" +
                                                  "    }");
-                finalComp.child(fi.name()).writeString(string);
+                if (fi.nameWithoutExtension().equals("PlayerComp")){
+                    if (true)continue;
+                    dir.parent().child("comp").child("BDPlayerComp.java").writeString(string
+                            .replace("PlayerComp", "BDPlayerComp")
+                            .replace("Playerc", "BDPlayerc")
+                            .replace("import mindustry.gen.*;", "import mindustry.gen.*;\nimport "+packageName+".gen.*;")
+                            .replace("implements","implements Playerc,")
+                    );
+                } else {
+                    finalComp.child(fi.name().replace("PlayerComp", "BDPlayerComp")).writeString(string);
+                }
             }
             Seq<String> names = new Seq<>();
             for (Fi fi : finalComp.list()) {
                 fi.copyTo(dir.child(fi.name()));
+                if (fi.nameWithoutExtension().startsWith("BD"))continue;
                 names.add(fi.nameWithoutExtension());
             }
             StringBuilder file = new StringBuilder();

@@ -1,5 +1,4 @@
 braindustry.annotations.backgroundMenu.BackgroundStylesProc
-braindustry.annotations.cheatMenu.RulesProcessor
 braindustry.annotations.dependencies.DependenciesProc
 braindustry.annotations.impl.ModAssetsProcess
 braindustry.annotations.misc.LogicStatementProcessor

@@ -4,7 +4,6 @@ import braindustry.world.blocks.TestBlock;
 import braindustry.world.blocks.Unit.power.UnitPowerGenerator;
 import braindustry.world.blocks.Unit.power.UnitPowerNode;
 import braindustry.world.blocks.distribution.BufferedPayloadBridge;
-import braindustry.world.blocks.logic.LaserRuler;
 import mindustry.content.Items;
 import mindustry.ctype.ContentList;
 import mindustry.type.Category;
@@ -57,7 +56,7 @@ public class ModBlocks implements ContentList {
     unitGenerator, unitNode,
 
     //experimental
-    dpsMeter, unitSpawner, examplePayloadBridge, testBlock, laserRuler;
+    examplePayloadBridge, testBlock;
 
     public static Block methaneBurner, hyperMethaneBurner;
     private ContentList[] blocksContent = {
@@ -68,21 +67,12 @@ public class ModBlocks implements ContentList {
             new ModDistributionBlocks(),
             new ModDefense(),
             new ModLogicBlocks(),
-            new ModSandBox(),
     };
 
     public void load() {
         for (ContentList contentList : blocksContent) {
             contentList.load();
         }
-        laserRuler = new LaserRuler("laser-ruler") {{
-            localizedName = "Laser ruler";
-            description="The variable range contains the distance to between the block and the selected tile." +
-                        " The shootX variable contains the x coordinate of the selected tile." +
-                        " The shootY variable contains the y coordinate of the selected tile.";
-            size = 1;
-            requirements(Category.logic, BuildVisibility.debugOnly, ItemStack.with(Items.silicon, 10));
-        }};
         examplePayloadBridge = new BufferedPayloadBridge("payload-bridge-conveyor") {{
             range = 10;
             requirements(Category.distribution, with(Items.graphite, 10, Items.copper, 20));

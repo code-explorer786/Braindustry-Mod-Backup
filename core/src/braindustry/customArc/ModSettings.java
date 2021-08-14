@@ -90,7 +90,7 @@ public class ModSettings {
                         button.label(() -> Strings.format("@", modInfo==null?"":modInfo.meta.displayName));
                     },
                     () -> {
-                        BDVars.otherSettingsDialog.show();
+                        BDVars.modUI.otherSettingsDialog.show();
                     }).height(84).right().row();
         });
     }

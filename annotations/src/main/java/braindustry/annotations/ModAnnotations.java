@@ -247,24 +247,6 @@ public class ModAnnotations {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    public @interface DefaultValue {
-        String value();
-
-        Class[] imports() default {};
-    }
-
-    @Target({ElementType.TYPE})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface RulesTable {
-        String value();
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface Rules {
-
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
     public @interface Remote {
         /**
          * Specifies the locations from which this method can be invoked.

@@ -33,7 +33,6 @@ public class BraindustryMod extends Mod {
         ModCall.registerPackets();
         modInfo = Vars.mods.getMod(getClass());
         BDVars.load();
-        ModLogicIO.init();
         ModListener.addRun(() -> {
             boolean modMobile = (control.input instanceof ModMobileInput);
             boolean modDesktop = (control.input instanceof ModDesktopInput);
