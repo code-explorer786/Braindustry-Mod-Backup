@@ -1,5 +1,6 @@
 package braindustry.customArc;
 
+import arc.assets.Loadable;
 import braindustry.BDVars;
 
 import arc.Core;
@@ -8,11 +9,14 @@ import arc.math.Mathf;
 import arc.util.Strings;
 import braindustry.BraindustryMod;
 import braindustry.core.CheatLevel;
+import braindustry.ui.ModStyles;
 import mindustry.Vars;
 import mindustry.game.EventType;
+import mindustry.ui.Styles;
 
-import static braindustry.BDVars.fullName;
-import static braindustry.BDVars.modInfo;
+import javax.swing.text.Style;
+
+import static braindustry.BDVars.*;
 
 public class ModSettings {
     public ModSettings(){
@@ -82,16 +86,22 @@ public class ModSettings {
         setInt("cheatLevel",value.ordinal());
     }
     private void addEvent() {
+
+
         Events.on(EventType.ClientLoadEvent.class,(e)->{
+//            modLog("settings.ClientLoadEvent start");
             Vars.ui.settings.row();
             Vars.ui.settings.button((button) -> {
                         button.image(BraindustryMod.getIcon()).size(64, 64);
+//                        button.setStyle(Styles.);
 //                        button.setSize(80f,80f);
                         button.label(() -> Strings.format("@", modInfo==null?"":modInfo.meta.displayName));
                     },
                     () -> {
                         BDVars.otherSettingsDialog.show();
                     }).height(84).right().row();
+//            modLog("settings.ClientLoadEvent end");
+
         });
     }
 

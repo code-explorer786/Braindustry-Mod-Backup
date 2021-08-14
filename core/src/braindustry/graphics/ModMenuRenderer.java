@@ -1,6 +1,7 @@
 package braindustry.graphics;
 
 import arc.Core;
+import arc.Events;
 import arc.files.Fi;
 import arc.func.Floatc2;
 import arc.graphics.Camera;
@@ -14,7 +15,6 @@ import arc.math.Angles;
 import arc.math.Mat;
 import arc.math.Mathf;
 import arc.scene.ui.layout.Scl;
-import arc.struct.ObjectSet;
 import arc.struct.Seq;
 import arc.util.*;
 import arc.util.noise.Ridged;
@@ -26,10 +26,10 @@ import braindustry.gen.BackgroundSettings;
 import braindustry.tools.BackgroundConfig;
 import mindustry.Vars;
 import mindustry.content.Blocks;
+import mindustry.game.EventType;
 import mindustry.graphics.CacheLayer;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
-import mindustry.graphics.Trail;
 import mindustry.type.UnitType;
 import mindustry.world.Block;
 import mindustry.world.CachedTile;
@@ -44,26 +44,28 @@ import static mindustry.Vars.*;
 
 public class ModMenuRenderer {
     private static final float darkness = 0.3F;
-    private final int width;
-    private final int height;
-    boolean errorred = false;
+    private final int width = !mobile ? 100 : 60, height = !mobile ? 50 : 40;
+    private final Camera camera = new Camera();
+    private final Mat mat = new Mat();
     private int[] cacheLayers;
     private int cacheWall;
-    private Camera camera;
-    private Mat mat;
     private FrameBuffer shadows;
     private CacheBatch batch;
     private float time;
-    private float flyerRot;
-    private int flyers;
+    private float flyerRot = 45f;
+    private int units;
     private @Nullable
-    UnitType flyerType;
-    private BackgroundUnitData[] flyersData;
+    UnitType unitType;
+    private BackgroundUnitData[] unitsData;
 
     public ModMenuRenderer() {
-        this.width = !Vars.mobile ? 100 : 60;
-        this.height = !Vars.mobile ? 50 : 40;
+        BackgroundUnitData.parent = this;
         buildMain(true);
+        Events.on(EventType.StateChangeEvent.class, e -> {
+            if (e.to != e.from) {
+                resetData();
+            }
+        });
     }
 
     public static Shader createShader() {
@@ -131,46 +133,48 @@ public class ModMenuRenderer {
             cacheLayers = null;
             cacheLayers = new int[CacheLayer.all.length];
         }
-        this.camera = new Camera();
-        this.mat = new Mat();
+        mat.idt();
         Mathf.rand.setSeed(BackgroundSettings.useWorldSeed() ? BackgroundSettings.worldSeed() : System.nanoTime());
-        this.time = 0.0F;
-        this.flyerRot = 45.0F;
-        this.flyers = Mathf.chance(0.2D) ? Mathf.random(35) : Mathf.random(15);
-        if (flyersData != null) {
-            BackgroundUnitData[] unitData = new BackgroundUnitData[flyers];
+        time = 0.0F;
+        units = Mathf.chance(0.2D) ? Mathf.random(35) : Mathf.random(15);
+        unitType = content.units().select(u -> u.hitSize <= 20f && u.flying && u.region.found()).random();
+
+        if (BackgroundSettings.units().custom()) {
+            UnitType unit = BackgroundSettings.unit();
+            if (unit != null) unitType = unit;
+
+        }
+        createUnitsData();
+        if (timeMark) Time.mark();
+        generate();
+        cache();
+        if (timeMark) Log.info("Time to generate menu: @", Time.elapsed());
+    }
+
+    private void createUnitsData() {
+        if (unitsData != null) {
+            BackgroundUnitData[] unitData = new BackgroundUnitData[units];
             for (int i = 0; i < unitData.length; i++) {
-                if (i < flyersData.length) {
-                    unitData[i] = flyersData[i];
+                if (i < unitsData.length) {
+                    unitData[i] = unitsData[i];
                     unitData[i].reset();
                 } else {
 
                     unitData[i] = new BackgroundUnitData();
                 }
             }
-            for (int i = 0; i < flyersData.length; i++) {
-                if (i > unitData.length) flyersData[i].clear();
-                flyersData[i] = null;
+            for (int i = 0; i < unitsData.length; i++) {
+                if (i > unitData.length) unitsData[i].clear();
+                unitsData[i] = null;
             }
-            flyersData = null;
-            flyersData = unitData;
+            unitsData = null;
+            unitsData = unitData;
         } else {
-            flyersData = new BackgroundUnitData[flyers];
-            for (int i = 0; i < flyersData.length; i++) {
-                flyersData[i] = new BackgroundUnitData();
+            unitsData = new BackgroundUnitData[units];
+            for (int i = 0; i < unitsData.length; i++) {
+                unitsData[i] = new BackgroundUnitData();
             }
         }
-        this.flyerType = content.units().select(u -> u.hitSize <= 20f && u.flying && u.region.found()).random();
-
-        if (BackgroundSettings.units().custom()) {
-            UnitType unit = BackgroundSettings.unit();
-            if (unit != null) flyerType = unit;
-
-        }
-        if (timeMark) Time.mark();
-        this.generate();
-        this.cache();
-        if (timeMark) Log.info("Time to generate menu: @", Time.elapsed());
     }
 
     private void generate() {
@@ -236,9 +240,9 @@ public class ModMenuRenderer {
         }
         double tr1 = Mathf.random(0.65f, 0.85f);
         double tr2 = Mathf.random(0.65f, 0.85f);
-        if (BackgroundSettings.useOreSeed()){
-            tr1=Mathf.randomSeed(BackgroundSettings.oreSeed(),0.65f, 0.85f);
-            tr2=Mathf.randomSeed(BackgroundSettings.oreSeed(),0.65f, 0.85f);
+        if (BackgroundSettings.useOreSeed()) {
+            tr1 = Mathf.randomSeed(BackgroundSettings.oreSeed(), 0.65f, 0.85f);
+            tr2 = Mathf.randomSeed(BackgroundSettings.oreSeed(), 0.65f, 0.85f);
         }
         boolean doheat = Mathf.chance(0.25);
         boolean tendrils = Mathf.chance(0.25);
@@ -369,9 +373,11 @@ public class ModMenuRenderer {
         shadows.end();
 
         Batch prev = Core.batch;
-
+        if (batch != null) {
+            batch.dispose();
+        }
         Core.batch = batch = new CacheBatch(new SpriteCache(width * height * 6, false));
-        ObjectSet<CacheLayer> used = new ObjectSet<>();
+        /*ObjectSet<CacheLayer> used = new ObjectSet<>();
         for (int tilex = 0; tilex < world.width(); tilex++) {
             for (int tiley = 0; tiley < world.height(); tiley++) {
                 Tile tile = world.rawTile(tilex, tiley);
@@ -385,8 +391,8 @@ public class ModMenuRenderer {
                     used.add(tile.floor().cacheLayer);
                 }
             }
-        }
-        for (CacheLayer layer : used) {
+        }*/
+        for (CacheLayer layer : CacheLayer.all) {
             batch.beginCache();
             for (int tilex = 0; tilex < world.width(); tilex++) {
                 for (int tiley = 0; tiley < world.height(); tiley++) {
@@ -436,6 +442,7 @@ public class ModMenuRenderer {
         float prev = Time.time;
         Time.time = time;
         Draw.z(Layer.floor);
+        renderer.effectBuffer.resize(Core.graphics.getWidth(), Core.graphics.getHeight());
         for (int i = 0; i < cacheLayers.length; i++) {
             if (cacheLayers[i] == -1) continue;
             CacheLayer.all[i].begin();
@@ -466,62 +473,43 @@ public class ModMenuRenderer {
     }
 
     private void drawFlyers() {
-        if (flyerType == null) return;
-        TextureRegion icon = this.flyerType.fullIcon;
-        TextureRegion outline = this.flyerType.outlineRegion;
-        float size = (float) Math.max(icon.width, icon.height) * Draw.scl * 1.6F;
+        if (unitType == null) return;
+
+        TextureRegion icon = unitType.fullIcon;
+
+        float size = Math.max(icon.width, icon.height) * Draw.scl * 1.6f;
+//        TextureRegion outline = this.flyerType.outlineRegion;
         int[] i = {0};
         BackgroundConfig.UnitMovingType movingType = BackgroundSettings.unitMovingType();
-        if (movingType == BackgroundConfig.UnitMovingType.naval) {
-            flyers((x, y) -> {
-                Trail tleft = flyersData[i[0]].tleft;
-                Trail tright = flyersData[i[0]].tright;
-                Color trailColor = flyersData[i[0]].trailColor;
-                i[0]++;
-
-                Tmp.v1.trns(flyerRot, time * (2.0F + flyerType.speed));
-                for (int i2 = 0; i2 < 2; i2++) {
-                    Trail t = i2 == 0 ? tleft : tright;
-                    t.length = flyerType.trailLength;
-                    int sign = i2 == 0 ? -1 : 1;
-                    float cx = Angles.trnsx(flyerRot - 90, flyerType.trailX * sign, flyerType.trailY) + x, cy = Angles.trnsy(flyerRot - 90, flyerType.trailX * sign, flyerType.trailY) + y;
-                    t.update(cx, cy, world.floorWorld(cx, cy).isLiquid ? 1 : 0);
-                }
-                float z = Draw.z();
-                Draw.z(Layer.debris);
-                Tile tileOn = world.tileWorld(x, y);
-                Floor floor = tileOn == null ? Blocks.air.asFloor() : tileOn.floor();
-                Color color = Tmp.c1.set(floor.mapColor.equals(Color.black) ? Blocks.water.mapColor : floor.mapColor).mul(1.5f);
-                trailColor.lerp(color, Mathf.clamp(Time.delta * 0.04f));
-                tleft.draw(trailColor, flyerType.trailScl);
-                tright.draw(trailColor, flyerType.trailScl);
-                Draw.z(z);
-            });
-        }
-        if (movingType == BackgroundConfig.UnitMovingType.flying) {
-            flyers((x, y) -> {
+        flyers((x, y) -> {
+            if (movingType.naval()){
+                unitsData[i[0]].drawTrail(x, y);
+            } else if (movingType.legs()) {
+                unitsData[i[0]].drawLegs(x, y);
+            } else if(movingType.flying()){
                 Draw.color(0.0F, 0.0F, 0.0F, 0.4F);
-                Draw.rect(outline, x - 12.0F, y - 13.0F, this.flyerRot - 90.0F);
-                Draw.rect(icon, x - 12.0F, y - 13.0F, this.flyerRot - 90.0F);
-            });
-        }
+//                Draw.rect(outline, x - 12.0F, y - 13.0F, this.flyerRot - 90.0F);
+                Draw.rect(icon, x +UnitType.shadowTX, y +UnitType.shadowTY, this.flyerRot - 90.0F);
+            }
+            i[0]++;
+        });
         this.flyers((x, y) -> {
             Draw.color(0.0F, 0.0F, 0.0F, 0.4F);
             Draw.rect("circle-shadow", x, y, size, size);
         });
         Draw.color();
         this.flyers((x, y) -> {
-            float engineOffset = this.flyerType.engineOffset;
-            float engineSize = this.flyerType.engineSize;
+            float engineOffset = this.unitType.engineOffset;
+            float engineSize = this.unitType.engineSize;
             float rotation = this.flyerRot;
-            if (movingType == BackgroundConfig.UnitMovingType.flying) {
+            if (movingType.flying()) {
                 Draw.color(Pal.engine);
                 Fill.circle(x + Angles.trnsx(rotation + 180.0F, engineOffset), y + Angles.trnsy(rotation + 180.0F, engineOffset), engineSize + Mathf.absin(Time.time, 2.0F, engineSize / 4.0F));
                 Draw.color(Color.white);
                 Fill.circle(x + Angles.trnsx(rotation + 180.0F, engineOffset - 1.0F), y + Angles.trnsy(rotation + 180.0F, engineOffset - 1.0F), (engineSize + Mathf.absin(Time.time, 2.0F, engineSize / 4.0F)) / 2.0F);
             }
             Draw.color();
-            Draw.rect(outline, x, y, this.flyerRot - 90.0F);
+//            Draw.rect(outline, x, y, this.flyerRot - 90.0F);
             Draw.rect(icon, x, y, this.flyerRot - 90.0F);
 //            Draw.color(Team.sharded.color);
 //            Draw.rect(cellRegion, x, y, this.flyerRot - 90.0F);
@@ -534,8 +522,8 @@ public class ModMenuRenderer {
         float th = (float) (height * 8) * 1.0F + 8.0F;
         float range = 500.0F;
         float offset = -100.0F;
-        for (int i = 0; i < flyers; ++i) {
-            Tmp.v1.trns(flyerRot, time * (2.0F + flyerType.speed));
+        for (int i = 0; i < units; ++i) {
+            Tmp.v1.trns(flyerRot, time * (unitType.speed));
             float absinX = Mathf.absin(time + Mathf.randomSeedRange((long) (i + 2), 500.0F), 10.0F, 3.4F);
             float absinY = Mathf.absin(time + Mathf.randomSeedRange((long) (i + 3), 500.0F), 10.0F, 3.4F);
             if (BackgroundSettings.unitMovingType() != BackgroundConfig.UnitMovingType.flying) {
@@ -561,24 +549,30 @@ public class ModMenuRenderer {
         return time;
     }
 
-    public float flyerRot() {
+    public float unitRot() {
         return flyerRot;
     }
 
     public int flyers() {
-        return flyers;
+        return units;
     }
 
-    public UnitType flyerType() {
-        return flyerType;
+    public UnitType unitType() {
+        return unitType;
     }
 
     public Object[] flyersData() {
-        return flyersData;
+        return unitsData;
     }
 
     public void dispose() {
         this.batch.dispose();
         this.shadows.dispose();
+    }
+
+    public void resetData() {
+        for (BackgroundUnitData flyersDatum : unitsData) {
+            flyersDatum.reset();
+        }
     }
 }

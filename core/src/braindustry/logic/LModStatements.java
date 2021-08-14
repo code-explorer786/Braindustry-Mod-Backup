@@ -18,7 +18,7 @@ import mindustry.ui.Styles;
 import static mindustry.logic.LCanvas.tooltip;
 
 public class LModStatements {
-    @ModAnnotations.RegisterStatement("braindustry_strop")
+    @ModAnnotations.RegisterStatement("strop")
     public static class StringOperation extends LModStatement {
         public StrOp op = StrOp.add;
         public String dest = "result", a = "a", b = "b", c = "fromIndex";
@@ -94,7 +94,7 @@ public class LModStatements {
         }
     }
 
-    @ModAnnotations.RegisterStatement("braindustry_messageread")
+    @ModAnnotations.RegisterStatement("messageread")
     public static class MessageRead extends LModStatement {
         public String dest = "result", messageBlock = "message1";
 

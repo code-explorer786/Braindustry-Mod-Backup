@@ -79,7 +79,18 @@ public class BackgroundConfig {
     public enum UnitMovingType {
         flying,
         naval,
+        legs,
         ;
+
+        public boolean naval() {
+            return this==naval;
+        }
+        public boolean legs() {
+            return this==legs;
+        }
+        public boolean flying() {
+            return this==flying;
+        }
     }
 
     public enum State {

@@ -24,15 +24,7 @@ import static braindustry.BDVars.settings;
 
 public class ModLogic implements ApplicationListener {
     boolean debug;
-    private Prov<Seq<Block>> debugListGetter = () -> Seq.<Block>with(
-            Blocks.duct,
-            Blocks.ductRouter,
-            Blocks.ductBridge,
-            Blocks.blockForge,
-            Blocks.blockLoader,
-            Blocks.blockUnloader,
-            null
-    ).select(c -> c != null && c.buildVisibility == BuildVisibility.debugOnly);
+    private Prov<Seq<Block>> debugListGetter = () -> Vars.content.blocks().select(c -> c != null && c.buildVisibility == BuildVisibility.debugOnly);
     private Seq<Block> debugList;
 
     public ModLogic() {

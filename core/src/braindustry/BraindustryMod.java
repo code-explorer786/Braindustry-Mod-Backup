@@ -29,6 +29,7 @@ import static mindustry.Vars.*;
 public class BraindustryMod extends Mod {
     public BraindustryMod() {
         if (!BDDependencies.valid()) return;
+        modLog("Creating start");
         ModEntityMapping.init();
         ModCall.registerPackets();
         modInfo = Vars.mods.getMod(getClass());
@@ -46,6 +47,7 @@ public class BraindustryMod extends Mod {
         Events.on(ClientLoadEvent.class, (e) -> {
             ModAudio.reload();
         });
+        modLog("Creating end");
     }
 
     public static TextureRegion getIcon() {
@@ -79,7 +81,7 @@ public class BraindustryMod extends Mod {
     public void init() {
         if (!BDDependencies.valid()) return;
         if (!loaded) return;
-        modLog("load");
+        modLog("init start");
         for (Seq<Content> contents : content.getContentMap()) {
             for (Content content : contents) {
                 if (content.minfo.mod == modInfo && inPackage("braindustry", content)) {
@@ -90,6 +92,7 @@ public class BraindustryMod extends Mod {
             }
         }
         if (neededInit) listener.init();
+        modLog("init end");
     }
 
     public void loadContent() {
@@ -103,6 +106,7 @@ public class BraindustryMod extends Mod {
         if (modInfo.dependencies.count(l -> l.enabled()) != modInfo.dependencies.size) {
             return;
         }
+        modLog("loadContent start");
         ModAudio.reload();
         if (!headless) {
             inTry(ModShaders::init);
@@ -117,5 +121,6 @@ public class BraindustryMod extends Mod {
             }
         });
         loaded = true;
+        modLog("loadContent end");
     }
 }

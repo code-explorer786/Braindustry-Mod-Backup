@@ -1,8 +1,5 @@
 package braindustry;
 
-import braindustry.customArc.ModSettings;
-import braindustry.ui.dialogs.ModOtherSettingsDialog;
-import braindustry.ui.dialogs.ModSettingsDialog;
 import arc.Core;
 import arc.Events;
 import arc.util.Log;
@@ -10,14 +7,18 @@ import arc.util.Strings;
 import braindustry.core.ModLogic;
 import braindustry.core.ModNetClient;
 import braindustry.core.ModUI;
+import braindustry.customArc.ModSettings;
 import braindustry.gen.ModNetServer;
+import braindustry.ui.dialogs.ModOtherSettingsDialog;
+import braindustry.ui.dialogs.ModSettingsDialog;
 import mindustry.Vars;
 import mindustry.content.TechTree;
 import mindustry.ctype.UnlockableContent;
 import mindustry.game.EventType;
 import mindustry.mod.Mods;
 
-import static mindustry.Vars.*;
+import static mindustry.Vars.headless;
+import static mindustry.Vars.ui;
 
 public class BDVars {
     public static ModSettings settings;
@@ -33,7 +34,7 @@ public class BDVars {
     public static boolean renderUpdate;
     public static boolean loaded = false;
     public static boolean packSprites;
-    public static boolean neededInit =true;
+    public static boolean neededInit = true;
 
 
     public static void init() {
@@ -42,7 +43,7 @@ public class BDVars {
     public static void load() {
         ModListener.load();
         settings = new ModSettings();
-       if(!headless) listener.add(modUI = new ModUI());
+        if (!headless) listener.add(modUI = new ModUI());
         listener.add(netClient = new ModNetClient());
         listener.add(netServer = new ModNetServer());
         listener.add(logic = new ModLogic());
@@ -54,8 +55,9 @@ public class BDVars {
     }
 
     public static String modName() {
-        return modInfo==null?"no name":modInfo.name;
+        return modInfo == null ? "no name" : modInfo.name;
     }
+
     public static void inTry(ThrowableRunnable runnable) {
         try {
             runnable.run();
@@ -112,12 +114,11 @@ public class BDVars {
     }
 
 
-
     public static String getTranslateName(String name) {
         return Strings.format("@.@", modInfo.name, name);
     }
 
-    public   static void showException(Exception exception) {
+    public static void showException(Exception exception) {
         Log.err(exception);
         try {
             Vars.ui.showException(Strings.format("@: error", modInfo.meta.displayName), exception);
@@ -127,8 +128,9 @@ public class BDVars {
             });
         }
     }
+
     public static void modLog(String text, Object... args) {
-        Log.info("[@] @", modInfo.name, Strings.format(text, args));
+        Log.info("[@] @", modInfo == null ? "braindustry-java" : modInfo.name, Strings.format(text, args));
     }
 
     public interface ThrowableRunnable {

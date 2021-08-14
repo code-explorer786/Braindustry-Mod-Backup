@@ -43,6 +43,11 @@ public class ModMenuFragment {
             widgetGroup.getChildren().set(0, new Element() {
                 {
                     name = "custom-menu-background";
+                    update(()->{
+                       if (!widgetGroup.visible){
+                           lastRenderer.resetData();
+                       }
+                    });
                 }
 
                 @Override

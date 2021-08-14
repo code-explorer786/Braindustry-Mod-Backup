@@ -1,15 +1,20 @@
 package braindustry.ui.dialogs.cheat;
 
+import arc.assets.AssetDescriptor;
+import arc.assets.Loadable;
+import arc.struct.Seq;
 import braindustry.core.CheatUI;
 import arc.Core;
 import arc.Events;
 import arc.func.Cons;
 import arc.scene.event.Touchable;
 import arc.scene.ui.layout.Table;
+import mindustry.ClientLauncher;
 import mindustry.Vars;
 import mindustry.game.EventType;
 import mindustry.ui.Styles;
 
+import static braindustry.BDVars.modLog;
 import static braindustry.BDVars.settings;
 
 public class ModCheatMenu {
@@ -33,34 +38,20 @@ public class ModCheatMenu {
     }
 
     private void loadEvent() {
-        Events.on(EventType.ClientLoadEvent.class, e -> {
-            Table table = new Table(Styles.none);
-            table.touchable = Touchable.enabled;
-            table.visibility = () -> CheatUI.visibility.get() && Vars.state.isGame();
-            cons.get(table);
-            table.left().bottom();
-            int timeControlOffset = enabledMod("time-control") ? 62 : 0;
-            int testUtilsOffset= enabledMod("test-utils")? 60 * 3:0;
-            table.marginBottom(timeControlOffset+testUtilsOffset);
+        modLog("cheatMenu.ClientLoadEvent_PRE start");
+        Table table = new Table(Styles.none);
+        table.touchable = Touchable.enabled;
+        table.visibility = () -> CheatUI.visibility.get() && Vars.state.isGame();
+        cons.get(table);
+        table.left().bottom();
+        int timeControlOffset = enabledMod("time-control") ? 62 : 0;
+        int testUtilsOffset= enabledMod("test-utils")? 60 * 3:0;
+        table.marginBottom(timeControlOffset+testUtilsOffset);
+        modLog("cheatMenu.ClientLoadEvent_PRE end");
+        Events.on(EventType.ClientLoadEvent.class,e->{
+            modLog("cheatMenu.ClientLoadEvent start");
             Vars.ui.hudGroup.addChild(table);
-        });
-        if (true) return;
-        Events.on(EventType.Trigger.class, (e) -> {
-            if (!add && isPlay()) {
-                Table table = new Table(Styles.none);
-                table.touchable = Touchable.enabled;
-                table.update(() -> {
-                    table.visible = isPlay();
-                });
-                cons.get(table);
-                table.pack();
-                table.act(0.0F);
-                Core.scene.root.addChildAt(0, table);
-                (table.getChildren().first()).act(0.0F);
-                add = true;
-            } else if (add && !isPlay()) {
-                add = false;
-            }
+            modLog("cheatMenu.ClientLoadEvent end");
         });
     }
 
