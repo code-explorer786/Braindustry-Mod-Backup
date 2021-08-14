@@ -12,6 +12,7 @@ import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
 import arc.struct.Seq;
 import arc.util.Eachable;
+import arc.util.Structs;
 import arc.util.Time;
 import braindustry.cfunc.Cons3;
 import braindustry.type.Rotator;
@@ -23,7 +24,7 @@ import mindustry.graphics.MultiPacker;
 import mindustry.world.blocks.production.Drill;
 
 public class MultiRotatorDrill extends Drill implements SelfIconGenerator {
-    public Seq<Rotator> rotators = new Seq<>();
+    public Rotator[] rotators = {};
     public boolean drawRotator = true;
     public AStats aStats = new AStats();
 
@@ -35,11 +36,11 @@ public class MultiRotatorDrill extends Drill implements SelfIconGenerator {
     @Override
     public void setStats() {
         super.setStats();
-        aStats.add(BDStat.rotatorsCount, rotators.size);
+        aStats.add(BDStat.rotatorsCount, rotators.length);
     }
 
     public void rotators(Rotator... rotators) {
-        this.rotators = Seq.with(rotators);
+        this.rotators = rotators;
         for (Rotator rotator : rotators) {
             if (rotator.size == -1) rotator.size = size;
         }
@@ -108,7 +109,7 @@ public class MultiRotatorDrill extends Drill implements SelfIconGenerator {
     }
 
     public void rotators(float size, Rotator... rotators) {
-        this.rotators = Seq.with(rotators);
+        this.rotators = rotators;
         for (Rotator rotator : rotators) {
             rotator.size = size;
         }
@@ -119,10 +120,10 @@ public class MultiRotatorDrill extends Drill implements SelfIconGenerator {
         if (drawRotator) {
             float x = req.drawx() - Mathf.floor(this.size / 2f) * 8,
                     y = req.drawy() - Mathf.floor(this.size / 2f) * 8;
-            rotators.each((vec) -> {
+            for (Rotator vec : rotators) {
                 Draw.rect(rotatorRegion, x + vec.x * 8, y + vec.y * 8);
                 Draw.rect(topRegion, x + vec.x * 8, y + vec.y * 8);
-            });
+            }
         }
         if (req.config != null) {
             this.drawRequestConfig(req, list);
@@ -202,7 +203,7 @@ public class MultiRotatorDrill extends Drill implements SelfIconGenerator {
         }
 
         protected void effectAboveRotor(DrillRotorCons cons2) {
-            Rotator rotator = rotators.random();
+            Rotator rotator = Structs.random(rotators);
             float xo = this.x - Mathf.floor(this.block.size / 2f) * 8;
             float yo = this.y - Mathf.floor(this.block.size / 2f) * 8;
             cons2.get(xo + rotator.x * 8, yo + rotator.y * 8, rotator.size);
@@ -221,13 +222,13 @@ public class MultiRotatorDrill extends Drill implements SelfIconGenerator {
                 Draw.blend();
                 Draw.color();
             }
-            if (rotators.size > 0) {
+            if (rotators.length > 0) {
                 float x = this.x - Mathf.floor(this.block.size / 2f) * 8,
                         y = this.y - Mathf.floor(this.block.size / 2f) * 8;
-                rotators.each((rotator) -> {
+                for (Rotator rotator : rotators) {
                     Draw.rect(rotatorRegion, x + rotator.x * 8, y + rotator.y * 8, this.timeDrilled * rotateSpeed);
                     Draw.rect(topRegion, x + rotator.x * 8, y + rotator.y * 8);
-                });
+                }
             }
             if (this.dominantItem != null && drawMineItem) {
                 Draw.color(this.dominantItem.color);

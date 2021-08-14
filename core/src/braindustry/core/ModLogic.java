@@ -3,6 +3,7 @@ package braindustry.core;
 import arc.ApplicationListener;
 import arc.Events;
 import arc.func.Prov;
+import arc.struct.IntSeq;
 import arc.struct.Seq;
 import braindustry.content.ModBullets;
 import braindustry.type.ModUnitType;
@@ -51,14 +52,11 @@ public class ModLogic implements ApplicationListener {
     }
     protected void removeUnitPowerGenerators(Building build) {
         if (build != null && build.power != null) {
-            int[] ints = build.power.links.toArray();
-            Seq<Integer> seq = new Seq<>();
-            for (int anInt : ints) {
-                seq.add(anInt);
+            for (int i : build.power.links.toArray()) {
+                if (i<0) {
+                    build.power.links.removeValue(i);
+                }
             }
-            seq.select(i -> i < 0).each(integer -> {
-                build.power.links.removeValue(integer);
-            });
         }
     }
 }

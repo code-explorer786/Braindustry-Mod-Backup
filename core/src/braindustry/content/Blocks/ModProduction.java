@@ -192,7 +192,7 @@ class ModProduction implements ContentList {
             outputLiquid = new LiquidStack(ModLiquids.magma, 26f);
         }};
         grapheniteKiln = new MultiGenericSmelter("graphenite-kiln") {{
-            topPoints = Seq.with(
+            topPoints(
                     new Vec3(1.25f, 1.25f, 0.9f),
                     new Vec3(1.25f, 4.75f, 0.9f),
                     new Vec3(3.f, 3.f, 1.1f),

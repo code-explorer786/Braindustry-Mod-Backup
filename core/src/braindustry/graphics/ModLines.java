@@ -30,8 +30,8 @@ public class ModLines extends Lines {
     }
     public static void rect(float x, float y, float width, float height, float offsetx, float offsety, float rot) {
         float stroke = getStroke();
-        Vec2[] points1 = ModGeometry.rectPoints(x+offsetx, y+offsety, width, height, rot).toArray(Vec2.class);
-        Vec2[] points2 = ModGeometry.rectPoints(x + stroke+offsetx, y + stroke+offsety, width - stroke*2f, height - stroke*2f, rot).toArray(Vec2.class);
+        Vec2[] points1 = ModGeometry.rectPoints(x+offsetx, y+offsety, width, height, rot);
+        Vec2[] points2 = ModGeometry.rectPoints(x + stroke+offsetx, y + stroke+offsety, width - stroke*2f, height - stroke*2f, rot);
         Cons<Integer> side = (index) -> {
             int index2 = (index + 1) % 4;
             floats.clear();

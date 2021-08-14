@@ -15,9 +15,6 @@ import static braindustry.BDVars.fullName;
 import static braindustry.BDVars.modInfo;
 
 public class ModSettings {
-    public ModSettings(){
-        addEvent();
-    }
     private String full(String name){
         return fullName(name);
     }
@@ -80,19 +77,6 @@ public class ModSettings {
     }
     public void cheatLevel(CheatLevel value){
         setInt("cheatLevel",value.ordinal());
-    }
-    private void addEvent() {
-        Events.on(EventType.ClientLoadEvent.class,(e)->{
-            Vars.ui.settings.row();
-            Vars.ui.settings.button((button) -> {
-                        button.image(BraindustryMod.getIcon()).size(64, 64);
-//                        button.setSize(80f,80f);
-                        button.label(() -> Strings.format("@", modInfo==null?"":modInfo.meta.displayName));
-                    },
-                    () -> {
-                        BDVars.modUI.otherSettingsDialog.show();
-                    }).height(84).right().row();
-        });
     }
 
 

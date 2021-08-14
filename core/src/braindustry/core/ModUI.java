@@ -49,7 +49,6 @@ public class ModUI implements Disposable, ApplicationListener {
     }
 
     public ModColorPicker colorPicker;
-    public ModOtherSettingsDialog otherSettingsDialog;
     private boolean inited=false;
 
     public ModUI() {
@@ -79,7 +78,6 @@ public class ModUI implements Disposable, ApplicationListener {
         inTry(ModHudFragment::init);
 
         colorPicker = new ModColorPicker();
-        otherSettingsDialog = new ModOtherSettingsDialog();
     }
 
     @Override

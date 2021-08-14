@@ -80,7 +80,7 @@ abstract class OrbitalPlatformOwnerComp implements ModEntityc, Unitc, Entityc {
                     orbitalPlatform.seqId(i);
 //                    orbitalPlatform.set(x, y);
                     orbitalPlatform.orbitAngle(i / (float) platformAbility.platformsCount() * 360);
-                    orbitalPlatform.setupWeapon( platformAbility.weapons().get(i));
+                    orbitalPlatform.setupWeapon( platformAbility.weapons()[i]);
                     orbitalPlatform.owner=self();
                     orbitalPlatform.owner=self();
                     orbitalPlatform.add();
@@ -119,7 +119,7 @@ abstract class OrbitalPlatformOwnerComp implements ModEntityc, Unitc, Entityc {
                 prev.remove();
                 OrbitalPlatform platform = OrbitalPlatform.create();
                 orbitalPlatforms.set(i,platform);
-                platform.setOwner(self(),platformAbility().weapons.get(i));
+                platform.setOwner(self(),platformAbility().weapons[i]);
                 platform.add();
             }
 //            Log.info("\t@| @",i, prev);

@@ -5,6 +5,7 @@ import arc.graphics.Color;
 import arc.scene.Element;
 import arc.scene.ui.Image;
 import arc.struct.Seq;
+import arc.util.Structs;
 import braindustry.core.ModUI;
 import mindustry.gen.Icon;
 import mindustry.gen.Tex;
@@ -14,6 +15,7 @@ import mindustry.ui.dialogs.BaseDialog;
 import java.util.Objects;
 
 public class ModColorPicker extends BaseDialog {
+    public static final String[] allowedCharacters = "abcdef1234567890#".split("");
     Color current = new Color();
     private Cons<Color> cons = (c) -> {
     };
@@ -73,7 +75,8 @@ public class ModColorPicker extends BaseDialog {
             }
             t.button("Write hex", () -> {
                 ModUI.showTextInput("white hex color", "hex", this.current.toString().length() - (alpha ? 0 : 2), this.current.toString(), (f, s) -> {
-                    return Seq.with("abcdef1234567890#".split("")).contains((s + "").toLowerCase());
+
+                    return Structs.contains(allowedCharacters,(s + "").toLowerCase());
                 }, (s -> {
                     this.current.set(Color.valueOf(s));
                 }));

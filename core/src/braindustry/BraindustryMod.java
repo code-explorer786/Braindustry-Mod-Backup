@@ -28,7 +28,7 @@ import static mindustry.Vars.*;
 @ModAnnotations.CashAnnotation2
 public class BraindustryMod extends Mod {
     public BraindustryMod() {
-        if (!BDDependencies.valid())return;
+        if (!BDDependencies.valid()) return;
         ModEntityMapping.init();
         ModCall.registerPackets();
         modInfo = Vars.mods.getMod(getClass());
@@ -65,25 +65,27 @@ public class BraindustryMod extends Mod {
 
     @Override
     public void registerServerCommands(CommandHandler handler) {
-        if (!BDDependencies.valid())return;
+        if (!BDDependencies.valid()) return;
         BDVars.netServer.registerCommands(handler);
     }
 
     @Override
     public void registerClientCommands(CommandHandler handler) {
-        if (!BDDependencies.valid())return;
+        if (!BDDependencies.valid()) return;
         BDVars.netClient.registerCommands(handler);
     }
 
     public void init() {
-        if (!BDDependencies.valid())return;
+        if (!BDDependencies.valid()) return;
         if (!loaded) return;
         modLog("load");
-        Seq<Content> all = Seq.with(content.getContentMap()).<Content>flatten().select(c -> c.minfo.mod == modInfo).as();
-        for (Content c : all) {
-            if (inPackage("braindustry", c)) {
-                if (c instanceof UnlockableContent) checkTranslate((UnlockableContent) c);
-                if (c instanceof MappableContent && !headless) ModContentRegions.loadRegions((MappableContent) c);
+        for (Seq<Content> contents : content.getContentMap()) {
+            for (Content content : contents) {
+                if (content.minfo.mod == modInfo && inPackage("braindustry", content)) {
+                    if (content instanceof UnlockableContent) checkTranslate((UnlockableContent) content);
+                    if (content instanceof MappableContent && !headless)
+                        ModContentRegions.loadRegions((MappableContent) content);
+                }
             }
         }
         if (neededInit) listener.init();
@@ -92,8 +94,8 @@ public class BraindustryMod extends Mod {
     public void loadContent() {
         modInfo = Vars.mods.getMod(this.getClass());
         if (!BDDependencies.valid()) {
-            if (modInfo!=null){
-                modInfo.missingDependencies.addAll(modInfo.dependencies.select(mod->!mod.enabled()).map(l->l.name));
+            if (modInfo != null) {
+                modInfo.missingDependencies.addAll(modInfo.dependencies.select(mod -> !mod.enabled()).map(l -> l.name));
             }
             return;
         }

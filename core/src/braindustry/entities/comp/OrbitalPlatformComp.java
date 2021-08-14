@@ -76,9 +76,9 @@ abstract class OrbitalPlatformComp implements Entityc, Drawc, Posc, Hitboxc, Rot
         if (mount == null) return;
 //        mount.rotate;
         mount.rotate = false;
-        Seq.with(owner.mounts()).each(m -> {
+        for (WeaponMount m : owner.mounts()) {
             mount.rotate |= m.rotate;
-        });
+        }
         mount.aimX = owner.aimX();
         mount.aimY = owner.aimY();
         mount.rotate = owner.isRotate();

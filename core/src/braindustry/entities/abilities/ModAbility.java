@@ -23,8 +23,8 @@ public abstract class ModAbility extends Ability {
 
     }
 
-    public Seq<Weapon> weapons() {
-        return new Seq<>();
+    public Weapon[] weapons() {
+        return new Weapon[]{};
     }
 
     public Seq<? extends TextureRegion> outlineRegions() {

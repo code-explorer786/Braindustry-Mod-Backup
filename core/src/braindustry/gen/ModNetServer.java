@@ -1,5 +1,6 @@
 package braindustry.gen;
 
+import arc.util.Structs;
 import braindustry.BDVars;
 
 import arc.ApplicationListener;
@@ -144,7 +145,8 @@ public class ModNetServer implements ApplicationListener {
                 return;
             }
             String value = args[0];
-            if (!Seq.with(CheatLevel.values()).contains(c->c.name().equals(value))) {
+            ;
+            if (!Structs.contains(CheatLevel.values(),c->c.name().equals(value))) {
                 Log.info("Cheat levels: @", Seq.with(CheatLevel.values()).toString(", "));
                 return;
             }

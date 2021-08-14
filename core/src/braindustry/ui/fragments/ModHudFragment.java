@@ -71,23 +71,6 @@ public class ModHudFragment {
         } catch (Exception e) {
             Log.err("cannot load stealtBar reason: @", e);
         }
-        BDVars.modLog("ModHudFragment.midInit()");
-
-        SideBar sideBar = new SideBar(() -> 1f-player.unit().ammof(), () -> true, false);
-        float bw = 40f*3f/4f;
-        float pad = -20;
-        Table overlaymarker = ui.hudGroup.find("overlaymarker");
-        Table status = overlaymarker.<Stack>find("waves/editor").<Table>find("waves").<Table>find("status");
-        Stack stack = status.<Stack>find(el -> el.getClass().getSimpleName().equals("Stack") && el.toString().contains("HudFragment$1"));
-        Table table = (Table) stack.getChildren().get(1);
-        Cell cell = table.getCells().get(2);
-        cell.setElement(new Stack(cell.get(),sideBar));
-        sideBar.update(()->{
-           sideBar.color.set(new Color(0,0,0,1).fromHsv(Mathf.absin(1f/180f,360f),Mathf.absin(0.001f,0.5f)+0.5f,1f));
-        });
-//        table.add(sideBar).width(bw).growY().padLeft(pad)
-//                .update(b -> b.color.set(Pal.heal));
-        BDVars.modLog("ModHudFragment.endInit()");
     }
 
     static class SideBar extends arc.scene.Element {

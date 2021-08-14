@@ -16,9 +16,9 @@ import mindustry.world.meta.StatValues;
 import braindustry.world.meta.values.LiquidListValue;
 
 public class RecipeListValue implements StatValue {
-    private Seq<Recipe> recipes = new Seq<>();
+    private Recipe[] recipes;
 
-    public RecipeListValue(Seq<Recipe> recipes) {
+    public RecipeListValue(Recipe... recipes) {
         this.recipes = recipes;
     }
 

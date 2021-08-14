@@ -7,12 +7,10 @@ import arc.math.geom.Vec2;
 import arc.struct.Seq;
 import mindustry.type.Weapon;
 
-import java.util.Objects;
-
 import static braindustry.BDVars.fullName;
 
 public class OrbitalPlatformAbility extends ModAbility {
-    public final Seq<Weapon> weapons;
+    public final Weapon[] weapons;
     private final int platformsCount;
     private final float rotateSpeed;
     public TextureRegion region;
@@ -26,9 +24,9 @@ public class OrbitalPlatformAbility extends ModAbility {
     public OrbitalPlatformAbility(int platformsCount, float rotateSpeed, Weapon... weapons) {
         this.platformsCount = platformsCount;
         this.rotateSpeed = rotateSpeed;
-        this.weapons = Seq.with(weapons);
-        for (int i = 0; i < (platformsCount - weapons.length); i++) {
-            this.weapons.add(null);
+        this.weapons = new Weapon[platformsCount];
+        for (int i = 0; i < this.weapons.length; i++) {
+            this.weapons[i]=i<weapons.length?weapons[i]:null;
         }
     }
 
@@ -65,7 +63,11 @@ public class OrbitalPlatformAbility extends ModAbility {
 //        Log.info("loadCC: @==@==", getClass().getName());
 //        if (region == null) region = Core.atlas.find(fullName("orbital-platform"));
 //        if (outlineRegion==null)outlineRegion=Core.atlas.find(fullName("orbital-platform-outline"));
-        weapons.select(Objects::nonNull).each(Weapon::load);
+        for (Weapon weapon : weapons) {
+            if (weapon != null) {
+                weapon.load();
+            }
+        }
     }
 
     @Override
@@ -88,8 +90,8 @@ public class OrbitalPlatformAbility extends ModAbility {
     }
 
     @Override
-    public Seq<Weapon> weapons() {
-        return weapons.copy();
+    public Weapon[] weapons() {
+        return weapons;
     }
 
     public TextureRegion outlineRegion() {

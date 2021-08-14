@@ -59,11 +59,6 @@ public class ModUnitTypes implements ContentList {
     UnitType tyzen, kryox, intelix, nemesis, maverix,
     //tx
     litix;
-
-    public ModUnitTypes() {
-        UnitTypes.class.isArray();
-    }
-
     @Override
     public void load() {
         //spiders

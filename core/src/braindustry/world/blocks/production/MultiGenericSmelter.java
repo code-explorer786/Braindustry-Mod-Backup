@@ -12,15 +12,16 @@ import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.draw.DrawSmelter;
 
 public class MultiGenericSmelter extends GenericCrafter {
-    public Seq<Vec3> topPoints=new Seq<>();
-
-
+    public Vec3[] topPoints= {};
 
     public MultiGenericSmelter(String name) {
         super(name);
         drawer=new DrawSmelter(Color.valueOf("ffc999"));
         ambientSound = Sounds.smelter;
         ambientSoundVolume = 0.07f;
+    }
+    public void topPoints(Vec3... topPoints){
+        this.topPoints=topPoints;
     }
     public class MultiGenericSmelterBuild extends GenericCrafter.GenericCrafterBuild{
         private void drawTop(float x,float y,float sizeUp){
@@ -44,12 +45,12 @@ public class MultiGenericSmelter extends GenericCrafter {
 //            this.onProximityUpdate();
 
             Draw.rect(this.block.region, this.x, this.y, this.block.rotate ? this.rotdeg() : 0.0F);
-            if (topPoints.size>0) {
+            if (topPoints.length>0) {
                 float x=this.x- Mathf.floor(this.block.size/2f)*8,
                         y=this.y-Mathf.floor(this.block.size/2f)*8;
-                topPoints.each((vec)->{
+                for (Vec3 vec : topPoints) {
                     this.drawTop(x+vec.x*8f, y+vec.y*8f,vec.z);
-                });
+                }
             }
         }
     }

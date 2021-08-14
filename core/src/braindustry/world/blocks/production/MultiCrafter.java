@@ -11,13 +11,17 @@ import arc.math.Mathf;
 import arc.scene.ui.layout.Table;
 import arc.struct.EnumSet;
 import arc.struct.Seq;
+import arc.util.Structs;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
 import braindustry.content.ModFx;
 import braindustry.type.Recipe;
+import braindustry.ui.MultiBar;
 import braindustry.world.ModBlock;
+import braindustry.world.consumers.ConsumeLiquidDynamic;
 import braindustry.world.meta.BDStat;
 import braindustry.world.meta.RecipeListValue;
+import mindustry.Vars;
 import mindustry.content.Fx;
 import mindustry.content.Liquids;
 import mindustry.entities.Effect;
@@ -25,24 +29,23 @@ import mindustry.game.Team;
 import mindustry.gen.Building;
 import mindustry.gen.Sounds;
 import mindustry.graphics.Pal;
-import mindustry.type.*;
+import mindustry.type.Item;
+import mindustry.type.ItemStack;
+import mindustry.type.Liquid;
+import mindustry.type.LiquidStack;
 import mindustry.ui.Bar;
 import mindustry.ui.Styles;
 import mindustry.world.Tile;
 import mindustry.world.blocks.ItemSelection;
 import mindustry.world.consumers.*;
 import mindustry.world.meta.*;
-import braindustry.ui.MultiBar;
-import braindustry.world.consumers.ConsumeLiquidDynamic;
-
-import java.util.Objects;
 
 import static braindustry.BDVars.fullName;
 
 public class MultiCrafter extends ModBlock {
     public final int timerDump;
     public final int timerReBuildBars;
-    public Seq<Recipe> recipes = new Seq<>();
+    public Recipe[] recipes = {};
     public Effect craftEffect;
     public Effect updateEffect;
     public float updateEffectChance;
@@ -52,6 +55,8 @@ public class MultiCrafter extends ModBlock {
     public boolean dynamicLiquid = true;
     public float extraStorageLiquid = 1;
     public float extraStorageItem = 1;
+    public int[] itemsCapacities = {};
+    public float[] liquidsCapacities = {};
     AStats aStats = new AStats();
 
     public MultiCrafter(String name) {
@@ -75,7 +80,7 @@ public class MultiCrafter extends ModBlock {
         this.group = BlockGroup.none;
         this.config(Integer.class, (build, i) -> {
             MultiCrafterBuild tile = (MultiCrafterBuild) build;
-            tile.currentRecipe = i >= 0 && i < recipes.size ? i : -1;
+            tile.currentRecipe = i >= 0 && i < recipes.length ? i : -1;
             Color color;
             boolean spawnEffect = changeTexture;
             if (tile.currentRecipe != -1) {
@@ -103,16 +108,16 @@ public class MultiCrafter extends ModBlock {
     }
 
     public void recipes(Recipe... recipes) {
-        this.recipes = Seq.with(recipes);
+        this.recipes = recipes;
     }
 
     @Override
     public void load() {
         super.load();
         if (changeTexture) {
-            itemsTexture = new TextureRegion[this.recipes.size];
+            itemsTexture = new TextureRegion[this.recipes.length];
             for (int i = 0; i < itemsTexture.length; i++) {
-                String itemName = this.recipes.get(i).outputItem.item.name;
+                String itemName = this.recipes[i].outputItem.item.name;
                 if (itemName.startsWith(fullName(""))) itemName = itemName.split(fullName(""), 2)[1];
 //                print("load: @",this.name+"-"+itemName);
                 itemsTexture[i] = Core.atlas.find(this.name + "-" + itemName);
@@ -124,7 +129,7 @@ public class MultiCrafter extends ModBlock {
     @Override
     public void setStats() {
         aStats.add(Stat.size, "@x@", size, size);
-        aStats.add(Stat.health, (float)health, StatUnit.none);
+        aStats.add(Stat.health, (float) health, StatUnit.none);
         if (canBeBuilt()) {
             aStats.add(Stat.buildTime, buildCost / 60.0F, StatUnit.seconds);
             aStats.add(Stat.buildCost, StatValues.items(false, requirements));
@@ -140,7 +145,7 @@ public class MultiCrafter extends ModBlock {
         }
 
         if (hasItems && itemCapacity > 0) {
-            aStats.add(Stat.itemCapacity, (float)itemCapacity, StatUnit.items);
+            aStats.add(Stat.itemCapacity, (float) itemCapacity, StatUnit.items);
         }
         aStats.add(BDStat.recipes, new RecipeListValue(recipes));
 
@@ -149,17 +154,21 @@ public class MultiCrafter extends ModBlock {
 
     public void init() {
         this.itemCapacity = 0;
-        recipes.each((recipe -> {
-            Seq.with(recipe.consumeItems).each((itemStack -> {
-                this.itemCapacity = Math.max(this.itemCapacity, itemStack.amount);
-            }));
-            Seq.with(recipe.consumeLiquids).each((liquidStack -> {
-                this.liquidCapacity = Math.max(this.liquidCapacity, liquidStack.amount);
-            }));
+        itemsCapacities = new int[Vars.content.items().size];
+        liquidsCapacities = new float[Vars.content.liquids().size];
+        for (Recipe recipe : recipes) {
+            for (ItemStack stack : recipe.consumeItems) {
+                itemsCapacities[stack.item.id] = Math.max(itemsCapacities[stack.item.id], stack.amount * 2);
+                this.itemCapacity = Math.max(this.itemCapacity, stack.amount);
+            }
+            for (LiquidStack stack : recipe.consumeLiquids) {
+                liquidsCapacities[stack.liquid.id] = Math.max(liquidsCapacities[stack.liquid.id], stack.amount * 2);
+                this.liquidCapacity = Math.max(this.liquidCapacity, stack.amount);
+            }
             if (recipe.outputLiquid != null)
                 this.liquidCapacity = Math.max(this.liquidCapacity, recipe.outputLiquid.amount);
             if (recipe.outputItem != null) this.itemCapacity = Math.max(this.itemCapacity, recipe.outputItem.amount);
-        }));
+        }
         this.liquidCapacity *= extraStorageLiquid;
         this.itemCapacity *= extraStorageItem;
         super.init();
@@ -167,9 +176,7 @@ public class MultiCrafter extends ModBlock {
 
         this.config(Item.class, (obj, item) -> {
             MultiCrafterBuild tile = (MultiCrafterBuild) obj;
-            tile.currentRecipe = this.recipes.indexOf((p) -> {
-                return p.outputItem.item == item;
-            });
+            tile.currentRecipe = Structs.indexOf(recipes, recipe -> recipe.outputItem.item == item);
             tile.resetProgress();
         });
     }
@@ -177,9 +184,7 @@ public class MultiCrafter extends ModBlock {
     @Override
     public void setBars() {
         bars.add("health", (entity) -> {
-            Color var10003 = Pal.health;
-            Objects.requireNonNull(entity);
-            return (new Bar("stat.health", var10003, entity::healthf)).blink(Color.white);
+            return (new Bar("stat.health", Pal.health, entity::healthf)).blink(Color.white);
         });
         if (this.hasLiquids) {
             Func<Building, Liquid> current;
@@ -189,8 +194,8 @@ public class MultiCrafter extends ModBlock {
                     if (build == null) return new Bar("0", Color.black.cpy(), () -> 0f);
                     Seq<MultiBar.BarPart> barParts = new Seq<>();
 
-                    Seq<LiquidStack> stacks = build.getNeedLiquids();
-                    stacks.each((stack -> {
+                    LiquidStack[] stacks = build.getNeedLiquids();
+                    for (LiquidStack stack : stacks) {
                         barParts.add(new MultiBar.BarPart(stack.liquid.color, () -> {
                             if (build.liquids == null) return 0.0f;
                             float amounts = build.liquids.get(stack.liquid);
@@ -198,7 +203,7 @@ public class MultiCrafter extends ModBlock {
                             if (need == 0 && build.currentRecipe != -1) return 0;
                             return Math.max(amounts / need, 0);
                         }));
-                    }));
+                    }
                     return new MultiBar(() -> {
                         String text = Core.bundle.get("bar.liquids");
                         if (build.liquids == null)
@@ -266,8 +271,10 @@ public class MultiCrafter extends ModBlock {
         public MultiCrafter block;
         public float progress;
         public float totalProgress;
-        protected Runnable rebuildBars=()->{};
-        protected Runnable rebuildCons=()->{};
+        protected Runnable rebuildBars = () -> {
+        };
+        protected Runnable rebuildCons = () -> {
+        };
 
         public MultiCrafterBuild() {
             this.block = MultiCrafter.this;
@@ -276,12 +283,14 @@ public class MultiCrafter extends ModBlock {
         public Building init(Tile tile, Team team, boolean shouldAdd, int rotation) {
             return super.init(tile, team, shouldAdd, rotation);
         }
+
         @Override
         public void update() {
             super.update();
         }
+
         public void displayConsumption(Table table) {
-            rebuildCons=()-> {
+            rebuildCons = () -> {
                 table.clearChildren();
                 table.clear();
                 table.left();
@@ -295,11 +304,11 @@ public class MultiCrafter extends ModBlock {
             rebuildCons.run();
 
         }
+
         public void displayBars(Table table) {
 
-            rebuildBars=()->{
+            rebuildBars = () -> {
                 table.clearChildren();
-//                table.defaults().growX().height(18.0F).pad(4.0F);
                 for (Func<Building, Bar> bar : bars.list()) {
                     try {
                         table.add(bar.get(this)).growX();
@@ -330,8 +339,7 @@ public class MultiCrafter extends ModBlock {
         }
 
         public int getMaximumAccepted(Item item) {
-            ItemStack itemStack = Seq.with(getCurrentRecipe().consumeItems).find((i) -> i.item == item);
-            return itemStack == null ? 0 : itemStack.amount;
+            return itemsCapacities[item.id];
         }
 
         public void draw() {
@@ -350,9 +358,9 @@ public class MultiCrafter extends ModBlock {
             });
             if (recipes.any()) {
                 ItemSelection.buildTable(table, recipes, () -> {
-                    return this.currentRecipe == -1 ? null : MultiCrafter.this.recipes.get(this.currentRecipe).outputItem.item;
+                    return currentRecipe == -1 ? null : MultiCrafter.this.recipes[currentRecipe].outputItem.item;
                 }, (item) -> {
-                    this.configure(MultiCrafter.this.recipes.indexOf((u) -> {
+                    this.configure(Structs.indexOf(MultiCrafter.this.recipes, (u) -> {
                         return u.outputItem.item == item;
                     }));
                 });
@@ -361,43 +369,31 @@ public class MultiCrafter extends ModBlock {
                     t.add("@none").color(Color.lightGray);
                 });
             }
-         /*   if (!modVars.settings.debug()){
-                table.button("debug", () -> {
-                    String[] lines = {
-                            Strings.format("if1: @", this.consValid()),
-                            Strings.format("if2: @", (getCurrentRecipe().outputItem != null
-                                                      && this.items.get(getCurrentRecipe().outputItem.item) >= this.block.itemCapacity)),
-                            Strings.format("liquid consume: @", getNeedLiquids().toString())
-                    };
-                    getInfoDialog("", "Debug window", Strings.join("\n", lines), Color.green.add(Color.black)).show();
-                });
-            }*/
         }
 
         public float countNowLiquid() {
-
-            float[] amounts={0};
-            this.getNeedLiquids().each(stack -> {
-                amounts[0]+=Math.min(this.liquids.get(stack.liquid), stack.amount);
-            });
-            return amounts[0];
+            float amounts = 0;
+            for (LiquidStack stack : getNeedLiquids()) {
+                amounts += Math.min(this.liquids.get(stack.liquid), stack.amount);
+            }
+            return amounts;
         }
 
         public float countNeedLiquid() {
-            float[] need={0};
-            this.getNeedLiquids().each(stack -> {
-                need[0]+=stack.amount;
-            });
-            return need[0];
+            float need = 0;
+            for (LiquidStack stack : getNeedLiquids()) {
+                need += stack.amount;
+            }
+            return need;
         }
 
-        public Seq<LiquidStack> getNeedLiquids() {
-            return Seq.with(getCurrentRecipe().consumeLiquids);
+        public LiquidStack[] getNeedLiquids() {
+            return getCurrentRecipe().consumeLiquids;
         }
 
         public void handleLiquid(Building source, Liquid liquid, float amount) {
-            Seq<LiquidStack> needLiquids = getNeedLiquids();
-            LiquidStack found = needLiquids.find((l) -> l.liquid == liquid);
+            LiquidStack[] needLiquids = getNeedLiquids();
+            LiquidStack found = Structs.find(needLiquids, (l) -> l.liquid == liquid);
             if (found == null) {
                 return;
             }
@@ -412,19 +408,16 @@ public class MultiCrafter extends ModBlock {
 
         @Override
         public boolean acceptLiquid(Building source, Liquid liquid) {
-            Seq<LiquidStack> need = getNeedLiquids();
-            LiquidStack found = need.find((l) -> l.liquid.name.equals(liquid.name));
-            return found != null && this.liquids.get(liquid) <= found.amount;
+            LiquidStack found = Structs.find(getNeedLiquids(), (l) -> l.liquid.name.equals(liquid.name));
+            return found != null && this.liquids.get(liquid) <= liquidsCapacities[liquid.id];
         }
 
 
         public boolean acceptItem(Building source, Item item) {
-            int[] count={-1};
-            Seq.with(getCurrentRecipe().consumeItems).select((itemStack) -> {
-                return itemStack.item == item;
-            }).each((itemStack -> {
-                count[0]+=itemStack.amount;
-            }));
+            int[] count = {-1};
+            for (ItemStack stack : getCurrentRecipe().consumeItems) {
+                if (stack.item == item) count[0] += stack.amount;
+            }
             return count[0] > 0 && this.items.get(item) < count[0];
         }
 
@@ -434,36 +427,35 @@ public class MultiCrafter extends ModBlock {
 
         protected Recipe getCurrentRecipe() {
             if (currentRecipe == -1) return Recipe.empty;
-            return MultiCrafter.this.recipes.get(currentRecipe);
+            return recipes[currentRecipe];
         }
 
         public boolean canCraft() {
-            Seq<ItemStack> requirements = Seq.with(getCurrentRecipe().consumeItems);
-            int[] count ={0};
-            requirements.each((i) -> {
-                count[0]+=(i.amount + i.item.id);
-            });
-            int req  = count[0];
-            count[0]=0;
+            ItemStack[] requirements = getCurrentRecipe().consumeItems;
+            int req = 0;
+            for (ItemStack i : requirements) {
+                req += (i.amount + i.item.id);
+            }
+            int[] counter={0};
             items.each((item, c) -> {
-                count[0]+=(item.id + c);
+                counter[0] += (item.id + c);
             });
-            int has = count[0];
+            int now = counter[0];
 
-            return this.consValid() && req <= has;
+            return this.consValid() && req <= now;
         }
 
         public void updateTile() {
             if (timer.get(timerReBuildBars, 5)) {
                 setBars();
             }
-            if (currentRecipe < 0 || currentRecipe >= recipes.size) {
+            if (currentRecipe < 0 || currentRecipe >= recipes.length) {
                 currentRecipe = -1;
                 progress = 0;
             }
 
             if (canCraft() && currentRecipe != -1) {
-                progress += getProgressIncrease(recipes.get(currentRecipe).produceTime);
+                progress += getProgressIncrease(recipes[currentRecipe].produceTime);
                 totalProgress += delta();
             }
 
@@ -476,7 +468,7 @@ public class MultiCrafter extends ModBlock {
                 }
 
                 craftEffect.at(x, y);
-                progress = 0.0F;
+                progress %= 1f;
             }
             if (getCurrentRecipe().outputItem != null && timer(timerDump, 5.0F)) {
                 dump(getCurrentRecipe().outputItem.item);
@@ -507,7 +499,7 @@ public class MultiCrafter extends ModBlock {
         public void read(Reads read, byte revision) {
             super.read(read, revision);
             currentRecipe = read.i();
-            if (currentRecipe < 0 || currentRecipe >= recipes.size) {
+            if (currentRecipe < 0 || currentRecipe >= recipes.length) {
                 currentRecipe = -1;
                 progress = 0;
             }
