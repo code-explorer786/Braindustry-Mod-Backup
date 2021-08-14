@@ -10,7 +10,6 @@ import arc.util.io.Reads;
 import arc.util.io.Writes;
 import braindustry.annotations.ModAnnotations;
 import braindustry.entities.BuilderDrawer;
-import braindustry.gen.ObjectOperations;
 import braindustry.gen.OrbitalPlatform;
 import braindustry.gen.Stealthc;
 import braindustry.gen.WritableInterface;
@@ -182,8 +181,7 @@ public class ModTypeIO extends TypeIO {
 
     @ModAnnotations.WritableObjectsConfig(value = {Vec2.class}, offset = 1)
     public static void writeObject(Writes write, Object object) {
-        if (object != null && ObjectOperations.contains(write, object)) {
-        } else if (object instanceof Vec2) {
+        if (object instanceof Vec2) {
             write.b(-1);
             TypeIO.writeVec2(write, (Vec2) object);
         } else {
@@ -195,12 +193,6 @@ public class ModTypeIO extends TypeIO {
     public static Object readObject(Reads read) {
         byte type = read.b();
         int i;
-        WritableInterface writable = ObjectOperations.getById(type);
-//        Log.info("type=@,obj=@", type, writable);
-        if (writable != null) {
-            writable.read(read);
-            return writable;
-        }
         switch (type) {
             case -1:
                 return TypeIO.readVec2(read);
