@@ -40,6 +40,16 @@ public class ModMenuFragment {
         });
         try {
             WidgetGroup widgetGroup = (WidgetGroup) ui.menuGroup.getChildren().first();
+            widgetGroup.getChildren().set(0, new Element() {
+                {
+                    name = "custom-menu-background";
+                }
+
+                @Override
+                public void draw() {
+                    lastRenderer.render();
+                }
+            });
             widgetGroup.getChildren().set(mobile ? 4 : (becontrol.active() ? 3 : 2), new Element() {
                 {
                     name = "braindustry-logo";
@@ -54,10 +64,27 @@ public class ModMenuFragment {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        Runnable update = () -> {
+            MenuButtons.menuButton(new MenuButton("@menu.title", Icon.menu,
+                    new MenuButtonUnClose("@rebuild_menu", Icon.refresh, ModMenuFragment::rebuildMenu),
+                    new MenuButtonUnClose("@background.styles", Icon.effect, () -> modUI.backgroundStyleDialog.show()),
+                    new MenuButtonUnClose("@background.screenshot", Icon.copy, ModMenuFragment::takeBackgroundScreenshot)
+            ));
+        };
+        update.run();
+        Events.on(EventType.ResizeEvent.class, e -> update.run());
 //        Vars.ui.menufrag.
 //    ui.menufrag.build(ui.menuGroup);
     }
 
+
+    private static void takeBackgroundScreenshot() {
+        lastRenderer.takeBackgroundScreenshot();
+    }
+
+    public static void rebuildMenu() {
+        lastRenderer.rebuild();
+    }
 
     public static void timeScl(float timeScl) {
         ModMenuFragment.timeScl = timeScl;

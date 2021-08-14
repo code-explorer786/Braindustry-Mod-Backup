@@ -2,6 +2,7 @@ package braindustry;
 
 import braindustry.customArc.ModSettings;
 import braindustry.ui.dialogs.ModOtherSettingsDialog;
+import braindustry.ui.dialogs.ModSettingsDialog;
 import arc.Core;
 import arc.Events;
 import arc.util.Log;
@@ -21,6 +22,8 @@ import static mindustry.Vars.*;
 public class BDVars {
     public static ModSettings settings;
     public static Mods.LoadedMod modInfo;
+    public static ModOtherSettingsDialog otherSettingsDialog;
+    public static ModSettingsDialog settingsDialog;
     public static ModNetClient netClient;
     public static ModNetServer netServer;
     public static ModUI modUI;
