@@ -22,21 +22,8 @@ import mindustry.world.meta.BuildVisibility;
 import static braindustry.BDVars.settings;
 
 public class ModLogic implements ApplicationListener {
-    boolean debug;
-    private Prov<Seq<Block>> debugListGetter = () -> Seq.<Block>with(
-            Blocks.duct,
-            Blocks.ductRouter,
-            Blocks.ductBridge,
-            Blocks.blockForge,
-            Blocks.blockLoader,
-            Blocks.blockUnloader,
-            null
-    ).select(c -> c != null && c.buildVisibility == BuildVisibility.debugOnly);
-    private Seq<Block> debugList;
 
     public ModLogic() {
-        debug = settings.debug();
-//        Log.info("debugList: @",debugList=debugListGetter.get());
         Events.on(EventType.WorldLoadEvent.class, e -> {
             Groups.build.each(this::removeUnitPowerGenerators);
         });
@@ -62,24 +49,6 @@ public class ModLogic implements ApplicationListener {
             }
         });
     }
-
-    @Override
-    public void update() {
-        if (debug != settings.debug()) {
-            debug = settings.debug();
-            Vars.content.blocks().each(content -> {
-                if (isDebug(content)) {
-                    content.buildVisibility = debug ? BuildVisibility.shown : BuildVisibility.debugOnly;
-                }
-            });
-        }
-    }
-
-    private boolean isDebug(Block content) {
-        if (debugList==null)debugList=debugListGetter.get();
-        return content instanceof DebugBlock || debugList.contains(content);
-    }
-
     protected void removeUnitPowerGenerators(Building build) {
         if (build != null && build.power != null) {
             int[] ints = build.power.links.toArray();
