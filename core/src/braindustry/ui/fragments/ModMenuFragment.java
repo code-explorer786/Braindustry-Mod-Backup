@@ -38,7 +38,8 @@ public class ModMenuFragment {
         Events.on(EventType.DisposeEvent.class, (event) -> {
             lastRenderer.dispose();
         });
-        try {
+        
+        if(!mobile) {
             WidgetGroup widgetGroup = (WidgetGroup) ui.menuGroup.getChildren().first();
             widgetGroup.getChildren().set(0, new Element() {
                 {
@@ -66,8 +67,6 @@ public class ModMenuFragment {
                     drawTitle();
                 }
             });
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
         Runnable update = () -> {
             MenuButtons.menuButton(new MenuButton("@menu.title", Icon.menu,
