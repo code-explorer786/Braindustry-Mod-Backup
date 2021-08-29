@@ -9,6 +9,7 @@ import arc.scene.Element;
 import arc.scene.event.Touchable;
 import arc.scene.ui.layout.Scl;
 import arc.scene.ui.layout.WidgetGroup;
+import arc.struct.SnapshotSeq;
 import arc.util.Align;
 import braindustry.graphics.ModMenuRenderer;
 import braindustry.graphics.ModShaders;
@@ -20,6 +21,9 @@ import mindustry.game.EventType;
 import mindustry.gen.Icon;
 import mindustry.ui.Fonts;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 import static arc.Core.graphics;
 import static braindustry.BDVars.fullName;
 import static braindustry.BDVars.modUI;
@@ -30,24 +34,26 @@ public class ModMenuFragment {
     protected static float pixels = 1f;
     protected static int otherAxisMul = 50;
     protected static float timeScl = 1f;
+    //needs for exception log
+ private    static WidgetGroup widgetGroup = null;
     private static ModMenuRenderer lastRenderer;
 
     public static void init() {
-        if (lastRenderer!=null)return;
+        if (lastRenderer != null) return;
         lastRenderer = new ModMenuRenderer();
         Events.on(EventType.DisposeEvent.class, (event) -> {
             lastRenderer.dispose();
         });
-        
-        if(!mobile) {
-            WidgetGroup widgetGroup = (WidgetGroup) ui.menuGroup.getChildren().first();
+        widgetGroup = null;
+        try {
+            widgetGroup = (WidgetGroup) ui.menuGroup.getChildren().first();
             widgetGroup.getChildren().set(0, new Element() {
                 {
                     name = "custom-menu-background";
-                    update(()->{
-                       if (!widgetGroup.visible){
-                           lastRenderer.resetData();
-                       }
+                    update(() -> {
+                        if (!widgetGroup.visible) {
+                            lastRenderer.resetData();
+                        }
                     });
                 }
 
@@ -67,6 +73,21 @@ public class ModMenuFragment {
                     drawTitle();
                 }
             });
+        } catch (Exception exception) {
+            StringBuilder widgetInfo = new StringBuilder();
+            if (widgetGroup != null) {
+                SnapshotSeq<Element> children = widgetGroup.getChildren();
+                for (int i = 0; i < children.size; i++) {
+                    widgetInfo.append(i).append(": ").append(children.get(i));
+                    widgetInfo.append(i).append(": ").append(children.get(i));
+                }
+            } else {
+                widgetInfo.append("<none>");
+            }
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            exception.printStackTrace(pw);
+            throw new RuntimeException(sw.toString() + "\nwidgetInfo: " + widgetInfo.toString());
         }
         Runnable update = () -> {
             MenuButtons.menuButton(new MenuButton("@menu.title", Icon.menu,
@@ -118,21 +139,21 @@ public class ModMenuFragment {
         float fy = (int) (height - 6 - logoh) + logoh / 2 - (Core.graphics.isPortrait() ? Scl.scl(30f) : 0f);
 
         Draw.color();
-     if (ModShaders.waveShader!=null){
-         ModShaders.waveShader
-                 .forcePercent(pixels / (float) (!xAxis ? logo.height : logo.width))
-                 .xAxis(xAxis)
-                 .otherAxisMul(otherAxisMul)
-                 .timeScl(timeScl)
-                 .region(null);
-         renderer.effectBuffer.resize(graphics.getWidth(), graphics.getHeight());
-         renderer.effectBuffer.begin(Color.clear);
-         Draw.rect(logo,fx,fy,logow,logoh);
-         renderer.effectBuffer.end();
-         renderer.effectBuffer.blit(ModShaders.waveShader);
-     } else {
-         Draw.rect(logo,fx,fy,logow,logoh);
-     }
+        if (ModShaders.waveShader != null) {
+            ModShaders.waveShader
+                    .forcePercent(pixels / (float) (!xAxis ? logo.height : logo.width))
+                    .xAxis(xAxis)
+                    .otherAxisMul(otherAxisMul)
+                    .timeScl(timeScl)
+                    .region(null);
+            renderer.effectBuffer.resize(graphics.getWidth(), graphics.getHeight());
+            renderer.effectBuffer.begin(Color.clear);
+            Draw.rect(logo, fx, fy, logow, logoh);
+            renderer.effectBuffer.end();
+            renderer.effectBuffer.blit(ModShaders.waveShader);
+        } else {
+            Draw.rect(logo, fx, fy, logow, logoh);
+        }
         Draw.shader();
 
         Fonts.def.setColor(Color.white);
