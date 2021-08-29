@@ -3,14 +3,14 @@ buildscript {
         arcHash = '128'
         mindustryVersion = 'v129.2'
         mindustryVersionAnnotations = 'v126.2'
-        aciVersion = 'v1.2'
+        aciVersion = 'v1.4'
         gassesVersion = 'v1.4'
         modsDirectory = "classic"
     }
     repositories {
         mavenLocal()
         mavenCentral()
-        google()
+//        google()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url 'https://jitpack.io' }
     }
@@ -160,19 +160,20 @@ project(":core") {
     dependencies {
         compileJava.dependsOn(preGen)
 
-        api "org.lz4:lz4-java:1.7.1"
-        api arcModule("arc-core")
-        api arcModule("extensions:flabel")
-        api arcModule("extensions:freetype")
-        api arcModule("extensions:g3d")
-        api arcModule("extensions:fx")
-        api arcModule("extensions:arcnet")
+        compileOnly "org.lz4:lz4-java:1.7.1"
+        compileOnly arcModule("arc-core")
+        compileOnly arcModule("extensions:flabel")
+        compileOnly arcModule("extensions:freetype")
+        compileOnly arcModule("extensions:g3d")
+        compileOnly arcModule("extensions:fx")
+        compileOnly arcModule("extensions:arcnet")
 //        compileOnly "com.github.Anuken.Mindustry:entities:$mindustryVersion"
-        implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersionAnnotations"
-        implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
-        implementation "com.github.Anuken.Mindustry:tools:$mindustryVersion"
-        implementation "com.github.Zelaux:AdvancedContentInfo:$aciVersion"
-        implementation "com.github.Zelaux.GasLibrary:core:$gassesVersion"
+        compileOnly "com.github.Anuken.Mindustry:annotations:$mindustryVersionAnnotations"
+        compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
+//        compileOnly "com.github.Anuken.Mindustry:tools:$mindustryVersion"
+        compileOnly "com.github.Zelaux:AdvancedContentInfo:$aciVersion"
+//        implementation "com.github.Zelaux:AdvancedContentInfo:$aciVersion"
+        compileOnly "com.github.Zelaux.GasLibrary:core:$gassesVersion"
 
         annotationProcessor 'com.github.Anuken:jabel:34e4c172e65b3928cd9eabe1993654ea79c409cd'
         compileOnly project(":annotations")
@@ -220,6 +221,8 @@ project(":tools") {
         implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersionAnnotations"
         implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
         implementation "com.github.Anuken.Mindustry:tools:$mindustryVersion"
+        implementation "com.github.Zelaux:AdvancedContentInfo:$aciVersion"
+        implementation "com.github.Zelaux.GasLibrary:core:$gassesVersion"
         implementation arcModule(":extensions:packer")
     }
 }

@@ -43,7 +43,7 @@ public class UnitChooseDialog extends BaseDialog {
             index[0]++;
             Button button = new Button();
             button.clearChildren();
-            Image image = new Image(unitType.region);
+            Image image = new Image(unitType.fullIcon);
             Cell<Image> imageCell = button.add(image);
             float imageSize = buttonSize * 0.7f;
             if (image.getWidth() == image.getHeight()) {

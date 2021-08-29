@@ -1,10 +1,16 @@
 package braindustry.content;
 
+import arc.Core;
+import arc.graphics.g2d.Draw;
 import arc.struct.Seq;
 import arc.util.Log;
 import arc.util.Strings;
+import mindustry.Vars;
 import mindustry.ctype.ContentList;
+import mindustry.gen.Unit;
 import mindustry.type.StatusEffect;
+
+import static mindustry.Vars.renderer;
 
 public class ModStatusEffects implements ContentList {
     public static Seq<StatusEffect> speedMul, darkBurning;
@@ -19,10 +25,11 @@ public class ModStatusEffects implements ContentList {
             try {
                 StatusEffect e = new StatusEffect(n) {{
                     localizedName = Strings.capitalize(n);
-                    this.speedMultiplier = name.equals("speedMul") ? val : 1.0f;
-                    this.damageMultiplier = name.equals("damageMul") ? val : 1.0f;
+                    speedMultiplier = name.equals("speedMul") ? val : 1.0f;
+                    damageMultiplier = name.equals("damageMul") ? val : 1.0f;
 //                        this.armorMultiplier = name == "armorMul" ? val : 1.0f;
-                    this.damage = name.equals("damage") ? val : 0.0f;
+                    damage = name.equals("damage") ? val : 0.0f;
+                    show=false;
                 }};
                 seq.add(e);
             } catch (Exception e) {

@@ -1,8 +1,11 @@
 package braindustry;
 
 import arc.ApplicationCore;
+import arc.ApplicationListener;
 import arc.Core;
+import arc.func.Cons;
 import arc.struct.Seq;
+import arc.util.Log;
 import mindustry.ClientLauncher;
 import mindustry.Vars;
 
@@ -31,8 +34,25 @@ public class ModListener extends ApplicationCore {
     }
 
     @Override
-    public void setup() {
+    public void pause() {
+        if (!loaded)return;
+        super.pause();
+    }
 
+    @Override
+    public void resize(int width, int height) {
+        if (!loaded)return;
+        super.resize(width,height);
+    }
+
+    @Override
+    public void resume() {
+        if (!loaded)return;
+        super.resume();
+    }
+
+    @Override
+    public void setup() {
     }
 
     @Override
@@ -42,6 +62,7 @@ public class ModListener extends ApplicationCore {
     }
 
     public void update() {
+        if (!loaded)return;
         updaters.each(Runnable::run);
         super.update();
     }

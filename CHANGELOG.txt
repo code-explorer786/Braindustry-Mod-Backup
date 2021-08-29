@@ -1,13 +1,22 @@
--fixed "oh no" texture of gas router
--fixed game planet list without Braindustry planets
--changed cheat menu button style
--cheat menu is now arranged depending on the availability of mods: time-control, test-utils
--hotkey mod is now in game hotkeys
--changed cheat menu style
--added liquids to background menu
--added new functions to Rules editor
--added rotators to MultiRotatorDrill icon
+-Fixed texture "oh no" gas router.
+-Now Braindustry planets in the planet selection list.
+-Changed the style of the cheat menu button
+-The cheat menu is now organized depending on the availability of mods: time-control, test-utils
+-Mod hotkeys are moved to game controls dialog
+-Changed the style of the cheat menu
+-Added fluid support for the menu background
+-Added new functions to Rules editor
+-Added rotators to MultiRotatorDrill full icon
 -Gas and AdvancedContentInfo are now independent libraries
--added rotatorsCount stat to MultiRotatorDrill
--made SmartRouter controllable by logic
--made SmartSorter controllable by logic
+-Added rotatorsCount stat to MultiRotatorDrill
+-Made SmartRouter controllable by logic
+-Made SmartSorter controllable by logic
+-Added laserRuler
+-Added orbital platforms to unit's full sprite
+-Selecting unit now uses the full icon instead of the region (you can see this when selecting a unit in the cheat menu)
+-The error message is now only displayed in debug mode
+-The error message is now only showed in debug mode(usually showed when shaders have errors)
+-Removed units for sand box only
+-Now speedMul status effects do not showed in mod content list and core database.
+-Removed dpsMeter
+-Added bottom area to full naval unit icon with PowerGeneratorAbility.

@@ -120,6 +120,7 @@ public class BDVars {
 
     public static void showException(Exception exception) {
         Log.err(exception);
+        if (settings!=null &&!settings.debug())return;
         try {
             Vars.ui.showException(Strings.format("@: error", modInfo.meta.displayName), exception);
         } catch (NullPointerException n) {

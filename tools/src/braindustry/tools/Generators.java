@@ -433,14 +433,14 @@ public class Generators {
                         if (!ability.region().found()) continue;
                         Pixmap region = outline.get(get(ability.region()));
                         Log.info("type: @", type);
-                        for (int i = 0; i < ability.weapons.size; i++) {
+                        for (int i = 0; i < ability.weapons.length; i++) {
                             int dx = 0, dy = 0;
                             Tmp.v1.trns(i / (float) ability.platformsCount() * 360f, type.hitSize, type.hitSize).scl(1f / Draw.scl);
                             dx = (int) Tmp.v1.x;
                             dy = (int) Tmp.v1.y;
                             image = drawScaleAt(image, region, image.width / 2 - region.width / 2 + dx, image.height / 2 - region.height / 2 + dy);
 
-                            Weapon weapon = ability.weapons.get(i);
+                            Weapon weapon = ability.weapons[i];
                             if (weapon == null) continue;
                             weapon.load();
                             if (!weapon.region.found()) {

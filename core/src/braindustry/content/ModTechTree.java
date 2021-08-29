@@ -1,8 +1,8 @@
 package braindustry.content;
 
-import braindustry.customArc.TechTreeManager;
 import arc.struct.Seq;
 import braindustry.content.Blocks.ModBlocks;
+import braindustry.customArc.TechTreeManager;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.game.Objectives.Produce;
@@ -208,7 +208,9 @@ public class ModTechTree extends TechTreeManager implements ContentList {
             });
             node(ModBlocks.refrigerantReactor);
         });
-        parentNode(Blocks.surgeTower, ModBlocks.phaseTower);
+        node(Blocks.surgeTower, () -> {
+            node(ModBlocks.phaseTower);
+        });
         node(Blocks.arc, () -> {
             node(ModBlocks.impulse, () -> {
                 node(ModBlocks.synaps, Seq.with(new Research(ModSectorPresets.spacePort)), () -> {
@@ -219,8 +221,10 @@ public class ModTechTree extends TechTreeManager implements ContentList {
                 });
             });
         });
-        parentNode(Blocks.fuse, ModBlocks.blaze, Seq.with(new SectorComplete(ModSectorPresets.spacePort)), () -> {
-            node(ModBlocks.rapier, Seq.with(new SectorComplete(ModSectorPresets.magmaticElectrostation)));
+        node(Blocks.fuse, () -> {
+            node(ModBlocks.blaze, Seq.with(new SectorComplete(ModSectorPresets.spacePort)), () -> {
+                node(ModBlocks.rapier, Seq.with(new SectorComplete(ModSectorPresets.magmaticElectrostation)));
+            });
         });
         node(Blocks.lancer, () -> {
             node(ModBlocks.soul, Seq.with(new SectorComplete(ModSectorPresets.spacePort)), () -> {
@@ -270,24 +274,62 @@ public class ModTechTree extends TechTreeManager implements ContentList {
             });
         });
 
-        parentNode(Blocks.parallax, ModBlocks.perlin);
-        parentNode(Blocks.swarmer, ModBlocks.stinger);
-        parentNode(Blocks.router, ModBlocks.smartRouter);
-        parentNode(Blocks.segment, ModBlocks.fragment);
-        parentNode(Blocks.plastaniumConveyor, ModBlocks.plasticConveyor);
-        parentNode(Blocks.armoredConveyor, ModBlocks.armoredPlastaniumConveyor);
-        parentNode(Blocks.pulseConduit, ModBlocks.chromiumConduit);
-        parentNode(Blocks.phaseConveyor, ModBlocks.phaseAlloyConveyor);
-        parentNode(Blocks.phaseWeaver, ModBlocks.hyperPhaseWeaver);
-        parentNode(Blocks.surgeSmelter, ModBlocks.hyperAlloySmelter);
-        parentNode(ModBlocks.chromiumConduit, ModBlocks.gasConduit, Seq.with(new SectorComplete(ModSectorPresets.spacePort)));
-        parentNode(Blocks.liquidTank, ModBlocks.gasTank);
-        parentNode(Blocks.salvo, ModBlocks.spark);
-        parentNode(Blocks.liquidRouter, ModBlocks.gasRouter);
-        parentNode(Blocks.laserDrill, ModBlocks.hydraulicDrill);
-        parentNode(Blocks.cryofluidMixer, ModBlocks.refrigerantmixer);
-        parentNode(Blocks.junction, ModBlocks.sideJunction);
-        parentNode(Blocks.sorter, ModBlocks.smartSorter);
+        node(Blocks.parallax, () -> {
+            node(ModBlocks.perlin);
+        });
+        node(Blocks.swarmer, () -> {
+            node(ModBlocks.stinger);
+        });
+        node(Blocks.router, () -> {
+            node(ModBlocks.smartRouter, () -> {
+                node(ModBlocks.laserRuler);
+            });
+        });
+        node(Blocks.segment, () -> {
+            node(ModBlocks.fragment);
+        });
+        node(Blocks.plastaniumConveyor, () -> {
+            node(ModBlocks.plasticConveyor);
+        });
+        node(Blocks.armoredConveyor, ()->{
+            node(ModBlocks.armoredPlastaniumConveyor);
+        });
+        node(Blocks.pulseConduit, ()->{
+            node(ModBlocks.chromiumConduit);
+        });
+        node(Blocks.phaseConveyor, ()->{
+            node(ModBlocks.phaseAlloyConveyor);
+        });
+        node(Blocks.phaseWeaver, ()->{
+            node(ModBlocks.hyperPhaseWeaver);
+        });
+        node(Blocks.surgeSmelter,()->{
+            node( ModBlocks.hyperAlloySmelter);
+        });
+        node(ModBlocks.chromiumConduit, ()->{
+            node(ModBlocks.gasConduit, Seq.with(new SectorComplete(ModSectorPresets.spacePort)));
+        });
+        node(Blocks.liquidTank, ()->{
+            node(ModBlocks.gasTank);
+        });
+        node(Blocks.salvo, ()->{
+            node(ModBlocks.spark);
+        });
+        node(Blocks.liquidRouter, ()-> {
+            node(ModBlocks.gasRouter);
+        });
+        node(Blocks.laserDrill, ()->{
+            node(ModBlocks.hydraulicDrill);
+        });
+        node(Blocks.cryofluidMixer,()->{
+            node( ModBlocks.refrigerantmixer);
+        });
+        node(Blocks.junction,()->{
+            node( ModBlocks.sideJunction);
+        });
+        node(Blocks.sorter, ()->{
+            node(ModBlocks.smartSorter);
+        });
     }
 
 }

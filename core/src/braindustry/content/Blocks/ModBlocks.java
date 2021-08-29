@@ -49,7 +49,7 @@ public class ModBlocks implements ContentList {
     exoticAlloyWallLarge, exoticAlloyWall, grapheniteWallLarge, grapheniteWall, odinumWallLarge, odinumWall, plasticWallLarge,
             plasticWall, chloroWall, largeChloroWall,
     //gas
-    gasTank, gasRouter,gasConduit,
+    gasTank, gasRouter, gasConduit,
 
     //logic
 
@@ -57,7 +57,7 @@ public class ModBlocks implements ContentList {
     unitGenerator, unitNode,
 
     //experimental
-    dpsMeter, unitSpawner, examplePayloadBridge, testBlock, laserRuler;
+     unitSpawner, examplePayloadBridge, testBlock, laserRuler;
 
     public static Block methaneBurner, hyperMethaneBurner;
     private ContentList[] blocksContent = {
@@ -77,11 +77,18 @@ public class ModBlocks implements ContentList {
         }
         laserRuler = new LaserRuler("laser-ruler") {{
             localizedName = "Laser ruler";
-            description="The variable range contains the distance to between the block and the selected tile." +
-                        " The shootX variable contains the x coordinate of the selected tile." +
-                        " The shootY variable contains the y coordinate of the selected tile.";
+            description = "Click on a tile and it will calculate the distance to it.";
+            details = "For processor command \"sensor\":"+
+                    "The variable range contains the distance to between the block and the selected tile." +
+                      " The shootX variable contains the x coordinate of the selected tile." +
+                      " The shootY variable contains the y coordinate of the selected tile.";
             size = 1;
-            requirements(Category.logic, BuildVisibility.debugOnly, ItemStack.with(Items.silicon, 10));
+            requirements(Category.logic, BuildVisibility.shown, ItemStack.with(
+                    Items.copper, 25,
+                    Items.metaglass, 5,
+                    Items.silicon, 30,
+                    Items.titanium, 10
+            ));
         }};
         examplePayloadBridge = new BufferedPayloadBridge("payload-bridge-conveyor") {{
             range = 10;
