@@ -23,6 +23,7 @@ import mindustry.core.Version;
 import mindustry.game.EventType;
 import mindustry.gen.Icon;
 import mindustry.ui.Fonts;
+import mindustry.ui.Styles;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -100,12 +101,11 @@ public class ModMenuFragment {
             ));
         };
         if (mobile) {
-
             //Taken from MEEPofFaith / testing-utilities
             Vars.ui.settings.shown(() -> {
                 Table table = (Table) ((Group) ((Group) ui.settings.getChildren().get(1)).getChildren().get(0)).getChildren().get(0);
                 table.row();
-                table.button("@background.styles", () -> modUI.backgroundStyleDialog.show());
+                table.button("@background.styles", Styles.cleart, () -> modUI.backgroundStyleDialog.show());
             });
         }
         update.run();
@@ -149,7 +149,7 @@ public class ModMenuFragment {
         float fy = (int) (height - 6 - logoh) + logoh / 2 - (Core.graphics.isPortrait() ? Scl.scl(30f) : 0f);
 
         Draw.color();
-        if (ModShaders.waveShader != null) {
+        if (ModShaders.waveShader != null && false) {
             ModShaders.waveShader
                     .forcePercent(pixels / (float) (!xAxis ? logo.height : logo.width))
                     .xAxis(xAxis)

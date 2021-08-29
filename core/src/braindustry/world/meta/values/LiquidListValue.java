@@ -18,12 +18,8 @@ public class LiquidListValue implements StatValue {
     }
 
     public void display(Table table) {
-        LiquidStack[] var2 = this.stacks;
-        int var3 = var2.length;
-
-        for(int var4 = 0; var4 < var3; ++var4) {
-            LiquidStack stack = var2[var4];
-            table.add(new ModLiquidDisplay(stack.liquid, stack.amount, this.displayName)).padRight(5.0F);
+        for (LiquidStack stack : stacks) {
+            table.add(new ModLiquidDisplay(stack.liquid, stack.amount, displayName)).padRight(5.0F);
         }
 
     }

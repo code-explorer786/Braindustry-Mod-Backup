@@ -11,6 +11,7 @@ import arc.scene.ui.layout.Table;
 import arc.struct.ObjectSet;
 import arc.struct.Seq;
 import arc.util.Log;
+import arc.util.Scaling;
 import arc.util.Strings;
 import braindustry.gen.BackgroundSettings;
 import braindustry.tools.BackgroundConfig;
@@ -41,9 +42,7 @@ public class BackgroundStyleDialog extends Dialog {
     public BackgroundStyleDialog() {
         super("@background.style.title");
 
-        setup();
-
-
+        resized(true,this::setup);
         buttons.defaults().size(210f, 64f);
         buttons.button("@back", Icon.left, this::hide).size(210f, 64f);
         buttons.button("@rebuild_menu", Icon.refresh, ModMenuFragment::rebuildMenu);
@@ -53,82 +52,104 @@ public class BackgroundStyleDialog extends Dialog {
 
     private void setup() {
         cont.clear();
-        cont.pane(t -> {
-            t.defaults().height(60f);
-            seedField(t, worldSeedKey, useWorldSeedKey,
-                    BackgroundSettings::useWorldSeed, BackgroundSettings::useWorldSeed,
-                    BackgroundSettings::worldSeed, BackgroundSettings::worldSeed);
-            seedField(t, heatKey, useHeatSeedKey,
-                    BackgroundSettings::useHeatSeed, BackgroundSettings::useHeatSeed,
-                    BackgroundSettings::heatSeed, BackgroundSettings::heatSeed);
-            seedField(t, oreSeedKey, useOreSeedKey,
-                    BackgroundSettings::useOreSeed, BackgroundSettings::useOreSeed,
-                    BackgroundSettings::oreSeed, BackgroundSettings::oreSeed);
-            t.defaults().height(60f).width(160.0f);
-            addPaneSelect(t, 1, 3, BackgroundSettings::hasFloor3, BackgroundSettings::hasFloor3,
-                    BackgroundSettings::floor3, BackgroundSettings::floor3,
-                    BackgroundSettings::wall1, BackgroundSettings::wall1);
-            addPaneSelect(t, 3, 1, () -> !hasWall3(), b -> hasWall3(!b),
-                    BackgroundSettings::floor1, BackgroundSettings::floor1,
-                    BackgroundSettings::wall3, BackgroundSettings::wall3);
-            this.<OreBlock>addBlockField(t, 1, "ore", BackgroundSettings::ore1, oreFilter, BackgroundSettings::ore1);
-            t.row();
+        cont.pane(o -> {
+            o.table(t->{
+                t.defaults().height(height());
+                seedField(t, worldSeedKey, useWorldSeedKey,
+                        BackgroundSettings::useWorldSeed, BackgroundSettings::useWorldSeed,
+                        BackgroundSettings::worldSeed, BackgroundSettings::worldSeed);
+                seedField(t, heatKey, useHeatSeedKey,
+                        BackgroundSettings::useHeatSeed, BackgroundSettings::useHeatSeed,
+                        BackgroundSettings::heatSeed, BackgroundSettings::heatSeed);
+                seedField(t, oreSeedKey, useOreSeedKey,
+                        BackgroundSettings::useOreSeed, BackgroundSettings::useOreSeed,
+                        BackgroundSettings::oreSeed, BackgroundSettings::oreSeed);
+                t.defaults().height(height()).width(width());
+                addPaneSelect(t, 1, 3, BackgroundSettings::hasFloor3, BackgroundSettings::hasFloor3,
+                        BackgroundSettings::floor3, BackgroundSettings::floor3,
+                        BackgroundSettings::wall1, BackgroundSettings::wall1);
+                addPaneSelect(t, 3, 1, () -> !hasWall3(), b -> hasWall3(!b),
+                        BackgroundSettings::floor1, BackgroundSettings::floor1,
+                        BackgroundSettings::wall3, BackgroundSettings::wall3);
+                this.<OreBlock>addBlockField(t, 1, "ore", BackgroundSettings::ore1, oreFilter, BackgroundSettings::ore1);
+                t.row();
 
-            /**============================================*/
-            addPaneSelect(t, 2, 4, BackgroundSettings::hasFloor4, BackgroundSettings::hasFloor4,
-                    BackgroundSettings::floor4, BackgroundSettings::floor4,
-                    BackgroundSettings::wall2, BackgroundSettings::wall2);
-            addPaneSelect(t, 4, 2, () -> !hasWall4(), b -> hasWall4(!b),
-                    BackgroundSettings::floor2, BackgroundSettings::floor2,
-                    BackgroundSettings::wall4, BackgroundSettings::wall4);
-            this.<OreBlock>addBlockField(t, 2, "ore", BackgroundSettings::ore2, oreFilter, BackgroundSettings::ore2);
-            t.row();
-            t.add(new Label(formatKey("background.style.movingType.title"))).colspan(1);
-            t.add().colspan(4 - BackgroundConfig.UnitMovingType.values().length);
-            ButtonGroup<CheckBox> buttonGroup = new ButtonGroup<>();
-            for (BackgroundConfig.UnitMovingType value : BackgroundConfig.UnitMovingType.values()) {
-                CheckBox checkBox = t.check(formatKey("unitMovingType." + value), (bool) -> {
-                    if (bool) unitMovingType(value);
-                }).get();
-                buttonGroup.add(checkBox);
-            }
-            t.row();
-            t.defaults().reset();
-            t.row();
-            viewType(t, (table) -> {
-                TextureAtlas.AtlasRegion crossRegion = Core.atlas.find("cross");
-                table.button(new TextureRegionDrawable(crossRegion), () -> {
-                    openSelector(unitKey, content.units(), BackgroundSettings::unit, BackgroundSettings::unit);
-                }).update(button -> {
-                    UnitType block = unit();
-                    if (block == null) unit(null);
+                /**============================================*/
+                addPaneSelect(t, 2, 4, BackgroundSettings::hasFloor4, BackgroundSettings::hasFloor4,
+                        BackgroundSettings::floor4, BackgroundSettings::floor4,
+                        BackgroundSettings::wall2, BackgroundSettings::wall2);
+                addPaneSelect(t, 4, 2, () -> !hasWall4(), b -> hasWall4(!b),
+                        BackgroundSettings::floor2, BackgroundSettings::floor2,
+                        BackgroundSettings::wall4, BackgroundSettings::wall4);
+                this.<OreBlock>addBlockField(t, 2, "ore", BackgroundSettings::ore2, oreFilter, BackgroundSettings::ore2);
+                t.row();
+                t.add(new Label(formatKey("background.style.movingType.title"))).colspan(1);
+                t.add().colspan(4 - BackgroundConfig.UnitMovingType.values().length);
+                ButtonGroup<CheckBox> buttonGroup = new ButtonGroup<>();
+                for (BackgroundConfig.UnitMovingType value : BackgroundConfig.UnitMovingType.values()) {
+                    CheckBox checkBox = t.check(formatKey("unitMovingType." + value), (bool) -> {
+                        if (bool) unitMovingType(value);
+                    }).get();
+                    buttonGroup.add(checkBox);
+                }
+                t.row();
+                t.defaults().reset();
+                t.row();
+                viewType(t, (table) -> {
+                    TextureAtlas.AtlasRegion crossRegion = Core.atlas.find("cross");
+                    table.button(new TextureRegionDrawable(crossRegion), () -> {
+                        openSelector(unitKey, content.units(), BackgroundSettings::unit, BackgroundSettings::unit);
+                    }).update(button -> {
+                        UnitType block = unit();
+                        if (block == null) unit(null);
 
-                    button.getStyle().imageUp = (new TextureRegionDrawable(block == null ? crossRegion : block.uiIcon));
-                }).size(60f);
-            }, "units", BackgroundSettings::units, BackgroundSettings::units).row();
-            viewType(t, table->{
-                table.slider(0, 1f, 0.01f, BackgroundSettings.heatValue(), BackgroundSettings::heatValue).fillX().height(60f);
-            }, "heat",BackgroundSettings::heat, BackgroundSettings::heat).row();
-            viewType(t, "ore", BackgroundSettings::ore, BackgroundSettings::ore).row();
-            state(t, "tech", BackgroundSettings::tech, BackgroundSettings::tech).row();
-            state(t, "tendrils", BackgroundSettings::tendrils, BackgroundSettings::tendrils).row();
-            t.row();
-            t.check(formatKey(useStylesKey), useStyles(), BackgroundSettings::useStyles).colspan(5).height(60f);
+                        button.getStyle().imageUp = (new TextureRegionDrawable(block == null ? crossRegion : block.uiIcon));
+                    }).size(height());
+                }, "units", BackgroundSettings::units, BackgroundSettings::units).row();
+                viewType(t, table -> {
+                    table.slider(0, 1f, 0.01f, BackgroundSettings.heatValue(), BackgroundSettings::heatValue).fillX().height(height());
+                }, "heat", BackgroundSettings::heat, BackgroundSettings::heat).row();
+                viewType(t, Table::add, "ore", BackgroundSettings::ore, BackgroundSettings::ore).row();
+                state(t, "tech", BackgroundSettings::tech, BackgroundSettings::tech).row();
+                state(t, "tendrils", BackgroundSettings::tendrils, BackgroundSettings::tendrils).row();
+                t.row();
+                t.check(formatKey(useStylesKey), useStyles(), BackgroundSettings::useStyles).colspan(5).height(height());
+            });
+        }).update(scrollPane -> {
+            Log.info("scrollPane.size(@,@)",scrollPane.getWidth(),scrollPane.getHeight());
+        }).self(cell->{
+            ScrollPane scrollPane = cell.get();
+            scrollPane.fillParent=true;
+            scrollPane.setScrollingDisabled(true,false);
         });
     }
 
+
     private void seedField(Table t, String key, String useKey, Boolp boolp, Boolc boolc, Intp prov, Intc cons) {
-        t.add(new Label(formatKey(key + ".title"))).width(160.0f);
+        t.add(new Label(formatKey(key + ".title"))).width(width());
         TextField field = t.field("" + prov.get(), TextField.TextFieldFilter.digitsOnly, (value) -> {
             cons.get(Strings.parseInt(value, 0));
 //                BackG.parseInt(value, 0)
-        }).width(160.0f).get();
+        }).width(width()).get();
         t.check(formatKey(useKey), boolp.get(), boolc).colspan(2).fillX().growX();
         t.button(Icon.refresh, () -> {
             field.setProgrammaticChangeEvents(true);
             field.setText("" + Mathf.randomSeed(System.nanoTime(), 0, Integer.MAX_VALUE - 1));
-        }).size(60f);
+        }).size(height());
         t.add().row();
+    }
+
+    private float height() {
+        return 60f * uiScl();
+    }
+
+    private float uiScl() {
+        return 1f / 860f * Math.min(860f, Core.graphics.getWidth());
+//        return 1f;
+    }
+
+    private float width() {
+        return 160.0f*uiScl();
     }
 
     private String formatKey(String key) {
@@ -163,7 +184,7 @@ public class BackgroundStyleDialog extends Dialog {
     }
 
     private Table viewType(Table table, Cons<Table> tableCons, String name, Prov<BackgroundConfig.ViewType> prov, Cons<BackgroundConfig.ViewType> cons) {
-        if (tableCons==null);
+        if (tableCons == null) ;
         table.add(new Label(formatKey("background.style." + name + ".title"))).colspan(1);
         if (tableCons != null) tableCons.get(table);
         for (BackgroundConfig.ViewType value : BackgroundConfig.ViewType.values()) {
@@ -171,7 +192,7 @@ public class BackgroundStyleDialog extends Dialog {
                 cons.get(value);
             }).update(button -> {
                 button.setChecked(prov.get() == value);
-            }).height(60f).growX();
+            }).height(height()).growX();
         }
 
         return table;
@@ -189,7 +210,7 @@ public class BackgroundStyleDialog extends Dialog {
                 cons.get(value);
             }).update(button -> {
                 button.setChecked(prov.get() == value);
-            }).height(60f).growX();
+            }).height(height()).growX();
         }
         return table;
     }
@@ -211,7 +232,7 @@ public class BackgroundStyleDialog extends Dialog {
 //            if (block == null) setter.get(null);
 
             button.getStyle().imageUp = (new TextureRegionDrawable(block == null ? crossRegion : block.uiIcon));
-        }).size(60f);
+        }).size(height());
     }
 
     private <T extends UnlockableContent> void openSelector(String name, Seq<T> items, Prov<T> holder, Cons<T> listener) {
