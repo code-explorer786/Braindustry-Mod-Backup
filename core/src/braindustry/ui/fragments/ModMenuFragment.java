@@ -6,8 +6,10 @@ import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.TextureRegion;
 import arc.scene.Element;
+import arc.scene.Group;
 import arc.scene.event.Touchable;
 import arc.scene.ui.layout.Scl;
+import arc.scene.ui.layout.Table;
 import arc.scene.ui.layout.WidgetGroup;
 import arc.struct.SnapshotSeq;
 import arc.util.Align;
@@ -16,6 +18,7 @@ import braindustry.graphics.ModShaders;
 import braindustry.tools.MenuButtons;
 import braindustry.tools.MenuButtons.MenuButton;
 import braindustry.tools.MenuButtons.MenuButtonUnClose;
+import mindustry.Vars;
 import mindustry.core.Version;
 import mindustry.game.EventType;
 import mindustry.gen.Icon;
@@ -35,7 +38,7 @@ public class ModMenuFragment {
     protected static int otherAxisMul = 50;
     protected static float timeScl = 1f;
     //needs for exception log
- private    static WidgetGroup widgetGroup = null;
+    private static WidgetGroup widgetGroup = null;
     private static ModMenuRenderer lastRenderer;
 
     public static void init() {
@@ -96,10 +99,17 @@ public class ModMenuFragment {
                     new MenuButtonUnClose("@background.screenshot", Icon.copy, ModMenuFragment::takeBackgroundScreenshot)
             ));
         };
+        if (mobile) {
+
+            //Taken from MEEPofFaith / testing-utilities
+            Vars.ui.settings.shown(() -> {
+                Table table = (Table) ((Group) ((Group) ui.settings.getChildren().get(1)).getChildren().get(0)).getChildren().get(0);
+                table.row();
+                table.button("@background.styles", () -> modUI.backgroundStyleDialog.show());
+            });
+        }
         update.run();
         Events.on(EventType.ResizeEvent.class, e -> update.run());
-//        Vars.ui.menufrag.
-//    ui.menufrag.build(ui.menuGroup);
     }
 
 

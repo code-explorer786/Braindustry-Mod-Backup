@@ -45,8 +45,13 @@ public class ModCheatMenu {
         cons.get(table);
         table.left().bottom();
         int timeControlOffset = enabledMod("time-control") ? 62 : 0;
-        int testUtilsOffset= enabledMod("test-utils")? 60 * 3:0;
-        table.marginBottom(timeControlOffset+testUtilsOffset);
+        int testUtilsOffsetFull= enabledMod("test-utils")? 60 * 3:0;
+        int testUtilsOffset= enabledMod("test-utils")? 60 * 2:0;
+        table.marginBottom(timeControlOffset+testUtilsOffsetFull);
+        /*table.update(()->{
+            Vars.mods.getScripts().readString()
+            table.marginBottom(timeControlOffset+testUtilsOffsetFull);
+        });*/
         modLog("cheatMenu.ClientLoadEvent_PRE end");
         Events.on(EventType.ClientLoadEvent.class,e->{
             modLog("cheatMenu.ClientLoadEvent start");

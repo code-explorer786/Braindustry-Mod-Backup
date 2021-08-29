@@ -56,6 +56,8 @@ public class ModUI implements Disposable, ApplicationListener {
 
     public ModColorPicker colorPicker;
     public BackgroundStyleDialog backgroundStyleDialog;
+    public ModOtherSettingsDialog otherSettingsDialog;
+    public ModSettingsDialog settingsDialog;
     private boolean inited=false;
 
     public ModUI() {

@@ -23,8 +23,6 @@ import static mindustry.Vars.ui;
 public class BDVars {
     public static ModSettings settings;
     public static Mods.LoadedMod modInfo;
-    public static ModOtherSettingsDialog otherSettingsDialog;
-    public static ModSettingsDialog settingsDialog;
     public static ModNetClient netClient;
     public static ModNetServer netServer;
     public static ModUI modUI;

@@ -98,7 +98,7 @@ public class ModSettings {
                         button.label(() -> Strings.format("@", modInfo==null?"":modInfo.meta.displayName));
                     },
                     () -> {
-                        BDVars.otherSettingsDialog.show();
+                        modUI.otherSettingsDialog.show();
                     }).height(84).right().row();
 //            modLog("settings.ClientLoadEvent end");
 

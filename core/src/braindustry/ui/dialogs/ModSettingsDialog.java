@@ -22,7 +22,7 @@ public class ModSettingsDialog extends Dialog {
         main.defaults().size(300f, 60f);
         TextButton.TextButtonStyle style = Styles.cleart;
         main.button("@settings.other", style, () -> {
-            BDVars.otherSettingsDialog.show();
+            BDVars.modUI.otherSettingsDialog.show();
         });
         cont.add(main);
         addCloseButton();
