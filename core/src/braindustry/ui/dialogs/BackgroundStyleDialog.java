@@ -58,6 +58,7 @@ public class BackgroundStyleDialog extends BaseDialog {
             Table el = cell.get();
             cell.size(el.getPrefWidth(), el.getPrefHeight());
         });
+        table.fillParent=true;
         cont.add(pane).growY().growX().bottom().center();
     }
 
