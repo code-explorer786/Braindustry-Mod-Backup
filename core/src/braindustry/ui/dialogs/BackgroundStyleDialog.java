@@ -144,7 +144,7 @@ public class BackgroundStyleDialog extends Dialog {
     }
 
     private float uiScl() {
-        return 1f / 860f * Math.min(860f, Core.graphics.getWidth());
+        return 1f / 860f * Math.min(860f, Core.graphics.getWidth()*Scl.scl());
 //        return 1f;
     }
 
