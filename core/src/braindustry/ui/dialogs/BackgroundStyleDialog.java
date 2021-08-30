@@ -3,6 +3,7 @@ package braindustry.ui.dialogs;
 import arc.Core;
 import arc.func.*;
 import arc.graphics.g2d.TextureAtlas;
+import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
 import arc.scene.style.TextureRegionDrawable;
 import arc.scene.ui.*;
@@ -15,13 +16,14 @@ import arc.util.Strings;
 import braindustry.gen.BackgroundSettings;
 import braindustry.tools.BackgroundConfig;
 import braindustry.ui.ModStyles;
-import braindustry.ui.fragments.ModMenuFragment;
 import mindustry.content.Blocks;
 import mindustry.ctype.UnlockableContent;
 import mindustry.gen.Icon;
+import mindustry.gen.Iconc;
 import mindustry.gen.Tex;
 import mindustry.type.UnitType;
 import mindustry.ui.Styles;
+import mindustry.ui.dialogs.BaseDialog;
 import mindustry.world.Block;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.environment.OreBlock;
@@ -32,7 +34,7 @@ import static arc.Core.settings;
 import static braindustry.gen.BackgroundSettings.*;
 import static mindustry.Vars.content;
 
-public class BackgroundStyleDialog extends Dialog {
+public class BackgroundStyleDialog extends BaseDialog {
     final static Boolf<Block> floorFilter = b -> b instanceof Floor && !(b instanceof OreBlock) && b != Blocks.spawn;
     final static Boolf<Block> wallFilter = b -> b instanceof StaticWall;
     final static Boolf<Block> oreFilter = b -> b instanceof OreBlock;
@@ -40,25 +42,23 @@ public class BackgroundStyleDialog extends Dialog {
 
     public BackgroundStyleDialog() {
         super("@background.style.title");
-
-        resized(true,this::setup);
-        buttons.defaults().size(210f, 64f);
-        buttons.button("@back", Icon.left, this::hide).size(210f, 64f);
-        buttons.button("@rebuild_menu", Icon.refresh, ModMenuFragment::rebuildMenu);
-
-        closeOnBack();
+        resized(true, this::setup);
+        addCloseButton();
+//        buttons.defaults().size(210f, 64f);
+//        buttons.button("@back", Icon.left, this::hide).size(210f, 64f);
+//        buttons.button("@rebuild_menu", Icon.refresh, ModMenuFragment::rebuildMenu);
+//        closeOnBack();
     }
 
     private void setup() {
         cont.clear();
         Table table = new Table();
-        buildTable(table);
-
         ScrollPane pane = new ScrollPane(table);
-        cont.add(pane).growY().growX().bottom().center().update(scrollPane -> {
-            Log.info("scrollPane.size(@,@)",scrollPane.getWidth(),scrollPane.getHeight());
-            scrollPane.updateVisualScroll();
+        table.table(this::buildTable).self(cell -> {
+            Table el = cell.get();
+            cell.size(el.getPrefWidth(), el.getPrefHeight());
         });
+        cont.add(pane).growY().growX().bottom().center();
     }
 
     private void buildTable(Table t) {
@@ -93,12 +93,10 @@ public class BackgroundStyleDialog extends Dialog {
         t.row();
         t.add(new Label(formatKey("background.style.movingType.title"))).colspan(1);
         t.add().colspan(4 - BackgroundConfig.UnitMovingType.values().length);
-        ButtonGroup<CheckBox> buttonGroup = new ButtonGroup<>();
         for (BackgroundConfig.UnitMovingType value : BackgroundConfig.UnitMovingType.values()) {
-            CheckBox checkBox = t.check(formatKey("unitMovingType." + value), (bool) -> {
+            t.check(formatKey("unitMovingType." + value), (bool) -> {
                 if (bool) unitMovingType(value);
-            }).get();
-            buttonGroup.add(checkBox);
+            }).update(checkBox -> checkBox.setChecked(BackgroundSettings.unitMovingType()==value));
         }
         t.row();
         t.defaults().reset();
@@ -150,7 +148,7 @@ public class BackgroundStyleDialog extends Dialog {
     }
 
     private float width() {
-        return 160.0f*uiScl();
+        return 160.0f * uiScl();
     }
 
     private String formatKey(String key) {
@@ -189,7 +187,19 @@ public class BackgroundStyleDialog extends Dialog {
         table.add(new Label(formatKey("background.style." + name + ".title"))).colspan(1);
         if (tableCons != null) tableCons.get(table);
         for (BackgroundConfig.ViewType value : BackgroundConfig.ViewType.values()) {
-            table.button(formatKey("background.view_type." + value.name()), ModStyles.buttonPane, () -> {
+            String text = formatKey("background.view_type." + value.name());
+            /*TextureRegion region;
+            switch (value) {
+
+                case random -> {
+                    region= Iconc.admin
+                }
+                case custom -> {
+                }
+                case disable -> {
+                }
+            }*/
+            table.button(text, ModStyles.buttonPane, () -> {
                 cons.get(value);
             }).update(button -> {
                 button.setChecked(prov.get() == value);
