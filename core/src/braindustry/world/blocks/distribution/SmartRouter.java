@@ -10,7 +10,7 @@ import arc.scene.ui.layout.Table;
 import arc.util.Strings;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
-import braindustry.annotations.ModAnnotations;
+import braindustry.annotations.BDAnnotations;
 import mindustry.content.Blocks;
 import mindustry.ctype.Content;
 import mindustry.gen.Building;
@@ -21,6 +21,7 @@ import mindustry.type.Item;
 import mindustry.world.Tile;
 import mindustry.world.blocks.distribution.Router;
 import mindustry.world.meta.BlockGroup;
+import mma.annotations.ModAnnotations;
 
 public class SmartRouter extends Router {
 
@@ -28,7 +29,6 @@ public class SmartRouter extends Router {
     TextureRegion cross;
     public @ModAnnotations.Load("@-arrow")
     TextureRegion arrow;
-
     public SmartRouter(String name) {
         super(name);
         this.solid = true;

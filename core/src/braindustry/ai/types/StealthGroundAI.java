@@ -49,7 +49,7 @@ public class StealthGroundAI extends AIController {
     }
 
     @Override
-    protected void updateMovement() {
+    public void updateMovement() {
 
         Stealthc sunit = (Stealthc) this.unit;
         Teamc target = targetFlag(unit.x, unit.y, BlockFlag.repair, false);
@@ -86,7 +86,7 @@ public class StealthGroundAI extends AIController {
     }
 
     @Override
-    protected boolean useFallback() {
+    public boolean useFallback() {
         Teamc target = targetFlag(unit.x, unit.y, BlockFlag.repair, false);
         return !(this.unit instanceof Stealthc && ((Stealthc) unit).mustHeal()) || target == null;
     }

@@ -8,10 +8,9 @@ import arc.struct.Seq;
 import arc.struct.StringMap;
 import arc.util.Log;
 import arc.util.Strings;
-import braindustry.annotations.ModAnnotations;
-import braindustry.annotations.ModBaseProcessor;
+import braindustry.annotations.BDAnnotations;
+
 import com.squareup.javapoet.*;
-import mindustry.annotations.BaseProcessor;
 import mindustry.annotations.remote.RemoteProcess;
 import mindustry.annotations.util.Selement;
 import mindustry.annotations.util.Smethod;
@@ -19,6 +18,7 @@ import mindustry.annotations.util.Stype;
 import mindustry.annotations.util.Svar;
 import mindustry.game.Rules;
 import mindustry.type.Sector;
+import mma.annotations.ModBaseProcessor;
 
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
@@ -26,15 +26,15 @@ import javax.lang.model.element.Modifier;
 
 
 @SupportedAnnotationTypes({
-        "braindustry.annotations.ModAnnotations.Rules",
-        "braindustry.annotations.ModAnnotations.RulesTable",
+        "braindustry.annotations.BDAnnotations.Rules",
+        "braindustry.annotations.BDAnnotations.RulesTable",
 })
 public class RulesProcessor extends ModBaseProcessor {
 
     protected CodeBlock.Builder cashBuilder = null;
     private Seq<Selement> elements;
     private Stype methodsCollector;
-    private ModAnnotations.RulesTable methodsCollectorAnnotations;
+    private BDAnnotations.RulesTable methodsCollectorAnnotations;
     private ObjectSet<String> erroredTypeNames = new ObjectSet<>();
 
     {
@@ -119,9 +119,9 @@ public class RulesProcessor extends ModBaseProcessor {
 
     public void process(RoundEnvironment env) throws Exception {
         Log.info(getClass().getSimpleName() + ".work(" + round + ")");
-        elements = elements(ModAnnotations.Rules.class);
-        methodsCollector = types(ModAnnotations.RulesTable.class).first();
-        methodsCollectorAnnotations = methodsCollector.annotation(ModAnnotations.RulesTable.class);
+        elements = elements(BDAnnotations.Rules.class);
+        methodsCollector = types(BDAnnotations.RulesTable.class).first();
+        methodsCollectorAnnotations = methodsCollector.annotation(BDAnnotations.RulesTable.class);
         Stype type = this.elements.first().asType().superclass();
         Seq<Svar> fields = type.fields();
         TypeSpec.Builder classBuilder = TypeSpec.classBuilder("CheatModRulesTable").addModifiers(Modifier.PUBLIC);

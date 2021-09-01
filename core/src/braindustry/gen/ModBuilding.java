@@ -12,7 +12,7 @@ public class ModBuilding extends Building {
     @Override
     public void configure(Object value) {
         block.lastConfig = value;
-        ModCall.tileConfig(Vars.player, this, value);
+        BDCall.tileConfig(Vars.player, this, value);
     }
 
     @Override
@@ -22,6 +22,6 @@ public class ModBuilding extends Building {
 
     @Override
     public void configureAny(Object value) {
-        ModCall.tileConfig(null, this, value);
+        BDCall.tileConfig(null, this, value);
     }
 }

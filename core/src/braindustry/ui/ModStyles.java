@@ -5,7 +5,8 @@ import arc.scene.style.ScaledNinePatchDrawable;
 import arc.scene.ui.Button;
 import arc.scene.ui.ImageButton;
 import arc.scene.ui.TextButton;
-import braindustry.gen.ModTex;
+import braindustry.gen.BDTex;
+import braindustry.gen.BDTex;
 import mindustry.gen.Tex;
 import mindustry.ui.Styles;
 
@@ -14,36 +15,36 @@ import static mindustry.gen.Tex.*;
 public class ModStyles {
     private static final Color black = new Color(0f, 0f, 0f, 1f), black9 = new Color(0f, 0f, 0f, 0.9f), black8 = new Color(0f, 0f, 0f, 0.8f), black6 = new Color(0f, 0f, 0f, 0.6f), black5 = new Color(0f, 0f, 0f, 0.5f), black3 = new Color(0f, 0f, 0f, 0.3f), none = new Color(0f, 0f, 0f, 0f);
 
-    public static ImageButton.ImageButtonStyle buttonSquarei, alphai;
-    public static TextButton.TextButtonStyle buttonEdge3, buttonPane, buttonPaneTop, buttonPaneBottom;
+    public static ImageButton.ImageButtonStyle buttonSquarei, alphai,buttonPanei;
+    public static TextButton.TextButtonStyle buttonEdge3t, buttonPanet, buttonPaneTopt, buttonPaneBottomt;
     public static Button.ButtonStyle buttonColor;
 
     public static void load() {
         buttonColor = new Button.ButtonStyle(Styles.defaultb) {{
-            over = ModTex.buttonColorOver;
-            down = ModTex.buttonColorDown;
-            up = disabled = ModTex.buttonColor;
+            over = BDTex.buttonColorOver;
+            down = BDTex.buttonColorDown;
+            up = disabled = BDTex.buttonColor;
         }};
-        buttonEdge3 = new TextButton.TextButtonStyle(Styles.defaultt) {{
-            over = ModTex.buttonEdge3Over;
-            down = ModTex.buttonEdge3Down;
+        buttonEdge3t = new TextButton.TextButtonStyle(Styles.defaultt) {{
+            over = BDTex.buttonEdge3Over;
+            down = BDTex.buttonEdge3Down;
             up = disabled = Tex.buttonEdge3;
         }};
-        buttonPane = new TextButton.TextButtonStyle(Styles.defaultt) {{
-            over = ModTex.buttonPaneOver;
-            down = ModTex.buttonPaneDown;
+        buttonPanet = new TextButton.TextButtonStyle(Styles.defaultt) {{
+            over = BDTex.buttonPaneOver;
+            down = BDTex.buttonPaneDown;
             up = disabled = pane;
-            checked=ModTex.buttonPaneOver;
+            checked=BDTex.buttonPaneOver;
         }};
-        buttonPaneTop = new TextButton.TextButtonStyle(Styles.defaultt) {{
-            over = ModTex.buttonPaneTopOver;
-            down = ModTex.buttonPaneTopDown;
-            up = disabled = ModTex.buttonPaneTop;
+        buttonPaneTopt = new TextButton.TextButtonStyle(Styles.defaultt) {{
+            over = BDTex.buttonPaneTopOver;
+            down = BDTex.buttonPaneTopDown;
+            up = disabled = BDTex.buttonPaneTop;
         }};
-        buttonPaneBottom = new TextButton.TextButtonStyle(Styles.defaultt) {{
-            over = ModTex.buttonPaneBottomOver;
-            down = ModTex.buttonPaneBottomDown;
-            up = disabled = ModTex.buttonPaneBottom;
+        buttonPaneBottomt = new TextButton.TextButtonStyle(Styles.defaultt) {{
+            over = BDTex.buttonPaneBottomOver;
+            down = BDTex.buttonPaneBottomDown;
+            up = disabled = BDTex.buttonPaneBottom;
         }};
         buttonSquarei = new ImageButton.ImageButtonStyle() {{
             imageDisabledColor = Color.gray;
@@ -60,6 +61,12 @@ public class ModStyles {
             disabled = ((ScaledNinePatchDrawable) buttonDisabled).tint(none);
             down = ((ScaledNinePatchDrawable) buttonSquareDown).tint(none);
             up = ((ScaledNinePatchDrawable) buttonSquare).tint(none);
+        }};
+        buttonPanei=new ImageButton.ImageButtonStyle(Styles.defaulti){{
+            over = BDTex.buttonPaneOver;
+            down = BDTex.buttonPaneDown;
+            up = disabled = pane;
+            checked=BDTex.buttonPaneOver;
         }};
     }
 }

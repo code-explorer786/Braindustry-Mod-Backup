@@ -2,15 +2,14 @@ package braindustry.content;
 
 import arc.struct.Seq;
 import braindustry.content.Blocks.ModBlocks;
-import braindustry.customArc.TechTreeManager;
 import mindustry.content.*;
 import mindustry.ctype.ContentList;
 import mindustry.game.Objectives.Produce;
 import mindustry.game.Objectives.Research;
 import mindustry.game.Objectives.SectorComplete;
+import mma.type.TechTreeManager;
 
 public class ModTechTree extends TechTreeManager implements ContentList {
-    public TechTreeManager techTree = new TechTreeManager();
     boolean loaded = false;
 
     public ModTechTree() {
@@ -78,18 +77,24 @@ public class ModTechTree extends TechTreeManager implements ContentList {
             });
         });
 
-        parentNode(ModBlocks.hyperTetrativeReconstructor, ModBlocks.ultraReconstructor, Seq.with(new Produce(ModItems.chloroAlloy)), () -> {
-            node(ModUnitTypes.griffon);
-            node(ModUnitTypes.moray);
-            node(ModUnitTypes.litix);
-            node(ModUnitTypes.penumbra);
+        node(ModUnitTypes.griffon);
+        node(ModBlocks.hyperTetrativeReconstructor, () -> {
+            node( ModBlocks.ultraReconstructor, Seq.with(new Produce(ModItems.chloroAlloy)),()->{
+
+                node(ModUnitTypes.griffon);
+                node(ModUnitTypes.moray);
+                node(ModUnitTypes.litix);
+                node(ModUnitTypes.penumbra);
+            });
         });
 
-        parentNode(Blocks.groundFactory, ModBlocks.hyperGroundFactory, () -> {
-            node(ModBlocks.hyperAdditiveReconstructor, Seq.with(new SectorComplete(ModSectorPresets._451F)), () -> {
-                node(ModBlocks.hyperMultiplicativeReconstructor, Seq.with(new SectorComplete(ModSectorPresets.polarRift)), () -> {
-                    node(ModBlocks.hyperExponentialReconstructor, Seq.with(new SectorComplete(ModSectorPresets.icyBeach)), () -> {
-                        node(ModBlocks.hyperTetrativeReconstructor, Seq.with(new SectorComplete(ModSectorPresets.ritual)));
+        node(Blocks.groundFactory, () -> {
+            node(ModBlocks.hyperGroundFactory,()->{
+                node(ModBlocks.hyperAdditiveReconstructor, Seq.with(new SectorComplete(ModSectorPresets._451F)), () -> {
+                    node(ModBlocks.hyperMultiplicativeReconstructor, Seq.with(new SectorComplete(ModSectorPresets.polarRift)), () -> {
+                        node(ModBlocks.hyperExponentialReconstructor, Seq.with(new SectorComplete(ModSectorPresets.icyBeach)), () -> {
+                            node(ModBlocks.hyperTetrativeReconstructor, Seq.with(new SectorComplete(ModSectorPresets.ritual)));
+                        });
                     });
                 });
             });
@@ -112,23 +117,27 @@ public class ModTechTree extends TechTreeManager implements ContentList {
                 });
             });
         });
-        parentNode(Blocks.airFactory, ModBlocks.hyperAirFactory, Seq.with(new SectorComplete(ModSectorPresets.spacePort)), () -> {
-            node(ModUnitTypes.armor, () -> {
-                node(ModUnitTypes.shield, () -> {
-                    node(ModUnitTypes.chestplate, () -> {
-                        node(ModUnitTypes.chainmail, () -> {
-                            node(ModUnitTypes.broadsword);
+        node(Blocks.airFactory, ()->{
+            node(ModBlocks.hyperAirFactory, Seq.with(new SectorComplete(ModSectorPresets.spacePort)), () -> {
+                node(ModUnitTypes.armor, () -> {
+                    node(ModUnitTypes.shield, () -> {
+                        node(ModUnitTypes.chestplate, () -> {
+                            node(ModUnitTypes.chainmail, () -> {
+                                node(ModUnitTypes.broadsword);
+                            });
                         });
                     });
                 });
             });
         });
-        parentNode(Blocks.navalFactory, ModBlocks.hyperNavalFactory, Seq.with(new SectorComplete(ModSectorPresets.spacePort)), () -> {
-            node(ModUnitTypes.venti, () -> {
-                node(ModUnitTypes.lyra, () -> {
-                    node(ModUnitTypes.tropsy, () -> {
-                        node(ModUnitTypes.cenda, () -> {
-                            node(ModUnitTypes.vyvna);
+        node(Blocks.navalFactory, ()->{
+            node(ModBlocks.hyperNavalFactory, Seq.with(new SectorComplete(ModSectorPresets.spacePort)), () -> {
+                node(ModUnitTypes.venti, () -> {
+                    node(ModUnitTypes.lyra, () -> {
+                        node(ModUnitTypes.tropsy, () -> {
+                            node(ModUnitTypes.cenda, () -> {
+                                node(ModUnitTypes.vyvna);
+                            });
                         });
                     });
                 });

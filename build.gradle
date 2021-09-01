@@ -1,11 +1,18 @@
 buildscript {
     ext {
         arcHash = '128'
-        mindustryVersion = 'v129.2'
+        mindustryVersion = 'v130.1'
         mindustryVersionAnnotations = 'v126.2'
         aciVersion = 'v1.4'
         gassesVersion = 'v1.4'
         modsDirectory = "classic"
+        String modCoreVersionDemo=null;
+        try {
+            modCoreVersionDemo = new String(new java.net.URL("https://raw.githubusercontent.com/Zelaux/ZelauxModCore/master/lastVersion.txt").openStream().readAllBytes());
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+        modCoreVersion=modCoreVersionDemo
     }
     repositories {
         mavenLocal()
@@ -19,12 +26,13 @@ buildscript {
         classpath "com.github.Anuken:packr:-SNAPSHOT"
 //        classpath "com.github.Anuken.Arc:packer:$mindustryVersion"
         classpath "com.github.Anuken.Arc:arc-core:$mindustryVersion"
-        classpath "com.github.Anuken.Arc:arc-core:$mindustryVersion"
         classpath "com.github.Anuken.Mindustry:annotations:$mindustryVersionAnnotations"
         classpath "com.github.Anuken.Mindustry:core:$mindustryVersion"
         classpath "com.github.Anuken.Mindustry:tools:$mindustryVersion"
         classpath "com.github.Anuken.Arc:packer:$arcHash"
         classpath "com.github.Zelaux:AdvancedContentInfo:$aciVersion"
+        classpath 'commons-io:commons-io:2.5'
+        classpath "com.github.Zelaux.ZelauxModCore:annotations:$modCoreVersion"
 //        classpath "com.github.Zelaux.GasLibrary:core:$gassesVersion"
     }
 }
@@ -65,7 +73,10 @@ allprojects {
             files.eachFileRecurse(
                     groovy.io.FileType.FILES
             ) { file ->
-                if (file.name.endsWith(".java") && (file.text.contains(" extends ModBaseProcessor") || (file.text.contains(" extends AbstractProcessor") && !file.text.contains("abstract class")))) {
+                boolean isProcessor = file.text.contains(" extends ModBaseProcessor") ||
+                        (file.text.contains(" extends AbstractProcessor") && !file.text.contains("abstract class")) ||
+                        file.text.contains("@ModAnnotations.AnnotationProcessor");
+                if (file.name.endsWith(".java") && isProcessor) {
                     text.append(file.path.substring(files.path.length() + 1)).append("\n")
                 }
             }
@@ -95,7 +106,9 @@ allprojects {
     }
 }
 
-
+dependencies {
+    implementation  "com.github.Zelaux.ZelauxModCore:core:$modCoreVersion"
+}
 configure(project(":annotations")) {
     tasks.withType(JavaCompile) {
         targetCompatibility = 8
@@ -139,9 +152,6 @@ project(":core") {
         writeProcessors()
 //        writePlugins()
     }
-
-    task copyChangelog {
-    }
     task sourcesJar(type: Jar, dependsOn: classes) {
         archiveClassifier = 'sources'
         from sourceSets.main.allSource
@@ -160,6 +170,8 @@ project(":core") {
     dependencies {
         compileJava.dependsOn(preGen)
 
+        implementation  "com.github.Zelaux.ZelauxModCore:core:$modCoreVersion"
+
         compileOnly "org.lz4:lz4-java:1.7.1"
         compileOnly arcModule("arc-core")
         compileOnly arcModule("extensions:flabel")
@@ -175,7 +187,10 @@ project(":core") {
 //        implementation "com.github.Zelaux:AdvancedContentInfo:$aciVersion"
         compileOnly "com.github.Zelaux.GasLibrary:core:$gassesVersion"
 
+
         annotationProcessor 'com.github.Anuken:jabel:34e4c172e65b3928cd9eabe1993654ea79c409cd'
+
+        compileOnly "com.github.Zelaux.ZelauxModCore:annotations:$modCoreVersion"
         compileOnly project(":annotations")
         kapt project(":annotations")
 //        annotationProcessor 'com.github.Anuken:jabel:34e4c172e65b3928cd9eabe1993654ea79c409cd'
@@ -223,6 +238,10 @@ project(":tools") {
         implementation "com.github.Anuken.Mindustry:tools:$mindustryVersion"
         implementation "com.github.Zelaux:AdvancedContentInfo:$aciVersion"
         implementation "com.github.Zelaux.GasLibrary:core:$gassesVersion"
+
+        implementation "com.github.Zelaux.ZelauxModCore:core:$modCoreVersion"
+        implementation "com.github.Zelaux.ZelauxModCore:tools:$modCoreVersion"
+
         implementation arcModule(":extensions:packer")
     }
 }
@@ -234,6 +253,11 @@ project(":annotations") {
         implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersionAnnotations"
         implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
         implementation "com.github.Anuken.Mindustry:tools:$mindustryVersion"
+
+
+        implementation "com.github.Zelaux.ZelauxModCore:core:$modCoreVersion"
+        implementation "com.github.Zelaux.ZelauxModCore:tools:$modCoreVersion"
+        implementation "com.github.Zelaux.ZelauxModCore:annotations:$modCoreVersion"
     }
 }
 configure([":core", ":tools"].collect { project(it) }) {
@@ -268,6 +292,10 @@ jar {
     from {
 //        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
         project(":core").fileTree("build/libs/core.jar").collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+//        project(":core").fileTree("build/libs/core.jar").collect { it.isDirectory() ? it : zipTree(it) }
     }
 
     from(rootDir) {

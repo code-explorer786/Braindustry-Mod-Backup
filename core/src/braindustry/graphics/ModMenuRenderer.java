@@ -39,6 +39,7 @@ import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.environment.OreBlock;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import static mindustry.Vars.*;
 
@@ -47,6 +48,7 @@ public class ModMenuRenderer {
     private final int width = !mobile ? 100 : 60, height = !mobile ? 50 : 40;
     private final Camera camera = new Camera();
     private final Mat mat = new Mat();
+    BackgroundConfig.UnitMovingType movingType;
     private int[] cacheLayers;
     private int cacheWall;
     private FrameBuffer shadows;
@@ -138,6 +140,7 @@ public class ModMenuRenderer {
         time = 0.0F;
         units = Mathf.chance(0.2D) ? Mathf.random(35) : Mathf.random(15);
         unitType = content.units().select(u -> u.hitSize <= 20f && u.flying && u.region.found()).random();
+        movingType = BackgroundSettings.unitMovingType();
 
         if (BackgroundSettings.units().custom()) {
             UnitType unit = BackgroundSettings.unit();
@@ -257,32 +260,30 @@ public class ModMenuRenderer {
             for (int y = 0; y < height; y++) {
                 Block floor = null;
                 Block ore = Blocks.air;
-                Block wallDef = walld3 == null ? Blocks.air : null;
-                Block wall = wallDef;
+                Block wall = null;
+                Block[] tileArray = {null, null};
+                int type = 1;
 
                 if (Simplex.noise2d(s1, 3, 0.5, 1 / 20.0, x, y) > 0.5) {
-                    if (floord3 == null) {
-                        wall = walld;
-                    } else {
-                        floor = floord3;
-                        wall = Blocks.air;
-                    }
+                    type = 2;
                 }
 
                 if (Simplex.noise2d(s3, 3, 0.5, 1 / 20.0, x, y) > 0.5) {
-                    boolean check = floord3 == null ? wall != wallDef : floor != null;
-                    floor = floord2;
-                    wall = Blocks.air;
-                    if (walld4 != null) wall = walld4;
-                    if (check) {
-                        if (floord4 != null) {
-                            floor = floord4;
-                            wall = Blocks.air;
-                        } else {
-                            wall = walld2;
-                        }
-                    }
+                    type += 2;
                 }
+                if (type == 1) {
+                    setTile(tileArray,new Block[]{floord3, floord2, floord4}, walld3, floord, false);
+                } else if (type == 2) {
+                    setTile(tileArray,new Block[]{floord, floord4, floord2}, walld, floord3, true);
+                } else if (type == 3) {
+                    setTile(tileArray,new Block[]{floord4, floord, floord3}, walld4, floord2, false);
+                } else if (type == 4) {
+                    setTile(tileArray,new Block[]{floord2, floord3, floord}, walld2, floord4, true);
+                } else {
+                    throw new IllegalArgumentException("type out of bound");
+                }
+                if (tileArray[0] != null) floor = tileArray[0];
+                if (tileArray[1] != null) wall = tileArray[1];
 
                 int oreSeed = BackgroundSettings.useOreSeed() ? BackgroundSettings.oreSeed() : s2;
                 if (Simplex.noise2d(oreSeed, 3, 0.3, 1 / 30.0, x, y) > tr1 && BackgroundSettings.ore().enabled()) {
@@ -341,8 +342,6 @@ public class ModMenuRenderer {
                         }
                     }
                 }
-                floor = floor == null ? floord : floor;
-                wall = wall == null ? walld3 : wall;
                 Tile tile;
                 tiles.set(x, y, (tile = new CachedTile()));
                 tile.x = (short) x;
@@ -354,6 +353,16 @@ public class ModMenuRenderer {
         }
 
         Vars.world.endMapLoad();
+    }
+
+    private void setTile( Block[] tile,Block[] floors, Block wall, Block floor, boolean nullFloor) {
+        if (nullFloor ? floor == null : wall != null) {
+            tile[0] = Structs.find(floors, Objects::nonNull);
+            tile[1] = wall;
+        } else {
+            tile[0] = floor;
+            tile[1] = Blocks.air;
+        }
     }
 
     private void cache() {
@@ -480,25 +489,24 @@ public class ModMenuRenderer {
         float size = Math.max(icon.width, icon.height) * Draw.scl * 1.6f;
 //        TextureRegion outline = this.flyerType.outlineRegion;
         int[] i = {0};
-        BackgroundConfig.UnitMovingType movingType = BackgroundSettings.unitMovingType();
-        flyers((x, y) -> {
-            if (movingType.naval()){
+        units((x, y) -> {
+            if (movingType.naval()) {
                 unitsData[i[0]].drawTrail(x, y);
             } else if (movingType.legs()) {
                 unitsData[i[0]].drawLegs(x, y);
-            } else if(movingType.flying()){
+            } else if (movingType.flying()) {
                 Draw.color(0.0F, 0.0F, 0.0F, 0.4F);
 //                Draw.rect(outline, x - 12.0F, y - 13.0F, this.flyerRot - 90.0F);
-                Draw.rect(icon, x +UnitType.shadowTX, y +UnitType.shadowTY, this.flyerRot - 90.0F);
+                Draw.rect(icon, x + UnitType.shadowTX, y + UnitType.shadowTY, this.flyerRot - 90.0F);
             }
             i[0]++;
         });
-        this.flyers((x, y) -> {
+        this.units((x, y) -> {
             Draw.color(0.0F, 0.0F, 0.0F, 0.4F);
             Draw.rect("circle-shadow", x, y, size, size);
         });
         Draw.color();
-        this.flyers((x, y) -> {
+        this.units((x, y) -> {
             float engineOffset = this.unitType.engineOffset;
             float engineSize = this.unitType.engineSize;
             float rotation = this.flyerRot;
@@ -514,10 +522,12 @@ public class ModMenuRenderer {
 //            Draw.color(Team.sharded.color);
 //            Draw.rect(cellRegion, x, y, this.flyerRot - 90.0F);
         });
+        for (BackgroundUnitData unitData : unitsData) {
+            unitData.update();
+        }
     }
 
-    private void flyers(Floatc2 cons) {
-        if (BackgroundSettings.units().disabled()) return;
+    private void units(Floatc2 cons) {
         float tw = (float) (width * 8) * 1.0F + 8.0F;
         float th = (float) (height * 8) * 1.0F + 8.0F;
         float range = 500.0F;
@@ -526,11 +536,18 @@ public class ModMenuRenderer {
             Tmp.v1.trns(flyerRot, time * (unitType.speed));
             float absinX = Mathf.absin(time + Mathf.randomSeedRange((long) (i + 2), 500.0F), 10.0F, 3.4F);
             float absinY = Mathf.absin(time + Mathf.randomSeedRange((long) (i + 3), 500.0F), 10.0F, 3.4F);
-            if (BackgroundSettings.unitMovingType() != BackgroundConfig.UnitMovingType.flying) {
+            if (movingType != BackgroundConfig.UnitMovingType.flying) {
                 absinX = absinY = 0;
             }
-            float x = (Mathf.randomSeedRange((long) i, range) + Tmp.v1.x + absinX + offset) % (tw + (float) Mathf.randomSeed((long) (i + 5), 0, 500));
-            float y = (Mathf.randomSeedRange((long) (i + 1), range) + Tmp.v1.y + absinY + offset) % th;
+            float unitWorldWidth = tw + (float) Mathf.randomSeed((long) (i + 5), 0, 500);
+            float unitWorldHeight = th;
+            float realX = Mathf.randomSeedRange((long) i, range) + Tmp.v1.x + absinX + offset;
+            float realY = Mathf.randomSeedRange((long) (i + 1), range) + Tmp.v1.y + absinY + offset;
+            if (realX>unitWorldWidth || realY>unitWorldHeight){
+                unitsData[i].reset();
+            }
+            float x = realX % unitWorldWidth;
+            float y = realY % unitWorldHeight;
 
             cons.get(x, y);
         }
@@ -553,7 +570,7 @@ public class ModMenuRenderer {
         return flyerRot;
     }
 
-    public int flyers() {
+    public int units() {
         return units;
     }
 

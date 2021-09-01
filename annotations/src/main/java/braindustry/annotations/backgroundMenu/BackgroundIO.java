@@ -1,19 +1,15 @@
 package braindustry.annotations.backgroundMenu;
 
 import arc.files.Fi;
-import arc.math.Mathf;
 import arc.struct.ObjectSet;
 import arc.struct.Seq;
 import arc.struct.StringMap;
 import arc.util.Log;
-import arc.util.Time;
 import arc.util.serialization.Json;
-import braindustry.annotations.ModAnnotations;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 import mindustry.annotations.BaseProcessor;
-import mindustry.annotations.util.Svar;
 import mindustry.annotations.util.TypeIOResolver.ClassSerializer;
 
 import javax.lang.model.element.Modifier;
@@ -86,7 +82,7 @@ public class BackgroundIO {
         this.write = write;
 
         //subclasses *have* to call this method
-//        method.addAnnotation(ModAnnotations.CallSuper.class);
+//        method.addAnnotation(BDAnnotations.CallSuper.class);
 
         if(write){
             //write short revision

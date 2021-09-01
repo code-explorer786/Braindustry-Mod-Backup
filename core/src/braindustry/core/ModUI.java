@@ -1,5 +1,6 @@
 package braindustry.core;
 
+import braindustry.gen.BDTex;
 import braindustry.ui.dialogs.cheat.ModCheatMenu;
 import braindustry.ui.dialogs.ModOtherSettingsDialog;
 import braindustry.ui.dialogs.ModSettingsDialog;
@@ -11,28 +12,23 @@ import arc.func.Cons;
 import arc.graphics.Color;
 import arc.input.KeyCode;
 import arc.scene.ui.Dialog;
-import arc.scene.ui.Label;
-import arc.scene.ui.TextButton;
 import arc.scene.ui.TextField;
 import arc.scene.ui.layout.Collapser;
-import arc.scene.ui.layout.Table;
 import arc.util.Disposable;
 import arc.util.Log;
 import arc.util.Strings;
 import arc.util.Time;
-import braindustry.gen.ModTex;
+import braindustry.gen.BDTex;
 import braindustry.gen.Stealthc;
 import braindustry.input.ModBinding;
 import braindustry.ui.ModStyles;
 import braindustry.ui.dialogs.BackgroundStyleDialog;
-import braindustry.ui.dialogs.ModColorPicker;
 import braindustry.ui.fragments.ModHudFragment;
 import braindustry.ui.fragments.ModMenuFragment;
 import mindustry.Vars;
 import mindustry.ui.Styles;
 import mindustry.ui.dialogs.BaseDialog;
-
-import java.util.Objects;
+import mma.ui.dialogs.ModColorPicker;
 
 import static braindustry.core.CheatUI.*;
 import static braindustry.BDVars.*;
@@ -41,7 +37,7 @@ import static braindustry.input.ModBinding.*;
 import static mindustry.Vars.headless;
 import static mindustry.Vars.ui;
 
-public class ModUI implements Disposable, ApplicationListener {
+public class ModUI extends mma.core.ModUI implements Disposable, ApplicationListener {
     static {
         //x axis or not
         ModMenuFragment.xAxis(true);
@@ -61,27 +57,14 @@ public class ModUI implements Disposable, ApplicationListener {
     private boolean inited=false;
 
     public ModUI() {
-        Time.mark();
-        KeyBinds.KeyBind[] keyBinds = Core.keybinds.getKeybinds();
-        KeyBinds.KeyBind[] modBindings = ModBinding.values();
-        KeyBinds.KeyBind[] defs = new KeyBinds.KeyBind[keyBinds.length + modBindings.length];
-        for (int i = 0; i < defs.length; i++) {
-            if (i<keyBinds.length){
-                defs[i]=keyBinds[i];
-            } else {
-                defs[i]=modBindings[i-keyBinds.length];
-            }
-        }
-        Log.info("[Braindustry]Time to combine arrays: @ms",Time.elapsed());
-        Core.keybinds.setDefaults(defs);
-        settings.load();
+        super(ModBinding.values());
     }
 
     @Override
     public void init() {
         if (headless) return;
         inited=true;
-        inTry(ModTex::load);
+        inTry(BDTex::load);
         inTry(ModStyles::load);
         inTry(ModMenuFragment::init);
         inTry(ModHudFragment::init);
@@ -91,17 +74,17 @@ public class ModUI implements Disposable, ApplicationListener {
                 dialog.cont.table((t) -> {
                     t.background(Styles.none);
                     t.defaults().size(280.0F, 60.0F);
-                    t.button("@cheat-menu.change-team", CheatUI::openTeamChooseDialog).growX().get().setStyle(ModStyles.buttonPaneTop);
+                    t.button("@cheat-menu.change-team", CheatUI::openTeamChooseDialog).growX().get().setStyle(ModStyles.buttonPaneTopt);
                     t.row();
-                    t.button("@cheat-menu.change-unit", CheatUI::openUnitChooseDialog).growX().get().setStyle(ModStyles.buttonPane);
+                    t.button("@cheat-menu.change-unit", CheatUI::openUnitChooseDialog).growX().get().setStyle(ModStyles.buttonPanet);
                     t.row();
                     if (!Vars.net.client()) {
-                        t.button("@cheat-menu.edit-rules", CheatUI::openRulesEditDialog).growX().get().setStyle(ModStyles.buttonPane);
+                        t.button("@cheat-menu.edit-rules", CheatUI::openRulesEditDialog).growX().get().setStyle(ModStyles.buttonPanet);
                         t.row();
                     }
-                    t.button("@cheat-menu.items-manager", CheatUI::openModCheatItemsMenu).growX().get().setStyle(ModStyles.buttonPane);
+                    t.button("@cheat-menu.items-manager", CheatUI::openModCheatItemsMenu).growX().get().setStyle(ModStyles.buttonPanet);
                     t.row();
-                    t.button("@cheat-menu.unlock-content", CheatUI::openUnlockContentDialog).growX().get().setStyle(ModStyles.buttonPaneBottom);
+                    t.button("@cheat-menu.unlock-content", CheatUI::openUnlockContentDialog).growX().get().setStyle(ModStyles.buttonPaneBottomt);
                     t.row();
                 });
 //                dialog.cont
@@ -110,7 +93,7 @@ public class ModUI implements Disposable, ApplicationListener {
                 dialog.addCloseButton();
                 dialog.show();
 
-            }).size(280.0f / 2f, 60.0F).get().setStyle(ModStyles.buttonEdge3);
+            }).size(280.0f / 2f, 60.0F).get().setStyle(ModStyles.buttonEdge3t);
 //            table.visibility = () -> CheatUI.visibility.get();
         });
 

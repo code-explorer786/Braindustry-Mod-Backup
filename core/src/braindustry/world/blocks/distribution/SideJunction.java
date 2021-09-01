@@ -18,10 +18,12 @@ import mindustry.graphics.Pal;
 import mindustry.type.Item;
 import mindustry.world.Block;
 import mindustry.world.DirectionalItemBuffer;
+import mindustry.world.blocks.legacy.LegacyBlock;
 import mindustry.world.meta.BlockGroup;
-import braindustry.graphics.ModLines;
+import mindustry.world.meta.BuildVisibility;
+import mma.graphics.ModLines;
 
-public class SideJunction extends Block {
+public class SideJunction extends LegacyBlock {
     public float speed = 26.0F;
     public int capacity = 6;
     public SideJunction(String name) {
@@ -32,6 +34,21 @@ public class SideJunction extends Block {
         this.unloadable = false;
         this.noUpdateDisabled = true;
         rotate=true;
+    }
+
+    @Override
+    public void init() {
+        super.init();
+        buildVisibility= BuildVisibility.debugOnly;
+    }
+    @Override
+    public boolean logicVisible() {
+        return isVisible();
+    }
+
+    @Override
+    public boolean isHidden() {
+        return true;
     }
 
     public boolean outputsItems() {
@@ -134,6 +151,7 @@ public class SideJunction extends Block {
         public void read(Reads read, byte revision) {
             super.read(read, revision);
             this.buffer.read(read);
+            remove();
         }
     }
 }

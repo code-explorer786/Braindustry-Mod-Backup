@@ -3,7 +3,8 @@ package braindustry.entities.comp;
 import arc.graphics.g2d.Draw;
 import arc.math.Mathf;
 import arc.struct.Seq;
-import braindustry.annotations.ModAnnotations;
+import mma.annotations.ModAnnotations;
+
 import braindustry.content.Blocks.ModBlocks;
 import braindustry.entities.abilities.ModAbility;
 import braindustry.entities.abilities.PowerGeneratorAbility;

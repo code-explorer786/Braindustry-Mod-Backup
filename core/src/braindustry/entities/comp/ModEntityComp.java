@@ -1,8 +1,6 @@
 package braindustry.entities.comp;
 
-import braindustry.annotations.ModAnnotations;
-import braindustry.gen.OrbitalPlatformOwnerc;
-import braindustry.gen.PowerGeneratorc;
+import mma.annotations.ModAnnotations;
 import braindustry.type.ModUnitType;
 import mindustry.gen.Entityc;
 import mindustry.gen.Unit;

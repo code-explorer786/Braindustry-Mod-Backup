@@ -2,7 +2,8 @@ package braindustry.tools;
 
 import arc.Core;
 import arc.struct.Seq;
-import braindustry.annotations.ModAnnotations;
+import braindustry.annotations.BDAnnotations;
+import braindustry.annotations.BDAnnotations;
 import braindustry.gen.BackgroundStyle;
 import braindustry.io.ZelReads;
 import braindustry.io.ZelWrites;
@@ -12,42 +13,42 @@ import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.environment.StaticWall;
 
 public class BackgroundConfig {
-    @ModAnnotations.BackgroundStyleSources()
+    @BDAnnotations.BackgroundStyleSources()
   static final UnitType unit = null;
-    @ModAnnotations.BackgroundStyleSources(keyOnly = true)
+    @BDAnnotations.BackgroundStyleSources(keyOnly = true)
     String wall,floor;
-    @ModAnnotations.BackgroundStyleSources(setting = true)
+    @BDAnnotations.BackgroundStyleSources(setting = true)
   static final boolean
             useStyles = false;
-    @ModAnnotations.BackgroundStyleSources
+    @BDAnnotations.BackgroundStyleSources
     static final boolean
             useWorldSeed = false,useHeatSeed=false,useOreSeed=false,useTendrilsSeed=false,useTechSeed=false,
             hasFloor3 = false,
             hasFloor4 = false,
             hasWall3 = false,
             hasWall4 = false;
-    @ModAnnotations.BackgroundStyleSources
+    @BDAnnotations.BackgroundStyleSources
     static final int worldSeed = -1,heatSeed=-1,oreSeed=-1;
-    @ModAnnotations.BackgroundStyleSources
+    @BDAnnotations.BackgroundStyleSources
     static final float heatValue = 0f;
-    @ModAnnotations.BackgroundStyleSources()
+    @BDAnnotations.BackgroundStyleSources()
     static final UnitMovingType unitMovingType = UnitMovingType.flying;
-    @ModAnnotations.BackgroundStyleSources()
+    @BDAnnotations.BackgroundStyleSources()
     static final ViewType
             ore = ViewType.random,
             heat = ViewType.random,
             units = ViewType.random;
-    @ModAnnotations.BackgroundStyleSources()
+    @BDAnnotations.BackgroundStyleSources()
     static final State
             tendrils = State.random,
             tech = State.random;
-    @ModAnnotations.BackgroundStyleSources()
+    @BDAnnotations.BackgroundStyleSources()
    static final Floor  floor1 = null, floor2 =null, floor3 = null, floor4 = null;
-    @ModAnnotations.BackgroundStyleSources()
+    @BDAnnotations.BackgroundStyleSources()
     static final StaticWall wall1 = null, wall2 = null,wall3=null,wall4=null;
-    @ModAnnotations.BackgroundStyleSources()
+    @BDAnnotations.BackgroundStyleSources()
     static final OreBlock ore1 = null, ore2 = null;
-    @ModAnnotations.BackgroundStyleSources()
+    @BDAnnotations.BackgroundStyleSources()
     public static Seq<BackgroundStyle> getStyles(){
         Seq<BackgroundStyle> backgroundStyles = new Seq<>();
         Object obj = Core.settings.get("braindustry.background.styles", new byte[0]);
@@ -66,7 +67,7 @@ public class BackgroundConfig {
         }
         return backgroundStyles;
     }
-    @ModAnnotations.BackgroundStyleSources()
+    @BDAnnotations.BackgroundStyleSources()
     public static void saveStyles(Seq<BackgroundStyle> backgroundStyles){
         ZelWrites write = new ZelWrites();
         write.i(backgroundStyles.size);
@@ -78,10 +79,13 @@ public class BackgroundConfig {
     }
     public enum UnitMovingType {
         flying,
+        mech,
         naval,
         legs,
         ;
-
+public boolean mech(){
+    return this==mech;
+}
         public boolean naval() {
             return this==naval;
         }

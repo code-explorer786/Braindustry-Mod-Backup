@@ -3,18 +3,19 @@ package braindustry.annotations.dependencies;
 import arc.files.Fi;
 import arc.util.serialization.Json;
 import arc.util.serialization.Jval;
-import braindustry.annotations.ModBaseProcessor;
+
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import mindustry.mod.Mods;
+import mma.annotations.ModBaseProcessor;
 
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.lang.model.element.Modifier;
 
 
-@SupportedAnnotationTypes("braindustry.annotations.ModAnnotations.CashAnnotation2")
+@SupportedAnnotationTypes("braindustry.annotations.BDAnnotations.CashAnnotation2")
 public class DependenciesProc extends ModBaseProcessor {
     @Override
     public void process(RoundEnvironment env) throws Exception {

@@ -1,6 +1,6 @@
 package braindustry.entities.comp;
 
-import braindustry.annotations.ModAnnotations;
+import mma.annotations.ModAnnotations;
 
 import braindustry.gen.OrbitalPlatformOwnerc;
 import braindustry.gen.PowerGeneratorc;

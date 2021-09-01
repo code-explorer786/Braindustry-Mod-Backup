@@ -10,14 +10,13 @@ import arc.math.geom.Vec2;
 import arc.struct.Seq;
 import arc.util.Time;
 import arc.util.Tmp;
-import braindustry.annotations.ModAnnotations;
+
 import braindustry.entities.abilities.OrbitalPlatformAbility;
 import braindustry.gen.OrbitalPlatformOwnerc;
 import braindustry.gen.OrbitalPlatformc;
 import mindustry.audio.SoundLoop;
 import mindustry.content.Bullets;
 import mindustry.entities.Effect;
-import mindustry.entities.EntityCollisions;
 import mindustry.entities.bullet.BulletType;
 import mindustry.entities.units.WeaponMount;
 import mindustry.gen.*;
@@ -25,6 +24,7 @@ import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.type.Weapon;
+import mma.annotations.ModAnnotations;
 
 import static mindustry.Vars.*;
 

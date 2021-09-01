@@ -1,7 +1,6 @@
 package braindustry.world;
 
 import acontent.world.meta.AStats;
-import braindustry.gen.ModContentRegions;
 import mindustry.world.Block;
 
 public class ModBlock extends Block {
@@ -14,6 +13,5 @@ public class ModBlock extends Block {
     @Override
     public void load() {
         super.load();
-        ModContentRegions.loadRegions(this);
     }
 }

@@ -14,9 +14,8 @@ import arc.util.Eachable;
 import arc.util.Strings;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
-import braindustry.annotations.ModAnnotations;
 import braindustry.entities.abilities.OrbitalPlatformAbility;
-import braindustry.io.ModTypeIO;
+import braindustry.io.BdTypeIO;
 import braindustry.ui.ModStyles;
 import mindustry.Vars;
 import mindustry.entities.units.BuildPlan;
@@ -29,8 +28,9 @@ import mindustry.graphics.Pal;
 import mindustry.ui.dialogs.BaseDialog;
 import mindustry.world.Block;
 import mindustry.world.Tile;
-import braindustry.graphics.ModFill;
-import braindustry.graphics.ModLines;
+import mma.annotations.ModAnnotations;
+import mma.graphics.ModFill;
+import mma.graphics.ModLines;
 
 import static braindustry.BDVars.fullName;
 import static mindustry.Vars.renderer;
@@ -297,7 +297,7 @@ public class TestBlock extends Block implements DebugBlock {
         public void write(Writes write) {
             super.write(write);
             write.i(selectedSprite);
-            ModTypeIO.writeColor(write, selectedColor);
+            BdTypeIO.writeColor(write, selectedColor);
             write.f(someVariable);
         }
 
@@ -312,7 +312,7 @@ public class TestBlock extends Block implements DebugBlock {
                 selectedSprite = read.i() % getSizeSprites().length;
             }
             if (revision >= 2) {
-                selectedColor = ModTypeIO.readColor(read);
+                selectedColor = BdTypeIO.readColor(read);
                 someVariable = read.f();
             }
         }

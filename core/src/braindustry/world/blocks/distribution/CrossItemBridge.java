@@ -33,7 +33,7 @@ import mindustry.world.Tile;
 import mindustry.world.blocks.distribution.ItemBridge;
 import mindustry.world.meta.Stat;
 import mindustry.world.meta.StatUnit;
-import braindustry.graphics.ModLines;
+import mma.graphics.ModLines;
 
 import static arc.util.Tmp.v1;
 import static arc.util.Tmp.v2;

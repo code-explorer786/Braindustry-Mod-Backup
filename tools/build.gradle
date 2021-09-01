@@ -145,7 +145,7 @@ task pack(dependsOn: [classes, configurations.runtimeClasspath]) {
         javaexec {
             maxHeapSize = "4048m"
             args("-Xmx4048m")
-            main = "braindustry.tools.ModImagePacker"
+            main = "braindustry.tools.BDImagePacker"
             classpath = sourceSets.main.runtimeClasspath
             workingDir = genFolder
 //            jvmArgs ("-Xmx2024m")
@@ -212,7 +212,7 @@ task badPack(dependsOn: [classes, configurations.runtimeClasspath]) {
         javaexec {
             maxHeapSize = "4048m"
             args("-Xmx4048m")
-            main = "braindustry.tools.ModImagePacker"
+            main = "braindustry.tools.BDImagePacker"
             classpath = sourceSets.main.runtimeClasspath
             workingDir = genFolder
 //            jvmArgs ("-Xmx2024m")
@@ -244,35 +244,9 @@ task badPack(dependsOn: [classes, configurations.runtimeClasspath]) {
 task genSprites(dependsOn: classes, type: JavaExec) {
 //    finalizedBy 'antialiasGen'
 
-    main = "braindustry.tools.ModImagePacker"
+    main = "braindustry.tools.BDImagePacker"
     classpath = sourceSets.main.runtimeClasspath
     jvmArgs("-Djava.awt.headless=true")
     standardInput = System.in
     workingDir = genFolder
-}
-task downloadCompDead (type: JavaExec) {
-    doFirst {
-        javaexec {
-            maxHeapSize = "4048m"
-            args("-Xmx4048m", "--enable-preview", mindustryVersion)
-            main = "braindustry.tools.AnukeCompDownloader"
-            classpath = sourceSets.main.runtimeClasspath
-            workingDir = "../"
-//            jvmArgs ("-Xmx2024m")
-//            systemProperties("-Xmx2024m")
-        }
-    }
-}
-task downloadComp (dependsOn: [classes, configurations.runtimeClasspath]) {
-    doFirst {
-        javaexec {
-            maxHeapSize = "4048m"
-            args("-Xmx4048m", "--enable-preview", mindustryVersion)
-            main = "braindustry.tools.AnukeCompDownloader"
-            classpath = sourceSets.main.runtimeClasspath
-            workingDir = "../"
-//            jvmArgs ("-Xmx2024m")
-//            systemProperties("-Xmx2024m")
-        }
-    }
 }

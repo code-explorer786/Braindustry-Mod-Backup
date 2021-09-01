@@ -4,11 +4,12 @@ import arc.struct.ObjectSet;
 import arc.struct.Seq;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
-import braindustry.annotations.ModAnnotations;
-import braindustry.annotations.ModBaseProcessor;
-import braindustry.annotations.remote.ModTypeIOResolver;
+import braindustry.annotations.BDAnnotations;
+
 import com.squareup.javapoet.*;
 import mindustry.annotations.util.*;
+import mma.annotations.ModBaseProcessor;
+import mma.annotations.remote.ModTypeIOResolver;
 
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
@@ -17,8 +18,8 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 
 @SupportedAnnotationTypes({
-        "braindustry.annotations.ModAnnotations.BackgroundStyleSources",
-        "braindustry.annotations.ModAnnotations.TypeIOHandler",
+        "braindustry.annotations.BDAnnotations.BackgroundStyleSources",
+        "mma.annotations.ModAnnotations.TypeIOHandler",
 })
 public class BackgroundStylesProc extends ModBaseProcessor {
     ObjectSet<String> imports = new ObjectSet<>();
@@ -48,7 +49,7 @@ public class BackgroundStylesProc extends ModBaseProcessor {
         setMethodBuilder.addParameter(backgroundStyleClass, "other");
 
 
-        Seq<Selement> elements = elements(ModAnnotations.BackgroundStyleSources.class);
+        Seq<Selement> elements = elements(BDAnnotations.BackgroundStyleSources.class);
         Seq<Svar> fields = elements.select(Selement::isVar).map(Selement::asVar);
         Seq<Stype> classes = elements.select(Selement::isType).map(Selement::asType);
         Seq<Smethod> methods = elements.select(Selement::isMethod).map(Selement::asMethod);
@@ -80,7 +81,7 @@ public class BackgroundStylesProc extends ModBaseProcessor {
             settingsBuilder.addMethod(builder.build());
         }
         for (Svar field : fields) {
-            ModAnnotations.BackgroundStyleSources sources = field.annotation(ModAnnotations.BackgroundStyleSources.class);
+            BDAnnotations.BackgroundStyleSources sources = field.annotation(BDAnnotations.BackgroundStyleSources.class);
 
             handleSettingField(settingsBuilder, imports, field, sources);
         }/*
@@ -109,7 +110,7 @@ public class BackgroundStylesProc extends ModBaseProcessor {
                 .build());
 
         for (Svar field : fields) {
-            ModAnnotations.BackgroundStyleSources sources = field.annotation(ModAnnotations.BackgroundStyleSources.class);
+            BDAnnotations.BackgroundStyleSources sources = field.annotation(BDAnnotations.BackgroundStyleSources.class);
             if (sources.setting() || sources.keyOnly()) continue;
             handleStyleField(styleBuilder, field, sources);
         }
@@ -213,7 +214,7 @@ public class BackgroundStylesProc extends ModBaseProcessor {
         write(styleBuilder, imports.asArray());
     }
 
-    private void handleSettingField(TypeSpec.Builder builder, ObjectSet<String> imports, Svar field, ModAnnotations.BackgroundStyleSources sources) {
+    private void handleSettingField(TypeSpec.Builder builder, ObjectSet<String> imports, Svar field, BDAnnotations.BackgroundStyleSources sources) {
         imports.addAll(getImports(field.enclosingType().e));
         String key = "background.style." + field.name();
 
@@ -261,7 +262,7 @@ public class BackgroundStylesProc extends ModBaseProcessor {
         }
     }
 
-    private void handleStyleField(TypeSpec.Builder styleBuilder, Svar field, ModAnnotations.BackgroundStyleSources sources) {
+    private void handleStyleField(TypeSpec.Builder styleBuilder, Svar field, BDAnnotations.BackgroundStyleSources sources) {
         FieldSpec fieldSpec = FieldSpec.builder(field.tname(), field.name(), Modifier.PRIVATE).initializer(field.tree().getInitializer().toString()).build();
         styleBuilder.addField(fieldSpec);
         allFieldSpecs.add(fieldSpec);

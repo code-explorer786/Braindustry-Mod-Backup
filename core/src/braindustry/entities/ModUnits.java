@@ -9,7 +9,7 @@ import arc.math.geom.Rect;
 import arc.struct.Seq;
 import arc.util.Nullable;
 import arc.util.Tmp;
-import braindustry.annotations.ModAnnotations;
+import mma.annotations.ModAnnotations;
 import mindustry.annotations.Annotations;
 import mindustry.content.Fx;
 import mindustry.entities.Sized;

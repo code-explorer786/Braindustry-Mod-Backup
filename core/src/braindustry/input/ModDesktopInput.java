@@ -4,7 +4,7 @@ import arc.Core;
 import arc.scene.Group;
 import arc.util.Tmp;
 import braindustry.entities.ModUnits;
-import braindustry.gen.ModCall;
+import braindustry.gen.BDCall;
 import mindustry.Vars;
 import mindustry.entities.Units;
 import mindustry.gen.*;
@@ -25,7 +25,7 @@ public class ModDesktopInput extends DesktopInput {
         Payloadc pay=unit.as();
         Unit target = ModUnits.closest(player.team(), pay.x(), pay.y(), unit.type.hitSize * 2f, u -> u.isAI() && u.isGrounded() && pay.canPickup(u) && u.within(unit, u.hitSize + unit.hitSize));
         if(target != null){
-           ModCall.requestUnitPayload(player, target);
+           BDCall.requestUnitPayload(player, target);
         }else{
             Building build = world.buildWorld(pay.x(), pay.y());
 

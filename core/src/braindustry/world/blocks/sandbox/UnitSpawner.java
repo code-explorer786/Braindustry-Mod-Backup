@@ -19,15 +19,14 @@ import arc.struct.Seq;
 import arc.util.Strings;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
-import braindustry.annotations.ModAnnotations;
 import braindustry.content.ModFx;
 import braindustry.entities.BuilderDrawer;
 import braindustry.gen.Drawer;
 import braindustry.gen.ModBuilding;
-import braindustry.gen.ModCall;
+import braindustry.gen.BDCall;
 import braindustry.gen.UnitEntry;
 import braindustry.graphics.ModShaders;
-import braindustry.io.ModTypeIO;
+import braindustry.io.BdTypeIO;
 import braindustry.world.ModBlock;
 import mindustry.Vars;
 import mindustry.game.EventType;
@@ -44,6 +43,7 @@ import mindustry.ui.Styles;
 import mindustry.ui.dialogs.BaseDialog;
 import mindustry.world.Tile;
 import mindustry.world.meta.StatUnit;
+import mma.annotations.ModAnnotations;
 
 import static mindustry.Vars.world;
 
@@ -164,19 +164,19 @@ public class UnitSpawner extends ModBlock {
 
             cont.table(t -> {
                 t.button("@button.kill-all-units", () -> {
-                    ModCall.killAllUnits();
+                    BDCall.killAllUnits();
                 }).growX().height(54).pad(4);
 
                 t.button("@button.heal-all-units", () -> {
-                    ModCall.healAllUnits();
+                    BDCall.healAllUnits();
                 }).growX().height(54).pad(4).row();
 
                 t.button("@button.tp-all-units", () -> {
-                    ModCall.tpAllUnits(spawnPos);
+                    BDCall.tpAllUnits(spawnPos);
                 }).growX().height(54).pad(4);
 
                 t.button("@button.damage-all-units", () -> {
-                    ModCall.damageAllUnits();
+                    BDCall.damageAllUnits();
                 }).growX().height(54).pad(4).row();
             }).width(300 * 2f).row();
 
@@ -623,7 +623,7 @@ public class UnitSpawner extends ModBlock {
 //                UnitEntry entry = new UnitEntry();
 //                entry.read(read, revision);
                 if (revision == 0) {
-                    UnitType unitType = ModTypeIO.readUnitType(read);
+                    UnitType unitType = BdTypeIO.readUnitType(read);
 //                    if (unitType==null)throw new IllegalArgumentException("UnitType cannot be null");
                     int count = read.i();
                     Vec2 pos = TypeIO.readVec2(read);

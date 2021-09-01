@@ -8,7 +8,7 @@ import arc.math.geom.Vec2;
 import arc.util.Time;
 import arc.util.Tmp;
 import braindustry.entities.ModUnits;
-import braindustry.gen.ModCall;
+import braindustry.gen.BDCall;
 import braindustry.gen.Stealthc;
 import mindustry.Vars;
 import mindustry.content.Fx;
@@ -49,7 +49,7 @@ public class ModMobileInput extends MobileInput {
         targetPos.set(Core.camera.position);
         float attractDst = 15f;
 
-        float speed = unit.realSpeed();
+        float speed = unit.speed();
         float range = unit.hasWeapons() ? unit.range() : 0f;
         float bulletSpeed = unit.hasWeapons() ? type.weapons.first().bullet.speed : 0f;
         float mouseAngle = unit.angleTo(unit.aimX(), unit.aimY());
@@ -75,7 +75,7 @@ public class ModMobileInput extends MobileInput {
                     Call.requestBuildPayload(player, (Building) payloadTarget);
                 } else if (payloadTarget instanceof Unit && !(payloadTarget instanceof Stealthc) && pay.canPickup((Unit) payloadTarget)) {
                     //unit -> picking unit up
-                    ModCall.requestUnitPayload(player, (Unit) payloadTarget);
+                    BDCall.requestUnitPayload(player, (Unit) payloadTarget);
                 }
 
                 payloadTarget = null;

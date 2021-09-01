@@ -4,7 +4,8 @@ import arc.graphics.Color;
 import braindustry.content.*;
 import braindustry.entities.bullets.ContinuousRainbowLaserBulletType;
 import braindustry.entities.bullets.SpikeCircleOrbonBullet;
-import braindustry.gen.ModSounds;
+import braindustry.gen.BDSounds;
+import braindustry.gen.BDSounds;
 import braindustry.graphics.ModPal;
 import braindustry.world.blocks.Wall.ReflectionWall;
 import mindustry.content.Fx;
@@ -271,8 +272,8 @@ class ModDefense implements ContentList {
         }};
         electron = new LaserTurret("electron") {{
             localizedName = "Dendrite";
-            shootSound = ModSounds.electronShoot;
-            loopSound = ModSounds.electronCharge;
+            shootSound = BDSounds.electronShoot;
+            loopSound = BDSounds.electronCharge;
             health = 8600;
             size = 10;
             recoilAmount = 11;
@@ -515,7 +516,7 @@ class ModDefense implements ContentList {
             description = "Electrical Sap turret, can shoot a sap bullet with mane lightnings.";
             health = 1260;
             size = 2;
-            shootSound = ModSounds.shooting1;
+            shootSound = BDSounds.shooting1;
             hasItems = true;
             hasLiquids = true;
             ammo(
@@ -557,8 +558,8 @@ class ModDefense implements ContentList {
             health = 280 * size * size;
             range = 240f;
             reloadTime = 210;
-            shootSound = ModSounds.gemShoot;
-            loopSound = ModSounds.gemCharge;
+            shootSound = BDSounds.gemShoot;
+            loopSound = BDSounds.gemCharge;
             firingMoveFract = 0.4f;
             shootLength = -8;
             shootType = new ContinuousRainbowLaserBulletType() {{

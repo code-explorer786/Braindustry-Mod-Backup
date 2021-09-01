@@ -8,7 +8,7 @@ import arc.math.geom.Vec2;
 import arc.struct.ObjectSet;
 import arc.struct.Seq;
 import braindustry.ai.types.StealthGroundAI;
-import braindustry.annotations.ModAnnotations;
+
 import braindustry.entities.abilities.BlackHoleReactorAbility;
 import braindustry.entities.abilities.ImpactReactorAbility;
 import braindustry.entities.abilities.OrbitalPlatformAbility;
@@ -23,7 +23,6 @@ import braindustry.type.StealthUnitType;
 import mindustry.content.Bullets;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
-import mindustry.content.UnitTypes;
 import mindustry.ctype.ContentList;
 import mindustry.entities.abilities.ForceFieldAbility;
 import mindustry.entities.abilities.RepairFieldAbility;
@@ -34,8 +33,8 @@ import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.type.ItemStack;
 import mindustry.type.UnitType;
-import mindustry.type.Weapon;
 import mindustry.type.ammo.PowerAmmoType;
+import mma.annotations.ModAnnotations;
 
 
 public class ModUnitTypes implements ContentList {
@@ -1392,8 +1391,8 @@ public class ModUnitTypes implements ContentList {
 
                         reload = 400f;
                         recoil = 0f;
-                        chargeSound = ModSounds.dendriteCharge;
-                        shootSound = ModSounds.dendriteShoot;
+                        chargeSound = BDSounds.dendriteCharge;
+                        shootSound = BDSounds.dendriteShoot;
                         continuous = true;
                         cooldownTime = 280f;
                         this.bullet = new ContinuousLaserBulletType() {
@@ -1609,8 +1608,8 @@ public class ModUnitTypes implements ContentList {
 
                         reload = 240f;
                         recoil = 0f;
-                        chargeSound = ModSounds.dendriteCharge;
-                        shootSound = ModSounds.dendriteShoot;
+                        chargeSound = BDSounds.dendriteCharge;
+                        shootSound = BDSounds.dendriteShoot;
                         continuous = true;
                         cooldownTime = 210f;
 
@@ -1650,7 +1649,7 @@ public class ModUnitTypes implements ContentList {
                         rotateSpeed = 0.9f;
                         mirror = true;
                         ejectEffect = ModFx.litixShoot;
-                        shootSound = ModSounds.shooting1;
+                        shootSound = BDSounds.shooting1;
                         bullet = new BasicBulletType() {{
                             this.damage = 960;
                             this.width = 15;
@@ -1813,7 +1812,7 @@ public class ModUnitTypes implements ContentList {
                         this.reload = 220;
                         this.ejectEffect = ModFx.magicShootEffectBig;
                         this.recoil = 6;
-                        this.shootSound = ModSounds.railgun3;
+                        this.shootSound = BDSounds.railgun3;
                         this.rotate = true;
                         this.rotateSpeed = 0.5f;
                         this.mirror = false;
@@ -1842,7 +1841,7 @@ public class ModUnitTypes implements ContentList {
                         this.shots = 7;
                         this.inaccuracy = 14.0f;
                         this.rotate = false;
-                        this.shootSound = ModSounds.shooting1;
+                        this.shootSound = BDSounds.shooting1;
                         this.alternate = true;
                         this.bullet = new LiquidBulletType(ModLiquids.liquidMethane) {{
                             damage = 98;

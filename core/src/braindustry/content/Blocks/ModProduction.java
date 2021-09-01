@@ -1,20 +1,14 @@
 package braindustry.content.Blocks;
 
-import braindustry.type.Rotator;
 import gas.GasStack;
 import gas.world.blocks.production.GasGenericCrafter;
 import gas.world.consumers.ConsumeGas;
 import arc.math.geom.Vec3;
-import arc.struct.Seq;
 import braindustry.content.ModGasses;
 import braindustry.content.ModFx;
 import braindustry.content.ModItems;
 import braindustry.content.ModLiquids;
-import braindustry.type.ModLiquidStack;
-import braindustry.type.Recipe;
-import braindustry.world.blocks.production.MultiCrafter;
 import braindustry.world.blocks.production.MultiGenericSmelter;
-import braindustry.world.blocks.production.MultiRotatorDrill;
 import gas.world.draw.GasDrawSmelter;
 import mindustry.content.Fx;
 import mindustry.content.Items;
@@ -27,6 +21,11 @@ import mindustry.type.LiquidStack;
 import mindustry.world.blocks.production.Drill;
 import mindustry.world.blocks.production.GenericCrafter;
 import mindustry.world.draw.DrawSmelter;
+import mma.type.ModLiquidStack;
+import mma.type.Recipe;
+import mma.type.Rotator;
+import mma.world.blocks.production.MultiCrafter;
+import mma.world.blocks.production.MultiRotatorDrill;
 
 import static braindustry.content.Blocks.ModBlocks.*;
 

@@ -9,12 +9,11 @@ import arc.math.geom.Vec2;
 import arc.scene.style.TextureRegionDrawable;
 import arc.scene.ui.ImageButton;
 import arc.scene.ui.layout.Table;
-import arc.struct.Seq;
 import arc.util.Eachable;
 import arc.util.Strings;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
-import braindustry.annotations.ModAnnotations;
+import braindustry.annotations.BDAnnotations;
 import mindustry.ctype.ContentType;
 import mindustry.ctype.MappableContent;
 import mindustry.entities.units.BuildPlan;
@@ -24,6 +23,7 @@ import mindustry.type.Item;
 import mindustry.world.Block;
 import mindustry.world.blocks.ItemSelection;
 import mindustry.world.meta.BlockGroup;
+import mma.annotations.ModAnnotations;
 
 import java.util.Arrays;
 

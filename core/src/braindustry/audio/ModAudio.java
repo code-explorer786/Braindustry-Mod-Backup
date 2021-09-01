@@ -1,14 +1,14 @@
 package braindustry.audio;
 
 import arc.audio.Music;
-import braindustry.gen.ModMusics;
+import braindustry.gen.BDMusics;
 import mindustry.Vars;
 
 public class ModAudio {
 
     public static void reload() {
-        Vars.control.sound.ambientMusic.add(ModMusics.darknessHarmony, ModMusics.stellarSonata);
-        Vars.control.sound.bossMusic.add(ModMusics.frozenIslands);
+        Vars.control.sound.ambientMusic.add(BDMusics.darknessHarmony, BDMusics.stellarSonata);
+        Vars.control.sound.bossMusic.add(BDMusics.frozenIslands);
     }
 
 }

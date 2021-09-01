@@ -52,7 +52,7 @@ public class BackgroundUnitData {
         deltaX = x - this.x;
         deltaY = y - this.y;
         if (deltaX<0 || deltaY<0){
-            reset();
+//            reset();
         }
         this.x = x;
         this.y = y;
@@ -218,7 +218,7 @@ public class BackgroundUnitData {
                     Floor floor = Vars.world.floorWorld(l.base.x, l.base.y);
                     if (floor.isLiquid) {
                         floor.walkEffect.at(l.base.x, l.base.y, type.rippleScale, floor.mapColor);
-                        floor.walkSound.at(x, y, 1f, floor.walkSoundVolume);
+                        floor.walkSound.at(x, y, 1f, floor.walkSoundVolume*0.60f);
                     } else {
                         Fx.unitLandSmall.at(l.base.x, l.base.y, type.rippleScale, floor.mapColor);
                     }
@@ -250,5 +250,9 @@ public class BackgroundUnitData {
 
             l.joint.lerpDelta(jointDest, moveSpeed / 4f);
         }
+    }
+
+    public void update() {
+
     }
 }

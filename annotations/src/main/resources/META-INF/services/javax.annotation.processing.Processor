@@ -1,9 +1,4 @@
 braindustry.annotations.backgroundMenu.BackgroundStylesProc
 braindustry.annotations.cheatMenu.RulesProcessor
 braindustry.annotations.dependencies.DependenciesProc
-braindustry.annotations.impl.ModAssetsProcess
-braindustry.annotations.misc.LogicStatementProcessor
-braindustry.annotations.misc.ModLoadRegionProcessor
-braindustry.annotations.modEntities.ModEntitiesProc
 braindustry.annotations.ModTypeIO.ObjectReadProcessor
-braindustry.annotations.remote.ModRemoteProcess

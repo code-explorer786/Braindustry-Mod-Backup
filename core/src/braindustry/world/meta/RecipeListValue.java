@@ -3,9 +3,7 @@ package braindustry.world.meta;
 import arc.Core;
 import arc.graphics.g2d.TextureRegion;
 import arc.scene.ui.layout.Table;
-import arc.struct.Seq;
 import arc.util.Strings;
-import braindustry.type.Recipe;
 import mindustry.ctype.UnlockableContent;
 import mindustry.gen.Tex;
 import mindustry.type.ItemStack;
@@ -13,7 +11,8 @@ import mindustry.ui.ItemImage;
 import mindustry.world.meta.StatUnit;
 import mindustry.world.meta.StatValue;
 import mindustry.world.meta.StatValues;
-import braindustry.world.meta.values.LiquidListValue;
+import mma.type.Recipe;
+import mma.world.meta.values.LiquidListValue;
 
 public class RecipeListValue implements StatValue {
     private Recipe[] recipes;

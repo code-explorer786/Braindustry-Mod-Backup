@@ -13,7 +13,7 @@ import arc.util.io.Reads;
 import arc.util.io.Writes;
 import braindustry.content.ModFx;
 import braindustry.gen.ModBuilding;
-import braindustry.graphics.ModDraw;
+import braindustry.graphics.Drawm;
 import braindustry.world.ModBlock;
 import braindustry.world.blocks.DebugBlock;
 import mindustry.Vars;
@@ -186,7 +186,7 @@ public class LaserRuler extends ModBlock implements DebugBlock {
             Draw.draw(Layer.flyingUnit + 4, () -> {
                 Tile targetTile = targetTile();
                 Tmp.v1.trns(tile.angleTo(targetTile), size * tilesize);
-                ModDraw.drawLabel(x + Tmp.v1.x, y + Tmp.v1.y, Pal.heal, "" + dstTileToTarget());
+                Drawm.drawLabel(x + Tmp.v1.x, y + Tmp.v1.y, Pal.heal, "" + dstTileToTarget());
                 drawTiles(xtiles);
                 drawTiles(ytiles);
             });
@@ -196,7 +196,7 @@ public class LaserRuler extends ModBlock implements DebugBlock {
         protected void drawTiles(Seq<Tile> tiles) {
             if (tiles.size > 2) {
                 Tile tile = tiles.getFrac(0.5f);
-                ModDraw.drawLabel(tile.worldx(), tile.worldy(), Pal.heal, "" + (tiles.size - 2));
+                Drawm.drawLabel(tile.worldx(), tile.worldy(), Pal.heal, "" + (tiles.size - 2));
             }
         }
 

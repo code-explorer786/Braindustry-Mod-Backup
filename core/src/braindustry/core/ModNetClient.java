@@ -6,11 +6,12 @@ import arc.ApplicationListener;
 import arc.graphics.Color;
 import arc.util.CommandHandler;
 import arc.util.io.ReusableByteInStream;
-import braindustry.annotations.ModAnnotations;
-import braindustry.cfunc.Couple;
+import braindustry.annotations.BDAnnotations;
+import braindustry.graphics.Drawm;
 import mindustry.annotations.Annotations;
 import mindustry.gen.*;
-import braindustry.graphics.ModDraw;
+import mma.annotations.ModAnnotations;
+import mma.customArc.cfunc.Couple;
 
 import java.io.DataInputStream;
 
@@ -23,7 +24,7 @@ public class ModNetClient implements ApplicationListener {
     @ModAnnotations.Remote(targets = Annotations.Loc.both, called = Annotations.Loc.client, forward = true)
     public static void showTeleportCircles(Player player,float x, float y, float radius, Color first, Color second, float fromRadius,float toRadius){
         if (headless || first==null|| second==null)return;
-        ModDraw.teleportCircles(x,y,radius,first,second,Couple.of(fromRadius,toRadius));
+        Drawm.teleportCircles(x,y,radius,first,second, Couple.of(fromRadius,toRadius));
     }
 
     @ModAnnotations.Remote(targets = Annotations.Loc.server, called = Annotations.Loc.client)

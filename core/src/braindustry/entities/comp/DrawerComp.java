@@ -1,12 +1,13 @@
 package braindustry.entities.comp;
 
-import braindustry.annotations.ModAnnotations;
+
 import braindustry.entities.BuilderDrawer;
 import braindustry.gen.Drawer;
 import braindustry.gen.Drawerc;
 import mindustry.gen.Drawc;
 import mindustry.gen.Entityc;
 import mindustry.gen.Posc;
+import mma.annotations.ModAnnotations;
 
 @ModAnnotations.EntityDef(value = {Drawerc.class})
 @ModAnnotations.Component(base = true)

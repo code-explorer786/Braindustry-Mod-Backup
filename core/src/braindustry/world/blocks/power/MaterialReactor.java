@@ -12,7 +12,7 @@ import arc.util.Time;
 import arc.util.Tmp;
 import arc.util.io.Reads;
 import arc.util.io.Writes;
-import braindustry.annotations.ModAnnotations;
+import braindustry.annotations.BDAnnotations;
 import braindustry.content.ModFx;
 import mindustry.Vars;
 import mindustry.entities.Effect;
@@ -27,6 +27,7 @@ import mindustry.type.Liquid;
 import mindustry.ui.Bar;
 import mindustry.world.Tile;
 import mindustry.world.blocks.power.ItemLiquidGenerator;
+import mma.annotations.ModAnnotations;
 
 public class MaterialReactor extends ItemLiquidGenerator {
     public Effect effect1, effect2, effect3;

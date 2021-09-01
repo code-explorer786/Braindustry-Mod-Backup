@@ -10,9 +10,10 @@ import arc.scene.ui.layout.Scl;
 import arc.scene.ui.layout.Table;
 import arc.util.Strings;
 import braindustry.BDVars;
-import braindustry.annotations.ModAnnotations;
+import braindustry.annotations.BDAnnotations;
 import braindustry.gen.CheatModRulesTable;
-import braindustry.gen.ModCall;
+import braindustry.gen.BDCall;
+import braindustry.ui.ModStyles;
 import mindustry.Vars;
 import mindustry.entities.EntityCollisions;
 import mindustry.game.Rules;
@@ -24,13 +25,17 @@ import mindustry.ui.dialogs.BaseDialog;
 import mindustry.world.Tile;
 import mindustry.world.blocks.Attributes;
 import mindustry.world.meta.Attribute;
+import mma.ui.dialogs.cheat.ModCheatItemsMenu;
+import mma.ui.dialogs.cheat.TeamChooseDialog;
+import mma.ui.dialogs.cheat.UnitChooseDialog;
+import mma.ui.dialogs.cheat.UnlockContentDialog;
 
 import static braindustry.BDVars.modUI;
 import static braindustry.BDVars.showException;
 import static braindustry.core.ModUI.getInfoDialog;
 import static mindustry.Vars.*;
 
-@ModAnnotations.RulesTable("rulesEditTable")
+@BDAnnotations.RulesTable("rulesEditTable")
 public class CheatUI {
     public static Prov<Boolean> visibility = BDVars::showCheatMenu;
     static Runnable rebuildTeamValue = () -> {
@@ -71,7 +76,7 @@ public class CheatUI {
     public static void rulesEditTable(Table table, String name, Prov<Team> val, Cons<Team> cons) {
         table.label(() -> name + ": [#" + val.get().color.toString() + "]" + val.get().name).growX();
         table.button("edit", () -> {
-            new braindustry.ui.dialogs.cheat.TeamChooseDialog(cons).show();
+            new TeamChooseDialog(cons).show();
         }).growX();
     }
 
@@ -89,12 +94,12 @@ public class CheatUI {
     }
 
     public static void openUnlockContentDialog() {
-        new braindustry.ui.dialogs.cheat.UnlockContentDialog().show();
+        new UnlockContentDialog(ModStyles.buttonColor).show();
     }
 
     public static void openModCheatItemsMenu() {
         if (!visibility.get() || net.client()) return;
-        new braindustry.ui.dialogs.cheat.ModCheatItemsMenu().show(() -> {
+        new ModCheatItemsMenu().show(() -> {
         }, () -> {
         });
     }
@@ -102,7 +107,7 @@ public class CheatUI {
     //    private static boolean openDialog=false;
     public static void openUnitChooseDialog() {
         if (!visibility.get()) return;
-        new braindustry.ui.dialogs.cheat.UnitChooseDialog((unitType) -> {
+        new UnitChooseDialog((unitType) -> {
             Tile tile = Vars.player.tileOn();
             Unit unit = unitType.constructor.get();
             unit.type = unitType;
@@ -112,7 +117,7 @@ public class CheatUI {
                 getInfoDialog("", "Can't spawn this unit!!!", "The selected unit type cannot be created on this block", color.lerp(Color.white, 0.2f)).show();
                 return false;
             }
-            ModCall.setNewUnit(unitType);
+            BDCall.setNewUnit(unitType);
             return true;
         }).show();
     }
@@ -182,9 +187,9 @@ public class CheatUI {
 
     public static void openTeamChooseDialog() {
         if (!visibility.get()) return;
-        new braindustry.ui.dialogs.cheat.TeamChooseDialog((team) -> {
+        new TeamChooseDialog((team) -> {
             try {
-                ModCall.setTeam(team);
+                BDCall.setTeam(team);
             } catch (Exception exception) {
                 showException(exception);
             }

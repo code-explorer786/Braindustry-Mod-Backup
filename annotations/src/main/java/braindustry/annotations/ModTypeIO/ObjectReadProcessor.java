@@ -5,18 +5,19 @@ import arc.struct.ObjectMap;
 import arc.struct.Seq;
 import arc.util.Log;
 import arc.util.io.Writes;
-import braindustry.annotations.ModAnnotations;
-import braindustry.annotations.ModBaseProcessor;
+import braindustry.annotations.BDAnnotations;
+
 import com.squareup.javapoet.*;
 import mindustry.annotations.util.Selement;
+import mma.annotations.ModBaseProcessor;
 
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.lang.model.element.Modifier;
 
 @SupportedAnnotationTypes({
-        "braindustry.annotations.ModAnnotations.WritableObject",
-        "braindustry.annotations.ModAnnotations.WritableObjects"
+        "braindustry.annotations.BDAnnotations.WritableObject",
+        "braindustry.annotations.BDAnnotations.WritableObjects"
 })
 public class ObjectReadProcessor extends ModBaseProcessor {
     int lastId = 0;
@@ -28,8 +29,8 @@ public class ObjectReadProcessor extends ModBaseProcessor {
 
     @Override
     public void process(RoundEnvironment env) throws Exception {
-        Seq<Selement> elements = elements(ModAnnotations.WritableObject.class);
-        Selement configurationMethod = elements(ModAnnotations.WritableObjectsConfig.class).first();
+        Seq<Selement> elements = elements(BDAnnotations.WritableObject.class);
+        Selement configurationMethod = elements(BDAnnotations.WritableObjectsConfig.class).first();
         TypeSpec.Builder idBuilder = TypeSpec.classBuilder("ObjectOperations").addModifiers(Modifier.PUBLIC)
                 .addField(FieldSpec.builder(ParameterizedTypeName.get(ClassName.get(ObjectMap.class),
                         tname(Integer.class), tname(Prov.class)),
@@ -50,7 +51,7 @@ public class ObjectReadProcessor extends ModBaseProcessor {
         idBuilder.addMethod(containsMethod());
         CodeBlock.Builder idStore = CodeBlock.builder();
 //        Log.info("elements.size=@", elements.size);
-        ModAnnotations.WritableObjectsConfig configurationAnnotation = (ModAnnotations.WritableObjectsConfig) configurationMethod.annotation(ModAnnotations.WritableObjectsConfig.class);
+        BDAnnotations.WritableObjectsConfig configurationAnnotation = (BDAnnotations.WritableObjectsConfig) configurationMethod.annotation(BDAnnotations.WritableObjectsConfig.class);
         int offset = configurationAnnotation.offset();
         elements.each(element -> {
             int id = -(elements.indexOf(element) + offset+1);

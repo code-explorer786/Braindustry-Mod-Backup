@@ -1,6 +1,5 @@
 package braindustry.content.Blocks;
 
-import braindustry.world.blocks.sandbox.DpsMeter;
 import braindustry.world.blocks.sandbox.UnitSpawner;
 import mindustry.ctype.ContentList;
 import mindustry.type.Category;

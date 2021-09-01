@@ -1,0 +1,1 @@
+{version:5,fields:[{name:mount,type:mindustry.entities.units.WeaponMount},{name:orbitAngle,type:float},{name:seqId,type:int},{name:z,type:float}]}

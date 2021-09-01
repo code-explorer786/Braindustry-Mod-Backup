@@ -5,6 +5,7 @@ import arc.func.*;
 import arc.graphics.g2d.TextureAtlas;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
+import arc.scene.style.Drawable;
 import arc.scene.style.TextureRegionDrawable;
 import arc.scene.ui.*;
 import arc.scene.ui.layout.Scl;
@@ -17,9 +18,9 @@ import braindustry.gen.BackgroundSettings;
 import braindustry.tools.BackgroundConfig;
 import braindustry.ui.ModStyles;
 import mindustry.content.Blocks;
+import mindustry.content.UnitTypes;
 import mindustry.ctype.UnlockableContent;
 import mindustry.gen.Icon;
-import mindustry.gen.Iconc;
 import mindustry.gen.Tex;
 import mindustry.type.UnitType;
 import mindustry.ui.Styles;
@@ -58,7 +59,7 @@ public class BackgroundStyleDialog extends BaseDialog {
             Table el = cell.get();
             cell.size(el.getPrefWidth(), el.getPrefHeight());
         });
-        table.fillParent=true;
+        table.fillParent = true;
         cont.add(pane).growY().growX().bottom().center();
     }
 
@@ -93,12 +94,15 @@ public class BackgroundStyleDialog extends BaseDialog {
         this.<OreBlock>addBlockField(t, 2, "ore", BackgroundSettings::ore2, oreFilter, BackgroundSettings::ore2);
         t.row();
         t.add(new Label(formatKey("background.style.movingType.title"))).colspan(1);
-        t.add().colspan(4 - BackgroundConfig.UnitMovingType.values().length);
+        movingType(t,"moving_type",BackgroundSettings::unitMovingType,BackgroundSettings::unitMovingType);
+        /*t.add().colspan(4 - BackgroundConfig.UnitMovingType.values().length);
         for (BackgroundConfig.UnitMovingType value : BackgroundConfig.UnitMovingType.values()) {
-            t.check(formatKey("unitMovingType." + value), (bool) -> {
+            String text = formatKey("unitMovingType." + value);
+
+            t.check(icon(value), (bool) -> {
                 if (bool) unitMovingType(value);
-            }).update(checkBox -> checkBox.setChecked(BackgroundSettings.unitMovingType()==value));
-        }
+            }).update(checkBox -> checkBox.setChecked(BackgroundSettings.unitMovingType() == value));
+        }*/
         t.row();
         t.defaults().reset();
         t.row();
@@ -121,6 +125,47 @@ public class BackgroundStyleDialog extends BaseDialog {
         state(t, "tendrils", BackgroundSettings::tendrils, BackgroundSettings::tendrils).row();
         t.row();
         t.check(formatKey(useStylesKey), useStyles(), BackgroundSettings::useStyles).colspan(5).height(height());
+    }
+
+    private TextureRegion icon(BackgroundConfig.UnitMovingType value) {
+        return switch (value) {
+            case flying:
+                yield UnitTypes.flare.fullIcon;
+            case naval:
+                yield UnitTypes.risso.fullIcon;
+            case legs:
+                yield UnitTypes.atrax.fullIcon;
+            case mech:
+                yield UnitTypes.dagger.fullIcon;
+            default:
+                throw new IllegalArgumentException("Cannot find icon for " + value.getClass().getSimpleName() + "." + value);
+        };
+    }
+
+    private Drawable icon(BackgroundConfig.ViewType value) {
+        return switch (value) {
+            case random:
+                yield Core.atlas.getDrawable("error");
+            case custom:
+                yield Icon.settings;
+            case disable:
+                yield Icon.cancel;
+            default:
+                throw new IllegalArgumentException("Cannot find icon for " + value.getClass().getSimpleName() + "." + value);
+        };
+    }
+
+    private Drawable icon(BackgroundConfig.State value) {
+        return switch (value) {
+            case random:
+                yield Core.atlas.getDrawable("error");
+            case enable:
+                yield Icon.ok;
+            case disable:
+                yield Icon.cancel;
+            default:
+                throw new IllegalArgumentException("Cannot find icon for " + value.getClass().getSimpleName() + "." + value);
+        };
     }
 
 
@@ -167,7 +212,7 @@ public class BackgroundStyleDialog extends BaseDialog {
 //        Cons<Floor> floorCons = BackgroundSettings::floor2;
 //        Prov<Block> wallProv = BackgroundSettings::wall4;
 //        Cons<StaticWall> wallCons = BackgroundSettings::wall4;
-        t.button("", ModStyles.buttonPane, () -> {
+        t.button("", ModStyles.buttonPanet, () -> {
             boolc.get(!boolp.get());
             setup();
         }).update(button -> button.setText(bundle.format("background.style." + (boolp.get() ? "floor" : "wall"), boolp.get() ? floor : wall)));
@@ -189,18 +234,20 @@ public class BackgroundStyleDialog extends BaseDialog {
         if (tableCons != null) tableCons.get(table);
         for (BackgroundConfig.ViewType value : BackgroundConfig.ViewType.values()) {
             String text = formatKey("background.view_type." + value.name());
-            /*TextureRegion region;
-            switch (value) {
+            table.button(icon(value), ModStyles.buttonPanei, () -> {
+                cons.get(value);
+            }).update(button -> {
+                button.setChecked(prov.get() == value);
+            }).height(height()).growX();
+        }
 
-                case random -> {
-                    region= Iconc.admin
-                }
-                case custom -> {
-                }
-                case disable -> {
-                }
-            }*/
-            table.button(text, ModStyles.buttonPane, () -> {
+        return table;
+    }
+    private Table movingType(Table table,  String name, Prov<BackgroundConfig.UnitMovingType> prov, Cons<BackgroundConfig.UnitMovingType> cons) {
+        table.add(new Label(formatKey("background.style." + name + ".title"))).colspan(1);
+        for (BackgroundConfig.UnitMovingType value : BackgroundConfig.UnitMovingType.values()) {
+//            String text = formatKey("background.unit.." + value.name());
+            table.button(new TextureRegionDrawable(icon(value)), ModStyles.buttonPanei, () -> {
                 cons.get(value);
             }).update(button -> {
                 button.setChecked(prov.get() == value);
@@ -218,7 +265,8 @@ public class BackgroundStyleDialog extends BaseDialog {
         table.add(new Label(formatKey("background.style." + name + ".title"))).colspan(tableCons == null ? 2 : 1);
         if (tableCons != null) tableCons.get(table);
         for (BackgroundConfig.State value : BackgroundConfig.State.values()) {
-            table.button(formatKey("background.state." + value.name()), ModStyles.buttonPane, () -> {
+            String text = formatKey("background.state." + value.name());
+            table.button(icon(value), ModStyles.buttonPanei, () -> {
                 cons.get(value);
             }).update(button -> {
                 button.setChecked(prov.get() == value);

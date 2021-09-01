@@ -11,8 +11,6 @@ import arc.math.Angles;
 import arc.math.Mathf;
 import arc.math.geom.Position;
 import braindustry.entities.DebugEffect;
-import braindustry.graphics.ModFill;
-import braindustry.graphics.ModLines;
 import braindustry.graphics.ModPal;
 import mindustry.Vars;
 import mindustry.content.Fx;
@@ -20,6 +18,8 @@ import mindustry.entities.Effect;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
 import mindustry.world.Tile;
+import mma.graphics.ModFill;
+import mma.graphics.ModLines;
 
 import static braindustry.BDVars.fullName;
 import static arc.util.Tmp.v1;

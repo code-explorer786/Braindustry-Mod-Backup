@@ -10,7 +10,7 @@ import arc.math.geom.Vec2;
 import arc.struct.Seq;
 import arc.util.CommandHandler;
 import arc.util.Log;
-import braindustry.annotations.ModAnnotations;
+import braindustry.annotations.BDAnnotations;
 import braindustry.core.CheatLevel;
 import mindustry.annotations.Annotations;
 import mindustry.game.EventType;
@@ -19,6 +19,7 @@ import mindustry.gen.Groups;
 import mindustry.gen.Player;
 import mindustry.gen.Unit;
 import mindustry.type.UnitType;
+import mma.annotations.ModAnnotations;
 
 import static mindustry.Vars.net;
 
@@ -137,7 +138,7 @@ public class ModNetServer implements ApplicationListener {
 
     public void registerCommands(CommandHandler handler) {
         Events.on(EventType.PlayerConnect.class, e -> {
-            ModCall.setServerCheatLevel(BDVars.settings.cheatLevel().ordinal());
+            BDCall.setServerCheatLevel(BDVars.settings.cheatLevel().ordinal());
         });
         handler.register("cheats", "[value]", "Set cheat level or return it.", (args) -> {
             if (args.length == 0) {
@@ -152,7 +153,7 @@ public class ModNetServer implements ApplicationListener {
             }
             BDVars.settings.cheatLevel(CheatLevel.valueOf(value));
             Log.info("Cheat level updated to @", BDVars.settings.cheatLevel());
-            ModCall.setServerCheatLevel(BDVars.settings.cheatLevel().ordinal());
+            BDCall.setServerCheatLevel(BDVars.settings.cheatLevel().ordinal());
         });
     }
 }

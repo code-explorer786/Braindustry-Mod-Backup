@@ -44,7 +44,9 @@ public class AnukeCompDownloader {
             if (downloadNew || !sourcesFi.exists()) {
                 Log.info("Downloading new comps version");
                 Time.mark();
-                FileUtils.copyURLToFile(new URL("https://codeload.github.com/Anuken/Mindustry/zip/refs/tags/" + mindustryVersion), sourcesFi.file(), 10000, 10000);
+                URL source = new URL("https://codeload.github.com/Anuken/Mindustry/zip/refs/tags/" + mindustryVersion);
+
+                FileUtils.copyURLToFile(source, sourcesFi.file(), 10000, 10000);
                 Log.info("Time to download: @ms", Time.elapsed());
             } else {
                 Log.info("Game version and comps version are the same");

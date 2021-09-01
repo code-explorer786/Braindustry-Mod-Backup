@@ -7,13 +7,14 @@ import arc.scene.ui.ButtonGroup;
 import arc.scene.ui.layout.Cell;
 import arc.scene.ui.layout.Table;
 import arc.struct.IntSeq;
-import braindustry.annotations.ModAnnotations;
+import braindustry.annotations.BDAnnotations;
 import braindustry.logic.LModExecutor.MessageReadI;
 import braindustry.logic.LModExecutor.StrOpI;
 import mindustry.graphics.Pal;
 import mindustry.logic.LAssembler;
 import mindustry.logic.LExecutor.LInstruction;
 import mindustry.ui.Styles;
+import mma.annotations.ModAnnotations;
 
 import static mindustry.logic.LCanvas.tooltip;
 
