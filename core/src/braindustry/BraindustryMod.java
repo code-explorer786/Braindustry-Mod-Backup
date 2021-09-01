@@ -73,7 +73,6 @@ public class BraindustryMod extends MMAMod {
     @Override
     protected void modContent(Content content) {
         super.modContent(content);
-        Log.info("content: @",content);
         if (content instanceof MappableContent){
             BDContentRegions.loadRegions((MappableContent) content);
         }

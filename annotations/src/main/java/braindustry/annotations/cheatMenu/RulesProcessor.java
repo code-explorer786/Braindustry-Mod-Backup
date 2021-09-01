@@ -118,7 +118,6 @@ public class RulesProcessor extends ModBaseProcessor {
     }
 
     public void process(RoundEnvironment env) throws Exception {
-        Log.info(getClass().getSimpleName() + ".work(" + round + ")");
         elements = elements(BDAnnotations.Rules.class);
         methodsCollector = types(BDAnnotations.RulesTable.class).first();
         methodsCollectorAnnotations = methodsCollector.annotation(BDAnnotations.RulesTable.class);

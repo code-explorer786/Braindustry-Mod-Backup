@@ -28,6 +28,7 @@ import mindustry.world.Block;
 import mindustry.world.Tile;
 import mindustry.world.TileGen;
 import mindustry.world.Tiles;
+import mma.generators.ModPlanetGenerator;
 
 import static mindustry.Vars.*;
 
