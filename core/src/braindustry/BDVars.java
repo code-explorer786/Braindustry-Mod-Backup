@@ -33,7 +33,6 @@ public class BDVars extends ModVars {
     public static boolean renderUpdate;
     public static boolean loaded = false;
     public static boolean packSprites;
-    public static boolean neededInit = true;
 
     static {
         new BDVars();

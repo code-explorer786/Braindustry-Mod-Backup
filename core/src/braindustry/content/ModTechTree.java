@@ -290,9 +290,7 @@ public class ModTechTree extends TechTreeManager implements ContentList {
             node(ModBlocks.stinger);
         });
         node(Blocks.router, () -> {
-            node(ModBlocks.smartRouter, () -> {
-                node(ModBlocks.laserRuler);
-            });
+            node(ModBlocks.laserRuler);
         });
         node(Blocks.segment, () -> {
             node(ModBlocks.fragment);
@@ -332,9 +330,6 @@ public class ModTechTree extends TechTreeManager implements ContentList {
         });
         node(Blocks.cryofluidMixer,()->{
             node( ModBlocks.refrigerantmixer);
-        });
-        node(Blocks.junction,()->{
-            node( ModBlocks.sideJunction);
         });
         node(Blocks.sorter, ()->{
             node(ModBlocks.smartSorter);

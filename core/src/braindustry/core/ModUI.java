@@ -63,7 +63,9 @@ public class ModUI extends mma.core.ModUI implements Disposable, ApplicationList
     @Override
     public void init() {
         if (headless) return;
+        if (inited)throw new IllegalStateException("ModUI already inited");
         inited=true;
+
         inTry(BDTex::load);
         inTry(ModStyles::load);
         inTry(ModMenuFragment::init);

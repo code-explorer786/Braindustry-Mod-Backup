@@ -1,4 +1,4 @@
-package braindustry.world.blocks.distribution;
+package braindustry.world.blocks.legacy;
 
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Lines;

@@ -4,6 +4,8 @@ import braindustry.world.blocks.TestBlock;
 import braindustry.world.blocks.Unit.power.UnitPowerGenerator;
 import braindustry.world.blocks.Unit.power.UnitPowerNode;
 import braindustry.world.blocks.distribution.BufferedPayloadBridge;
+import braindustry.world.blocks.legacy.SideJunction;
+import braindustry.world.blocks.legacy.SmartRouter;
 import braindustry.world.blocks.logic.LaserRuler;
 import mindustry.content.Items;
 import mindustry.ctype.ContentList;
@@ -75,21 +77,23 @@ public class ModBlocks implements ContentList {
         for (ContentList contentList : blocksContent) {
             contentList.load();
         }
-        laserRuler = new LaserRuler("laser-ruler") {{
-            localizedName = "Laser ruler";
-            description = "Click on a tile and it will calculate the distance to it.";
-            details = "For processor command \"sensor\":"+
-                    "The variable range contains the distance to between the block and the selected tile." +
-                      " The shootX variable contains the x coordinate of the selected tile." +
-                      " The shootY variable contains the y coordinate of the selected tile.";
+        //region legacy
+        smartRouter = new SmartRouter("smart-router") {{
+            localizedName = "Smart Router";
+            description = "Regular router with a choice of input / output paths";
             size = 1;
-            requirements(Category.logic, BuildVisibility.shown, ItemStack.with(
-                    Items.copper, 25,
-                    Items.metaglass, 5,
-                    Items.silicon, 30,
-                    Items.titanium, 10
-            ));
+            requirements(Category.distribution, BuildVisibility.debugOnly, ItemStack.with(Items.copper, 3, Items.silicon, 10));
+            buildCostMultiplier = 4.0F;
         }};
+        sideJunction = new SideJunction("side-junction") {{
+            localizedName = "Side Junction";
+            description = "Transports objects sideways.";
+            health = 40;
+            buildCostMultiplier = 6;
+            requirements(Category.distribution, ItemStack.with(Items.titanium, 2));
+        }};
+        //endregion
+
         examplePayloadBridge = new BufferedPayloadBridge("payload-bridge-conveyor") {{
             range = 10;
             requirements(Category.distribution, with(Items.graphite, 10, Items.copper, 20));

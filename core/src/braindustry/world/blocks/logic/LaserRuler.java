@@ -14,6 +14,7 @@ import arc.util.io.Writes;
 import braindustry.content.ModFx;
 import braindustry.gen.ModBuilding;
 import braindustry.graphics.Drawm;
+import braindustry.world.AlwaysDrawBlock;
 import braindustry.world.ModBlock;
 import braindustry.world.blocks.DebugBlock;
 import mindustry.Vars;
@@ -65,9 +66,10 @@ public class LaserRuler extends ModBlock implements DebugBlock {
         this.<Point2, LaserRulerBuild>config(Point2.class, (tile, i) -> tile.target = Point2.pack(i.x + tile.tileX(), i.y + tile.tileY()));
         this.<LaserRulerBuild>configClear(build -> build.target = -1);
         size = 1;
+        AlwaysDrawBlock.register();
     }
 
-    public class LaserRulerBuild extends ModBuilding implements Ranged, Drawc {
+    public class LaserRulerBuild extends ModBuilding implements Ranged, AlwaysDrawBlock.AlwaysDrawBuild {
         public final Seq<Tile> xtiles = new Seq<>();
         public final Seq<Tile> ytiles = new Seq<>();
         public int target = -1;
@@ -135,70 +137,11 @@ public class LaserRuler extends ModBlock implements DebugBlock {
                 Lines.line(x2 + v1.x, y2 + v1.y, x2 - v1.x, y2 - v1.y);
             });
         }
-
-        @Override
-        public void add() {
-            boolean preAdded = this.added;
-            super.add();
-            if (preAdded != added) {
-                Groups.draw.add(this);
-            }
-        }
-
-        @Override
-        public void remove() {
-            boolean preAdded = this.added;
-            super.remove();
-            if (preAdded != added) {
-                Groups.draw.remove(this);
-            }
-        }
-
-        @Override
-        public float clipSize() {
-            return dstToTarget() * 2;
-        }
-
         @Override
         public void draw() {
             super.draw();
-            if (!validTarget(target)) return;
-
-            Tile target = targetTile();
-            Color tenColor = Color.red.cpy().lerp(Color.white, 0.5f);
-            Color color = Color.valueOf("877bad");//BF92F8 8A73C6 665C9F
-            drawSelectedTile(target, color);
-            drawRunners.clear();
-            int counter = 0;
-            for (int i = 0; i < xtiles.size - 1; i++) {
-                Tile cur = xtiles.get(i), next = xtiles.get(i + 1);
-                if (cur == null || next == null) continue;
-                drawLinePart(cur, next, color, (counter++ + 10) % 10 == 0 ? tenColor : color);
-
-            }
-            for (int i = 0; i < ytiles.size - 1; i++) {
-                Tile cur = ytiles.get(i), next = ytiles.get(i + 1);
-                if (cur == null || next == null) continue;
-                drawLinePart(cur, next, color, (counter++ + 10) % 10 == 0 ? tenColor : color);
-            }
-            drawRunners.each(Runnable::run);
-            drawRunners.clear();
-            Draw.draw(Layer.flyingUnit + 4, () -> {
-                Tile targetTile = targetTile();
-                Tmp.v1.trns(tile.angleTo(targetTile), size * tilesize);
-                Drawm.drawLabel(x + Tmp.v1.x, y + Tmp.v1.y, Pal.heal, "" + dstTileToTarget());
-                drawTiles(xtiles);
-                drawTiles(ytiles);
-            });
-
         }
 
-        protected void drawTiles(Seq<Tile> tiles) {
-            if (tiles.size > 2) {
-                Tile tile = tiles.getFrac(0.5f);
-                Drawm.drawLabel(tile.worldx(), tile.worldy(), Pal.heal, "" + (tiles.size - 2));
-            }
-        }
 
         public double sense(LAccess sensor) {
             Tile tile = targetTile();
@@ -222,7 +165,7 @@ public class LaserRuler extends ModBlock implements DebugBlock {
 
         @Override
         public boolean onConfigureTileTapped(Building other) {
-            return lastTaped == tile;
+            return true;
         }
 
         @Override
@@ -274,6 +217,49 @@ public class LaserRuler extends ModBlock implements DebugBlock {
             super.read(read, revision);
             if (revision == 0) return;
             target = read.i();
+        }
+
+        public void drawRuler() {
+            Draw.z(Layer.power);
+            if (!validTarget(target)) return;
+
+            Tile target = targetTile();
+            Color tenColor = Color.red.cpy().lerp(Color.white, 0.5f);
+            Color color = Color.valueOf("877bad");//BF92F8 8A73C6 665C9F
+            drawSelectedTile(target, color);
+            drawRunners.clear();
+            int counter = 0;
+            for (int i = 0; i < xtiles.size - 1; i++) {
+                Tile cur = xtiles.get(i), next = xtiles.get(i + 1);
+                if (cur == null || next == null) continue;
+                drawLinePart(cur, next, color, (counter++ + 10) % 10 == 0 ? tenColor : color);
+
+            }
+            for (int i = 0; i < ytiles.size - 1; i++) {
+                Tile cur = ytiles.get(i), next = ytiles.get(i + 1);
+                if (cur == null || next == null) continue;
+                drawLinePart(cur, next, color, (counter++ + 10) % 10 == 0 ? tenColor : color);
+            }
+            drawRunners.each(Runnable::run);
+            drawRunners.clear();
+            Draw.draw(Layer.flyingUnit + 4, () -> {
+                Tile targetTile = targetTile();
+                Tmp.v1.trns(tile.angleTo(targetTile), size * tilesize);
+//                Drawm.drawLabel(x + Tmp.v1.x, y + Tmp.v1.y, Pal.heal, "" + dstTileToTarget());
+                drawTiles(xtiles);
+                drawTiles(ytiles);
+            });
+        }
+
+        protected void drawTiles(Seq<Tile> tiles) {
+            if (tiles.size > 2) {
+                Tile tile = tiles.getFrac(0.5f);
+                Drawm.drawLabel(tile.worldx(), tile.worldy(), Pal.heal, "" + (tiles.size - 2));
+            }
+        }
+        @Override
+        public void alwaysDraw() {
+            drawRuler();
         }
     }
 }

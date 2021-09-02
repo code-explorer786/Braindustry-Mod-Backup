@@ -1,10 +1,10 @@
 package braindustry.content.Blocks;
 
+import braindustry.world.blocks.legacy.SmartRouter;
 import gas.world.blocks.distribution.GasRouter;
 import braindustry.content.ModItems;
 import braindustry.world.blocks.distribution.CrossItemBridge;
-import braindustry.world.blocks.distribution.SideJunction;
-import braindustry.world.blocks.distribution.SmartRouter;
+import braindustry.world.blocks.legacy.SideJunction;
 import braindustry.world.blocks.distribution.SmartSorter;
 import gas.world.blocks.gas.GasConduit;
 import mindustry.content.Items;
@@ -17,30 +17,17 @@ import mindustry.world.blocks.distribution.Conveyor;
 import mindustry.world.blocks.distribution.ItemBridge;
 import mindustry.world.blocks.distribution.StackConveyor;
 import mindustry.world.blocks.liquid.Conduit;
+import mindustry.world.meta.BuildVisibility;
 
 import static braindustry.content.Blocks.ModBlocks.*;
 
 class ModDistributionBlocks implements ContentList {
     @Override
     public void load() {
-        smartRouter = new SmartRouter("smart-router") {{
-            localizedName = "Smart Router";
-            description = "Regular router with a choice of input / output paths";
-            size = 1;
-            requirements(Category.distribution, ItemStack.with(Items.copper, 3, Items.silicon, 10));
-            buildCostMultiplier = 4.0F;
-        }};
         smartSorter = new SmartSorter("smart-sorter") {{
             localizedName = "Smart Sorter";
             description = "Sorts items not only by quantity, but also by the item itself.";
             requirements(Category.distribution, ItemStack.with(Items.titanium, 2, Items.copper, 3));
-        }};
-        sideJunction = new SideJunction("side-junction") {{
-            localizedName = "Side Junction";
-            description = "Transports objects sideways.";
-            health = 40;
-            buildCostMultiplier = 6;
-            requirements(Category.distribution, ItemStack.with(Items.titanium, 2));
         }};
         gasRouter = new GasRouter("gas-router") {{
             localizedName = "Gas Router";

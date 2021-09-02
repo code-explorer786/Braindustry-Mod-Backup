@@ -51,30 +51,6 @@ public class BDAnnotations {
     public @interface Rules {
 
     }
-
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface EntityInterface {
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface Import {
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface EntitySuperClass {
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface EntitySuperInterface {
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface CashAnnotation1 {
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface CashAnnotation2 {
-    }
 }
 
 /*
