@@ -51,17 +51,17 @@ public class ModPlanets implements ContentList {
             alwaysUnlocked = true;
         }};
         
-        shinrin = new Planet("shinrin", osore, 3, 0.4f) {{
+        shinrin = new Planet("shinrin", zetsubo, 3, 0.9f) {{
             localizedName = "Shinrin";
             description = "Companion Osore, is a favorable planet with developed flora and many forests, it was here that the enemy of Civilization first landed";
             generator = new ShinrinPlanetGenerator();
             startSector = 42;
             atmosphereColor = Color.valueOf("36af54");
             atmosphereRadIn = 0.01f;
-            atmosphereRadOut = 0.2f;
+            atmosphereRadOut = 0.4f;
             hasAtmosphere = true;
             meshLoader = () -> new HexMesh(this, 6);
-            orbitRadius = 5.0f;
+            orbitRadius = 9.4f;
             tidalLock = true;
             orbitTime = Mathf.pow((2.0f + 14.0f + 0.66f), 1.5f) * 55;
             landCloudColor = Color.valueOf("36af54");
