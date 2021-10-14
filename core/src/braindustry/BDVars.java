@@ -31,13 +31,13 @@ public class BDVars extends ModVars {
     public static ModLogic logic;
     public static BraindustryMod mod;
     public static boolean renderUpdate;
-    public static boolean loaded = false;
-    public static boolean packSprites;
 
     static {
         new BDVars();
     }
-
+public static void create(){
+        //none
+}
     public static void init() {
     }
 

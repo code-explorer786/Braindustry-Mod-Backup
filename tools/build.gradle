@@ -12,7 +12,7 @@ import arc.util.async.Threads
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
-
+def imagePackerPath="braindustry.tools.BDImagePacker"
 def genFolder = "../core/assets-raw/sprites_out/generated/"
 def doAntialias = !project.hasProperty("disableAntialias")
 def colorMap = new IntMap<List<Color>>(), colorIndexMap = new IntIntMap()
@@ -145,21 +145,21 @@ task pack(dependsOn: [classes, configurations.runtimeClasspath]) {
         javaexec {
             maxHeapSize = "4048m"
             args("-Xmx4048m")
-            main = "braindustry.tools.BDImagePacker"
+            main = imagePackerPath
             classpath = sourceSets.main.runtimeClasspath
             workingDir = genFolder
 //            jvmArgs ("-Xmx2024m")
 //            systemProperties("-Xmx2024m")
         }
 
-       /* copy {
+        copy {
             from "../core/assets-raw/sprites_out/ui/icons"
             into "../core/assets-raw/sprites_out/ui/"
         }
 
         delete {
             delete "../core/assets-raw/sprites_out/ui/icons"
-        }*/
+        }
         delete {
             delete "../core/assets/sprites"
         }
@@ -212,7 +212,7 @@ task badPack(dependsOn: [classes, configurations.runtimeClasspath]) {
         javaexec {
             maxHeapSize = "4048m"
             args("-Xmx4048m")
-            main = "braindustry.tools.BDImagePacker"
+            main = imagePackerPath
             classpath = sourceSets.main.runtimeClasspath
             workingDir = genFolder
 //            jvmArgs ("-Xmx2024m")
@@ -244,7 +244,7 @@ task badPack(dependsOn: [classes, configurations.runtimeClasspath]) {
 task genSprites(dependsOn: classes, type: JavaExec) {
 //    finalizedBy 'antialiasGen'
 
-    main = "braindustry.tools.BDImagePacker"
+    main = imagePackerPath
     classpath = sourceSets.main.runtimeClasspath
     jvmArgs("-Djava.awt.headless=true")
     standardInput = System.in

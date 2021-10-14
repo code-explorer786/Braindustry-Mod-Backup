@@ -1,18 +1,20 @@
 buildscript {
     ext {
-        arcHash = '128'
-        mindustryVersion = 'v130.1'
-        mindustryVersionAnnotations = 'v126.2'
+        arcHash = '131'
+        packerHash='6c228e534e3950e6254d6e7af4c6db67f834bc1d'
+        mindustryVersion = 'v131'
         aciVersion = 'v1.4'
         gassesVersion = 'v1.4'
         modsDirectory = "classic"
-        String modCoreVersionDemo=null;
+        String modCoreVersionDemo = null;
         try {
-            modCoreVersionDemo = new String(new java.net.URL("https://raw.githubusercontent.com/Zelaux/ZelauxModCore/master/lastVersion.txt").openStream().readAllBytes());
+            modCoreVersionDemo = new String(new java.net.URL("https://raw.githubusercontent.com/Zelaux/ZelauxModCore/master/versions/" + mindustryVersion + ".txt").openStream().readAllBytes());
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        modCoreVersion=modCoreVersionDemo
+        println "core: "+modCoreVersionDemo
+        modCoreVersion = modCoreVersionDemo
+        modCoreVersion = "bfb0afa7e97"
     }
     repositories {
         mavenLocal()
@@ -23,13 +25,12 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.github.Anuken:packr:-SNAPSHOT"
+//        classpath "com.github.Anuken:packr:-SNAPSHOT"
 //        classpath "com.github.Anuken.Arc:packer:$mindustryVersion"
         classpath "com.github.Anuken.Arc:arc-core:$mindustryVersion"
-        classpath "com.github.Anuken.Mindustry:annotations:$mindustryVersionAnnotations"
         classpath "com.github.Anuken.Mindustry:core:$mindustryVersion"
         classpath "com.github.Anuken.Mindustry:tools:$mindustryVersion"
-        classpath "com.github.Anuken.Arc:packer:$arcHash"
+        classpath "com.github.Anuken.Arc:packer:$packerHash"
         classpath "com.github.Zelaux:AdvancedContentInfo:$aciVersion"
         classpath 'commons-io:commons-io:2.5'
         classpath "com.github.Zelaux.ZelauxModCore:annotations:$modCoreVersion"
@@ -180,7 +181,6 @@ project(":core") {
         compileOnly arcModule("extensions:fx")
         compileOnly arcModule("extensions:arcnet")
 //        compileOnly "com.github.Anuken.Mindustry:entities:$mindustryVersion"
-        compileOnly "com.github.Anuken.Mindustry:annotations:$mindustryVersionAnnotations"
         compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
 //        compileOnly "com.github.Anuken.Mindustry:tools:$mindustryVersion"
         compileOnly "com.github.Zelaux:AdvancedContentInfo:$aciVersion"
@@ -233,7 +233,6 @@ project(":tools") {
         implementation project(":core")
 
         implementation 'com.github.javaparser:javaparser-symbol-solver-core:3.22.1'
-        implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersionAnnotations"
         implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
         implementation "com.github.Anuken.Mindustry:tools:$mindustryVersion"
         implementation "com.github.Zelaux:AdvancedContentInfo:$aciVersion"
@@ -242,7 +241,7 @@ project(":tools") {
         implementation "com.github.Zelaux.ZelauxModCore:core:$modCoreVersion"
         implementation "com.github.Zelaux.ZelauxModCore:tools:$modCoreVersion"
 
-        implementation arcModule(":extensions:packer")
+        implementation "com.github.Anuken.Arc:packer:$packerHash"
     }
 }
 project(":annotations") {
@@ -250,7 +249,6 @@ project(":annotations") {
     dependencies {
         implementation 'com.squareup:javapoet:1.12.1'
         implementation arcModule('arc-core')
-        implementation "com.github.Anuken.Mindustry:annotations:$mindustryVersionAnnotations"
         implementation "com.github.Anuken.Mindustry:core:$mindustryVersion"
         implementation "com.github.Anuken.Mindustry:tools:$mindustryVersion"
 

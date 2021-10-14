@@ -3,11 +3,14 @@ package braindustry.cfunc;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Lines;
+import arc.graphics.g2d.TextureRegion;
 import arc.math.Angles;
 import arc.math.Mathf;
 import arc.math.geom.Vec2;
 import arc.util.Time;
 import arc.util.Tmp;
+import arc.util.pooling.Pool;
+import arc.util.pooling.Pools;
 import braindustry.graphics.ModMenuRenderer;
 import mindustry.Vars;
 import mindustry.content.Blocks;
@@ -23,7 +26,7 @@ import java.util.Arrays;
 
 import static mindustry.Vars.world;
 
-public class BackgroundUnitData {
+public class BackgroundUnitData implements Pool.Poolable {
     private static final Vec2 legOffset = new Vec2();
     public static ModMenuRenderer parent;
     public Trail tleft, tright;
@@ -32,8 +35,12 @@ public class BackgroundUnitData {
     public float x, y, deltaX, deltaY;
     public float totalLength;
 
-    public BackgroundUnitData() {
+    private BackgroundUnitData() {
         reset();
+    }
+
+    public static BackgroundUnitData obtain() {
+        return Pools.obtain(BackgroundUnitData.class, BackgroundUnitData::new);
     }
 
     public void reset() {
@@ -51,9 +58,6 @@ public class BackgroundUnitData {
     public void updatePos(float x, float y) {
         deltaX = x - this.x;
         deltaY = y - this.y;
-        if (deltaX<0 || deltaY<0){
-//            reset();
-        }
         this.x = x;
         this.y = y;
     }
@@ -65,14 +69,14 @@ public class BackgroundUnitData {
         deltaX = deltaY = x = y = totalLength = 0;
     }
 
-    public void resetLegs() {
+    protected void resetLegs() {
         UnitType type = parent.unitType();
         float rot = parent.unitRot();
         int count = type.legCount;
         float legLength = type.legLength;
         if (legs != null) {
-            Arrays.fill(legs,null);
-            legs=null;
+            Arrays.fill(legs, null);
+            legs = null;
         }
         this.legs = new Leg[count];
 
@@ -88,9 +92,7 @@ public class BackgroundUnitData {
         }
     }
 
-    public void drawLegs(float x, float y) {
-        updatePos(x, y);
-        updateLegs();
+    public void drawLegs() {
         UnitType type = parent.unitType();
         float ssize = type.footRegion.width * Draw.scl * 1.5f;
         float rotation = parent.unitRot();
@@ -143,26 +145,35 @@ public class BackgroundUnitData {
         Draw.reset();
     }
 
-    public void drawTrail(float x, float y) {
-        updatePos(x, y);
-        UnitType unitType = parent.unitType();
-        float flyerRot = parent.unitRot();
-        Tmp.v1.trns(parent.unitRot(), parent.time() * (2.0F + unitType.speed));
-        for (int i2 = 0; i2 < 2; i2++) {
-            Trail t = i2 == 0 ? tleft : tright;
-            t.length = unitType.trailLength;
-            int sign = i2 == 0 ? -1 : 1;
-            float cx = Angles.trnsx(flyerRot - 90, unitType.trailX * sign, unitType.trailY) + x, cy = Angles.trnsy(flyerRot - 90, unitType.trailX * sign, unitType.trailY) + y;
-            t.update(cx, cy, world.floorWorld(cx, cy).isLiquid ? 1 : 0);
-        }
-        float z = Draw.z();
-        Draw.z(Layer.debris);
+    public void drawFlyingShadow() {
+        Draw.color(0.0F, 0.0F, 0.0F, 0.4F);
+//                Draw.rect(outline, x - 12.0F, y - 13.0F, this.flyerRot - 90.0F);
+        Draw.rect(icon(), x + UnitType.shadowTX, y + UnitType.shadowTY, rotation() - 90.0F);
+    }
+
+    private float rotation() {
+        return parent.unitRot();
+    }
+
+    private TextureRegion icon() {
+        return type().fullIcon;
+    }
+
+    public void drawTrail() {
+        UnitType type = type();
         Tile tileOn = world.tileWorld(x, y);
+
+        float z = Draw.z();
+
+        Draw.z(Layer.debris);
+
         Floor floor = tileOn == null ? Blocks.air.asFloor() : tileOn.floor();
         Color color = Tmp.c1.set(floor.mapColor.equals(Color.black) ? Blocks.water.mapColor : floor.mapColor).mul(1.5f);
         trailColor.lerp(color, Mathf.clamp(Time.delta * 0.04f));
-        tleft.draw(trailColor, unitType.trailScl);
-        tright.draw(trailColor, unitType.trailScl);
+        tleft.draw(trailColor, type.trailScl);
+        tright.draw(trailColor, type.trailScl);
+
+
         Draw.z(z);
     }
 
@@ -218,7 +229,7 @@ public class BackgroundUnitData {
                     Floor floor = Vars.world.floorWorld(l.base.x, l.base.y);
                     if (floor.isLiquid) {
                         floor.walkEffect.at(l.base.x, l.base.y, type.rippleScale, floor.mapColor);
-                        floor.walkSound.at(x, y, 1f, floor.walkSoundVolume*0.60f);
+                        floor.walkSound.at(x, y, 1f, floor.walkSoundVolume * 0.60f);
                     } else {
                         Fx.unitLandSmall.at(l.base.x, l.base.y, type.rippleScale, floor.mapColor);
                     }
@@ -253,6 +264,33 @@ public class BackgroundUnitData {
     }
 
     public void update() {
+        updateLegs();
+        float rotation = parent.unitRot();
+        UnitType type = type();
+        for (int i = 0; i < 2; i++) {
+            Trail t = i == 0 ? tleft : tright;
+            t.length = type.trailLength;
 
+            int sign = i == 0 ? -1 : 1;
+            float cx = Angles.trnsx(rotation - 90, type.trailX * sign, type.trailY) + x, cy = Angles.trnsy(rotation - 90, type.trailX * sign, type.trailY) + y;
+            t.update(cx, cy, world.floorWorld(cx, cy).isLiquid && !type.flying ? 1 : 0);
+        }
+    }
+
+    private UnitType type() {
+        return parent.unitType();
+    }
+
+    public void free() {
+        Pools.free(this);
+    }
+
+    protected float size() {
+        return Math.max(icon().width, icon().height) * Draw.scl * 1.6f;
+    }
+
+    public void drawShadow() {
+        Draw.color(0.0F, 0.0F, 0.0F, 0.4F);
+        Draw.rect("circle-shadow", x, y, size(), size());
     }
 }

@@ -94,7 +94,7 @@ public class BackgroundStyleDialog extends BaseDialog {
         this.<OreBlock>addBlockField(t, 2, "ore", BackgroundSettings::ore2, oreFilter, BackgroundSettings::ore2);
         t.row();
         t.add(new Label(formatKey("background.style.movingType.title"))).colspan(1);
-        movingType(t,"moving_type",BackgroundSettings::unitMovingType,BackgroundSettings::unitMovingType);
+//        movingType(t,"moving_type",BackgroundSettings::unitMovingType,BackgroundSettings::unitMovingType);
         /*t.add().colspan(4 - BackgroundConfig.UnitMovingType.values().length);
         for (BackgroundConfig.UnitMovingType value : BackgroundConfig.UnitMovingType.values()) {
             String text = formatKey("unitMovingType." + value);
@@ -103,7 +103,7 @@ public class BackgroundStyleDialog extends BaseDialog {
                 if (bool) unitMovingType(value);
             }).update(checkBox -> checkBox.setChecked(BackgroundSettings.unitMovingType() == value));
         }*/
-        t.row();
+//        t.row();
         t.defaults().reset();
         t.row();
         viewType(t, (table) -> {

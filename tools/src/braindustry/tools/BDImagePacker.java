@@ -21,6 +21,7 @@ import mindustry.ctype.MappableContent;
 import mindustry.ctype.UnlockableContent;
 import mindustry.mod.Mods;
 import mindustry.tools.ImagePacker;
+import mma.ModVars;
 import mma.tools.ModImagePacker;
 
 public class BDImagePacker extends ModImagePacker {
@@ -29,8 +30,16 @@ public class BDImagePacker extends ModImagePacker {
     }
 
     @Override
-    protected void init() {
-        super.init();
+    protected void start() throws Exception {
+        BDVars.create();
+
+        super.start();
+    }
+
+    @Override
+    protected void preCreatingContent() {
+        super.preCreatingContent();
+
         BDEntityMapping.init();
     }
 

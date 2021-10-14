@@ -3,6 +3,7 @@ package braindustry.graphics;
 import arc.Core;
 import arc.Events;
 import arc.files.Fi;
+import arc.func.Cons;
 import arc.func.Floatc2;
 import arc.graphics.Camera;
 import arc.graphics.Color;
@@ -27,6 +28,10 @@ import braindustry.tools.BackgroundConfig;
 import mindustry.Vars;
 import mindustry.content.Blocks;
 import mindustry.game.EventType;
+import mindustry.gen.Legsc;
+import mindustry.gen.Mechc;
+import mindustry.gen.Unit;
+import mindustry.gen.WaterMovec;
 import mindustry.graphics.CacheLayer;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
@@ -48,6 +53,7 @@ public class ModMenuRenderer {
     private final int width = !mobile ? 100 : 60, height = !mobile ? 50 : 40;
     private final Camera camera = new Camera();
     private final Mat mat = new Mat();
+    private final UnitType[] waterUnits;
     BackgroundConfig.UnitMovingType movingType;
     private int[] cacheLayers;
     private int cacheWall;
@@ -62,6 +68,7 @@ public class ModMenuRenderer {
 
     public ModMenuRenderer() {
         BackgroundUnitData.parent = this;
+        waterUnits = content.units().select(u -> movingType(u) != null && movingType(u).naval()).toArray(UnitType.class);
         buildMain(true);
         Events.on(EventType.StateChangeEvent.class, e -> {
             if (e.to != e.from) {
@@ -139,14 +146,17 @@ public class ModMenuRenderer {
         Mathf.rand.setSeed(BackgroundSettings.useWorldSeed() ? BackgroundSettings.worldSeed() : System.nanoTime());
         time = 0.0F;
         units = Mathf.chance(0.2D) ? Mathf.random(35) : Mathf.random(15);
-        unitType = content.units().select(u -> u.hitSize <= 20f && u.flying && u.region.found()).random();
-        movingType = BackgroundSettings.unitMovingType();
+        unitType = content.units().select(u -> u.hitSize <= 20f && movingType(u) != null && u.region.found()).random();
+//        movingType = BackgroundSettings.unitMovingType();
 
         if (BackgroundSettings.units().custom()) {
             UnitType unit = BackgroundSettings.unit();
-            if (unit != null) unitType = unit;
+            if (unit != null) {
+                unitType = unit;
+            }
 
         }
+        movingType = movingType(unitType);
         createUnitsData();
         if (timeMark) Time.mark();
         generate();
@@ -154,29 +164,26 @@ public class ModMenuRenderer {
         if (timeMark) Log.info("Time to generate menu: @", Time.elapsed());
     }
 
+    private BackgroundConfig.UnitMovingType movingType(UnitType unitType) {
+        if (unitType == null || unitType.constructor == null) return null;
+        Unit unit = unitType.constructor.get();
+        if (unit instanceof Legsc) return BackgroundConfig.UnitMovingType.legs;
+        if (unit instanceof WaterMovec) return BackgroundConfig.UnitMovingType.naval;
+        if (unit instanceof Mechc) return BackgroundConfig.UnitMovingType.mech;
+        if (unitType.flying || unitType.canBoost) return BackgroundConfig.UnitMovingType.flying;
+        return null;
+    }
+
     private void createUnitsData() {
         if (unitsData != null) {
-            BackgroundUnitData[] unitData = new BackgroundUnitData[units];
-            for (int i = 0; i < unitData.length; i++) {
-                if (i < unitsData.length) {
-                    unitData[i] = unitsData[i];
-                    unitData[i].reset();
-                } else {
-
-                    unitData[i] = new BackgroundUnitData();
-                }
-            }
             for (int i = 0; i < unitsData.length; i++) {
-                if (i > unitData.length) unitsData[i].clear();
+                unitsData[i].free();
                 unitsData[i] = null;
             }
-            unitsData = null;
-            unitsData = unitData;
-        } else {
-            unitsData = new BackgroundUnitData[units];
-            for (int i = 0; i < unitsData.length; i++) {
-                unitsData[i] = new BackgroundUnitData();
-            }
+        }
+        unitsData = new BackgroundUnitData[units];
+        for (int i = 0; i < unitsData.length; i++) {
+            unitsData[i] = BackgroundUnitData.obtain();
         }
     }
 
@@ -255,7 +262,30 @@ public class ModMenuRenderer {
         Block walld = selected[1];
         Block floord2 = selected2[0];
         Block walld2 = selected2[1];
-
+        if (waterFloor()) {
+            tech = tendrils = doheat = false;
+            Seq<Block> blocks = Seq.with(Blocks.water, Blocks.deepwater, Blocks.darksandTaintedWater, Blocks.darksandWater, Blocks.sandWater, Blocks.taintedWater);
+            floord = blocks.random();
+            blocks.remove(floord);
+            floord2 = blocks.random();
+            blocks.remove(floord2);
+            floord3 = blocks.random();
+            blocks.remove(floord3);
+            floord4 = blocks.random();
+//            blocks.remove(floord4);
+        }else if (onlyGroundFloor()){
+            Seq<Block> blocks = content.blocks().select(b-> {
+                Class<? extends Block> aClass = b.getClass();
+                return b.isFloor() && !b.isOverlay() && !b.asFloor().isLiquid && (aClass.isAnonymousClass()? aClass.getSuperclass(): aClass) == Floor.class;
+            });
+            floord = blocks.random();
+            blocks.remove(floord);
+            floord2 = blocks.random();
+            blocks.remove(floord2);
+            floord3 = blocks.random();
+            blocks.remove(floord3);
+            floord4 = blocks.random();
+        }
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 Block floor = null;
@@ -272,13 +302,13 @@ public class ModMenuRenderer {
                     type += 2;
                 }
                 if (type == 1) {
-                    setTile(tileArray,new Block[]{floord3, floord2, floord4}, walld3, floord, false);
+                    setTile(tileArray, new Block[]{floord3, floord2, floord4}, walld3, floord, false);
                 } else if (type == 2) {
-                    setTile(tileArray,new Block[]{floord, floord4, floord2}, walld, floord3, true);
+                    setTile(tileArray, new Block[]{floord, floord4, floord2}, walld, floord3, true);
                 } else if (type == 3) {
-                    setTile(tileArray,new Block[]{floord4, floord, floord3}, walld4, floord2, false);
+                    setTile(tileArray, new Block[]{floord4, floord, floord3}, walld4, floord2, false);
                 } else if (type == 4) {
-                    setTile(tileArray,new Block[]{floord2, floord3, floord}, walld2, floord4, true);
+                    setTile(tileArray, new Block[]{floord2, floord3, floord}, walld2, floord4, true);
                 } else {
                     throw new IllegalArgumentException("type out of bound");
                 }
@@ -355,7 +385,14 @@ public class ModMenuRenderer {
         Vars.world.endMapLoad();
     }
 
-    private void setTile( Block[] tile,Block[] floors, Block wall, Block floor, boolean nullFloor) {
+    private boolean waterFloor() {
+        return unitType!=null && movingType.naval();
+    }
+    private boolean onlyGroundFloor() {
+        return unitType!=null && movingType.mech();
+    }
+
+    private void setTile(Block[] tile, Block[] floors, Block wall, Block floor, boolean nullFloor) {
         if (nullFloor ? floor == null : wall != null) {
             tile[0] = Structs.find(floors, Objects::nonNull);
             tile[1] = wall;
@@ -472,7 +509,8 @@ public class ModMenuRenderer {
         batch.drawCache(cacheWall);
         batch.endDraw();
         Draw.z(Layer.flyingUnitLow);
-        drawFlyers();
+        updateUnits();
+        drawUnits();
 
         Draw.z(Layer.darkness);
         Draw.proj(mat);
@@ -481,7 +519,8 @@ public class ModMenuRenderer {
         Draw.color();
     }
 
-    private void drawFlyers() {
+
+    private void drawUnits() {
         if (unitType == null) return;
 
         TextureRegion icon = unitType.fullIcon;
@@ -489,24 +528,25 @@ public class ModMenuRenderer {
         float size = Math.max(icon.width, icon.height) * Draw.scl * 1.6f;
 //        TextureRegion outline = this.flyerType.outlineRegion;
         int[] i = {0};
-        units((x, y) -> {
-            if (movingType.naval()) {
-                unitsData[i[0]].drawTrail(x, y);
-            } else if (movingType.legs()) {
-                unitsData[i[0]].drawLegs(x, y);
-            } else if (movingType.flying()) {
-                Draw.color(0.0F, 0.0F, 0.0F, 0.4F);
-//                Draw.rect(outline, x - 12.0F, y - 13.0F, this.flyerRot - 90.0F);
-                Draw.rect(icon, x + UnitType.shadowTX, y + UnitType.shadowTY, this.flyerRot - 90.0F);
+        switch (movingType) {
+            case naval -> {
+                eachUnit(BackgroundUnitData::drawTrail);
             }
-            i[0]++;
-        });
-        this.units((x, y) -> {
-            Draw.color(0.0F, 0.0F, 0.0F, 0.4F);
-            Draw.rect("circle-shadow", x, y, size, size);
-        });
+            case legs -> {
+                eachUnit(BackgroundUnitData::drawLegs);
+            }
+            case flying -> {
+                eachUnit(BackgroundUnitData::drawFlyingShadow);
+            }
+            case mech -> {
+//                eachUnit(BackgroundUnitData::drawTrail);
+            }
+        }
+        eachUnit(BackgroundUnitData::drawShadow);
         Draw.color();
-        this.units((x, y) -> {
+        eachUnit(unit -> {
+            float x = unit.x;
+            float y = unit.y;
             float engineOffset = this.unitType.engineOffset;
             float engineSize = this.unitType.engineSize;
             float rotation = this.flyerRot;
@@ -519,12 +559,22 @@ public class ModMenuRenderer {
             Draw.color();
 //            Draw.rect(outline, x, y, this.flyerRot - 90.0F);
             Draw.rect(icon, x, y, this.flyerRot - 90.0F);
-//            Draw.color(Team.sharded.color);
-//            Draw.rect(cellRegion, x, y, this.flyerRot - 90.0F);
         });
-        for (BackgroundUnitData unitData : unitsData) {
-            unitData.update();
+    }
+
+    private void eachUnit(Cons<BackgroundUnitData> cons) {
+        for (BackgroundUnitData data : unitsData) {
+            cons.get(data);
         }
+    }
+
+    private void updateUnits() {
+        int[] i = {0};
+        units((x, y) -> {
+            unitsData[i[0]].updatePos(x, y);
+            unitsData[i[0]].update();
+            i[0]++;
+        });
     }
 
     private void units(Floatc2 cons) {
@@ -533,6 +583,7 @@ public class ModMenuRenderer {
         float range = 500.0F;
         float offset = -100.0F;
         for (int i = 0; i < units; ++i) {
+            BackgroundUnitData unitData = unitsData[i];
             Tmp.v1.trns(flyerRot, time * (unitType.speed));
             float absinX = Mathf.absin(time + Mathf.randomSeedRange((long) (i + 2), 500.0F), 10.0F, 3.4F);
             float absinY = Mathf.absin(time + Mathf.randomSeedRange((long) (i + 3), 500.0F), 10.0F, 3.4F);
@@ -543,8 +594,8 @@ public class ModMenuRenderer {
             float unitWorldHeight = th;
             float realX = Mathf.randomSeedRange((long) i, range) + Tmp.v1.x + absinX + offset;
             float realY = Mathf.randomSeedRange((long) (i + 1), range) + Tmp.v1.y + absinY + offset;
-            if (realX>unitWorldWidth || realY>unitWorldHeight){
-                unitsData[i].reset();
+            if (realX > unitWorldWidth || realY > unitWorldHeight) {
+//                unitData.reset();
             }
             float x = realX % unitWorldWidth;
             float y = realY % unitWorldHeight;
