@@ -66,7 +66,7 @@ public class ObjectReadProcessor extends ModBaseProcessor {
 
         Seq<ClassName> imports = Seq.with();
         imports.add(ClassName.get(Log.class));
-        write(idBuilder, imports,0);
+        write(idBuilder, imports.map(c->"import "+c.reflectionName()+";"));
     }
     private MethodSpec mapClassMethod(){
         MethodSpec.Builder method = MethodSpec.methodBuilder("mapClass").addModifiers(Modifier.PUBLIC, Modifier.STATIC)

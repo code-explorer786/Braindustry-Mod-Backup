@@ -11,7 +11,6 @@ import arc.util.Strings;
 import braindustry.annotations.BDAnnotations;
 
 import com.squareup.javapoet.*;
-import mindustry.annotations.remote.RemoteProcess;
 import mindustry.annotations.util.Selement;
 import mindustry.annotations.util.Smethod;
 import mindustry.annotations.util.Stype;
@@ -124,7 +123,7 @@ public class RulesProcessor extends ModBaseProcessor {
         Stype type = this.elements.first().asType().superclass();
         Seq<Svar> fields = type.fields();
         TypeSpec.Builder classBuilder = TypeSpec.classBuilder("CheatModRulesTable").addModifiers(Modifier.PUBLIC);
-        classBuilder.addJavadoc(RemoteProcess.autogenWarning);
+//        classBuilder.addJavadoc(RemoteProcess.autogenWarning);
         MethodSpec.Builder buildMethod = MethodSpec.methodBuilder("build")
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
                 .addParameter(Table.class, "table") //buffer to read form
@@ -147,7 +146,7 @@ public class RulesProcessor extends ModBaseProcessor {
         TypeSpec spec = classBuilder.build();
         Seq<ClassName> imports = new Seq<>();
         imports.add(ClassName.get(Strings.class));
-        write(classBuilder, imports, 0);
+        write(classBuilder, imports.map(c->"import "+c.reflectionName()+";"));
         imports.clear();
 //        JavaFile.builder(packageName, spec).build().writeTo(BaseProcessor.filer);
     }
