@@ -159,4 +159,5 @@ android/libs/
 cmp.py
 #gradlew.bat
 #gradle.properties
+modsDirectoies.txt
 core/build/

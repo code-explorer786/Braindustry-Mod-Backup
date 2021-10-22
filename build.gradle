@@ -1,11 +1,16 @@
 buildscript {
     ext {
-        arcHash = '131'
+        arcHash = '133'
         packerHash='6c228e534e3950e6254d6e7af4c6db67f834bc1d'
-        mindustryVersion = 'v131'
-        aciVersion = 'v1.4'
+        mindustryVersion = 'v133'
+        aciVersion = '9f9ed7da24'
         gassesVersion = 'v1.4'
-        modsDirectory = "classic"
+        modsDirectories = ["classic"];
+        def file = new File(rootDir, "modsDirectoies.txt");
+        if (file.exists()) {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            reader.lines().forEach(line -> modsDirectories.add(line))
+        }
         String modCoreVersionDemo = null;
         try {
             modCoreVersionDemo = new String(new java.net.URL("https://raw.githubusercontent.com/Zelaux/ZelauxModCore/master/versions/" + mindustryVersion + ".txt").openStream().readAllBytes());
@@ -14,7 +19,7 @@ buildscript {
         }
         println "core: "+modCoreVersionDemo
         modCoreVersion = modCoreVersionDemo
-        modCoreVersion = "bfb0afa7e97"
+//        modCoreVersion = "bfb0afa7e97"
     }
     repositories {
         mavenLocal()
@@ -109,6 +114,7 @@ allprojects {
 
 dependencies {
     implementation  "com.github.Zelaux.ZelauxModCore:core:$modCoreVersion"
+    implementation "com.github.Zelaux:AdvancedContentInfo:$aciVersion"
 }
 configure(project(":annotations")) {
     tasks.withType(JavaCompile) {
@@ -172,6 +178,7 @@ project(":core") {
         compileJava.dependsOn(preGen)
 
         implementation  "com.github.Zelaux.ZelauxModCore:core:$modCoreVersion"
+        implementation "com.github.Zelaux:AdvancedContentInfo:$aciVersion"
 
         compileOnly "org.lz4:lz4-java:1.7.1"
         compileOnly arcModule("arc-core")
@@ -183,7 +190,6 @@ project(":core") {
 //        compileOnly "com.github.Anuken.Mindustry:entities:$mindustryVersion"
         compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
 //        compileOnly "com.github.Anuken.Mindustry:tools:$mindustryVersion"
-        compileOnly "com.github.Zelaux:AdvancedContentInfo:$aciVersion"
 //        implementation "com.github.Zelaux:AdvancedContentInfo:$aciVersion"
         compileOnly "com.github.Zelaux.GasLibrary:core:$gassesVersion"
 
@@ -322,12 +328,8 @@ task mjar() {
     dependsOn "jar"
     doFirst {
     }
-    doLast {
-        def intoPath = null
-        if ("classic".equals(modsDirectory)) {
-            intoPath = "${arc.util.OS.getAppDataDirectoryString("Mindustry")}/mods/"
-        } else if (modsDirectory != null) intoPath = modsDirectory;
-        if (intoPath != null) {
+    ext{
+        move={String intoPath ->
             delete {
                 delete "${intoPath}/${project.archivesBaseName}Desktop.jar"
             }
@@ -335,8 +337,17 @@ task mjar() {
                 from "$buildDir/libs/${project.archivesBaseName}Desktop.jar"
                 into intoPath
             }
-            def time = LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
-            System.out.println("\tlast build time: ${time}")
+            println "moved to "+intoPath
         }
+    }
+    doLast {
+        for (String directory:modsDirectories){
+            if (directory.equals("classic")){
+                directory="${arc.util.OS.getAppDataDirectoryString("Mindustry")}/mods/";
+            }
+            move(directory);
+        }
+        def time = LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
+        System.out.println("\tlast build time: ${time}")
     }
 }
