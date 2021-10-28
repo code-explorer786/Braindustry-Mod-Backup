@@ -1,7 +1,7 @@
 name: "braindustry-java"
 displayName: "Braindustry"
 author: "Quant Team"
-description: "From Russia with love."
+description: "Big mod with new resources, planets, mechanics, turrets and units, have fun"
 main: "braindustry.BraindustryMod"
 version: 2.0.4.4 public beta
 minGameVersion: 129.2
