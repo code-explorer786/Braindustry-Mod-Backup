@@ -6,7 +6,7 @@ buildscript {
         //advanced content info
         aciVersion = '9f9ed7da24'
         //gas
-        gassesVersion = '2ab0f2596a'
+        gassesVersion = 'v1.5'
         modsDirectories = ["classic"];
         def file = new File(rootDir, "modsDirectoies.txt");
         if (file.exists()) {
