@@ -111,7 +111,13 @@ public class ModBlocks implements ContentList {
         unitGenerator = new UnitPowerGenerator("unit-generator") {{
             powerProduction = 10f;
             buildVisibility = BuildVisibility.debugOnly;
-        }};
+        }
+
+            @Override
+            public boolean isHidden(){
+                return super.isHidden();
+            }
+        };
         unitNode = new UnitPowerNode("unit-node") {{
             maxNodes = Integer.MAX_VALUE;
             buildVisibility = BuildVisibility.debugOnly;

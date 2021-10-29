@@ -19,7 +19,7 @@ public class GenericCrafterWithGas extends gas.world.blocks.production.GasGeneri
         super.setStats();
 
         if (outputGas != null) {
-            aStats.add(Stat.output, new GasValue(outputGas.gas, outputGas.amount * (60f / craftTime), true));
+            stats.add(Stat.output, new GasValue(outputGas.gas, outputGas.amount * (60f / craftTime), true));
         }
     }
 

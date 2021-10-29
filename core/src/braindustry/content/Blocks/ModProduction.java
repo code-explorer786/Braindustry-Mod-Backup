@@ -25,7 +25,6 @@ import mma.type.ModLiquidStack;
 import mma.type.Recipe;
 import mma.type.Rotator;
 import mma.world.blocks.production.MultiCrafter;
-import mma.world.blocks.production.MultiRotatorDrill;
 
 import static braindustry.content.Blocks.ModBlocks.*;
 
