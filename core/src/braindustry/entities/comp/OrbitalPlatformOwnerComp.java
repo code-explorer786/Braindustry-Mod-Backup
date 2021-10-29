@@ -6,7 +6,7 @@ import arc.math.geom.Vec2;
 import arc.struct.Seq;
 import arc.util.Log;
 import arc.util.Time;
-import mma.annotations.ModAnnotations;
+import mindustry.annotations.Annotations;
 import braindustry.customArc.math.ModAngles;
 import braindustry.entities.abilities.ModAbility;
 import braindustry.entities.abilities.OrbitalPlatformAbility;
@@ -23,16 +23,16 @@ import java.util.Arrays;
 
 import static arc.util.Tmp.v1;
 
-@ModAnnotations.Component
+@Annotations.Component
 abstract class OrbitalPlatformOwnerComp implements ModEntityc, Unitc, Entityc {
     public final Seq<OrbitalPlatform> orbitalPlatforms = new Seq<>();
-    @ModAnnotations.Import
+    @Annotations.Import
     float x, y, rotation, elevation, maxHealth, drag, armor, hitSize, health, ammo, minFormationSpeed, dragMultiplier;
-    @ModAnnotations.Import
+    @Annotations.Import
     Team team;
-    @ModAnnotations.Import
+    @Annotations.Import
     UnitType type;
-    @ModAnnotations.Import
+    @Annotations.Import
     WeaponMount[] mounts;
     private transient Object[] attachAngles;
     private transient OrbitalPlatformAbility platformAbility;

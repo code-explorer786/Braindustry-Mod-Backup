@@ -22,7 +22,7 @@ class ModPowerBlocks implements ContentList {
     public void load() {
         methaneBurner = new GasBurnerGenerator("methane-burner") {{
             hasPower = true;
-            hasGas = true;
+            hasGasses = true;
             localizedName = "Methane Burner";
             description = "Burn Methane to produce heat energy.";
             powerProduction = 7f;
@@ -33,7 +33,7 @@ class ModPowerBlocks implements ContentList {
         }};
         hyperMethaneBurner = new GasBurnerGenerator("hyper-methane-burner") {{
             hasPower = true;
-            hasGas = true;
+            hasGasses = true;
             localizedName = "Hyper Methane Burner";
             description = "Burn Methane more effective but consumes water.";
             powerProduction = 18f;
@@ -150,7 +150,7 @@ class ModPowerBlocks implements ContentList {
             hasPower = true;
             hasLiquids = true;
             hasItems = true;
-            hasGas = true;
+            hasGasses = true;
             gasCapacity = 100;
             itemCapacity = 60;
             liquidCapacity = 100;

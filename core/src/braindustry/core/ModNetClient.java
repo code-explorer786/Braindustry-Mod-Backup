@@ -10,7 +10,7 @@ import braindustry.annotations.BDAnnotations;
 import braindustry.graphics.Drawm;
 import mindustry.annotations.Annotations;
 import mindustry.gen.*;
-import mma.annotations.ModAnnotations;
+import mindustry.annotations.Annotations;
 import mma.customArc.cfunc.Couple;
 
 import java.io.DataInputStream;
@@ -21,13 +21,13 @@ public class ModNetClient implements ApplicationListener {
     protected ReusableByteInStream byteStream = new ReusableByteInStream();
     protected DataInputStream dataStream = new DataInputStream(byteStream);
 
-    @ModAnnotations.Remote(targets = Annotations.Loc.both, called = Annotations.Loc.client, forward = true)
+    @Annotations.Remote(targets = Annotations.Loc.both, called = Annotations.Loc.client, forward = true)
     public static void showTeleportCircles(Player player,float x, float y, float radius, Color first, Color second, float fromRadius,float toRadius){
         if (headless || first==null|| second==null)return;
         Drawm.teleportCircles(x,y,radius,first,second, Couple.of(fromRadius,toRadius));
     }
 
-    @ModAnnotations.Remote(targets = Annotations.Loc.server, called = Annotations.Loc.client)
+    @Annotations.Remote(targets = Annotations.Loc.server, called = Annotations.Loc.client)
     public static void setServerCheatLevel(int level) {
         CheatLevel[] values = CheatLevel.values();
         BDVars.settings.cheatLevelServer(values[level % values.length]);

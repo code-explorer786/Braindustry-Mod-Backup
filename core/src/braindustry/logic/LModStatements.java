@@ -14,12 +14,12 @@ import mindustry.graphics.Pal;
 import mindustry.logic.LAssembler;
 import mindustry.logic.LExecutor.LInstruction;
 import mindustry.ui.Styles;
-import mma.annotations.ModAnnotations;
+import mindustry.annotations.Annotations;
 
 import static mindustry.logic.LCanvas.tooltip;
 
 public class LModStatements {
-    @ModAnnotations.RegisterStatement("strop")
+    @Annotations.RegisterStatement("strop")
     public static class StringOperation extends LModStatement {
         public StrOp op = StrOp.add;
         public String dest = "result", a = "a", b = "b", c = "fromIndex";
@@ -95,7 +95,7 @@ public class LModStatements {
         }
     }
 
-    @ModAnnotations.RegisterStatement("messageread")
+    @Annotations.RegisterStatement("messageread")
     public static class MessageRead extends LModStatement {
         public String dest = "result", messageBlock = "message1";
 

@@ -1,9 +1,9 @@
 package braindustry.entities.comp;
 
-import mma.annotations.ModAnnotations;
+import mindustry.annotations.Annotations;
 
 import braindustry.gen.OrbitalPlatformOwnerc;
 import braindustry.gen.PowerGeneratorc;
-@ModAnnotations.Component
+@Annotations.Component
 abstract class BDUnitComp implements OrbitalPlatformOwnerc, PowerGeneratorc {
 }

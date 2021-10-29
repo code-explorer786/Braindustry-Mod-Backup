@@ -1,5 +1,6 @@
 package braindustry.content.Blocks;
 
+import braindustry.world.blocks.production.*;
 import gas.GasStack;
 import gas.world.blocks.production.GasGenericCrafter;
 import gas.world.consumers.ConsumeGas;
@@ -8,7 +9,6 @@ import braindustry.content.ModGasses;
 import braindustry.content.ModFx;
 import braindustry.content.ModItems;
 import braindustry.content.ModLiquids;
-import braindustry.world.blocks.production.MultiGenericSmelter;
 import gas.world.draw.GasDrawSmelter;
 import mindustry.content.Fx;
 import mindustry.content.Items;
@@ -294,7 +294,7 @@ class ModProduction implements ContentList {
             updateEffect = Fx.purify;
             updateEffectChance = 0.02f;
         }};
-        methaneGasifier = new GasGenericCrafter("methane-gasifier") {
+        methaneGasifier = new GenericCrafterWithGas("methane-gasifier") {
             {
                 localizedName = "Methane Extractor";
                 description = "Extract Methane from Oil";
@@ -302,7 +302,7 @@ class ModProduction implements ContentList {
                 size = 2;
                 hasPower = true;
                 hasLiquids = true;
-                hasGas = true;
+                hasGasses = true;
                 hasItems = true;
                 consumes.power(2.5f);
                 consumes.liquid(Liquids.oil, 0.16f);
@@ -321,7 +321,7 @@ class ModProduction implements ContentList {
             size = 6;
             hasPower = true;
             hasLiquids = false;
-            hasGas = true;
+            hasGasses = true;
             hasItems = true;
             craftTime = 100;
             updateEffect = Fx.fuelburn;
@@ -341,7 +341,7 @@ class ModProduction implements ContentList {
             size = 2;
             hasPower = true;
             hasLiquids = true;
-            hasGas = true;
+            hasGasses = true;
             hasItems = true;
             craftTime = 100;
             updateEffect = ModFx.contritumUpdate;
@@ -360,7 +360,7 @@ class ModProduction implements ContentList {
             size = 6;
             hasPower = true;
             hasLiquids = false;
-            hasGas = true;
+            hasGasses = true;
             hasItems = true;
             craftTime = 120;
             updateEffect = Fx.impactsmoke;

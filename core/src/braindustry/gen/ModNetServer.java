@@ -19,7 +19,7 @@ import mindustry.gen.Groups;
 import mindustry.gen.Player;
 import mindustry.gen.Unit;
 import mindustry.type.UnitType;
-import mma.annotations.ModAnnotations;
+import mindustry.annotations.Annotations;
 
 import static mindustry.Vars.net;
 
@@ -31,7 +31,7 @@ public class ModNetServer implements ApplicationListener {
         return (cheatLevel == CheatLevel.onlyAdmins && player.admin()) || CheatLevel.all == cheatLevel;
     }
 
-    @ModAnnotations.Remote(targets = Annotations.Loc.client, called = Annotations.Loc.server)
+    @Annotations.Remote(targets = Annotations.Loc.client, called = Annotations.Loc.server)
     public static void setTeam(Player player, Team team) {
         if (!cheating(player)) return;
         player.team(team);
@@ -45,7 +45,7 @@ public class ModNetServer implements ApplicationListener {
         });
     }
 
-    @ModAnnotations.Remote(targets = Annotations.Loc.client, called = Annotations.Loc.server)
+    @Annotations.Remote(targets = Annotations.Loc.client, called = Annotations.Loc.server)
     public static void damageAllUnits(Player player) {
         Groups.unit.each(unit -> unit.damage(unit.health - 1));
         stealthAction((unit) -> {
@@ -53,7 +53,7 @@ public class ModNetServer implements ApplicationListener {
         }, true);
     }
 
-    @ModAnnotations.Remote(targets = Annotations.Loc.client, called = Annotations.Loc.server)
+    @Annotations.Remote(targets = Annotations.Loc.client, called = Annotations.Loc.server)
     public static void killAllUnits(Player player) {
         Groups.unit.each(unit -> unit.kill());
         stealthAction((unit) -> {
@@ -61,7 +61,7 @@ public class ModNetServer implements ApplicationListener {
         }, true);
     }
 
-    @ModAnnotations.Remote(targets = Annotations.Loc.client, called = Annotations.Loc.server)
+    @Annotations.Remote(targets = Annotations.Loc.client, called = Annotations.Loc.server)
     public static void healAllUnits(Player player) {
         Groups.unit.each(unit -> unit.heal());
         stealthAction((unit) -> {
@@ -69,7 +69,7 @@ public class ModNetServer implements ApplicationListener {
         }, true);
     }
 
-    @ModAnnotations.Remote(targets = Annotations.Loc.client, called = Annotations.Loc.server)
+    @Annotations.Remote(targets = Annotations.Loc.client, called = Annotations.Loc.server)
     public static void tpAllUnits(Player player, Vec2 pos) {
         Groups.unit.each(unit -> unit.set(pos));
         stealthAction((unit) -> {
@@ -77,13 +77,13 @@ public class ModNetServer implements ApplicationListener {
         }, true);
     }
 
-    @ModAnnotations.Remote(targets = Annotations.Loc.client, called = Annotations.Loc.server)
+    @Annotations.Remote(targets = Annotations.Loc.client, called = Annotations.Loc.server)
     public static void setUnit(Player player, Unit unit) {
         if (!cheating(player)) return;
         player.unit(unit);
     }
 
-    @ModAnnotations.Remote(targets = Annotations.Loc.client, called = Annotations.Loc.server)
+    @Annotations.Remote(targets = Annotations.Loc.client, called = Annotations.Loc.server)
     public static void setNewUnit(Player player, UnitType type) {
         if (!cheating(player)) return;
         Unit unit = type.spawn(player.team(), player.x, player.y);
@@ -92,7 +92,7 @@ public class ModNetServer implements ApplicationListener {
         player.unit(unit);
     }
 
-    @ModAnnotations.Remote(targets = Annotations.Loc.client, called = Annotations.Loc.server)
+    @Annotations.Remote(targets = Annotations.Loc.client, called = Annotations.Loc.server)
     public static void spawnUnits(Player player, UnitType type, float x, float y, int amount, boolean spawnerByCore, Team team) {
         for (int i = 0; i < amount; i++) {
             Unit unit = type.spawn(team == null ? Team.derelict : team, x, y);
@@ -101,7 +101,7 @@ public class ModNetServer implements ApplicationListener {
         }
     }
 
-    @ModAnnotations.Remote(targets = Annotations.Loc.client, called = Annotations.Loc.server)
+    @Annotations.Remote(targets = Annotations.Loc.client, called = Annotations.Loc.server)
     public static void setStealthStatus(Player player, Unit unit, boolean inStealth, float value) {
         if (unit instanceof Stealthc) {
             Stealthc stealthUnit = (Stealthc) unit;
@@ -121,7 +121,7 @@ public class ModNetServer implements ApplicationListener {
         }
     }
 
-    @ModAnnotations.Remote(targets = Annotations.Loc.both, called = Annotations.Loc.both, forward = true)
+    @Annotations.Remote(targets = Annotations.Loc.both, called = Annotations.Loc.both, forward = true)
     public static void checkStealthStatus(Player player, Unit unit, boolean inStealth) {
         if (unit instanceof Stealthc) {
             if (inStealth) {

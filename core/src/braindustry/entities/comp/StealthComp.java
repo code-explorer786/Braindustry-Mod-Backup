@@ -9,7 +9,7 @@ import arc.util.Interval;
 import arc.util.Structs;
 import arc.util.Time;
 import arc.util.io.Writes;
-import mma.annotations.ModAnnotations;
+import mindustry.annotations.Annotations;
 import braindustry.entities.ModUnits;
 import braindustry.gen.BDCall;
 import braindustry.gen.Stealthc;
@@ -28,7 +28,7 @@ import mindustry.gen.Unit;
 import mindustry.gen.Unitc;
 import mindustry.type.UnitType;
 
-@ModAnnotations.Component
+@Annotations.Component
 public abstract class StealthComp implements Unitc, Entityc,Stealthc {
     public boolean inStealth = false;
     public float cooldownStealth = 0;
@@ -39,13 +39,13 @@ public abstract class StealthComp implements Unitc, Entityc,Stealthc {
     private static final transient float stealthCheckDuration=12;
     transient  StealthUnitType stealthType;
     transient  boolean check = false, check2 = false;
-    @ModAnnotations.Import UnitType type;
-    @ModAnnotations.Import final Seq<Unit> units = new Seq();
-    @ModAnnotations.Import float drag, maxHealth, armor, hitSize,health,x,y,rotation;
-    @ModAnnotations.Import Seq<Ability> abilities;
-    @ModAnnotations.Import boolean hovering;
-    @ModAnnotations.Import UnitController controller;
-    @ModAnnotations.Import Team team;
+    @Annotations.Import UnitType type;
+    @Annotations.Import final Seq<Unit> units = new Seq();
+    @Annotations.Import float drag, maxHealth, armor, hitSize,health,x,y,rotation;
+    @Annotations.Import Seq<Ability> abilities;
+    @Annotations.Import boolean hovering;
+    @Annotations.Import UnitController controller;
+    @Annotations.Import Team team;
     @Override
     public void setType(UnitType type) {
         /*if (!(type instanceof StealthUnitType)) return;
@@ -158,7 +158,7 @@ public abstract class StealthComp implements Unitc, Entityc,Stealthc {
             cooldownStealth = Math.min(stealthType.stealthCooldown, time);
         }
     }
-    @ModAnnotations.Replace
+    @Annotations.Replace
     public void commandNearby(FormationPattern pattern, Boolf<Unit> include) {
 
         Formation formation = new Formation(new Vec3(x, y, rotation), pattern);

@@ -1,7 +1,7 @@
 package braindustry.content.Blocks;
 
 import braindustry.world.blocks.legacy.SmartRouter;
-import gas.world.blocks.distribution.GasRouter;
+import gas.world.blocks.gas.GasRouter;
 import braindustry.content.ModItems;
 import braindustry.world.blocks.distribution.CrossItemBridge;
 import braindustry.world.blocks.legacy.SideJunction;
@@ -33,7 +33,7 @@ class ModDistributionBlocks implements ContentList {
             localizedName = "Gas Router";
             description = "Simple router for gasses.";
             health = 50;
-            hasGas = true;
+            hasGasses = true;
             gasCapacity = 20;
             requirements(Category.liquid, ItemStack.with(Items.titanium, 1, ModItems.graphenite, 1, Items.metaglass, 3));
         }};

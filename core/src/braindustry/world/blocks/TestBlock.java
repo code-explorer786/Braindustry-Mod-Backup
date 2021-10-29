@@ -28,7 +28,7 @@ import mindustry.graphics.Pal;
 import mindustry.ui.dialogs.BaseDialog;
 import mindustry.world.Block;
 import mindustry.world.Tile;
-import mma.annotations.ModAnnotations;
+import mindustry.annotations.Annotations;
 import mma.graphics.ModFill;
 import mma.graphics.ModLines;
 
@@ -38,11 +38,11 @@ import static mindustry.Vars.renderer;
 public class TestBlock extends Block implements DebugBlock {
     private final static int doubleLength = 4, triableLength = 1;
     public final int timerAny;
-    public @ModAnnotations.Load(value = "@-2-#", length = doubleLength, fallback = "@")
+    public @Annotations.Load(value = "@-2-#", length = doubleLength, fallback = "@")
     TextureRegion[] doubleSize;
-    public @ModAnnotations.Load(value = "@-3-#", length = triableLength, fallback = "@")
+    public @Annotations.Load(value = "@-3-#", length = triableLength, fallback = "@")
     TextureRegion[] triableSize;
-    public @ModAnnotations.Load(value = "@-2-top")
+    public @Annotations.Load(value = "@-2-top")
     TextureRegion doubleTop;
 
     public TestBlock(String name) {

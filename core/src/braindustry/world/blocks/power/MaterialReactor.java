@@ -27,7 +27,7 @@ import mindustry.type.Liquid;
 import mindustry.ui.Bar;
 import mindustry.world.Tile;
 import mindustry.world.blocks.power.ItemLiquidGenerator;
-import mma.annotations.ModAnnotations;
+import mindustry.annotations.Annotations;
 
 public class MaterialReactor extends ItemLiquidGenerator {
     public Effect effect1, effect2, effect3;
@@ -35,7 +35,7 @@ public class MaterialReactor extends ItemLiquidGenerator {
     public Color destroyLightingColor = Color.valueOf("#00FFF9");
     public int maxEfficiency = 10;
     public float lightningRange = 2.5f;
-    public @ModAnnotations.Load("@-lights")
+    public @Annotations.Load("@-lights")
     TextureRegion lightsRegion;
     public Color lightsColor = Color.valueOf("#1F74F3");
 

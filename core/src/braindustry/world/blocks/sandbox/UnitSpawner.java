@@ -43,12 +43,12 @@ import mindustry.ui.Styles;
 import mindustry.ui.dialogs.BaseDialog;
 import mindustry.world.Tile;
 import mindustry.world.meta.StatUnit;
-import mma.annotations.ModAnnotations;
+import mindustry.annotations.Annotations;
 
 import static mindustry.Vars.world;
 
 public class UnitSpawner extends ModBlock {
-    public @ModAnnotations.Load(value = "@-color", fallback = "air")
+    public @Annotations.Load(value = "@-color", fallback = "air")
     TextureRegion colorRegion;
     public UnitSpawnerBuild currentBuilding;
     public Color targetColor = Color.gray;

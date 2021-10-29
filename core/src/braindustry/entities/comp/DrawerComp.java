@@ -7,10 +7,10 @@ import braindustry.gen.Drawerc;
 import mindustry.gen.Drawc;
 import mindustry.gen.Entityc;
 import mindustry.gen.Posc;
-import mma.annotations.ModAnnotations;
+import mindustry.annotations.Annotations;
 
-@ModAnnotations.EntityDef(value = {Drawerc.class})
-@ModAnnotations.Component(base = true)
+@Annotations.EntityDef(value = {Drawerc.class})
+@Annotations.Component(base = true)
 abstract class DrawerComp implements Drawc, Posc, Entityc {
     public BuilderDrawer build;
 
@@ -39,7 +39,7 @@ abstract class DrawerComp implements Drawc, Posc, Entityc {
     }
 
     @Override
-    @ModAnnotations.Replace
+    @Annotations.Replace
     public float clipSize() {
 
         return build.block().size * 8.0F;

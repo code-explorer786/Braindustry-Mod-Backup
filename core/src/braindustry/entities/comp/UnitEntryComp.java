@@ -4,7 +4,7 @@ import arc.graphics.g2d.Draw;
 import arc.math.geom.Rect;
 import arc.math.geom.Vec2;
 import arc.util.io.Reads;
-import mma.annotations.ModAnnotations;
+import mindustry.annotations.Annotations;
 import braindustry.gen.BDCall;
 import braindustry.gen.UnitEntry;
 import braindustry.gen.UnitEntryc;
@@ -14,13 +14,13 @@ import mindustry.gen.Entityc;
 import mindustry.gen.Syncc;
 import mindustry.type.UnitType;
 import braindustry.graphics.Drawm;
-import mma.annotations.ModAnnotations;
+import mindustry.annotations.Annotations;
 
 import static mindustry.Vars.tilesize;
 import static mindustry.Vars.world;
 
-@ModAnnotations.EntityDef(value = {UnitEntryc.class},serialize = false)
-@ModAnnotations.Component(base = true)
+@Annotations.EntityDef(value = {UnitEntryc.class},serialize = false)
+@Annotations.Component(base = true)
 public abstract class UnitEntryComp implements Drawc, Entityc, Syncc {
     private static final Rect viewport = new Rect();
     public int amount;
@@ -53,7 +53,7 @@ public float posY(){
     }
 
     @Override
-    @ModAnnotations.Replace
+    @Annotations.Replace
     public float clipSize() {
         if (world != null) {
             return Math.max(world.width(), world.height()) * tilesize;

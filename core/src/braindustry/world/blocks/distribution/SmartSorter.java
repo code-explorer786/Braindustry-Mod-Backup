@@ -24,7 +24,7 @@ import mindustry.type.Item;
 import mindustry.world.Block;
 import mindustry.world.blocks.ItemSelection;
 import mindustry.world.meta.BlockGroup;
-import mma.annotations.ModAnnotations;
+import mindustry.annotations.Annotations;
 
 import java.util.Arrays;
 
@@ -32,9 +32,9 @@ import static mindustry.Vars.content;
 
 public class SmartSorter extends Block {
     public boolean invert;
-    public @ModAnnotations.Load("@-cross")
+    public @Annotations.Load("@-cross")
     TextureRegion crossRegion;
-    public @ModAnnotations.Load("@-item")
+    public @Annotations.Load("@-item")
     TextureRegion itemRegion;
 
     public SmartSorter(String name) {

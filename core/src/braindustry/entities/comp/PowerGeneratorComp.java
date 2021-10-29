@@ -3,7 +3,7 @@ package braindustry.entities.comp;
 import arc.graphics.g2d.Draw;
 import arc.math.Mathf;
 import arc.struct.Seq;
-import mma.annotations.ModAnnotations;
+import mindustry.annotations.Annotations;
 
 import braindustry.content.Blocks.ModBlocks;
 import braindustry.entities.abilities.ModAbility;
@@ -25,16 +25,16 @@ import mindustry.world.Tile;
 import mindustry.world.blocks.power.PowerGraph;
 import mindustry.world.blocks.power.PowerNode;
 
-@ModAnnotations.Component
+@Annotations.Component
 abstract class PowerGeneratorComp implements Entityc, Unitc, ModEntityc, PowerGeneratorc {
     public transient UnitPowerGenerator.UnitPowerGeneratorBuild generatorBuilding;
     public transient UnitPowerNode.UnitPowerNodeBuild nodeBuild;
     public transient Seq<Building> links = new Seq<>();
-    @ModAnnotations.Import
+    @Annotations.Import
     float x, y, rotation, elevation, maxHealth, drag, armor, hitSize, health, ammo, minFormationSpeed, dragMultiplier;
-    @ModAnnotations.Import
+    @Annotations.Import
     Team team;
-    @ModAnnotations.Import
+    @Annotations.Import
     UnitType type;
     transient Seq<Building> oldLinks = new Seq<>();
     private transient boolean initStats = false;

@@ -1,5 +1,6 @@
 package braindustry;
 
+import acontent.ui.*;
 import arc.Core;
 import arc.Events;
 import arc.graphics.g2d.TextureRegion;
@@ -19,7 +20,8 @@ import mindustry.input.DesktopInput;
 import mindustry.input.MobileInput;
 import mma.MMAMod;
 import mma.ModListener;
-import mma.annotations.ModAnnotations;
+import mindustry.annotations.Annotations;
+import mma.annotations.*;
 
 import static braindustry.BDVars.*;
 import static mindustry.Vars.*;
@@ -29,6 +31,7 @@ import static mindustry.Vars.*;
 public class BraindustryMod extends MMAMod {
     public BraindustryMod() {
         super();
+        modLog("DepValid");
         if (!BDDependencies.valid()) return;
         modLog("Creating start");
         BDEntityMapping.init();
@@ -58,6 +61,7 @@ public class BraindustryMod extends MMAMod {
 
     @Override
     public void registerServerCommands(CommandHandler handler) {
+        modLog("Dep.registerServerCommands");
         if (!BDDependencies.valid()) return;
         super.registerServerCommands(handler);
         BDVars.netServer.registerCommands(handler);
@@ -65,6 +69,7 @@ public class BraindustryMod extends MMAMod {
 
     @Override
     public void registerClientCommands(CommandHandler handler) {
+        modLog("Dep.registerClientCommands");
         if (!BDDependencies.valid()) return;
         super.registerClientCommands(handler);
         BDVars.netClient.registerCommands(handler);
@@ -79,24 +84,18 @@ public class BraindustryMod extends MMAMod {
     }
 
     public void init() {
+        modLog("Dep.init");
         if (!BDDependencies.valid()) return;
         if (!loaded) return;
+        AdvancedContentInfoDialog.init();
         modLog("init start");
         super.init();
-        /*for (Seq<Content> contents : content.getContentMap()) {
-            for (Content content : contents) {
-                if (content.minfo.mod == modInfo && inPackage("braindustry", content)) {
-                    if (content instanceof UnlockableContent) checkTranslate((UnlockableContent) content);
-                    if (content instanceof MappableContent && !headless)
-                        BraindustryContentRegions.loadRegions((MappableContent) content);
-                }
-            }
-        }*/
         if (neededInit) listener.init();
         modLog("init end");
     }
 
     public void loadContent() {
+        modLog("Dep.loadContent");
         modInfo = Vars.mods.getMod(this.getClass());
         if (!BDDependencies.valid()) {
             if (modInfo != null) {

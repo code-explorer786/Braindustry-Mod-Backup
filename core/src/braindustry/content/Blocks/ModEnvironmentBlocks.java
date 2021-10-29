@@ -11,6 +11,7 @@ import mindustry.world.blocks.environment.*;
 import static braindustry.content.Blocks.ModBlocks.*;
 
 class ModEnvironmentBlocks implements ContentList {
+
     public void load() {
         magmaFloor = new Floor("magma-floor") {{
             localizedName = "Magma";

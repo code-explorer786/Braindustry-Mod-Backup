@@ -3,8 +3,10 @@ buildscript {
         arcHash = '133'
         packerHash='6c228e534e3950e6254d6e7af4c6db67f834bc1d'
         mindustryVersion = 'v133'
+        //advanced content info
         aciVersion = '9f9ed7da24'
-        gassesVersion = 'v1.4'
+        //gas
+        gassesVersion = '2ab0f2596a'
         modsDirectories = ["classic"];
         def file = new File(rootDir, "modsDirectoies.txt");
         if (file.exists()) {
@@ -19,7 +21,7 @@ buildscript {
         }
         println "core: "+modCoreVersionDemo
         modCoreVersion = modCoreVersionDemo
-//        modCoreVersion = "bfb0afa7e97"
+        modCoreVersion = "fb5dff0cb66"
     }
     repositories {
         mavenLocal()
@@ -81,7 +83,7 @@ allprojects {
             ) { file ->
                 boolean isProcessor = file.text.contains(" extends ModBaseProcessor") ||
                         (file.text.contains(" extends AbstractProcessor") && !file.text.contains("abstract class")) ||
-                        file.text.contains("@ModAnnotations.AnnotationProcessor");
+                        file.text.contains("@Annotations.AnnotationProcessor");
                 if (file.name.endsWith(".java") && isProcessor) {
                     text.append(file.path.substring(files.path.length() + 1)).append("\n")
                 }
@@ -283,7 +285,12 @@ task jarAndroid {
 
     doLast {
         //collect dependencies needed for desugaring
-        def files = (project(":core").configurations.compileClasspath.asList() + project(":core").configurations.runtimeClasspath.asList() + [new File("$sdkRoot/platforms/android-$sdkVersion/android.jar")])
+        def files = (
+                project(":core").configurations.compileClasspath.asList() +
+                        project(":core").configurations.runtimeClasspath.asList() +
+                        configurations.runtimeClasspath.asList() +
+                        [new File("$sdkRoot/platforms/android-$sdkVersion/android.jar")]
+        )
         def dependencies = files.collect { "--classpath $it.path" }.join(" ")
 
         //dex and desugar files - this requires d8 in your PATH

@@ -19,7 +19,7 @@ import javax.lang.model.element.TypeElement;
 
 @SupportedAnnotationTypes({
         "braindustry.annotations.BDAnnotations.BackgroundStyleSources",
-        "mma.annotations.ModAnnotations.TypeIOHandler",
+        "mindustry.annotations.Annotations.TypeIOHandler",
 })
 public class BackgroundStylesProc extends ModBaseProcessor {
     ObjectSet<String> imports = new ObjectSet<>();

@@ -34,23 +34,23 @@ import mindustry.graphics.Pal;
 import mindustry.type.ItemStack;
 import mindustry.type.UnitType;
 import mindustry.type.ammo.PowerAmmoType;
-import mma.annotations.ModAnnotations;
+import mindustry.annotations.Annotations;
 
 
 public class ModUnitTypes implements ContentList {
-    public static @ModAnnotations.EntityDef({Unitc.class, Legsc.class})
+    public static @Annotations.EntityDef({Unitc.class, Legsc.class})
     ModUnitType ibis, aries, capra, lacerta, aquila,
     //tx
     griffon;
-    public static @ModAnnotations.EntityDef({Unitc.class, Payloadc.class})
+    public static @Annotations.EntityDef({Unitc.class, Payloadc.class})
     ModUnitType armor, shield, chestplate, chainmail, broadsword,
     //tx
     penumbra;
-    public static @ModAnnotations.EntityDef({Unitc.class, WaterMovec.class,PowerGeneratorc.class})
+    public static @Annotations.EntityDef({Unitc.class, WaterMovec.class,PowerGeneratorc.class})
     ModUnitType venti, lyra, tropsy, cenda, vyvna,
     //tx
     moray;
-    public static @ModAnnotations.EntityDef(value = {Stealthc.class, Unitc.class, Mechc.class, OrbitalPlatformOwnerc.class})
+    public static @Annotations.EntityDef(value = {Stealthc.class, Unitc.class, Mechc.class, OrbitalPlatformOwnerc.class})
     UnitType tyzen, kryox, intelix, nemesis, maverix,
     //tx
     litix;

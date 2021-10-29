@@ -24,12 +24,12 @@ import mindustry.graphics.Drawf;
 import mindustry.graphics.Layer;
 import mindustry.graphics.Pal;
 import mindustry.type.Weapon;
-import mma.annotations.ModAnnotations;
+import mindustry.annotations.Annotations;
 
 import static mindustry.Vars.*;
 
-@ModAnnotations.EntityDef(value = {OrbitalPlatformc.class}, serialize = false)
-@ModAnnotations.Component(base = true)
+@Annotations.EntityDef(value = {OrbitalPlatformc.class}, serialize = false)
+@Annotations.Component(base = true)
 abstract class OrbitalPlatformComp implements Entityc, Drawc, Posc, Hitboxc, Rotc {
     public static final float shadowTX = -5, shadowTY = -6, outlineSpace = 0.01f;
     public static int sequenceNum = 0;
@@ -38,7 +38,7 @@ abstract class OrbitalPlatformComp implements Entityc, Drawc, Posc, Hitboxc, Rot
     public int seqId;
     public WeaponMount mount = null;
     public transient OrbitalPlatformOwnerc owner;
-    @ModAnnotations.Import
+    @Annotations.Import
     float x, y, rotation, maxHealth, hitSize, health;
 
     public void setOwner(Unit unitOwner, Weapon weapon) {

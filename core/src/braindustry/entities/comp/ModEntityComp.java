@@ -1,13 +1,13 @@
 package braindustry.entities.comp;
 
-import mma.annotations.ModAnnotations;
+import mindustry.annotations.Annotations;
 import braindustry.type.ModUnitType;
 import mindustry.gen.Entityc;
 import mindustry.gen.Unit;
 import mindustry.gen.Unitc;
 import mindustry.type.UnitType;
 
-@ModAnnotations.Component
+@Annotations.Component
 abstract class ModEntityComp implements Entityc, Unitc {
     private transient ModUnitType modUnitType;
 
@@ -15,7 +15,7 @@ abstract class ModEntityComp implements Entityc, Unitc {
         return modUnitType;
     }
 
-    @ModAnnotations.MethodPriority(10000)
+    @Annotations.MethodPriority(10000)
     @Override
     public void setType(UnitType type) {
         type(type);

@@ -15,13 +15,13 @@ import mindustry.gen.Player;
 import mindustry.gen.Unit;
 import mindustry.net.Administration;
 import mindustry.net.ValidateException;
-import mma.annotations.ModAnnotations;
+import mindustry.annotations.Annotations;
 
 import static mindustry.Vars.net;
 import static mindustry.Vars.netServer;
 
 public class ModInput {
-    @ModAnnotations.Remote(targets = Annotations.Loc.both, called = Annotations.Loc.both, forward = true)
+    @Annotations.Remote(targets = Annotations.Loc.both, called = Annotations.Loc.both, forward = true)
     public static void tileConfig(Player player, Building build, @Nullable Object value) {
 //        Log.info("tileConfig(player: @,build: @,value: @)",player,build,value);
         if (build == null) return;
@@ -32,7 +32,7 @@ public class ModInput {
         Core.app.post(() -> Events.fire(new EventType.ConfigEvent(build, player, value)));
     }
 
-    @ModAnnotations.Remote(targets = Annotations.Loc.both, called = Annotations.Loc.server)
+    @Annotations.Remote(targets = Annotations.Loc.both, called = Annotations.Loc.server)
     public static void requestUnitPayload(Player player, Unit target) {
         if (player == null || target instanceof Stealthc) return;
 
@@ -45,7 +45,7 @@ public class ModInput {
         }
     }
 
-    @ModAnnotations.Remote(targets = Annotations.Loc.server, called = Annotations.Loc.server)
+    @Annotations.Remote(targets = Annotations.Loc.server, called = Annotations.Loc.server)
     public static void pickedUnitPayload(Unit unit, Unit target) {
         if (target != null && unit instanceof Payloadc && !(target instanceof Stealthc)) {
             ((Payloadc) unit).pickup(target);

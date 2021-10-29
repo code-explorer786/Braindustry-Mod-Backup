@@ -30,7 +30,7 @@ import mindustry.world.Edges;
 import mindustry.world.Tile;
 import mindustry.world.blocks.payloads.Payload;
 import mindustry.world.meta.BlockGroup;
-import mma.annotations.ModAnnotations;
+import mindustry.annotations.Annotations;
 
 import static mindustry.Vars.*;
 
@@ -40,11 +40,11 @@ public class PayloadBridge extends PayloadBlock {
     public final int timerTransport = timers++;
     public int range;
     public float transportTime = 2f;
-    public @ModAnnotations.Load("@-end")
+    public @Annotations.Load("@-end")
     TextureRegion endRegion;
-    public @ModAnnotations.Load("@-bridge")
+    public @Annotations.Load("@-bridge")
     TextureRegion bridgeRegion;
-    public @ModAnnotations.Load("@-arrow")
+    public @Annotations.Load("@-arrow")
     TextureRegion arrowRegion;
     public @Nullable
     PayloadBridgeBuild lastBuild;

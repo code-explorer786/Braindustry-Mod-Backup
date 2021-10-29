@@ -36,10 +36,10 @@ import mindustry.world.blocks.ControlBlock;
 import mindustry.world.blocks.environment.Floor;
 import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.environment.StaticWall;
-import mma.annotations.ModAnnotations;
+import mindustry.annotations.Annotations;
 import mma.io.ModTypeIO;
 
-@ModAnnotations.TypeIOHandler
+@Annotations.TypeIOHandler
 public class BdTypeIO extends ModTypeIO {
     public static void writeOrbitalPlatform(Writes write, OrbitalPlatform platform){
         platform.write(write);

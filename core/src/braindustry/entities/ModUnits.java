@@ -9,7 +9,7 @@ import arc.math.geom.Rect;
 import arc.struct.Seq;
 import arc.util.Nullable;
 import arc.util.Tmp;
-import mma.annotations.ModAnnotations;
+import mindustry.annotations.Annotations;
 import mindustry.annotations.Annotations;
 import mindustry.content.Fx;
 import mindustry.entities.Sized;
@@ -30,7 +30,7 @@ public class ModUnits extends Units {
     private static int intResult;
     private static Building buildResult;
 
-    @ModAnnotations.Remote(called = Annotations.Loc.server)
+    @Annotations.Remote(called = Annotations.Loc.server)
     public static void unitCapDeath(Unit unit) {
         if (unit != null) {
             unit.dead = true;
@@ -39,7 +39,7 @@ public class ModUnits extends Units {
         }
     }
 
-    @ModAnnotations.Remote(called = Annotations.Loc.server)
+    @Annotations.Remote(called = Annotations.Loc.server)
     public static void unitDeath(int uid) {
         Unit unit = null;
         for (Entityc entityc : Groups.all) {
@@ -60,7 +60,7 @@ public class ModUnits extends Units {
     }
 
     //destroys immediately
-    @ModAnnotations.Remote(called = Annotations.Loc.server)
+    @Annotations.Remote(called = Annotations.Loc.server)
     public static void unitDestroy(int uid) {
         Unit unit = null;
         for (Entityc entityc : Groups.all) {
@@ -80,7 +80,7 @@ public class ModUnits extends Units {
         }
     }
 
-    @ModAnnotations.Remote(called = Annotations.Loc.server)
+    @Annotations.Remote(called = Annotations.Loc.server)
     public static void unitDespawn(Unit unit) {
         Fx.unitDespawn.at(unit.x, unit.y, 0, unit);
         unit.remove();
