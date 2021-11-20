@@ -39,14 +39,16 @@ public class BraindustryMod extends MMAMod {
         modInfo = Vars.mods.getMod(getClass());
         BDVars.load();
         BDLogicIO.init();
-        ModListener.addRun(() -> {
-            boolean modMobile = (control.input instanceof ModMobileInput);
-            boolean modDesktop = (control.input instanceof ModDesktopInput);
-            boolean mobile = (control.input instanceof MobileInput);
-            boolean desktop = (control.input instanceof DesktopInput);
-            if (mobile && !modMobile) control.setInput(new ModMobileInput());
-            if (desktop && !modDesktop) control.setInput(new ModDesktopInput());
-        });
+        if (!headless){
+            ModListener.addRun(() -> {
+                boolean modMobile = (control.input instanceof ModMobileInput);
+                boolean modDesktop = (control.input instanceof ModDesktopInput);
+                boolean mobile = (control.input instanceof MobileInput);
+                boolean desktop = (control.input instanceof DesktopInput);
+                if (mobile && !modMobile) control.setInput(new ModMobileInput());
+                if (desktop && !modDesktop) control.setInput(new ModDesktopInput());
+            });
+        }
 
         Events.on(ClientLoadEvent.class, (e) -> {
             ModAudio.reload();
@@ -78,7 +80,7 @@ public class BraindustryMod extends MMAMod {
     @Override
     protected void modContent(Content content) {
         super.modContent(content);
-        if (content instanceof MappableContent){
+        if (content instanceof MappableContent && !headless){
             BDContentRegions.loadRegions((MappableContent) content);
         }
     }
