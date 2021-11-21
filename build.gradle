@@ -7,12 +7,6 @@ buildscript {
         aciVersion = '9f9ed7da24'
         //gas
         gassesVersion = 'v1.5'
-        modsDirectories = ["classic"];
-        def file = new File(rootDir, "modsDirectoies.txt");
-        if (file.exists()) {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            reader.lines().forEach(line -> modsDirectories.add(line))
-        }
         String modCoreVersionDemo = null;
         try {
             modCoreVersionDemo = new String(new java.net.URL("https://raw.githubusercontent.com/Zelaux/ZelauxModCore/master/versions/" + mindustryVersion + ".txt").openStream().readAllBytes());
@@ -348,6 +342,12 @@ task mjar() {
         }
     }
     doLast {
+     def   modsDirectories = ["classic"];
+        def file = new File(rootDir, "modsDirectoies.txt");
+        if (file.exists()) {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            reader.lines().forEach(line -> modsDirectories.add(line))
+        }
         for (String directory:modsDirectories){
             if (directory.equals("classic")){
                 directory="${arc.util.OS.getAppDataDirectoryString("Mindustry")}/mods/";

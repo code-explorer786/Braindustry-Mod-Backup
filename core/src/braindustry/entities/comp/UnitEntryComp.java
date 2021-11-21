@@ -24,7 +24,9 @@ import static mindustry.Vars.world;
 public abstract class UnitEntryComp implements Drawc, Entityc, Syncc {
     private static final Rect viewport = new Rect();
     public int amount;
-    public Vec2 pos;
+    public Vec2 pos=new Vec2(
+    
+    );
     public Team team;
     private UnitType unitType;
 public float posX(){

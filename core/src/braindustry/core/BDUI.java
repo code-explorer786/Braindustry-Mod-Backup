@@ -1,9 +1,8 @@
 package braindustry.core;
 
 import braindustry.gen.BDTex;
+import braindustry.ui.dialogs.*;
 import braindustry.ui.dialogs.cheat.ModCheatMenu;
-import braindustry.ui.dialogs.ModOtherSettingsDialog;
-import braindustry.ui.dialogs.ModSettingsDialog;
 import arc.ApplicationListener;
 import arc.Core;
 import arc.Input;
@@ -22,7 +21,6 @@ import braindustry.gen.BDTex;
 import braindustry.gen.Stealthc;
 import braindustry.input.ModBinding;
 import braindustry.ui.ModStyles;
-import braindustry.ui.dialogs.BackgroundStyleDialog;
 import braindustry.ui.fragments.ModHudFragment;
 import braindustry.ui.fragments.ModMenuFragment;
 import mindustry.Vars;
@@ -37,7 +35,7 @@ import static braindustry.input.ModBinding.*;
 import static mindustry.Vars.headless;
 import static mindustry.Vars.ui;
 
-public class ModUI extends mma.core.ModUI implements Disposable, ApplicationListener {
+public class BDUI extends mma.core.ModUI implements Disposable, ApplicationListener {
     static {
         //x axis or not
         ModMenuFragment.xAxis(true);
@@ -54,16 +52,17 @@ public class ModUI extends mma.core.ModUI implements Disposable, ApplicationList
     public BackgroundStyleDialog backgroundStyleDialog;
     public ModOtherSettingsDialog otherSettingsDialog;
     public ModSettingsDialog settingsDialog;
+    public UnitSpawnerDialog unitSpawnerDialog;
     private boolean inited=false;
 
-    public ModUI() {
+    public BDUI() {
         super(ModBinding.values());
     }
 
     @Override
     public void init() {
         if (headless) return;
-        if (inited)throw new IllegalStateException("ModUI already inited");
+        if (inited)throw new IllegalStateException("BDUI already inited");
         inited=true;
 
         inTry(BDTex::load);
@@ -103,6 +102,7 @@ public class ModUI extends mma.core.ModUI implements Disposable, ApplicationList
         backgroundStyleDialog = new BackgroundStyleDialog();
         otherSettingsDialog = new ModOtherSettingsDialog();
         settingsDialog = new ModSettingsDialog();
+        unitSpawnerDialog=new UnitSpawnerDialog();
     }
 
     @Override

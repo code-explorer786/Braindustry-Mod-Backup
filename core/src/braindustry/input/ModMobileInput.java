@@ -10,6 +10,7 @@ import arc.util.Tmp;
 import braindustry.entities.ModUnits;
 import braindustry.gen.BDCall;
 import braindustry.gen.Stealthc;
+import braindustry.type.*;
 import mindustry.Vars;
 import mindustry.content.Fx;
 import mindustry.core.World;
@@ -173,6 +174,7 @@ public class ModMobileInput extends MobileInput {
 
     @Override
     public boolean longPress(float x, float y) {
+//        detector.cancel;
         if (!Vars.state.isMenu() && !Vars.player.dead()) {
             Tile cursor = this.tileAt(x, y);
             if (!Core.scene.hasMouse(x, y) && !this.schematicMode) {
@@ -243,6 +245,11 @@ public class ModMobileInput extends MobileInput {
 
     @Override
     public Unit selectedUnit() {
+//        super.selectedUnit()
+    /*    content.units().select(u->u instanceof StealthUnitType).min(u->{
+            player.team().;
+           return 0f;
+        });*/
         Unit unit = ModUnits.closest(Vars.player.team(), Core.input.mouseWorld().x, Core.input.mouseWorld().y, 40.0F, Unitc::isAI);
         if (unit != null) {
             unit.hitbox(Tmp.r1);

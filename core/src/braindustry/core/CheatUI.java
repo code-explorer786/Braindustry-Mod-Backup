@@ -32,7 +32,7 @@ import mma.ui.dialogs.cheat.UnlockContentDialog;
 
 import static braindustry.BDVars.modUI;
 import static braindustry.BDVars.showException;
-import static braindustry.core.ModUI.getInfoDialog;
+import static braindustry.core.BDUI.getInfoDialog;
 import static mindustry.Vars.*;
 
 @BDAnnotations.RulesTable("rulesEditTable")

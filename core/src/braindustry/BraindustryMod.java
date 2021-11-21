@@ -31,7 +31,6 @@ import static mindustry.Vars.*;
 public class BraindustryMod extends MMAMod {
     public BraindustryMod() {
         super();
-        modLog("DepValid");
         if (!BDDependencies.valid()) return;
         modLog("Creating start");
         BDEntityMapping.init();
@@ -41,12 +40,12 @@ public class BraindustryMod extends MMAMod {
         BDLogicIO.init();
         if (!headless){
             ModListener.addRun(() -> {
-                boolean modMobile = (control.input instanceof ModMobileInput);
-                boolean modDesktop = (control.input instanceof ModDesktopInput);
-                boolean mobile = (control.input instanceof MobileInput);
-                boolean desktop = (control.input instanceof DesktopInput);
-                if (mobile && !modMobile) control.setInput(new ModMobileInput());
-                if (desktop && !modDesktop) control.setInput(new ModDesktopInput());
+//                boolean modMobile = (control.input instanceof ModMobileInput);
+//                boolean modDesktop = (control.input instanceof ModDesktopInput);
+//                boolean mobile = (control.input instanceof MobileInput);
+//                boolean desktop = (control.input instanceof DesktopInput);
+//                if (mobile && !modMobile) control.setInput(new ModMobileInput());
+//                if (desktop && !modDesktop) control.setInput(new ModDesktopInput());
             });
         }
 

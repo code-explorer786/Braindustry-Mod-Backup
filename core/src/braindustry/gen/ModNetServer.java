@@ -10,7 +10,6 @@ import arc.math.geom.Vec2;
 import arc.struct.Seq;
 import arc.util.CommandHandler;
 import arc.util.Log;
-import braindustry.annotations.BDAnnotations;
 import braindustry.core.CheatLevel;
 import mindustry.annotations.Annotations;
 import mindustry.game.EventType;
@@ -19,7 +18,6 @@ import mindustry.gen.Groups;
 import mindustry.gen.Player;
 import mindustry.gen.Unit;
 import mindustry.type.UnitType;
-import mindustry.annotations.Annotations;
 
 import static mindustry.Vars.net;
 
@@ -27,8 +25,7 @@ public class ModNetServer implements ApplicationListener {
 
     private static boolean cheating(Player player) {
         if (!net.active()) return BDVars.settings.cheating();
-        CheatLevel cheatLevel = BDVars.settings.cheatLevel();
-        return (cheatLevel == CheatLevel.onlyAdmins && player.admin()) || CheatLevel.all == cheatLevel;
+        return BDVars.settings.cheatLevel().cheating(player);
     }
 
     @Annotations.Remote(targets = Annotations.Loc.client, called = Annotations.Loc.server)

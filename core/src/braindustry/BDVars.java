@@ -7,9 +7,8 @@ import arc.util.Log;
 import arc.util.Strings;
 import braindustry.content.Blocks.ModBlocks;
 import braindustry.content.*;
-import braindustry.core.ModLogic;
-import braindustry.core.ModNetClient;
-import braindustry.core.ModUI;
+import braindustry.core.*;
+import braindustry.core.BDUI;
 import braindustry.customArc.ModSettings;
 import braindustry.gen.ModNetServer;
 import mindustry.Vars;
@@ -27,7 +26,7 @@ public class BDVars extends ModVars {
     public static ModSettings settings;
     public static ModNetClient netClient;
     public static ModNetServer netServer;
-    public static ModUI modUI;
+    public static BDUI modUI;
     public static ModLogic logic;
     public static BraindustryMod mod;
     public static boolean renderUpdate;
@@ -45,7 +44,7 @@ public static void create(){
         onLoad.each(Runnable::run);
         onLoad.clear();
         settings = new ModSettings();
-        if (!headless) listener.add(modUI = new ModUI());
+        if (!headless) listener.add(modUI = new BDUI());
         listener.add(netClient = new ModNetClient());
         listener.add(netServer = new ModNetServer());
         listener.add(logic = new ModLogic());
@@ -118,7 +117,7 @@ public static void create(){
             Vars.ui.showException(Strings.format("@: error", modInfo.meta.displayName), exception);
         } catch (NullPointerException n) {
             Events.on(EventType.ClientLoadEvent.class, event -> {
-                ModUI.showExceptionDialog(Strings.format("@: error", modInfo == null ? null : modInfo.meta.displayName), exception);
+                BDUI.showExceptionDialog(Strings.format("@: error", modInfo == null ? null : modInfo.meta.displayName), exception);
             });
         }
     }

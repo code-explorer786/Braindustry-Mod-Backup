@@ -15,7 +15,7 @@ public class ModPlanets implements ContentList {
 
     public void load() {
         
-        zetsubo = new Planet("zetsubo", Planets.sun, 3, 2.4f) {{
+        zetsubo = new Planet("zetsubo", Planets.sun, 2.4f, 3) {{
             localizedName = "Zetsubo";
             description = "Beatiful blue stars with high in Methane.";
             hasAtmosphere = true;
@@ -33,7 +33,7 @@ public class ModPlanets implements ContentList {
             bloom = true;
         }};
         
-        osore = new Planet("osore", zetsubo, 3, 1f) {{
+        osore = new Planet("osore", zetsubo, 1f, 3) {{
             localizedName = "Osore";
             description = "An unfavorable planet that survived a cataclysm and infection.";
             generator = new OsorePlanetGenerator();
@@ -51,7 +51,7 @@ public class ModPlanets implements ContentList {
             alwaysUnlocked = true;
         }};
         
-        shinrin = new Planet("shinrin", zetsubo, 3, 0.9f) {{
+        shinrin = new Planet("shinrin", zetsubo, 0.9f, 3) {{
             localizedName = "Shinrin";
             description = "Companion Osore, is a favorable planet with developed flora and many forests, it was here that the enemy of Civilization first landed";
             generator = new ShinrinPlanetGenerator();

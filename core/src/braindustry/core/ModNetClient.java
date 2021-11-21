@@ -29,8 +29,7 @@ public class ModNetClient implements ApplicationListener {
 
     @Annotations.Remote(targets = Annotations.Loc.server, called = Annotations.Loc.client)
     public static void setServerCheatLevel(int level) {
-        CheatLevel[] values = CheatLevel.values();
-        BDVars.settings.cheatLevelServer(values[level % values.length]);
+        BDVars.settings.cheatLevelServer(CheatLevel.all[level % CheatLevel.all.length]);
     }
 
     public void registerCommands(CommandHandler handler) {
@@ -38,7 +37,7 @@ public class ModNetClient implements ApplicationListener {
 
     public boolean showCheatMenu() {
         boolean result = true;
-        CheatLevel cheatLevel = BDVars.settings.cheating() ? CheatLevel.onlyAdmins : CheatLevel.off;
+        CheatLevel cheatLevel;
 //        Log.info("@ @ @", net.client(),net.server(),net.active());
         if (net.client()) {
             cheatLevel = BDVars.settings.cheatLevelServer();
@@ -49,20 +48,7 @@ public class ModNetClient implements ApplicationListener {
             return BDVars.settings.cheating();
 //            Log.info("c-@-@", net.client(),net.server());
         }
-        switch (cheatLevel) {
-            case off:
-                result = false;
-                break;
-
-            case onlyAdmins:
-                result = player.admin();
-                break;
-            case all:
-                result = true;
-                break;
-
-        }
-        return result;
+        return cheatLevel.cheating(player);
     }
 
     @Override
