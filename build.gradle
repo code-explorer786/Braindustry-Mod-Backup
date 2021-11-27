@@ -1,12 +1,11 @@
 buildscript {
     ext {
-        arcHash = '133'
-        packerHash='6c228e534e3950e6254d6e7af4c6db67f834bc1d'
-        mindustryVersion = 'v133'
+        arcHash = 'v135'
+        mindustryVersion = 'v135'
         //advanced content info
-        aciVersion = '9f9ed7da24'
+        aciVersion = 'ddba381caf1'
         //gas
-        gassesVersion = 'v1.5'
+        gassesVersion = 'v1.6'/*
         String modCoreVersionDemo = null;
         try {
             modCoreVersionDemo = new String(new java.net.URL("https://raw.githubusercontent.com/Zelaux/ZelauxModCore/master/versions/" + mindustryVersion + ".txt").openStream().readAllBytes());
@@ -14,8 +13,8 @@ buildscript {
             throw new RuntimeException(exception);
         }
         println "core: "+modCoreVersionDemo
-        modCoreVersion = modCoreVersionDemo
-        modCoreVersion = "fb5dff0cb66"
+        modCoreVersion = modCoreVersionDemo*/
+        modCoreVersion = "f3028a8d038"
     }
     repositories {
         mavenLocal()
@@ -28,10 +27,10 @@ buildscript {
     dependencies {
 //        classpath "com.github.Anuken:packr:-SNAPSHOT"
 //        classpath "com.github.Anuken.Arc:packer:$mindustryVersion"
-        classpath "com.github.Anuken.Arc:arc-core:$mindustryVersion"
+        classpath "com.github.Anuken.Arc:arc-core:$arcHash"
         classpath "com.github.Anuken.Mindustry:core:$mindustryVersion"
         classpath "com.github.Anuken.Mindustry:tools:$mindustryVersion"
-        classpath "com.github.Anuken.Arc:packer:$packerHash"
+        classpath "com.github.Anuken.Arc:packer:$arcHash"
         classpath "com.github.Zelaux:AdvancedContentInfo:$aciVersion"
         classpath 'commons-io:commons-io:2.5'
         classpath "com.github.Zelaux.ZelauxModCore:annotations:$modCoreVersion"
@@ -243,7 +242,11 @@ project(":tools") {
         implementation "com.github.Zelaux.ZelauxModCore:core:$modCoreVersion"
         implementation "com.github.Zelaux.ZelauxModCore:tools:$modCoreVersion"
 
-        implementation "com.github.Anuken.Arc:packer:$packerHash"
+        implementation arcModule("natives:natives-desktop")
+        implementation arcModule("natives:natives-freetype-desktop")
+        implementation arcModule("backends:backend-headless")
+
+//        implementation "com.github.Anuken.Arc:packer:$packerHash"
     }
 }
 project(":annotations") {

@@ -44,7 +44,7 @@ public class BackgroundStylesProc extends ModBaseProcessor {
         seqClass = ClassName.get("arc.struct", "Seq");
         imports.clear();
         allFieldSpecs.clear();
-        serializer = ModTypeIOResolver.resolve(this);
+        serializer = ModTypeIOResolver. resolve(this);
 
         setMethodBuilder.addParameter(backgroundStyleClass, "other");
 
