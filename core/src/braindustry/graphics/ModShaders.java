@@ -25,10 +25,6 @@ import mindustry.graphics.Shaders;
 
 public class ModShaders {
     public static RainbowShader rainbow;
-    public static MenuRenderShader menuRender;
-    public static LogoRenderShader logoRender;
-    public static HoloShader holo;
-    public static FractalPyramidShader fractalPyramid;
     public static RainbowLaserShader rainbowLaserShader;
     public static TestShader testShader;
     public static GradientLaserShader gradientLaserShader;
@@ -41,10 +37,6 @@ public class ModShaders {
 
     public static void init() {
         rainbow = new RainbowShader();
-        menuRender = new MenuRenderShader();
-        logoRender = new LogoRenderShader();
-        fractalPyramid = new FractalPyramidShader();
-        holo = new HoloShader();
         rainbowLaserShader = new RainbowLaserShader();
         gradientLaserShader = new GradientLaserShader();
 
@@ -72,13 +64,6 @@ public class ModShaders {
         float displayScale = Vars.renderer.getDisplayScale();
         return new Vec2().set(position).sub(cameraOffset).scl(vec2(displayScale));
     }
-
-    public static class ModCupemapShader extends ModLoadShader {
-        public ModCupemapShader() {
-            super("modCubemap", "modCubemap");
-        }
-    }
-
     public static class WaveShader extends ModLoadShader {
         TextureRegion region = null;
         public WaveShader() {
@@ -349,104 +334,6 @@ public class ModShaders {
 //            this.setUniformf("offset", );
         }
     }
-
-    public static class HoloShader extends ModLoadShader {
-        public int offsetId = 0;
-        public TextureRegion logo;
-
-        public HoloShader() {
-            super("holo", "holo");
-            logo = Core.atlas.find("");
-        }
-
-        @Override
-        public void apply() {
-            super.apply();
-            float u_time = Time.time / 100f;
-
-            this.setUniformf("u_texsize", new Vec2(Scl.scl(logo.texture.width), Scl.scl(logo.texture.height)));
-            this.setUniformf("u_size", new Vec2(Scl.scl(logo.width), Scl.scl(logo.height)));
-            this.setUniformf("u_time", u_time + Mathf.randomSeed(offsetId, -100, 100));
-            this.setUniformf("u_timeMul", 10f * u_time);
-            this.setUniformf("u_mul1", 100f);
-            this.setUniformf("u_scl", Scl.scl(4));
-            this.setUniformf("colorFrom", Color.purple);
-            this.setUniformf("colorTo", Color.yellow);
-            this.setUniformf("iResolution", getScreenSize());
-//            this.setUniformf("offset", );
-        }
-    }
-
-    public static class LogoRenderShader extends ModLoadShader {
-        public int offsetId = 0;
-        public TextureRegion logo;
-        public float force = 10000;
-
-        public LogoRenderShader() {
-            super("logoRender", "logoRender");
-            logo = Core.atlas.find("");
-        }
-
-        @Override
-        public void apply() {
-            super.apply();
-            float u_time = Time.time / 100f;
-
-            float displayScale = Vars.renderer.getDisplayScale();
-            this.setUniformf("u_texsize", new Vec2(logo.texture.width, logo.texture.height));
-            Vec2 logoSize = vec2(logo.width, logo.height);
-            Vec2 logoTexSize = vec2(logo.texture.width, logo.texture.height);
-            this.setUniformf("u_uv", vec2(logo.u, logo.v));
-
-            this.setUniformf("u_uv2", vec2(logo.u2, logo.v2));
-            setUniformf("u_campos", Core.camera.position);
-            this.setUniformf("u_texsize", logo.texture.width, logo.texture.height);
-            this.setUniformf("u_time", u_time + Mathf.randomSeed(offsetId, -100, 100));
-            this.setUniformf("u_timeMul", Time.time / 10f);
-            this.setUniformf("u_yOffset", 2.f);
-            this.setUniformf("u_force", force);
-            this.setUniformf("u_scl", Scl.scl(4));
-            this.setUniformf("u_resolution", getScreenSize());
-//            this.setUniformf("offset", );
-        }
-    }
-
-    public static class MenuRenderShader extends ModLoadShader {
-        public int offsetId = 0;
-
-        public MenuRenderShader() {
-            super(("menuRender"), "default");
-        }
-
-        @Override
-        public void apply() {
-            super.apply();
-            float u_time = Time.time / Scl.scl(1f);
-
-            this.setUniformf("u_time", u_time + Mathf.randomSeed(offsetId, -100, 100));
-            this.setUniformf("iResolution", getScreenSize());
-//            this.setUniformf("offset", );
-        }
-    }
-
-    public static class FractalPyramidShader extends ModLoadShader {
-        public int offsetId = 0;
-
-        public FractalPyramidShader() {
-            super(("fractalPyramid"), "default");
-        }
-
-        @Override
-        public void apply() {
-            super.apply();
-            float u_time = Time.time / Scl.scl(1f);
-
-            this.setUniformf("iTime", u_time + Mathf.randomSeed(offsetId, -100, 100));
-            this.setUniformf("iResolution", getScreenSize());
-//            this.setUniformf("offset", );
-        }
-    }
-
     public static class RainbowShader extends ModLoadShader {
         public long offsetId = 0;
 
