@@ -31,6 +31,7 @@ import static mindustry.Vars.*;
 public class BraindustryMod extends MMAMod {
     public BraindustryMod() {
         super();
+        int some=0;
         if (!BDDependencies.valid()) return;
         modLog("Creating start");
         BDEntityMapping.init();

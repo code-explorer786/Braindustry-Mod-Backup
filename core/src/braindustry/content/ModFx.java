@@ -18,8 +18,7 @@ import mindustry.entities.Effect;
 import mindustry.graphics.Drawf;
 import mindustry.graphics.Pal;
 import mindustry.world.Tile;
-import mma.graphics.ModFill;
-import mma.graphics.ModLines;
+import mma.graphics.*;
 
 import static braindustry.BDVars.fullName;
 import static arc.util.Tmp.v1;
@@ -48,9 +47,9 @@ public class ModFx {
                 float half = tilesize / 2f;
                 if (e.data instanceof Position) {
                     Position tile = e.data();
-                    ModLines.rect(tile.getX() - half, tile.getY() - half, tilesize, tilesize);
+                    ALines.rect(tile.getX() - half, tile.getY() - half, tilesize, tilesize);
                 } else {
-                    ModLines.rect(e.x - half, e.y - half, tilesize, tilesize);
+                    ALines.rect(e.x - half, e.y - half, tilesize, tilesize);
                 }
             }),
             laserRulerSelected = new Effect(2f, 100, e -> {
@@ -59,7 +58,7 @@ public class ModFx {
                 Draw.color(e.color);
                 Lines.stroke(e.rotation);
                 float half = tilesize / 2f;
-                ModLines.rect(tile.worldx() - half, tile.worldy() - half, tilesize, tilesize);
+                ALines.rect(tile.worldx() - half, tile.worldy() - half, tilesize, tilesize);
             }),
             laserRulerLinePart = new Effect(2f, 100, e -> {
                 Draw.color(e.color);
@@ -221,9 +220,9 @@ public class ModFx {
             teleportSircle = new Effect(100f, 100f, (e) -> {
                 Draw.color(e.color);
                 if (e.fin() < 0.5f) {
-                    ModFill.circleRect(e.x, e.y, e.rotation);
+                    AFill.polyCircle(e.x, e.y, e.rotation);
                 } else {
-                    ModFill.circleRect(e.x, e.y, e.rotation * (1f - (e.fin() - 0.5f) / 0.5f));
+                    AFill.polyCircle(e.x, e.y, e.rotation * (1f - (e.fin() - 0.5f) / 0.5f));
                 }
             }),
             fireworkLaserCharge = new Effect(85.0F, 90.0F, (e) -> {

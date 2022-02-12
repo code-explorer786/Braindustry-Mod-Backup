@@ -312,22 +312,19 @@ public class ModShaders {
 
         @Override
         public void apply() {
-            float u_time = Time.time / Scl.scl(10);
-            setUniformf("u_time", u_time + Mathf.randomSeed(offsetId, -100f, 100f));
+            float u_time = Time.time / Scl.scl(1);
+            setUniformf("u_time", u_time*10f + Mathf.randomSeed(offsetId, -100f, 100f));
             Vec2 screenSize = getScreenSize();
             setUniformf("iResolution", screenSize);
-            Vec2 bulletPos = new Vec2(bullet.y, bullet.x);
+            Vec2 bulletPos = new Vec2(bullet.x, bullet.y);
             Vec2 cameraOffset = Core.camera.position.cpy().sub(Core.camera.width / 2f, Core.camera.height / 2f);
             float displayScale = Vars.renderer.getDisplayScale();
-            setUniformf("u_screenPos", bulletPos.cpy().sub(cameraOffset).scl(vec2(displayScale)));
-            setUniformf("u_pos", bulletPos);
+            setUniformf("u_cameraPosition", cameraOffset);
+            setUniformf("u_bulletScreenPosition", bulletPos.cpy().sub(cameraOffset).scl(vec2(displayScale)));
+            setUniformf("u_bulletPosition", bulletPos);
             setUniformf("u_length", getLength() * displayScale);
             setUniformf("u_scl", displayScale);
-            setUniformf("u_vecRot", new Vec2(Mathf.cosDeg(bullet.rotation()), Mathf.sinDeg(bullet.rotation())));
-            setUniformf("u_offset", new Vec3(
-                    -2, 2, -0));
-//                Log.info("rot: @", bullet.rotation());
-            setUniformf("u_bulletRot", bullet.rotation());
+            setUniformf("u_bulletRotation", bullet.rotation());
 
             setUniformf("u_grow", new Vec2(900, 900));
 //            this.setUniformf("iResolution", new Vec2().trns(bullet.rotation()-45f,Core.camera.height, Core.camera.width));

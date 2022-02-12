@@ -29,8 +29,8 @@ import mindustry.ui.dialogs.BaseDialog;
 import mindustry.world.Block;
 import mindustry.world.Tile;
 import mindustry.annotations.Annotations;
-import mma.graphics.ModFill;
-import mma.graphics.ModLines;
+import mma.graphics.AFill;
+import mma.graphics.ALines;
 
 import static braindustry.BDVars.fullName;
 import static mindustry.Vars.renderer;
@@ -103,9 +103,9 @@ public class TestBlock extends Block implements DebugBlock {
         Vec2 trns = (new Vec2()).trns(rotation, -radius, radius);
         Draw.color(Pal.accent);
         Lines.stroke(2.0F);
-        ModLines.swirl(trns.x + x, trns.y + y, radius, 0.25F, 180.0F + rotation + 90.0F);
+        ALines.swirl(trns.x + x, trns.y + y, radius, 0.25F, 180.0F + rotation + 90.0F);
         trns.rotate(180.0F);
-        ModLines.swirl(trns.x + x, trns.y + y, radius, 0.25F, rotation + 90.0F);
+        ALines.swirl(trns.x + x, trns.y + y, radius, 0.25F, rotation + 90.0F);
     }
 
     public class TestBlockBuild extends Building implements BuildingLabel {
@@ -261,15 +261,15 @@ public class TestBlock extends Block implements DebugBlock {
 
             Draw.reset();
             Lines.stroke(settingsStroke);
-//            ModLines.crystal(x, y,8f, (size) * 8f, rotdeg(),(int) someVariable);
-//            ModFill.spikesSwirl(x, y, (size) * 8, 8, modVars.settings.getFloat("angle") / 360f, rotdeg(), someVariable);
+//            ALines.crystal(x, y,8f, (size) * 8f, rotdeg(),(int) someVariable);
+//            AFill.spikesSwirl(x, y, (size) * 8, 8, modVars.settings.getFloat("angle") / 360f, rotdeg(), someVariable);
             Vars.renderer.lights.add(() -> {
                 Draw.color(selectedColor.toFloatBits());
-                ModFill.crystal(x, y, 8f, (size) * 8f, rotdeg(), (int) someVariable);
-                ModFill.doubleSwirl(x, y, (size) * 8f, 8f * (size + 1f), BDVars.settings.getFloat("angle") / 360f, rotdeg());
+                AFill.crystal(x, y, 8f, (size) * 8f, rotdeg(), (int) someVariable);
+                AFill.doubleSwirl(x, y, (size) * 8f, 8f * (size + 1f), BDVars.settings.getFloat("angle") / 360f, rotdeg());
             });
-//            ModLines.crystal(x, y,8f, (size) * 8f, rotdeg(),(int) someVariable);
-//            ModFill.spikesSwirl(x, y, (size) * 8, 8, modVars.settings.getFloat("angle") / 360f, rotdeg(), someVariable);
+//            ALines.crystal(x, y,8f, (size) * 8f, rotdeg(),(int) someVariable);
+//            AFill.spikesSwirl(x, y, (size) * 8, 8, modVars.settings.getFloat("angle") / 360f, rotdeg(), someVariable);
             Draw.reset();
             Building front = front();
 //            if (true)return;
@@ -279,7 +279,7 @@ public class TestBlock extends Block implements DebugBlock {
                 Draw.color(Color.green);
                 Draw.alpha(0.3f);
                 float offset = Mathf.ceil(size / 2f);
-                ModLines.rect(front.x - offset, front.y - offset, size, size, settingsRot);
+                ALines.rect(front.x - offset, front.y - offset, size, size, settingsRot);
             }
             Draw.reset();
         }

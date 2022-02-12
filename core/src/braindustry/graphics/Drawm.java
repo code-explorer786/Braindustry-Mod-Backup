@@ -17,9 +17,8 @@ import braindustry.content.ModFx;
 import mindustry.ui.Fonts;
 import mma.customArc.cfunc.Couple;
 import mma.customArc.cfunc.Couple3;
-import mma.graphics.ModDraw;
 
-public class Drawm extends ModDraw {
+public class Drawm {
     public static void teleportCircles(float x, float y, float radius, Color first, Color second, Couple<Float,Float> range){
         Seq<Couple3<Vec2, Float, Color>> couple3s = new Seq<>();
         float lastAngle = 0;

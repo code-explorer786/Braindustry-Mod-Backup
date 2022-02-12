@@ -15,6 +15,7 @@ import mindustry.gen.Syncc;
 import mindustry.type.UnitType;
 import braindustry.graphics.Drawm;
 import mindustry.annotations.Annotations;
+import mma.graphics.*;
 
 import static mindustry.Vars.tilesize;
 import static mindustry.Vars.world;
@@ -97,7 +98,7 @@ public float posY(){
         Draw.color(team.color);
         Draw.alpha(0.5f);
         Draw.rect(unitType.region, pos.x, pos.y);
-        if (amount > 1) Drawm.drawLabel(pos, amount + "");
+        if (amount > 1) ADrawf.drawText(pos, amount + "");
         Draw.reset();
     }
 

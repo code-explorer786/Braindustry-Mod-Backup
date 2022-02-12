@@ -29,6 +29,7 @@ import mindustry.graphics.Pal;
 import mindustry.logic.LAccess;
 import mindustry.logic.Ranged;
 import mindustry.world.Tile;
+import mma.graphics.*;
 
 import static arc.util.Tmp.v1;
 import static mindustry.Vars.tilesize;
@@ -107,7 +108,7 @@ public class LaserRuler extends ModBlock implements DebugBlock {
 //            Draw.color(color);
 //            Lines.stroke(stroke);
 //            float half = tilesize / 2f;
-//            ModLines.rect(tile.worldx() - half, tile.worldy() - half, tilesize, tilesize);
+//            ALines.rect(tile.worldx() - half, tile.worldy() - half, tilesize, tilesize);
         }
 
         protected void drawLinePart(Tile cur, Tile next, Color color) {
@@ -254,7 +255,7 @@ public class LaserRuler extends ModBlock implements DebugBlock {
         protected void drawTiles(Seq<Tile> tiles) {
             if (tiles.size > 2) {
                 Tile tile = tiles.getFrac(0.5f);
-                Drawm.drawLabel(tile.worldx(), tile.worldy(), Pal.heal, "" + (tiles.size - 2));
+                ADrawf.drawText(tile.worldx(), tile.worldy(), Pal.heal, "" + (tiles.size - 2));
             }
         }
         @Override
