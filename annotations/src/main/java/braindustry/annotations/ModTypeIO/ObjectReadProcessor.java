@@ -7,6 +7,7 @@ import arc.util.Log;
 import arc.util.io.Writes;
 import braindustry.annotations.BDAnnotations;
 
+import braindustry.annotations.BDAnnotations.*;
 import com.squareup.javapoet.*;
 import mindustry.annotations.util.Selement;
 import mma.annotations.ModBaseProcessor;
@@ -51,7 +52,7 @@ public class ObjectReadProcessor extends ModBaseProcessor {
         idBuilder.addMethod(containsMethod());
         CodeBlock.Builder idStore = CodeBlock.builder();
 //        Log.info("elements.size=@", elements.size);
-        BDAnnotations.WritableObjectsConfig configurationAnnotation = (BDAnnotations.WritableObjectsConfig) configurationMethod.annotation(BDAnnotations.WritableObjectsConfig.class);
+        BDAnnotations.WritableObjectsConfig configurationAnnotation = (WritableObjectsConfig)configurationMethod.annotation(WritableObjectsConfig.class);
         int offset = configurationAnnotation.offset();
         elements.each(element -> {
             int id = -(elements.indexOf(element) + offset+1);

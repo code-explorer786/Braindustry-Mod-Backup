@@ -266,7 +266,7 @@ public class TestBlock extends Block implements DebugBlock {
             Vars.renderer.lights.add(() -> {
                 Draw.color(selectedColor.toFloatBits());
                 AFill.crystal(x, y, 8f, (size) * 8f, rotdeg(), (int) someVariable);
-                AFill.doubleSwirl(x, y, (size) * 8f, 8f * (size + 1f), BDVars.settings.getFloat("angle") / 360f, rotdeg());
+                AFill.donut(x, y, (size) * 8f, 8f * (size + 1f), BDVars.settings.getFloat("angle") / 360f, rotdeg());
             });
 //            ALines.crystal(x, y,8f, (size) * 8f, rotdeg(),(int) someVariable);
 //            AFill.spikesSwirl(x, y, (size) * 8, 8, modVars.settings.getFloat("angle") / 360f, rotdeg(), someVariable);

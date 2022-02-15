@@ -21,7 +21,7 @@ logs/
 /tests/build/
 /server/build/
 /test_files/
-/annotations/build/
+/annotations/build
 /desktop-sdl/build/
 desktop-sdl/build/
 /android/assets/mindustry-maps/

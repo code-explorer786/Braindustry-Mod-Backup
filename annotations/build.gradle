@@ -1,2 +1,26 @@
+apply plugin: "kotlin"
 sourceSets.main.java.srcDirs = ["src/main/java/"]
+sourceSets.main.kotlin.srcDirs = ["src/main/java/"]
 sourceSets.main.resources.srcDirs = ["src/main/resources/"]
+
+
+task writeProcessors {
+    new File(rootDir, "annotations/src/main/resources/META-INF/services/").mkdirs()
+    def processorFile = new File(rootDir, "annotations/src/main/resources/META-INF/services/javax.annotation.processing.Processor")
+    def text = new StringBuilder()
+    def files = new File(rootDir, "annotations/src/main/java")
+    files.eachFileRecurse(
+            groovy.io.FileType.FILES
+    ) { file ->
+        boolean isProcessor = file.text.contains(" extends ModBaseProcessor") ||
+                (file.text.contains(" extends AbstractProcessor") && !file.text.contains("abstract class")) ||
+                file.text.contains("@BDAnnotations.AnnotationProcessor");
+        if ((file.name.endsWith(".java")||file.name.endsWith(".kt")) && isProcessor) {
+            text.append(file.path.substring(files.path.length() + 1)).append("\n")
+        }
+    }
+
+    processorFile.text = text.toString().replace(".java", "").replace(".kt","").replace("/", ".").replace("\\", ".")
+}
+project(":core").tasks.preGen.dependsOn(tasks.writeProcessors)
+
