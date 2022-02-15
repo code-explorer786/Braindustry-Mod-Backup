@@ -14,14 +14,14 @@ logs/
 /ios/assets/
 /core/assets-raw/sprites/generated/
 /core/assets-raw/sprites_out/
-/annotations/build/
+/annotations/build
 /annotations/out/
 /net/build/
 /tools/build/
 /tests/build/
 /server/build/
 /test_files/
-/annotations/build
+/annotations/build/
 /desktop-sdl/build/
 desktop-sdl/build/
 /android/assets/mindustry-maps/

@@ -51,4 +51,29 @@ public class BDAnnotations {
     public @interface Rules {
 
     }
+
+    @Target({ElementType.METHOD})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface RulesFieldViewer {
+        String fieldName();
+    }
+    @Retention(RetentionPolicy.SOURCE)
+    @Target({
+    ElementType.TYPE,
+    ElementType.FIELD,
+    ElementType.METHOD,
+    ElementType.PARAMETER,
+    ElementType.CONSTRUCTOR,
+    ElementType.LOCAL_VARIABLE,
+    ElementType.ANNOTATION_TYPE,
+    ElementType.PACKAGE,
+    ElementType.TYPE_PARAMETER,
+    ElementType.TYPE_USE,
+//    ElementType.MODULE,
+//    ElementType.RECORD_COMPONENT,
+    })
+    public @interface AnnotationProcessor{
+    }
+
+
 }

@@ -1,38 +1,35 @@
 package braindustry.core;
 
-import arc.Core;
+import arc.*;
 import arc.func.*;
-import arc.graphics.Color;
-import arc.graphics.g2d.TextureRegion;
-import arc.scene.style.TextureRegionDrawable;
+import arc.graphics.*;
+import arc.graphics.g2d.*;
+import arc.scene.style.*;
 import arc.scene.ui.*;
-import arc.scene.ui.layout.Scl;
-import arc.scene.ui.layout.Table;
-import arc.util.Strings;
-import braindustry.BDVars;
-import braindustry.annotations.BDAnnotations;
-import braindustry.gen.CheatModRulesTable;
-import braindustry.gen.BDCall;
-import braindustry.ui.ModStyles;
-import mindustry.Vars;
-import mindustry.entities.EntityCollisions;
+import arc.scene.ui.layout.*;
+import arc.util.*;
+import braindustry.*;
+import braindustry.annotations.*;
+import braindustry.annotations.BDAnnotations.*;
+import braindustry.gen.*;
+import braindustry.ui.*;
+import mindustry.*;
+import mindustry.entities.*;
 import mindustry.game.Rules;
-import mindustry.game.Team;
-import mindustry.gen.Unit;
-import mindustry.graphics.Pal;
-import mindustry.ui.Styles;
-import mindustry.ui.dialogs.BaseDialog;
-import mindustry.world.Tile;
-import mindustry.world.blocks.Attributes;
-import mindustry.world.meta.Attribute;
-import mma.ui.dialogs.cheat.ModCheatItemsMenu;
-import mma.ui.dialogs.cheat.TeamChooseDialog;
-import mma.ui.dialogs.cheat.UnitChooseDialog;
-import mma.ui.dialogs.cheat.UnlockContentDialog;
+import mindustry.game.*;
+import mindustry.gen.*;
+import mindustry.graphics.*;
+import mindustry.ui.*;
+import mindustry.ui.dialogs.*;
+import mindustry.world.*;
+import mindustry.world.blocks.*;
+import mindustry.world.meta.*;
+import mma.ui.dialogs.cheat.*;
 
-import static braindustry.BDVars.modUI;
-import static braindustry.BDVars.showException;
-import static braindustry.core.BDUI.getInfoDialog;
+import java.lang.reflect.*;
+
+import static braindustry.BDVars.*;
+import static braindustry.core.BDUI.*;
 import static mindustry.Vars.*;
 
 @BDAnnotations.RulesTable("rulesEditTable")
@@ -41,8 +38,8 @@ public class CheatUI {
     static Runnable rebuildTeamValue = () -> {
     };
 
-    public static void rulesEditTable(Table table, String name, Prov<Boolean> bool, Boolc cons) {
-        table.check(name, bool.get(), cons);
+    public static Cell<CheckBox> rulesEditTable(Table table, String name, Prov<Boolean> bool, Boolc cons) {
+        return table.check(name, bool.get(), cons);
     }
 
     public static void rulesEditTable(Table table, String name, Prov<Float> val, Floatc cons) {
@@ -52,6 +49,41 @@ public class CheatUI {
         textArea.setFilter(TextField.TextFieldFilter.floatsOnly);
     }
 
+    @RulesFieldViewer(fieldName = "environment")
+    public static void rulesEnvironmentEditTable(Table table, String name, Prov<Integer> val, Intc cons){
+        table.label(() -> name).growX().row();
+        Field[] fields = Env.class.getDeclaredFields();
+
+
+        Cell<TextArea> textAreaCell = table.area("" + val.get(), text -> cons.get(Strings.parseInt(text, 0))).width(100);
+        TextArea textArea = textAreaCell.get();
+        textArea.setMaxLength((Integer.MAX_VALUE + "").length());
+        textArea.setFilter(TextField.TextFieldFilter.digitsOnly);
+        table.getCells().remove(textAreaCell);
+        table.table(t -> {
+
+            for(Field field : fields){
+                if (field.getName().equals("any"))continue;
+                int offset = Reflect.<Integer>get(field);
+
+                Prov<Boolean> booleanProv = () -> (val.get() & offset) != 0;
+                rulesEditTable(t, field.getName(), booleanProv, value -> {
+                    int i = val.get();
+                    boolean is = (i & offset) != 0;
+                    if (is && !value){
+                        i-=offset;
+                    } else if (!is && value){
+                        i = i | offset;
+                    }
+                    cons.get(i);
+                    textArea.setText(i+"");
+                }).left().with(c->textArea.changed(()->c.setChecked(booleanProv.get())));
+
+                t.row();
+            }
+        }).padLeft(4f).grow();
+        table.getCells().add(textAreaCell);
+    }
     public static void rulesEditTable(Table table, String name, Prov<Integer> val, Intc cons) {
         table.label(() -> name + ": ");
         TextArea textArea = table.area("" + val.get(), text -> cons.get(Strings.parseInt(text, 0))).width(100).get();
@@ -64,13 +96,15 @@ public class CheatUI {
         TextArea textArea = table.area("" + val, cons).width(100).get();
         textArea.setMaxLength((Integer.MAX_VALUE + "").length());
     }
-
     public static void rulesEditTable(Table table, String name, Func<Integer, Color> val, Cons<Color> cons) {
         table.table(t -> {
             t.label(() -> name).growX();
-            t.add(new Image()).update(image -> image.setColor(val.get(0))).fill();
+            t.stack(new Image(Tex.alphaBg),new Image(){{
+                update(() -> setColor(val.get(0)));
+            }}).size(32f).fill();
+//            t.add(new Image()).update(image -> image.setColor(val.get(0))).size(32f).fill();
         }).growX();
-        table.button("edit", () -> modUI.colorPicker.show(val.get(0).cpy(), cons)).growX();
+        table.button("edit", () -> modUI.colorPicker.show(val.get(0).cpy(), c->cons.get(c.cpy()))).growX();
     }
 
     public static void rulesEditTable(Table table, String name, Prov<Team> val, Cons<Team> cons) {
