@@ -20,16 +20,16 @@ import static mindustry.logic.LCanvas.tooltip;
 
 public class LModStatements {
     @Annotations.RegisterStatement("strop")
-    public static class StringOperation extends LModStatement {
+    public static class StringOperation extends LModStatement{
         public StrOp op = StrOp.add;
         public String dest = "result", a = "a", b = "b", c = "fromIndex";
 
         @Override
-        public void build(Table table) {
+        public void build(Table table){
             rebuild(table);
         }
 
-        void rebuild(Table table) {
+        void rebuild(Table table){
             table.clearChildren();
 
             field(table, dest, str -> dest = str);
@@ -39,14 +39,14 @@ public class LModStatements {
             int rtype = op.type.length - intSeq.count(-1);
             intSeq.clear();
 
-            if (rtype == 1) {
+            if(rtype == 1){
                 opButton(table, table);
                 field(table, a, str -> a = str);
-            } else if (rtype == 2) {
+            }else if(rtype == 2){
                 field(table, a, str -> a = str);
                 opButton(table, table);
                 field(table, b, str -> b = str);
-            } else if (rtype == 3) {
+            }else if(rtype == 3){
                 opButton(table, table);
                 field(table, a, str -> a = str);
                 field(table, this.b, str -> this.b = str);
@@ -55,7 +55,7 @@ public class LModStatements {
             }
         }
 
-        void opButton(Table table, Table parent) {
+        void opButton(Table table, Table parent){
             table.button(b -> {
                 b.label(() -> op.symbol);
                 b.clicked(() -> showSelect(b, StrOp.all, op, o -> {
@@ -67,44 +67,44 @@ public class LModStatements {
         }
 
         @Override
-        protected <T extends Enum<T>> void showSelect(Button b, T[] values, T current, Cons<T> getter, int cols, Cons<Cell> sizer) {
+        protected <T extends Enum<T>> void showSelect(Button b, T[] values, T current, Cons<T> getter, int cols, Cons<Cell> sizer){
             showSelectTable(b, (t, hide) -> {
                 ButtonGroup<Button> group = new ButtonGroup<>();
                 int i = 0;
                 t.defaults().size(60f * 1.5f, 38f * 1.5f);
 
-                for (T p : values) {
+                for(T p : values){
                     sizer.get(t.button(p.toString(), Styles.logicTogglet, () -> {
                         getter.get(p);
                         hide.run();
                     }).self(c -> tooltip(c, p)).checked(current == p).group(group));
 
-                    if (++i % cols == 0) t.row();
+                    if(++i % cols == 0) t.row();
                 }
             });
         }
 
         @Override
-        public LInstruction build(LAssembler builder) {
+        public LInstruction build(LAssembler builder){
             return new StrOpI(op, builder.var(a), builder.var(b), builder.var(c), builder.var(dest));
         }
 
         @Override
-        public Color color() {
+        public Color color(){
             return Pal.logicOperations;
         }
     }
 
     @Annotations.RegisterStatement("messageread")
-    public static class MessageRead extends LModStatement {
+    public static class MessageRead extends LModStatement{
         public String dest = "result", messageBlock = "message1";
 
         @Override
-        public void build(Table table) {
+        public void build(Table table){
             rebuild(table);
         }
 
-        void rebuild(Table table) {
+        void rebuild(Table table){
             table.clearChildren();
 
             field(table, dest, str -> dest = str);
@@ -116,12 +116,12 @@ public class LModStatements {
         }
 
         @Override
-        public LInstruction build(LAssembler builder) {
+        public LInstruction build(LAssembler builder){
             return new MessageReadI(builder.var(messageBlock), builder.var(dest));
         }
 
         @Override
-        public Color color() {
+        public Color color(){
             return Pal.logicBlocks;
         }
     }

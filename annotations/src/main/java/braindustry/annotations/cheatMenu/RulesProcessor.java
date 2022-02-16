@@ -78,7 +78,7 @@ public class RulesProcessor extends ModBaseProcessor{
             }
             String name = field.tname().toString();
             if(erroredTypeNames.add(name)){
-                Log.err("Cannot fnd method for @\t@", name, field.name());
+                Log.err("Cannot find method for @\t@", name, field.name());
             }
         }
     }
