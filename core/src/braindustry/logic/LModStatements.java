@@ -35,9 +35,7 @@ public class LModStatements {
             field(table, dest, str -> dest = str);
 
             table.add(" = ");
-            IntSeq intSeq = new IntSeq(op.type);
-            int rtype = op.type.length - intSeq.count(-1);
-            intSeq.clear();
+            int rtype = op.paramsAmount;
 
             if(rtype == 1){
                 opButton(table, table);
