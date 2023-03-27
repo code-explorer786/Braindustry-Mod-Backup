@@ -1,3 +1,15 @@
+# Braindustry-Mod-Backup
+
+The backup for [this](https://github.com/pixaxeofpixie/Braindustry-Mod).
+
+## What happened?
+
+So apparently the author of [this](https://github.com/pixaxeofpixie/Braindustry-Mod) got a bit insane I guess.
+I discussed with the modding community and someone said that they will delete the repository soon.
+Forgive me.
+
+The original README.md will follow.
+
 ![alt tag](https://github.com/pixaxeofpixie/pictures/blob/main/bannerbd.png)
 ## Mod By Quant Team(public beta)
 
